@@ -1,26 +1,3453 @@
-<!doctype html>
-<html>
-<head>
+<!doctype html> 
+<html class='page-background'>
+<head> 
 <meta charset="utf-8">
-<title>Test</title>
-</head>
+<title>Skinner Demo</title>
+
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.8.0pr1/build/cssgrids/grids-min.css">
 <script src="http://yui.yahooapis.com/3.8.0pr1/build/yui/yui-min.js"></script>
 
 
+<script src="handlebars.js"></script>
+
+<!-- the JSON object that gets filled with colors the widgets point to -->
+<script src="space.js"></script>
+
+
+<!-- color map files for widgets-->
+<script src="skin-calendar.js"></script>
+<script src="skin-tabview.js"></script>
+<script src="skin-button.js"></script>
+<script src="skin-datatable.js"></script>
+<script src="skin-scrollview.js"></script>
+<script src="skin-autocomplete.js"></script>
+<script src="skin-dial.js"></script>
+<script src="skin-node-menunav.js"></script>
+<script src="skin-overlay.js"></script>
+<script src="skin-panel.js"></script>
+
+<!-- color map file for the visual UI display of the color space -->
+<script src="skin-space.js"></script>
+
+
+
+<script id="calendar-template" type="text/x-handlebars-template">
+{{prefix}}skin-{{skinName}} {{prefix}}calendar-content {
+    padding: {{containerPadding}};/**/
+    border-radius: {{containerRadius}};
+    background: {{gradient}};
+    background-color: {{background}};
+    color: {{text}};
+    border: solid 1px;
+    border-color: {{borderHigh}} {{borderLow}} {{borderLow}} {{borderHigh}};
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}calendar-grid {
+    padding: 5px;  /* jeff sees no affect */
+    border-collapse: collapse;
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}calendar-header {
+    padding-bottom:10px;
+    color: {{headerText}};
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}calendar-header-label {
+    margin: 0;
+    font-size: 1em;
+    font-weight: bold;
+}
+
+
+{{prefix}}skin-{{skinName}} {{prefix}}calendar-day,
+{{prefix}}skin-{{skinName}} {{prefix}}calendar-prevmonth-day,
+{{prefix}}skin-{{skinName}} {{prefix}}calendar-nextmonth-day {
+    padding: {{dayPadding}};  /*was padding: 5px */
+    text-align: center;
+}
+
+
+
+
+{{prefix}}skin-{{skinName}} {{prefix}}calendar-weekday {
+    font-weight: bold;
+    background: {{weekdayHeadBackground}};
+    color: {{weekdayHeadText}};
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}calendar-prevmonth-day,
+{{prefix}}skin-{{skinName}} {{prefix}}calendar-nextmonth-day {
+    background: {{nextPrevMonthDayBackground}};
+    color: {{nextPrevMonthDayText}};
+    border: solid 1px {{dayBorder}};
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}calendar-day {
+    font-weight: bold;
+    background: {{dayBackground}};
+    color: {{dayText}};
+    border: solid 1px {{dayBorder}};
+}
+{{prefix}}skin-{{skinName}} {{prefix}}calendar-day:hover,         /* When cursor   is used to navigate days */
+{{prefix}}skin-{{skinName}} {{prefix}}calendar-day-highlighted {  /* When keyboard is used to navigate days */
+    background: {{dayHoverBackground}};
+    color: {{dayHoverText}};
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}calendar-day-selected {
+    background: {{gradient}};
+    background-color: {{daySelectedBackground}};
+    color: {{daySelectedText}};
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}calendar-day-selected:hover, /* When cursor hovers over selected days */
+{{prefix}}skin-{{skinName}} {{prefix}}calendar-day-selected{{prefix}}calendar-day-highlighted { /* When keyboard focuses over selected days */
+    background: {{gradient}};
+    background-color: {{daySelectedHoverBackground}};
+    color: {{daySelectedHoverText}};
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}calendar-header-label {
+    text-align: center;
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}calendar-left-grid {
+   margin-right:1em;
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}calendar-right-grid {
+   margin-left:1em;
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}calendar-selection-disabled,
+{{prefix}}skin-{{skinName}} {{prefix}}calendar-selection-disabled:hover {
+  color: {{dayDisabledText}};
+  background: {{dayDisabledBackground}};
+}
+/**************** the following from calendarnavigator.css (allways seems to be included in widget)******************/
+{{prefix}}skin-{{skinName}} {{prefix}}calendarnav-prevmonth, {{prefix}}skin-{{skinName}} {{prefix}}calendarnav-nextmonth {
+  color: #000000;  /*falls back to text if image not rendered */
+  width: 12px;
+  height: 14px;
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAOCAYAAAA1+Nx+AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAKNJREFUeNpiYCAeSAPxUiiWZqAi4ATiaiD+DMT/ofgzVIyTUsMDgfghksHo+CFUDcnAAIgP4DEYHR+A6iEIhIB4GgkGo+NpUDMwADMQFwHxBwoMh+EPULOYYYZ7APFVKhiMjkFmejBBLWFjoD5gQ+dQO4iwOloUiOdQYPgcqBkDl0zRQRQRGS2KGkVFHRB/QzL4G1SMk5qpQg6psJMjVhNAgAEAH+qPqeiPEUsAAAAASUVORK5CYII=);
+  background-repeat: no-repeat;
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}calendarnav-prevmonth:hover, {{prefix}}skin-{{skinName}} {{prefix}}calendarnav-nextmonth:hover {
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAOCAYAAAA1+Nx+AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAPpJREFUeNpi/P//PwMxQD9jszSQ6oJyyy7O8H1KjD5GQhYADeYEUkVAXAHEPFDhL0DcAcR9QIu+k20B0PBAIDUBiOVwKHkExAVAS9aTZAHQYAOowfYMxIGDUIsu4LUAaLAQkGoB4kwG8sB0IK4BWvQOxQKgwcxAdj4Q1wExPwNl4CMQNwHxRKBFfxn10jd5ADm9QKzFQF1wDYiLmaAcNgbqA7CZTEBv7ADS2iDboN5joEIQgczSBpmNHsmiQKodiJPJNHwuEFcCDX49MMkUi0VRUB/hy2ggFy+jtKgohRYVnFDh79CiopuiogLNIjmobxigrn5EjD6AAAMAok9vhfHG8wQAAAAASUVORK5CYII=);
+  color: #0066CC;
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}calendarnav-month-disabled, {{prefix}}skin-{{skinName}} {{prefix}}calendarnav-month-disabled:hover {
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAOCAYAAAA1+Nx+AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAQhJREFUeNqs0yGLAlEUhuHrKoIgCFbBJghb3F+g0WrVarEqLIhBEEFYWKNNMBktU4z6C5RNkwyCyWQSTPuOfCOCrHNnxwMPyOGe73DAiTmOYywrhy/9/sTBZujN4k0KPbioi6teKuqCmsKGSN/10+q5ehN6QQkrLJB/Mp/Xm5VmAhdkMcEGZWNfZc1MlPGwII42dmiZ/1dLGW1lXhdU8YNvZEz0yijLy6z6FyTN6yvpX7DEOzo4vSD4pCwvc+lfcMEYBUwjhE+VMVbmw7/oiCY+sA4RvNZMUxmB38EWFTSwfxK815uKZkJ/yXMU0cf5rn9Wr6g3f1bC4nwvbIAZRup1Ay671a8AAwC3OzOqxK+rkwAAAABJRU5ErkJggg==);
+  cursor: default;
+  color: #CCCCCC;
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}calendarnav-prevmonth, {{prefix}}skin-{{skinName}} {{prefix}}calendarnav-prevmonth:hover {
+  background-position: 0px 0px;
+  margin-left:-12px;
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}calendarnav-nextmonth, {{prefix}}skin-{{skinName}} {{prefix}}calendarnav-nextmonth:hover {
+  background-position: -12px 0px;
+  margin-right: -12px;
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}calendarnav-prevmonth span, {{prefix}}skin-{{skinName}} {{prefix}}calendarnav-nextmonth span {
+   display: none;
+   *display: block;
+}
+</script>
+
+
+
+
+<script id="tabview-template" type="text/x-handlebars-template">
+/* .yui-navset defaults to .yui-navset-top */
+{{prefix}}skin-{{skinName}} {{prefix}}tabview-list {
+    border:solid {{listBorderColor}}; /* color between tab list and content */
+    border-width:0 0 5px;
+    zoom:1;
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}tab {
+    margin:0 0.2em 0 0;
+    padding:1px 0 0; /* gecko: make room for overflow */
+    zoom:1;
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}tab-selected {
+    margin-bottom:-1px; /* for overlap (mapped to tabview-list border-width) */
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}tab-label {
+    background: {{tabGradient}};
+    background-color: {{tabBackground}};
+    border-style: solid;
+    border-color: {{tabBorderHigh}} {{tabBorderLow}} {{tabBorderLow}} {{tabBorderHigh}};
+    border-width: 1px 1px 0 1px;
+    cursor:pointer;
+    font-size:85%;
+    padding: {{paddingTab}}; /*0.3em .75em;*/
+    text-decoration:none;
+    color: {{tabText}};
+    border-radius: {{tabRadius}} {{tabRadius}} 0 0;
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}tab-label:hover,
+{{prefix}}skin-{{skinName}} {{prefix}}tab-label:focus {
+    background: {{tabHoverGradient}};
+    background-color: {{tabHoverBackground}};
+    color: {{tabHoverText}};
+    border: solid 1px;
+    border-color: {{tabHoverBorderHigh}} {{tabHoverBorderLow}} {{tabHoverBorderLow}} {{tabHoverBorderHigh}};
+
+    outline:0;
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}tab-selected {{prefix}}tab-label {
+    background: {{tabSelectedGradient}};
+    background-color: {{tabSelectedBackground}};
+    color: {{tabSelectedText}};
+    border: solid 1px;
+    border-color: {{tabSelectedBorderHigh}} {{tabSelectedBorderLow}} {{tabSelectedBorderLow}} {{tabSelectedBorderHigh}};
+}
+/* separated out hover state for selected tab */
+{{prefix}}skin-{{skinName}} {{prefix}}tab-selected {{prefix}}tab-label:hover,
+{{prefix}}skin-{{skinName}} {{prefix}}tab-selected {{prefix}}tab-label:focus {
+    background: {{tabSelectedHoverGradient}};
+    background-color: {{tabSelectedHoverBackground}};
+    color: {{tabSelectedHoverText}};
+    border: solid 1px;
+    border-color: {{tabSelectedHoverBorderHigh}} {{tabSelectedHoverBorderLow}} {{tabSelectedHoverBorderLow}} {{tabSelectedHoverBorderHigh}};
+}
+
+
+
+{{prefix}}skin-{{skinName}} {{prefix}}tab-selected {{prefix}}tab-label {
+    padding: {{paddingTabSelected}}; /*0.4em 0.75em;*/ /* raise selected tab */
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}tabview-panel {
+    background-color: {{panelBackground}};
+    border: 1px solid {{panelBorder}};
+    color: {{panelText}};
+    padding: {{paddingPanel}}; /*0.25em 0.5em;*/ /* content padding */
+}
+</script>
+
+
+
+
+
+
+<script id="button-template" type="text/x-handlebars-template">
+{{prefix}}skin-{{skinName}} {{prefix}}button {
+    /* Structure */
+    display: inline-block;
+    *display: inline; /*IE 6/7*/
+    zoom: 1;
+    font-size: 100%;
+    *font-size: 90%; /*IE 6/7 - To reduce IE's oversized button text*/
+    *overflow: visible; /*IE 6/7 - Because of IE's overly large left/right padding on buttons */
+    padding: {{padding}}; /*0.4em 1em 0.45em;*/
+    line-height: normal;
+    white-space: nowrap;
+    vertical-align: baseline;
+    text-align: center;
+    cursor: pointer;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+
+    /* Presentation */
+    /*color: #444;  rgba not supported (IE 8) */
+    /*color: rgba(0, 0, 0, 0.80);  rgba supported */
+    /**color: #444;  IE 6 & 7 */
+    color: {{text}};
+    /*border: 1px solid #999;  IE 6/7/8*/
+    /*border: none rgba(0, 0, 0, 0);  IE9 + everything else*/
+    border: solid 1px;
+    border-color: {{borderHigh}} {{borderLow}} {{borderLow}} {{borderHigh}};
+
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80ffffff', endColorstr='#00ffffff', GradientType=0);
+/*
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(255,255,255, 0.30)), color-stop(40%, rgba(255,255,255, 0.15)), to(transparent));
+    background-image: -webkit-linear-gradient(rgba(255,255,255, 0.30), rgba(255,255,255, 0.15) 40%, transparent);
+    background-image: -moz-linear-gradient(top, rgba(255,255,255, 0.30), rgba(255,255,255, 0.15) 40%, transparent);
+    background-image: -ms-linear-gradient(rgba(255,255,255, 0.30), rgba(255,255,255, 0.15) 40%, transparent);
+    background-image: -o-linear-gradient(rgba(255,255,255, 0.30), rgba(255,255,255, 0.15) 40%, transparent);
+    background-image: linear-gradient(rgba(255,255,255, 0.30), rgba(255,255,255, 0.15) 40%, transparent);
+*/
+    background: {{gradient}};
+    background-color: {{background}};
+
+    text-decoration: none;
+    -webkit-border-radius: {{buttonRadius}};
+    -moz-border-radius: {{buttonRadius}};
+    border-radius: {{buttonRadius}};
+    -webkit-box-shadow: 0 0 0 1px rgba(0,0,0, 0.25) inset, 0 2px 0 rgba(255,255,255, 0.30) inset, 0 1px 2px rgba(0,0,0, 0.15);
+    -moz-box-shadow: 0 0 0 1px rgba(0,0,0, 0.25) inset, 0 2px 0 rgba(255,255,255, 0.30) inset, 0 1px 2px rgba(0,0,0, 0.15);
+    box-shadow: 0 0 0 1px rgba(0,0,0, 0.25) inset, 0 2px 0 rgba(255,255,255, 0.30) inset, 0 1px 2px rgba(0,0,0, 0.15);
+
+    /* Transitions */
+    -webkit-transition: 0.1s linear -webkit-box-shadow;
+    -moz-transition: 0.1s linear -moz-box-shadow;
+    -ms-transition: 0.1s linear box-shadow;
+    -o-transition: 0.1s linear box-shadow;
+    transition: 0.1s linear box-shadow;
+}
+
+{{prefix}}skin-{{skinName}} a{{prefix}}button {
+    color: {{text}};
+
+/*
+    color: rgba(0,0,0, 0.80);
+    color: #444;
+*/
+    text-decoration:none;
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}button-hover,
+{{prefix}}skin-{{skinName}} {{prefix}}button:hover {
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#26000000', GradientType=0);
+/*
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(transparent), color-stop(40%, rgba(0,0,0, 0.05)), to(rgba(0,0,0, 0.15)));
+    background-image: -webkit-linear-gradient(transparent, rgba(0,0,0, 0.05) 40%, rgba(0,0,0, 0.15));
+    background-image: -moz-linear-gradient(top, transparent, rgba(0,0,0, 0.05) 40%, rgba(0,0,0, 0.15));
+    background-image: -ms-linear-gradient(transparent, rgba(0,0,0, 0.05) 40%, rgba(0,0,0, 0.15));
+    background-image: -o-linear-gradient(transparent, rgba(0,0,0, 0.05) 40%, rgba(0,0,0, 0.15));
+    background-image: linear-gradient(transparent, rgba(0,0,0, 0.05) 40%, rgba(0,0,0, 0.15));
+*/
+    background: {{gradient}};
+    background-color: {{hoverBackground}};
+    color: {{hoverText}};
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}button-active,
+{{prefix}}skin-{{skinName}} {{prefix}}button:active {
+    border: inset 1px solid #999;  /*IE 6/7/8*/
+    border: none rgba(0, 0, 0, 0);  /*IE9 + everything else*/
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#1A000000', endColorstr='#26000000', GradientType=0);
+/*
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(0,0,0, 0.10)), to(rgba(0,0,0, 0.15)));
+    background-image: -webkit-linear-gradient(rgba(0,0,0, 0.10), rgba(0,0,0, 0.15));
+    background-image: -moz-linear-gradient(top, rgba(0,0,0, 0.10), rgba(0,0,0, 0.15));
+    background-image: -ms-linear-gradient(rgba(0,0,0, 0.10), rgba(0,0,0, 0.15));
+    background-image: -o-linear-gradient(rgba(0,0,0, 0.10), rgba(0,0,0, 0.15));
+    background-image: linear-gradient(rgba(0,0,0, 0.10), rgba(0,0,0, 0.15));
+*/
+
+    background: {{selectedGradient}};
+    background-color: {{selectedBackground}};
+    color: {{selectedText}};
+
+
+    -webkit-box-shadow: 0 0 0 1px rgba(0,0,0, 0.25) inset, 0 2px 4px rgba(0,0,0, 0.30) inset;
+    -moz-box-shadow: 0 0 0 1px rgba(0,0,0, 0.25) inset, 0 2px 4px rgba(0,0,0, 0.30) inset;
+    box-shadow: 0 0 0 1px rgba(0,0,0, 0.25) inset, 0 2px 4px rgba(0,0,0, 0.30) inset;
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}button[disabled],
+{{prefix}}skin-{{skinName}} {{prefix}}button-disabled,
+{{prefix}}skin-{{skinName}} {{prefix}}button-disabled:hover,
+{{prefix}}skin-{{skinName}} {{prefix}}button-disabled:active {
+    cursor: default;
+    background-image: none;
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+    filter: alpha(opacity=55);
+    -khtml-opacity: 0.55;
+    -moz-opacity: 0.55;
+    opacity: 0.55;
+    -webkit-box-shadow: 0 0 0 1px rgba(0,0,0, 0.25) inset;
+    -moz-box-shadow: 0 0 0 1px rgba(0,0,0, 0.25) inset;
+    box-shadow: 0 0 0 1px rgba(0,0,0, 0.25) inset;
+
+    background-color: {{background}};
+    color: {{text}};
+
+
+}
+
+/* Firefox: Get rid of the inner focus border */
+{{prefix}}skin-{{skinName}} {{prefix}}button::-moz-focus-inner{
+    padding: 0;
+    border: 0;
+}
+
+/* Firefox: Add a border around a focused button */
+{{prefix}}skin-{{skinName}} {{prefix}}button:-moz-focusring {
+    outline: thin dotted;
+}
+
+
+{{prefix}}skin-{{skinName}} {{prefix}}button-primary,
+{{prefix}}skin-{{skinName}} {{prefix}}button-selected {
+    background-color: {{selectedBackground}};
+    color: {{selectedText}};
+    -webkit-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25) inset, 0 2px 0 rgba(255, 255, 255, 0.17) inset, 0 1px 2px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25) inset, 0 2px 0 rgba(255, 255, 255, 0.17) inset, 0 1px 2px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25) inset, 0 2px 0 rgba(255, 255, 255, 0.17) inset, 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}button-primary:hover,
+{{prefix}}skin-{{skinName}} {{prefix}}button-selected:hover {
+    background-color: {{selectedHoverBackground}};
+    color: {{selectedHoverText}};
+    -webkit-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25) inset, 0 2px 0 rgba(255, 255, 255, 0.17) inset, 0 1px 2px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25) inset, 0 2px 0 rgba(255, 255, 255, 0.17) inset, 0 1px 2px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25) inset, 0 2px 0 rgba(255, 255, 255, 0.17) inset, 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+
+{{prefix}}skin-{{skinName}} {{prefix}}skin-sam {{prefix}}button:-moz-focusring {
+    outline-color: rgba(0, 0, 0, 0.85);
+}
+
+
+{{prefix}}skin-{{skinName}} {{prefix}}skin-night {{prefix}}button:-moz-focusring {
+    outline-color: rgba(255, 255, 255, 0.85);
+}
+</script>
+
+
+<script id="datatable-template" type="text/x-handlebars-template">
+/* basic skin styles */
+/* basic skin styles */
+{{prefix}}skin-{{skinName}} {{prefix}}datatable-table {
+    margin: 0;
+    padding: 0;
+    font-family: arial, sans-serif;
+    border-collapse: separate;
+    border-spacing: 0;
+    /* IE7- don't support border-spacing, but separate is needed for more
+     * reliable dimension calculation for scrollable's header width sync,
+     * and it doesn't hurt to have the declaration here.
+     */
+    /**border-collapse: collapse;*/
+    border: solid 1px {{border}};
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}datatable-caption {
+    color: {{captionText}};
+    font: italic 85%/1 arial, sans-serif;
+    padding: {{captionPadding}}; /*1em 0;*/
+    text-align: center;
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}datatable-cell {
+    background-color: {{cellBackground}};
+    color: {{cellText}};
+}
+{{prefix}}skin-{{skinName}} {{prefix}}datatable-cell,
+{{prefix}}skin-{{skinName}} {{prefix}}datatable-header {
+    border-left: 1px solid {{border}}; /*  inner column border */
+    border-width: 0 0 0 1px;
+    font-size: inherit;
+    margin: 0;
+	overflow: visible; /*to make ths where the title is really long work*/
+    padding: {{cellPadding}}; /*4px 10px 4px 10px;*/ /* cell padding */
+}
+{{prefix}}skin-{{skinName}} {{prefix}}datatable-cell:first-child,
+{{prefix}}skin-{{skinName}} {{prefix}}datatable-first-header {
+    border-left-width: 0px;
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}datatable-header {
+    background: {{headGradient}};
+    background-color: {{headBackground}};
+    color: {{headText}};
+
+    font-weight: normal;
+    text-align: left;
+/*    text-shadow: 0 1px 1px #fff;  */
+    vertical-align: bottom;
+    white-space: nowrap;
+}
+
+/*
+striping:
+   even - #fff (white)
+   odd  - #edf5ff (light blue)
+*/
+{{prefix}}skin-{{skinName}} {{prefix}}datatable-even {{prefix}}datatable-cell {
+    background-color: {{cellEvenBackground}};
+    color: {{cellEvenText}};
+}
+{{prefix}}skin-{{skinName}} {{prefix}}datatable-odd  {{prefix}}datatable-cell  {
+    /*background-color: #edf5ff;*/
+}
+/************************  sortable ***************/
+{{prefix}}skin-{{skinName}} {{prefix}}datatable-sortable-column {
+    cursor: pointer;
+}
+
+/* Jeff: this seems to be just the header of a sorted column */
+{{prefix}}skin-{{skinName}} {{prefix}}datatable-columns {{prefix}}datatable-sorted,
+{{prefix}}skin-{{skinName}} {{prefix}}datatable-sortable-column:hover {
+    background-color: {{headSortedHoverBackground}};
+    color: {{headSortedHoverText}};
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}datatable-sort-liner {
+    display: block;
+    height: 100%;
+    position: relative;
+    padding-right: 15px;
+    position: relative;
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}datatable-sort-indicator {
+    position: absolute;
+    right: 0;
+    bottom: .5ex;
+    width: 7px;
+    height: 10px;
+    background: url(sort-arrow-sprite.png) no-repeat 0 0;
+    _background: url(sort-arrow-sprite-ie.png) no-repeat 0 0;
+    overflow: hidden;
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}datatable-sorted {{prefix}}datatable-sort-indicator {
+    background-position: 0 -10px;
+}
+{{prefix}}skin-{{skinName}} {{prefix}}datatable-sorted-desc {{prefix}}datatable-sort-indicator {
+    background-position: 0 -20px;
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}datatable-data {{prefix}}datatable-even {{prefix}}datatable-sorted {
+    background-color: {{cellSortedEvenBackground}};
+    color: {{cellSortedEvenText}};
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}datatable-data {{prefix}}datatable-odd {{prefix}}datatable-sorted {
+    background-color: {{cellSortedOddBackground}};
+}
+
+/* Jeff thinks this should be added */
+{{prefix}}skin-{{skinName}} {{prefix}}datatable-columns {{prefix}}datatable-sorted {
+    background-color: {{headSortedBackground}};
+}
+
+</script>
+
+<script id="scrollview-template" type="text/x-handlebars-template">
+/********  scrollview-base-skin.css **********************************************/
+{{prefix}}skin-{{skinName}} {{prefix}}scrollview {
+    -webkit-tap-highlight-color: rgba(255,255,255,0);
+}
+/******** scrollview-scrollbars-skin.css   (sam) *************************************/
+{{prefix}}skin-{{skinName}} {{prefix}}scrollview-scrollbar {
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate(0, 0);
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}scrollview-scrollbar {{prefix}}scrollview-first,
+{{prefix}}skin-{{skinName}} {{prefix}}scrollview-scrollbar {{prefix}}scrollview-middle,
+{{prefix}}skin-{{skinName}} {{prefix}}scrollview-scrollbar {{prefix}}scrollview-last {
+    border-radius:3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+/*    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAABCAYAAAD9yd/wAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABJJREFUeNpiZGBgSGPAAgACDAAIkABoFyloZQAAAABJRU5ErkJggg==); */
+    background-color: {{scrollbarBackground}};
+    /* opacity */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; /* IE 8 */
+    filter: alpha(opacity=50); /* IE 5-7 */
+    -moz-opacity: 0.5; /* Netscape */
+    -khtml-opacity: 0.5; /* Safari 1.x */
+    opacity: 0.5;
+}}
+
+{{prefix}}skin-{{skinName}} {{prefix}}scrollview-scrollbar {{prefix}}scrollview-first,
+{{prefix}}skin-{{skinName}} {{prefix}}scrollview-scrollbar {{prefix}}scrollview-last {
+    border-bottom-right-radius:0;
+    border-bottom-left-radius:0;
+
+    -webkit-border-bottom-right-radius:0;
+    -webkit-border-bottom-left-radius:0;
+
+    -moz-border-radius-bottomright:0;
+    -moz-border-radius-bottomleft:0;
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}scrollview-scrollbar {{prefix}}scrollview-last {
+    border-radius:0;
+    border-bottom-right-radius:3px;
+    border-bottom-left-radius:3px;
+
+    -webkit-border-radius:0;
+    -webkit-border-bottom-right-radius:3px;
+    -webkit-border-bottom-left-radius:3px;
+    -webkit-transform: translate3d(0, 0, 0);
+
+    -moz-border-radius:0;
+    -moz-border-radius-bottomright:3px;
+    -moz-border-radius-bottomleft:3px;
+    -moz-transform: translate(0, 0);
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}scrollview-scrollbar {{prefix}}scrollview-middle {
+    border-radius:0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+
+    -webkit-transform: translate3d(0,0,0) scaleY(1);
+    -webkit-transform-origin-y: 0;
+
+    -moz-transform: translate(0,0) scaleY(1);
+    -moz-transform-origin: 0 0;
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}scrollview-scrollbar-horiz {{prefix}}scrollview-first,
+{{prefix}}skin-{{skinName}} {{prefix}}scrollview-scrollbar-horiz {{prefix}}scrollview-last {
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 3px;
+
+    -webkit-border-top-right-radius: 0;
+    -webkit-border-bottom-left-radius: 3px;
+
+    -moz-border-radius-topright: 0;
+    -moz-border-radius-bottomleft: 3px;
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}scrollview-scrollbar-horiz {{prefix}}scrollview-last {
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 3px;
+
+    -webkit-border-bottom-left-radius: 0;
+    -webkit-border-top-right-radius: 3px;
+
+    -moz-border-radius-bottomleft: 0;
+    -moz-border-radius-topright: 3px;
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}scrollview-scrollbar-horiz {{prefix}}scrollview-middle {
+    -webkit-transform: translate3d(0,0,0) scaleX(1);
+    -webkit-transform-origin: 0 0;
+
+    -moz-transform: translate(0,0) scaleX(1);
+    -moz-transform-origin: 0 0;
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}scrollview-scrollbar-vert-basic {{prefix}}scrollview-child,
+{{prefix}}skin-{{skinName}} {{prefix}}scrollview-scrollbar-horiz-basic {{prefix}}scrollview-child {
+    background-color: #f00;  /* #aaa   can't find this */
+    background-image: none;
+}
+/******** scrollview-scrollbars-core.css *******************************/
+{{prefix}}scrollview-scrollbar {
+    opacity: 1;
+    position: absolute;
+    width: 6px;
+    height: 10px;
+}
+
+{{prefix}}scrollview-scrollbar {
+    top: 0;
+    right: 1px;
+}
+
+{{prefix}}scrollview-scrollbar-horiz {
+    top:auto;
+    height: 8px;
+    width: 20px;
+    bottom: 1px;
+    left: 0;
+}
+
+{{prefix}}scrollview-scrollbar {{prefix}}scrollview-child {
+    position: absolute;
+    right: 0px;
+    display: block;
+    width: 100%;
+    height: 4px;
+}
+
+{{prefix}}scrollview-scrollbar {{prefix}}scrollview-first {
+    top: 0;
+}
+
+{{prefix}}scrollview-scrollbar {{prefix}}scrollview-last {
+    top: 0;
+}
+
+{{prefix}}scrollview-scrollbar {{prefix}}scrollview-middle {
+    position: absolute;
+    top: 4px;
+    height: 1px;
+}
+
+{{prefix}}scrollview-scrollbar-horiz {{prefix}}scrollview-child {
+    display:-moz-inline-stack;
+    display:inline-block;
+    zoom:1;
+    *display:inline;
+
+    top: 0;
+    left: 0;
+    bottom: auto;
+    right: auto;
+}
+
+{{prefix}}scrollview-scrollbar-horiz {{prefix}}scrollview-first,
+{{prefix}}scrollview-scrollbar-horiz {{prefix}}scrollview-last {
+    width: 4px;
+    height: 6px;
+}
+
+{{prefix}}scrollview-scrollbar-horiz {{prefix}}scrollview-middle {
+    top: 0;
+    left: 4px;
+    width: 1px;
+    height: 6px;
+}
+
+{{prefix}}scrollview-scrollbar-vert-basic {
+    height:auto;
+}
+
+{{prefix}}scrollview-scrollbar-vert-basic {{prefix}}scrollview-child {
+    position:static;
+    _overflow:hidden;
+    _line-height:4px;
+}
+
+{{prefix}}scrollview-scrollbar-horiz-basic {
+    width:auto;
+    white-space:nowrap;
+    line-height:6px;
+    _overflow:hidden;
+}
+
+{{prefix}}scrollview-scrollbar-horiz-basic {{prefix}}scrollview-child {
+    position:static;
+
+    padding:0;
+    margin:0;
+
+    top:auto;
+    left:auto;
+    right:auto;
+    bottom:auto;
+}
+/******** scrollview-list-skin.css  (sam) *****************************/
+{{prefix}}skin-{{skinName}} {{prefix}}scrollview {
+    -webkit-tap-highlight-color: rgba(255,255,255,0);
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}scrollview{
+	background-color: {{background}};
+}
+/* For IE 6/7 - needs a background color (above) to pick up events, and zoom, to fill the UL */
+{{prefix}}skin-{{skinName}} {{prefix}}scrollview-vert {{prefix}}scrollview-content {{prefix}}scrollview-item {
+    *zoom:1;
+}
+
+/* For IE7 - needs zoom, otherwise clipped content is not rendered */
+{{prefix}}skin-{{skinName}} {{prefix}}scrollview-vert {{prefix}}scrollview-content {{prefix}}scrollview-list {
+    *zoom:1;
+	list-style:none; /*need these since reset is not required*/
+	padding:0; /*need these since reset is not required*/
+	margin:0; /*need these since reset is not required*/
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}scrollview-content,
+{{prefix}}skin-{{skinName}} {{prefix}}scrollview-vert {{prefix}}scrollview-content {
+    border:1px solid {{border}}; /* remove the ScrollView border here */
+    /*border-top:0; Remove the top border if needed */
+	background-color: transparent;
+	font-family: HelveticaNeue,arial,helvetica,clean,sans-serif;
+	color:black;
+}
+                                        /*jeff can't find this ... -item class */
+{{prefix}}skin-{{skinName}} {{prefix}}scrollview-vert {{prefix}}scrollview-content {{prefix}}scrollview-item {
+    border-bottom: 1px solid #f00;
+    padding: 15px 20px 16px;   /*jeff: not implemented since can't find -item class */
+    font-size: 100%;
+    font-weight: bold;
+    background-color: #f00;
+	cursor:pointer;
+}
+
+
+/******** Jeff thinks these should be added, but it needs more group discussion ********/
+{{prefix}}skin-{{skinName}} {{prefix}}scrollview-content ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+{{prefix}}skin-{{skinName}} {{prefix}}scrollview-content li {
+    padding: {{itemPadding}}; /*0.3em 0.5em;*/
+    border-bottom: solid 1px {{itemBorderBottom}};
+    color: {{text}};
+}
+{{prefix}}skin-{{skinName}} {{prefix}}scrollview-content li:hover {
+    background: {{itemHoverBackground}};
+    /*border-bottom: solid 1px {{itemHoverBorderBottom}};*/
+    color: {{textHover}};
+}
+/******** end of jeff tinks these should be added ********/
+</script>
+
+<script id="autocomplete-template" type="text/x-handlebars-template">
+/* autocomplete-list-core.css ****************************************************/
+{{prefix}}aclist {
+    position: absolute;
+    z-index: 1;
+}
+
+{{prefix}}aclist-hidden { visibility: hidden; }
+
+{{prefix}}aclist-aria {
+    /* Hide from sighted users, show to screen readers. */
+    left: -9999px;
+    position: absolute;
+}
+
+{{prefix}}aclist-list {
+    list-style: none;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+}
+
+{{prefix}}aclist-item {
+    cursor: pointer;
+    list-style: none;
+    padding: {{itemPadding}}; /*2px 5px;*/
+}
+
+{{prefix}}aclist-item-active { outline: #afafaf dotted thin;
+}
+
+/* autocomplete-list-skin.css   (sam) ****************************************************/
+{{prefix}}skin-{{skinName}} {{prefix}}aclist-content {
+    background-color: {{background}};
+    border: solid 1px {{border}};
+    color: {{text}};
+    -moz-box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.58);
+    -webkit-box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.58);
+    box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.15);
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}aclist-item-hover {
+    background-color: {{itemHoverBackground}};
+    color: {{textHover}};
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}aclist-item-active {
+    background-color: {{itemActiveBackground}};
+    color: {{textActive}};
+    outline: none;
+}
+
+/*  ****************************************************/
+/*  ****************************************************/
+
+</script>
+
+<script id="dial-template" type="text/x-handlebars-template">
+
+/** dial-core.css *******************************/
+v\:oval,
+v\:shadow,
+v\:fill {
+    behavior: url(#default#VML);
+    display: inline-block;
+    zoom: 1; *display: inline; /* IE &lt; 8: fake inline-block */
+}
+{{prefix}}dial{
+	position:relative;
+	display:-moz-inline-stack;
+	display:inline-block;
+	zoom:1;
+	*display:inline;
+	/*text-align:center;   This causes problems with the angle calc with longer labels*/
+}
+{{prefix}}dial-content,
+{{prefix}}dial-ring{
+	position:relative;
+}
+{{prefix}}dial-handle,
+{{prefix}}dial-marker,
+{{prefix}}dial-center-button,
+{{prefix}}dial-reset-string,
+{{prefix}}dial-handle-vml,
+{{prefix}}dial-marker-vml,
+{{prefix}}dial-center-button-vml,
+{{prefix}}dial-ring-vml v\:oval,
+{{prefix}}dial-center-button-vml v\:oval
+{
+	position:absolute;
+}
+{{prefix}}dial-center-button-vml v\:oval {
+	font-size:1px;
+	top:0;
+	left:0;
+}
+{{prefix}}dial-content {{prefix}}dial-ring {{prefix}}dial-hidden v\:oval,
+{{prefix}}dial-content {{prefix}}dial-ring {{prefix}}dial-hidden {
+	/* [#2530206] using opacity instead of display:none;. display:none was mis-positioning the marker when we set the dial value on ring mousedown. */
+	opacity:0;
+	filter:alpha(opacity=0);
+}
+
+/** dial-skin.css  (sam) *******************************/
+{{prefix}}skin-{{skinName}} {{prefix}}dial-handle{ /*container. top left corner used for trig positioning*/
+    background-color: {{handle}};
+	opacity:0.3;
+	-moz-box-shadow:1px 1px 1px rgba(0, 0, 0, 0.9) inset;
+	/*-webkit-box-shadow:1px 1px 1px rgba(0, 0, 0, 0.9) inset; Chrome 7/Win bug*/
+	cursor:pointer;
+	font-size:1px;
+}
+{{prefix}}skin-{{skinName}} {{prefix}}dial-ring {
+    /*background: {{ringGradient}};*/
+    background: -moz-linear-gradient(-45deg, rgba(255,255,255, 0.1) 0%, rgba(255,255,255,0) 39%, rgba(0,0,0,0) 40%, rgba(0,0,0, 0.2) 100%); /* FF3.6+ */
+    background-color: {{ringBackgroundColor}};
+	box-shadow:1px 1px 5px rgba(0, 0, 0, 0.4) inset;
+	-webkit-box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4) inset; /*Chrome 7/Win bug*/
+	-moz-box-shadow:1px 1px 5px rgba(0, 0, 0, 0.4) inset;
+}
+{{prefix}}skin-{{skinName}} {{prefix}}dial-center-button{
+    /*
+    background: -moz-radial-gradient(30% 30% 0deg, circle farthest-side, rgba(255,255,255, 0.2) 24%, rgba(255,255,255, 0.1) 41%, rgba(0,0,0, 0.1) 42%, rgba(0,0,0, 0.2) 83%) repeat scroll 0 0 transparent;
+    background: -moz-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 46%, rgba(0,0,0,0) 50%, rgba(0,0,0,1) 100%);
+    */
+    background: -moz-radial-gradient(30% 30% 0deg, circle farthest-side, rgba(255,255,255, 0.1) 24%, rgba(255,255,255,0) 49%, rgba(0,0,0,0) 50%, rgba(0,0,0, 0.2) 83%); /* FF3.6+ */
+
+
+	background:-webkit-gradient(radial, 15 15, 15, 30 30, 40, from(#FBFBF9), to(#D3D0C3), color-stop(.2,#F2F0EA));
+    background-color: {{centerButtonBackgroundColor}};
+	box-shadow:-1px -1px 2px rgba(0, 0, 0, 0.3) inset, 1px 1px 2px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow:-1px -1px 2px rgba(0, 0, 0, 0.3) inset, 1px 1px 2px rgba(0, 0, 0, 0.5);
+	/*-webkit-box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.3) inset, 1px 1px 2px rgba(0, 0, 0, 0.5); Chrome 7/Win bug*/
+	cursor:pointer;
+	opacity:0.7;
+	/*text-align:center;*/
+}
+{{prefix}}skin-{{skinName}} {{prefix}}dial-reset-string{
+    color: {{centerButtonText}};
+	font-size:85%;
+	text-decoration:underline;
+}
+{{prefix}}skin-{{skinName}} {{prefix}}dial-label{
+	color:    {{label}}; /* this sits directly on page background */
+	margin-bottom:0.8em;
+}
+{{prefix}}skin-{{skinName}} {{prefix}}dial-value-string{
+	margin-left:0.5em;
+	/*color:#f00;   this sits directly on page background */
+	font-size:130%;
+}
+/* I cannot find this class in markup
+{{prefix}}skin-{{skinName}} {{prefix}}dial-value {
+/*	visibility:hidden;
+	position:absolute;
+	top:0;
+	left:102%;
+	width:4em;
+*/
+	visibility:visible;
+	position:absolute;
+	top:0;
+	left:0;
+	width:4em;
+
+
+}
+*/
+{{prefix}}skin-{{skinName}} {{prefix}}dial-north-mark{
+	position:absolute;
+	border-left:2px solid {{northMark}};
+	height:5px;
+	width:10px;
+	left:50%;
+	top:-7px;
+	font-size:1px;
+}
+{{prefix}}skin-{{skinName}} {{prefix}}dial-marker {
+	background-color: {{marker}};
+	opacity:0.2;
+	font-size:1px;
+}
+{{prefix}}skin-{{skinName}} {{prefix}}dial-marker-max-min{
+	background-color:#AB3232;  /*red for max/min*/
+	opacity:0.6;
+}
+{{prefix}}skin-{{skinName}} {{prefix}}dial-ring-vml,
+{{prefix}}skin-{{skinName}} {{prefix}}dial-center-button-vml,
+{{prefix}}skin-{{skinName}} {{prefix}}dial-marker v\:oval{{prefix}}dial-marker-max-min,
+{{prefix}}skin-{{skinName}} v\:oval{{prefix}}dial-marker-max-min,
+{{prefix}}skin-{{skinName}} {{prefix}}dial-marker-vml,
+{{prefix}}skin-{{skinName}} {{prefix}}dial-handle-vml {
+    background: none;
+    opacity:0;
+}
+/**  *******************************/
+/**  *******************************/
+
+</script>
+
+<script id="nodeMenunav-template" type="text/x-handlebars-template">
+/* from node-menunav-core.css *******************************************/
+{{prefix}}menu {{prefix}}menu {
+
+	position: absolute;
+	z-index: 1;
+
+}
+
+
+{{prefix}}menu {{prefix}}shim {
+
+	/*
+		Styles for the <iframe> shim used to prevent <select> elements from poking through
+		submenus in IE < 7.  Note: For peformance, creation of the <iframe> shim for each submenu
+		is deferred until it is initially made visible by the user.
+	*/
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+	opacity: 0;
+	filter: alpha(opacity=0);  /* For IE since it doesn't implement the CSS3 "opacity" property. */
+	border: none;
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+
+}
+
+{{prefix}}menu-hidden {
+
+	/*
+		Position hidden menus outside the viewport boundaries to prevent them from
+		triggering scrollbars on the viewport.
+	*/
+
+	top: -10000px;
+	left: -10000px;
+
+	/*
+		Using "visibility:hidden" over "display" none because:
+
+		1)	As the "position" property for submenus is set to "absolute", they are out of
+			the document flow and take up no space.  Therefore, from that perspective use of
+			"display:none" is redundant.
+
+		2)	According to MSDN use of "display:none" is more expensive:
+			"Display is the more expensive of the two CSS properties, so if you are
+			making elements appear and disappear often, visibility will be faster."
+			(See http://msdn.microsoft.com/en-us/library/bb264005(VS.85).aspx)
+	*/
+
+	visibility: hidden;
+
+}
+
+{{prefix}}menu li {
+
+    list-style-type: none;
+
+}
+
+{{prefix}}menu ul,
+{{prefix}}menu li {
+
+    margin: 0;
+    padding: 0;
+
+}
+
+{{prefix}}menu-label,
+{{prefix}}menuitem-content {
+
+    text-align: left;
+    white-space: nowrap;
+    display: block;
+
+}
+
+{{prefix}}menu-horizontal li {
+
+	float: left;
+	width: auto;
+
+}
+
+{{prefix}}menu-horizontal li li {
+
+	float: none;
+
+}
+
+{{prefix}}menu-horizontal ul {
+
+	/*
+		Use of "zoom" sets the "hasLayout" property to "true" in IE (< 8).  When "hasLayout" is
+		set to "true", an element can clear its floated descendents.  For more:
+		http://msdn.microsoft.com/en-gb/library/ms533776(VS.85).aspx
+	*/
+
+	*zoom: 1;
+
+}
+
+{{prefix}}menu-horizontal ul ul {
+
+	/*
+		No need to clear <ul>s of submenus of horizontal menus since <li>s of submenus
+		aren't floated.
+	*/
+
+	*zoom: normal;
+
+}
+
+{{prefix}}menu-horizontal>{{prefix}}menu-content>ul:after {
+
+	/*	Self-clearing solution for Opera, Webkit, Gecko and IE > 7	*/
+
+	content: "";
+	display: block;
+	clear: both;
+	line-height: 0;
+	font-size: 0;
+	visibility: hidden;
+
+}
+
+
+/*
+	The following two rules are for IE 7.  Triggering "hasLayout" (via use of "zoom") prevents
+	first-tier submenus from hiding when the mouse is moving from an menu label in a root menu to
+	its corresponding submenu.
+*/
+
+{{prefix}}menu-content {
+
+	*zoom: 1;
+
+}
+
+
+{{prefix}}menu-hidden {{prefix}}menu-content {
+
+	*zoom: normal;
+
+}
+
+
+/*
+	The following two rules are for IE 6 (Standards Mode and Quirks Mode) and IE 7 (Quirks Mode
+	only).  Triggering "hasLayout" (via use of "zoom") fixes a bug in IE where mousing mousing off
+	the text node of menuitem or menu label will incorrectly trigger the mouseout event.
+*/
+
+{{prefix}}menuitem-content,
+{{prefix}}menu-label {
+
+	_zoom: 1;
+
+}
+
+{{prefix}}menu-hidden {{prefix}}menuitem-content,
+{{prefix}}menu-hidden {{prefix}}menu-label {
+
+	_zoom: normal;
+
+}
+
+/* from node-menunav-skin.css   (sam) ***************************************/
+/* Vertical menus and submenus */
+
+{{prefix}}skin-{{skinName}} {{prefix}}menu-content,
+{{prefix}}skin-{{skinName}} {{prefix}}menu {{prefix}}menu {{prefix}}menu-content {
+
+    font-size: 100%;
+    line-height: 1.5;  /* 18px 1.5*/
+    *line-height: 1.45; /* For IE */
+    border: solid 1px {{border}};
+    background-color: {{background}};
+    padding: {{menuContentPadding}}; /*3px 0;*/
+
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}menu {{prefix}}menu {{prefix}}menu-content {
+
+	font-size: 100%;
+
+}
+
+
+/* Horizontal menus */
+{{prefix}}skin-{{skinName}} {{prefix}}menu-horizontal {{prefix}}menu-content {
+
+    line-height: 2;  /* ~24px */
+    *line-height: 1.9; /* For IE */
+	background: {{horizontalGradient}};
+    background-color: {{horizontalBackground}};
+    padding: 0;
+
+}
+{{prefix}}skin-{{skinName}} {{prefix}}menu-horizontal {{prefix}}menu-content {{prefix}}menu-content {
+
+	background: none; /* 2nd and subsequent {{prefix}}menu-content should not have gradient */
+    background-color: {{horizontalBackground}};
+    box-shadow: 2px 2px 7px rgba(0,0,0, 0.15);
+}
+
+
+{{prefix}}skin-{{skinName}} {{prefix}}menu ul,
+{{prefix}}skin-{{skinName}} {{prefix}}menu ul ul {
+
+	margin-top: 3px;
+	padding-top: 3px;
+    border-top: solid 1px {{itemSeparator}}; /*separator line between menu items*/
+
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}menu ul.first-of-type {
+
+    border: 0;
+	margin: 0;
+	padding: 0;
+
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}menu-horizontal ul {
+
+	padding: 0;
+	margin: 0;
+	border: 0;
+
+}
+
+
+{{prefix}}skin-{{skinName}} {{prefix}}menu li,
+{{prefix}}skin-{{skinName}} {{prefix}}menu {{prefix}}menu li {
+
+    /*
+        For and IE 6 (Strict Mode and Quirks Mode) and IE 7 (Quirks Mode only):
+		Used to collapse superfluous white space between <li> elements that is
+		triggered by the "display" property of the <a> elements being set to
+		"block" by node-menunav-core.css file.
+    */
+
+    _border-bottom: solid 1px #f00;     /* fix me */
+
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}menu-horizontal li {
+
+	_border-bottom: 0;
+
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}menubuttonnav li {
+
+    border-right: solid 1px #f00;     /* fix me */
+
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}splitbuttonnav li {
+
+    border-right: solid 1px {{splitBorderRight}};
+
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}menubuttonnav li li,
+{{prefix}}skin-{{skinName}} {{prefix}}splitbuttonnav li li {
+
+	border-right: 0;
+
+}
+
+
+/* Menuitems and menu labels */
+
+
+{{prefix}}skin-{{skinName}} {{prefix}}menu-label,
+{{prefix}}skin-{{skinName}} {{prefix}}menu {{prefix}}menu {{prefix}}menu-label,
+{{prefix}}skin-{{skinName}} {{prefix}}menuitem-content,
+{{prefix}}skin-{{skinName}} {{prefix}}menu {{prefix}}menu {{prefix}}menuitem-content {
+
+    padding: {{itemPadding}}; /*0 1em; */
+    color: {{text}};
+    text-decoration: none;
+    cursor: default;
+
+	/*
+		Necessary specify values for border, position and margin to override
+		values specified in the selectors that follow.
+	*/
+
+	float: none;
+	border: 0;
+	margin: 0;
+
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}menu-horizontal {{prefix}}menu-label,
+{{prefix}}skin-{{skinName}} {{prefix}}menu-horizontal {{prefix}}menuitem-content {
+
+    padding: {{horizontalLabelPadding}}; /*0 10px;*/
+    border-style: solid;
+    border-color: {{border}};
+    border-width: 1px 0;
+    margin: -1px 0;
+
+    float: left; 	/*	Ensures that menu labels clear floated descendents.
+    					Also gets negative margins working in IE 7
+						(Strict Mode). */
+    width: auto;
+
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}menu-label,
+{{prefix}}skin-{{skinName}} {{prefix}}menu {{prefix}}menu {{prefix}}menu-label {
+
+	background: url(assets/images/vertical-menu-submenu-indicator.png) right center no-repeat;
+
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}menu-horizontal {{prefix}}menu-label {
+
+    background: none;
+
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}menubuttonnav {{prefix}}menu-label,
+{{prefix}}skin-{{skinName}} {{prefix}}splitbuttonnav {{prefix}}menu-label {
+
+	background-image: none;
+
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}menubuttonnav {{prefix}}menu-label {
+
+    padding-right: 0;
+
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}menubuttonnav {{prefix}}menu-label em {
+
+	font-style: normal;
+	padding-right: 20px;
+    display: block;
+    background: url(assets/images/horizontal-menu-submenu-indicator.png) right center no-repeat;
+
+}
+
+
+{{prefix}}skin-{{skinName}} {{prefix}}splitbuttonnav {{prefix}}menu-label {
+
+	padding: 0;
+
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}splitbuttonnav {{prefix}}menu-label a {
+
+	float: left;
+	width: auto;
+    color: {{text}};
+    text-decoration: none;
+    cursor: default;
+	padding: {{splitButtonNavPadding}}; /*0 5px 0 10px;*/
+
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}splitbuttonnav {{prefix}}menu-label {{prefix}}menu-toggle {
+
+	padding: {{togglePadding}}; /*jeff added top and bottom padding to match menu-label a*/ /*0;*/	/* Overide padding applied by the preceeding rule. */
+	border-left: solid 1px {{splitBorderLeft}};
+	width: 15px;
+	overflow: hidden;
+	text-indent: -1000px;
+    background: url(assets/images/horizontal-menu-submenu-indicator.png) 3px center no-repeat;
+
+}
+
+
+/* Selected menuitem */
+
+{{prefix}}skin-{{skinName}} {{prefix}}menu-label-active,
+{{prefix}}skin-{{skinName}} {{prefix}}menu-label-menuvisible,
+{{prefix}}skin-{{skinName}} {{prefix}}menu {{prefix}}menu {{prefix}}menu-label-active,
+{{prefix}}skin-{{skinName}} {{prefix}}menu {{prefix}}menu {{prefix}}menu-label-menuvisible {
+
+/* this is a menu item that has a child menu */
+
+	background-color: {{itemActiveBackground}};
+    color: {{itemAcitveText}};
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}menuitem-active {{prefix}}menuitem-content,
+{{prefix}}skin-{{skinName}} {{prefix}}menu {{prefix}}menu {{prefix}}menuitem-active {{prefix}}menuitem-content {
+
+    /*
+    	Undo values set for "border-left-width" and "margin-left" when the root
+    	menu has a class of "yui-menubuttonnav" or "yui-splitbuttonnav" applied.
+    */
+
+	border-left-width: 0;
+    margin-left: 0;
+
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}menu-horizontal {{prefix}}menu-label-active,
+{{prefix}}skin-{{skinName}} {{prefix}}menu-horizontal {{prefix}}menuitem-active {{prefix}}menuitem-content,
+{{prefix}}skin-{{skinName}} {{prefix}}menu-horizontal {{prefix}}menu-label-menuvisible {
+
+    border-color: {{itemActiveBackground}};
+	background-color: {{itemActiveBackground}};
+    color: {{itemAcitveText}};
+}
+{{prefix}}skin-{{skinName}} {{prefix}}menu-horizontal {{prefix}}menuitem-active {{prefix}}menu {{prefix}}menuitem-content{
+    background-color: transparent; /* this keeps the background of a submenu from getting the active color when it is first made visible, before you cursor over it.*/
+    color: {{text}};
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}menubuttonnav {{prefix}}menu-label-active,
+{{prefix}}skin-{{skinName}} {{prefix}}menubuttonnav {{prefix}}menuitem-active {{prefix}}menuitem-content,
+{{prefix}}skin-{{skinName}} {{prefix}}menubuttonnav {{prefix}}menu-label-menuvisible,
+{{prefix}}skin-{{skinName}} {{prefix}}splitbuttonnav {{prefix}}menu-label-active a,
+{{prefix}}skin-{{skinName}} {{prefix}}splitbuttonnav {{prefix}}menuitem-active {{prefix}}menuitem-content,
+{{prefix}}skin-{{skinName}} {{prefix}}splitbuttonnav {{prefix}}menu-label-menuvisible a {
+
+    border-left-width: 1px;
+    /*margin-left: -1px; */
+    color: {{itemAcitveText}};
+
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}splitbuttonnav {{prefix}}menu-label-menuvisible {
+
+    /*border-color: #883030;*/
+    background: transparent;
+
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}splitbuttonnav {{prefix}}menu-label-menuvisible {{prefix}}menu-toggle {
+
+    /*border-color: #303030;*/
+    background-color: {{itemActiveBackground}};
+
+}
+
+</script>
+
+<script id="overlay-template" type="text/x-handlebars-template">
+/** from overlay-core.css ***************************/
+{{prefix}}overlay {
+    position:absolute;
+}
+
+{{prefix}}overlay-hidden {
+    visibility:hidden
+}
+
+{{prefix}}widget-tmp-forcesize {{prefix}}overlay-content {
+    overflow:hidden !important;
+}
+
+/** jeff added, group discussion needed ***************************************/
+{{prefix}}skin-{{skinName}} {{prefix}}overlay-content {{prefix}}widget-hd,
+{{prefix}}skin-{{skinName}} {{prefix}}overlay-content {{prefix}}widget-bd,
+{{prefix}}skin-{{skinName}} {{prefix}}overlay-content {{prefix}}widget-ft {
+    background-color: {{background}};
+    border: solid 1px {{border}};
+    border-bottom: none;
+    padding: {{hdBdFtPadding}}; /*0.3em 0.5em;*/
+    color: {{text}};
+}
+{{prefix}}skin-{{skinName}} {{prefix}}overlay-content {{prefix}}widget-ft {
+    border-bottom: solid 1px {{border}};
+}
+</script>
+
+<script id="panel-template" type="text/x-handlebars-template">
+/** from panel-core.css *****************************************/
+{{prefix}}panel {
+    position: absolute;
+}
+{{prefix}}panel-hidden {
+    visibility: hidden;
+}
+{{prefix}}widget-tmp-forcesize {{prefix}}panel-content {
+    overflow: hidden !important;
+}
+{{prefix}}panel {{prefix}}widget-hd {
+    position: relative;
+}
+{{prefix}}panel {{prefix}}widget-hd {{prefix}}widget-buttons {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+{{prefix}}panel {{prefix}}widget-ft {{prefix}}widget-buttons {
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+}
+
+/** from panel-skin.css (sam)***************************************/
+{{prefix}}skin-{{skinName}} {{prefix}}panel-content {
+    -webkit-box-shadow: 2 2 7px rgba(0,0,0,0.15);
+    -moz-box-shadow: 2 2 7px rgba(0,0,0,0.15);
+    box-shadow: 2px 2px 7px rgba(0,0,0,0.15);
+    border: solid 1px {{border}};
+    background-color: {{background}};
+    color: {{text}};
+    border-radius: {{panelRadius}};
+}
+{{prefix}}skin-{{skinName}} {{prefix}}panel {{prefix}}widget-hd {
+    padding: {{hdPadding}}; /*8px 28px 8px 8px;*/  /* Room for close button. */
+    padding-right: 40px; /* Room for Close button */
+    min-height: 13px;           /* For the close button */
+    _height: 13px;              /* IE6 */
+    color: {{headText}};
+    background: {{headGradient}};
+    background-color: {{headBackground}};
+    border-radius: {{panelRadius}} {{panelRadius}} 0 0;
+
+
+    /*
+    TODO: Add support for IE and W3C gradients
+    */
+}
+{{prefix}}skin-{{skinName}} {{prefix}}panel {{prefix}}widget-hd {{prefix}}widget-buttons {
+    padding: {{hdButtonPadding}}; /*8px;*/
+}
+{{prefix}}skin-{{skinName}} {{prefix}}panel {{prefix}}widget-bd {
+    padding: {{bdPadding}}; /*10px;*/
+}
+{{prefix}}skin-{{skinName}} {{prefix}}panel {{prefix}}widget-ft {
+	background: {{footBackground}};
+	padding: {{ftPadding}};8px;
+    text-align: right;
+    border-radius: 0 0 {{panelRadius}} {{panelRadius}};
+}
+{{prefix}}skin-{{skinName}} {{prefix}}panel {{prefix}}widget-ft {{prefix}}button {
+    margin-left: 8px;
+}
+
+/*
+Support for icon-based [x] "close" button in the header.
+
+Nicolas Gallagher: "CSS image replacement with pseudo-elements (NIR)"
+http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
+*/
+{{prefix}}skin-{{skinName}} {{prefix}}panel {{prefix}}widget-hd {{prefix}}button-close {
+    /* Reset base button styles */
+    background: transparent;
+    filter: none;
+    border: none;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+
+    /* Structure */
+    width: 13px;
+    height: 13px;
+    padding: 0;
+    overflow: hidden;
+    vertical-align: top;
+    /* IE less than 8 :( */
+    *font-size: 0;
+    *line-height: 0;
+    *letter-spacing: -1000px;
+    *color: #86A5EC;
+    *background: url(sprite_icons.png) no-repeat 1px 1px;
+}
+{{prefix}}skin-{{skinName}} {{prefix}}panel {{prefix}}widget-hd {{prefix}}button-close:before {
+    /*
+    Displays the [x] icon in place of the "Close" text.
+    Note: The `width` of this pseudo element is the same as its "host" element.
+    */
+    content: url(sprite_icons.png);
+    display: inline-block;
+    text-align: center;
+    font-size: 0;
+    line-height: 0;
+    width: 13px;
+    margin: 1px 0 0 1px;
+}
+{{prefix}}skin-{{skinName}} {{prefix}}panel-hidden {{prefix}}widget-hd {{prefix}}button-close {
+    /* Required for IE > 7 to deal with pseudo :before element */
+    display: none;
+}
+
+</script>
+
+<!-- ///////////////////////////////////////////////////////////////////////////////////////////////  -->
+<!-- this template for UI display of the color space ///////////////////////////////////////////////  -->
+
+<script id="space-template" type="text/x-handlebars-template">
+.yui3-skin-{{skinName}} .background {
+    background-color: {{background}};
+    border: solid 1px;
+    border-color: {{borderHigh}} {{borderLow}} {{borderLow}} {{borderHigh}};
+}
+
+.yui3-skin-{{skinName}} .text-low {
+    color: {{textLow}};
+}
+
+.yui3-skin-{{skinName}} .text-normal {
+    color: {{textNormal}};
+}
+
+.yui3-skin-{{skinName}} .text-high {
+    color: {{textHigh}};
+}
+
+.yui3-skin-{{skinName}} .rule-low {
+    border-top: solid 1px {{ruleLow}};
+}
+
+.yui3-skin-{{skinName}} .rule-high {
+    border-top: solid 1px {{ruleHigh}};
+}
+
+.yui3-skin-{{skinName}} .gradient {
+    background: {{gradient}};
+}
+/* background:hover **************/
+.yui3-skin-{{skinName}} .background.show-hover {
+    background-color: {{hoverBackground}};
+    border: solid 1px;
+    border-color: {{hoverBorderHigh}} {{hoverBorderLow}} {{hoverBorderLow}} {{hoverBorderHigh}};
+}
+
+.yui3-skin-{{skinName}} .background.show-hover .text-low {
+    color: {{hoverTextLow}};
+}
+
+.yui3-skin-{{skinName}} .background.show-hover .text-normal {
+    color: {{hoverTextNormal}};
+}
+
+.yui3-skin-{{skinName}} .background.show-hover .text-high {
+    color: {{hoverTextHigh}};
+}
+
+.yui3-skin-{{skinName}} .background.show-hover .rule-low {
+    border-top: solid 1px {{hoverRuleLow}};
+}
+
+.yui3-skin-{{skinName}} .background.show-hover .rule-high {
+    border-top: solid 1px {{hoverRuleHigh}};
+}
+
+.yui3-skin-{{skinName}} .background.show-hover .gradient {
+    background: {{hoverGradient}};
+}
+
+
+
+/* block low ************************************/
+.yui3-skin-{{skinName}} .block-low {
+    background-color: {{blockLowBackground}};
+}
+
+.yui3-skin-{{skinName}} .block-low {
+    border: solid 1px {{blockLowBorderLow}};
+    border-color: {{blockLowBorderHigh}} {{blockLowBorderLow}} {{blockLowBorderLow}} {{blockLowBorderHigh}};
+}
+
+.yui3-skin-{{skinName}} .block-low-text-low {
+    color: {{blockLowTextLow}};
+}
+
+.yui3-skin-{{skinName}} .block-low-text-normal {
+    color: {{blockLowTextNormal}};
+}
+
+.yui3-skin-{{skinName}} .block-low-text-high {
+    color: {{blockLowTextHigh}};
+}
+
+.yui3-skin-{{skinName}} .block-low-rule-low {
+    border-top: solid 1px {{blockLowRuleLow}};
+}
+
+.yui3-skin-{{skinName}} .block-low-rule-high {
+    border-top: solid 1px {{blockLowRuleHigh}};
+}
+
+.yui3-skin-{{skinName}} .block-low .gradient {
+    background: {{blockLowGradient}};
+}
+
+/* block low:hover ************************************/
+.yui3-skin-{{skinName}} .block-low:hover {
+    background-color: {{blockLowHoverBackground}};
+}
+
+.yui3-skin-{{skinName}} .block-low:hover {
+    border: solid 1px {{blockLowHoverBorderLow}};
+    border-color: {{blockLowHoverBorderHigh}} {{blockLowHoverBorderLow}} {{blockLowHoverBorderLow}} {{blockLowHoverBorderHigh}};
+}
+
+.yui3-skin-{{skinName}} .block-low:hover .block-low-text-low {
+    color: {{blockLowHoverTextLow}};
+}
+
+.yui3-skin-{{skinName}} .block-low:hover .block-low-text-normal {
+    color: {{blockLowHoverTextNormal}};
+}
+
+.yui3-skin-{{skinName}} .block-low:hover .block-low-text-high {
+    color: {{blockLowHoverTextHigh}};
+}
+
+.yui3-skin-{{skinName}} .block-low:hover .block-low-rule-low {
+    border-top: solid 1px {{blockLowHoverRuleLow}};
+}
+
+.yui3-skin-{{skinName}} .block-low:hover .block-low-rule-high {
+    border-top: solid 1px {{blockLowHoverRuleHigh}};
+}
+
+.yui3-skin-{{skinName}} .block-low:hover .gradient {
+    background: {{blockLowHoverGradient}};
+}
+
+/* block normal *********************************/
+.yui3-skin-{{skinName}} .block-normal {
+    background-color: {{blockNormalBackground}};
+}
+
+.yui3-skin-{{skinName}} .block-normal {
+    border: solid 1px {{blockNormalBorderLow}};
+    border-color: {{blockNormalBorderHigh}} {{blockNormalBorderLow}} {{blockNormalBorderLow}} {{blockNormalBorderHigh}};
+}
+
+.yui3-skin-{{skinName}} .block-normal-text-low {
+    color: {{blockNormalTextLow}};
+}
+
+.yui3-skin-{{skinName}} .block-normal-text-normal {
+    color: {{blockNormalTextNormal}};
+}
+
+.yui3-skin-{{skinName}} .block-normal-text-high {
+    color: {{blockNormalTextHigh}};
+}
+
+.yui3-skin-{{skinName}} .block-normal-rule-low {
+    border-top: solid 1px {{blockNormalRuleLow}};
+}
+
+.yui3-skin-{{skinName}} .block-normal-rule-high {
+    border-top: solid 1px {{blockNormalRuleHigh}};
+}
+
+.yui3-skin-{{skinName}} .block-normal .gradient {
+    background: {{blockNormalGradient}};
+}
+
+/* block normal:hover  *********************************/
+.yui3-skin-{{skinName}} .block-normal:hover {
+    background-color: {{blockNormalHoverBackground}};
+}
+
+.yui3-skin-{{skinName}} .block-normal:hover {
+    border: solid 1px {{blockNormalHoverBorderLow}};
+    border-color: {{blockNormalHoverBorderHigh}} {{blockNormalHoverBorderLow}} {{blockNormalHoverBorderLow}} {{blockNormalHoverBorderHigh}};
+}
+
+.yui3-skin-{{skinName}} .block-normal:hover .block-normal-text-low {
+    color: {{blockNormalHoverTextLow}};
+}
+
+.yui3-skin-{{skinName}} .block-normal:hover .block-normal-text-normal {
+    color: {{blockNormalHoverTextNormal}};
+}
+
+.yui3-skin-{{skinName}} .block-normal:hover .block-normal-text-high {
+    color: {{blockNormalHoverTextHigh}};
+}
+
+.yui3-skin-{{skinName}} .block-normal:hover .block-normal-rule-low {
+    border-top: solid 1px {{blockNormalHoverRuleLow}};
+}
+
+.yui3-skin-{{skinName}} .block-normal:hover .block-normal-rule-high {
+    border-top: solid 1px {{blockNormalHoverRuleHigh}};
+}
+
+.yui3-skin-{{skinName}} .block-normal:hover .gradient {
+    background: {{blockNormalHoverGradient}};
+}
+
+/* block high *********************************/
+.yui3-skin-{{skinName}} .block-high {
+    background-color: {{blockHighBackground}};
+}
+
+.yui3-skin-{{skinName}} .block-high {
+    border: solid 1px {{blockHighBorderLow}};
+    border-color: {{blockHighBorderHigh}} {{blockHighBorderLow}} {{blockHighBorderLow}} {{blockHighBorderHigh}};
+}
+
+.yui3-skin-{{skinName}} .block-high-text-low {
+    color: {{blockHighTextLow}};
+}
+
+.yui3-skin-{{skinName}} .block-high-text-normal {
+    color: {{blockHighTextNormal}};
+}
+
+.yui3-skin-{{skinName}} .block-high-text-high {
+    color: {{blockHighTextHigh}};
+}
+
+.yui3-skin-{{skinName}} .block-high-rule-low {
+    border-top: solid 1px {{blockHighRuleLow}};
+}
+
+.yui3-skin-{{skinName}} .block-high-rule-high {
+    border-top: solid 1px {{blockHighRuleHigh}};
+}
+
+.yui3-skin-{{skinName}} .block-high .gradient {
+    background: {{blockHighGradient}};
+}
+
+/* block high:hover *********************************/
+.yui3-skin-{{skinName}} .block-high:hover {
+    background-color: {{blockHighHoverBackground}};
+}
+
+.yui3-skin-{{skinName}} .block-high:hover {
+    border: solid 1px {{blockHighHoverBorderLow}};
+    border-color: {{blockHighHoverBorderHigh}} {{blockHighHoverBorderLow}} {{blockHighHoverBorderLow}} {{blockHighHoverBorderHigh}};
+}
+
+.yui3-skin-{{skinName}} .block-high:hover .block-high-text-low {
+    color: {{blockHighHoverTextLow}};
+}
+
+.yui3-skin-{{skinName}} .block-high:hover .block-high-text-normal {
+    color: {{blockHighHoverTextNormal}};
+}
+
+.yui3-skin-{{skinName}} .block-high:hover .block-high-text-high {
+    color: {{blockHighHoverTextHigh}};
+}
+
+.yui3-skin-{{skinName}} .block-high:hover .block-high-rule-low {
+    border-top: solid 1px {{blockHighHoverRuleLow}};
+}
+
+.yui3-skin-{{skinName}} .block-high:hover .block-high-rule-high {
+    border-top: solid 1px {{blockHighHoverRuleHigh}};
+}
+
+.yui3-skin-{{skinName}} .block-high:hover .gradient {
+    background: {{blockHighHoverGradient}};
+}
+
+/* block highest *********************************/
+.yui3-skin-{{skinName}} .block-highest {
+    background-color: {{blockHighestBackground}};
+}
+
+.yui3-skin-{{skinName}} .block-highest {
+    border: solid 1px {{blockHighestBorderLow}};
+    border-color: {{blockHighestBorderHigh}} {{blockHighestBorderLow}} {{blockHighestBorderLow}} {{blockHighestBorderHigh}};
+}
+
+.yui3-skin-{{skinName}} .block-highest-text-low {
+    color: {{blockHighestTextLow}};
+}
+
+.yui3-skin-{{skinName}} .block-highest-text-normal {
+    color: {{blockHighestTextNormal}};
+}
+
+.yui3-skin-{{skinName}} .block-highest-text-high {
+    color: {{blockHighestTextHigh}};
+}
+
+.yui3-skin-{{skinName}} .block-highest-rule-low {
+    border-top: solid 1px {{blockHighestRuleLow}};
+}
+
+.yui3-skin-{{skinName}} .block-highest-rule-high {
+    border-top: solid 1px {{blockHighestRuleHigh}};
+}
+
+.yui3-skin-{{skinName}} .block-highest .gradient {
+    background: {{blockHighestGradient}};
+}
+
+/* block highest:hover *********************************/
+.yui3-skin-{{skinName}} .block-highest:hover {
+    background-color: {{blockHighestHoverBackground}};
+}
+
+.yui3-skin-{{skinName}} .block-highest:hover {
+    border: solid 1px {{blockHighestHoverBorderLow}};
+    border-color: {{blockHighestHoverBorderHigh}} {{blockHighestHoverBorderLow}} {{blockHighestHoverBorderLow}} {{blockHighestHoverBorderHigh}};
+}
+
+.yui3-skin-{{skinName}} .block-highest:hover .block-highest-text-low {
+    color: {{blockHighestHoverTextLow}};
+}
+
+.yui3-skin-{{skinName}} .block-highest:hover .block-highest-text-normal {
+    color: {{blockHighestHoverTextNormal}};
+}
+
+.yui3-skin-{{skinName}} .block-highest:hover .block-highest-text-high {
+    color: {{blockHighestHoverTextHigh}};
+}
+
+.yui3-skin-{{skinName}} .block-highest:hover .block-highest-rule-low {
+    border-top: solid 1px {{blockHighestHoverRuleLow}};
+}
+
+.yui3-skin-{{skinName}} .block-highest:hover .block-highest-rule-high {
+    border-top: solid 1px {{blockHighestHoverRuleHigh}};
+}
+
+.yui3-skin-{{skinName}} .block-highest:hover .gradient {
+    background: {{blockHighestHoverGradient}};
+}
+</script>
 <style>
+/*****  this is only to layout calendar display on UI tool page ****/
+.yui3-widget {
+    margin-bottom: 2em;
+}
+#dial {
+    margin-top: 2em;
+}
+.widget-column{
+/*    position: fixed;*/
+}
+#widget-container{
+/*    display: none;
+    padding-left: 129px;*/
+}
+/*************************  CSS for Overlay and Panel placement in UI of tool *************/
+#overlayAnchor {
+    margin-top: 7em;
+}
+#overlayContent{
+    /*opacity: 0; */
+}
+#panelAnchor {
+    margin-top: 200px;
+}
+#panelContent{
+    /*opacity: 0;  */
+}
+#node-menunav-split {
+    margin-top: 2em;
+}
 
 </style>
 
-<body>
-<div class="example">
-    <div class="demo"> test
-    </div>
-</div>
-<script>
-YUI().use('node', function(Y) {
-    Y.one('.demo').setStyle('fontSize', '100px');
 
+
+<style>
+/*****************  this is only to layout abstract color space  ****************/
+body {
+    margin: 0;
+    width: 100%;
+    font-family: arial;
+    color: #444;
+}
+.color-space {
+    width: 284px;
+    position: relative;
+}
+.contents {
+    padding-left: 1em;
+}
+h1 {
+    font-size: 145%;
+    margin: 0 0 0.3em;
+}
+.color-space .label-block, .color-space .rule, .color-space .label-grad, .color-space .label-master {
+    font-family: arial;
+    font-size: 11px;
+}
+.color-space .text {
+    font-size: 17px;
+}
+.background {
+    position: relative;
+    padding: 0.5em 2em 1em 1em !important;
+    margin-bottom: 1em !important;
+}
+
+.block {
+    position: relative;
+    padding: 0.5em 1.5em 0.5em 0.5em;
+    margin: 0.5em 0 0.5em;
+    border-width: 3px !important;
+    border-radius: 4px;
+}
+.rule {
+    margin-top: 1em;
+}
+
+/*just to move labels of gradients so they are readable*/
+.color-space .g-master,
+.color-space .g-l,
+.color-space .g-n,
+.color-space .g-h,
+.color-space .b-l-g-l,
+.color-space .b-l-g-n,
+.color-space .b-l-g-h,
+
+.color-space .b-n-g-l,
+.color-space .b-n-g-n,
+.color-space .b-n-g-h,
+
+.color-space .b-h-g-l,
+.color-space .b-h-g-n,
+.color-space .b-h-g-h {
+    text-indent: -1.5em;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 1.5em;
+    overflow-x: visible;
+}
+
+.gradient{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 1em;
+    height: 100%;
+}
+
+.label-grad {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.bucket {
+    background: url(assets/images/bucket_pour.png) no-repeat;
+    width: 24px;
+    height: 32px;
+    cursor: pointer;
+}
+.bucket-background {
+    display: none;
+}
+.bucket-page {
+    font-size: 60%;
+    padding: 1em 3em;
+    position: absolute;
+    top: 0;
+    right: -95px;
+}
+/* expand/collapse color blocks and content */
+.twisty {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border: solid 10px;
+    border-color: transparent transparent transparent #444444;
+    margin-left: 10px;
+    cursor: pointer;
+}
+.twisty-expand {
+    border-color: #444444 transparent transparent  transparent;
+    border-bottom-width: 2px;
+    margin-left: 5px;
+}
+/********* skin name controls ***************/
+.skin-name-box {
+    margin-bottom: 1em;
+}
+/************* Scheme choosing radios *************/
+.scheme-radios {
+    list-style: none;
+    margin: 0 0 2em;
+    padding: 0;
+}
+.scheme-radios label {
+    cursor: pointer;
+}
+.scheme-radios .swatches {
+    display: inline-block;
+    margin: 0;
+    padding: 5px;
+    background-color: #fff;
+}
+.scheme-radios .swatches-dark {
+    background-color: #000;
+}
+.scheme-radios .swatches li {
+    width: 15px;
+    height: 20px;
+    display: inline-block;
+    margin: 0;
+    vertical-align: top;
+}
+.scheme-radios .swatches li:first-child {
+    width: 30px;
+}
+
+.block,
+.rule .label, .block .label-block,
+.rule,
+.gradient {
+    display: none;
+}
+.block {
+    display:block;
+}
+.color-space .background {
+    display: block;
+}
+.text {
+/**/    display: none;
+}
+.block .text-normal,
+.block .block-highest-text-normal,
+.block .block-high-text-normal,
+.block .block-normal-text-normal,
+.block .block-low-text-normal
+{
+    display: block;
+}
+</style>
+
+
+<style>
+/* color picker styles*/
+.yui3-overlay {
+    z-index: 10;
+}
+.yui3-overlay #picker-outer {
+    border: 1px solid #CCCCCC;
+    background-color: #eee;
+    height: 220px;
+    padding: 1.3em 1em;
+    position: absolute;
+    width: 335px;
+    box-shadow: 6px 6px 5px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+}
+.yui3-overlay #picker-outer .grip {
+    background: url(assets/images/picker_grip.png);
+    position: absolute;
+    height: 11px;
+    left: 16px;
+    top: 5px;
+    width: 284px;
+    cursor: pointer;
+}
+#picker {
+    position: relative;
+    height: 180px;
+    width: 200px;
+}
+#hs-dot {
+    position: absolute;
+    top: 90px;
+    left: 0;
+    cursor: pointer;
+    width: 2px;
+    height: 2px;
+}
+#hs-dot div {
+    position: absolute;
+    left: -4px;
+    top: -9px;
+    width: 2px;
+    height: 2px;
+    cursor: pointer;
+    text-shadow: 0px 0px 3px rgba(255, 255, 255, 0.9);
+}
+#sliderL-line {
+    position: absolute;
+    top: 90px;
+    left: -3px;
+    width: 25px;
+    height: 0px;
+    border: solid 1px;
+    border-color: #fff #fff #000 #fff;
+    cursor: pointer;
+}
+#hs {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 180px;
+    height: 180px;
+    cursor: pointer;
+}
+#sliderL {
+    position: absolute;
+    top: 0;
+    left: 193px;
+    width: 20px;
+    height: 180px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+.picker-swatch {
+
+    position: absolute;
+    left: 243px;
+    top: 59px;
+    width: 50px;
+    height: 50px;
+    border: solid 1px #ccc;
+    background-color: #BB3E3E;
+    text-indent: 1em;
+    line-height: 44px;
+}
+.picker-input {
+    margin: 56px 0 0 -17px;
+    width: 57px;}
+.close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+}
+.label-textarea {
+    display: block;
+}
+#textarea-style {
+    width: 284px;
+    height: 300px;
+}
+.skin-name-box .hint {
+    font-size: 80%;
+    color: #bbb;
+}
+.page-head {
+    background-color: rgba(100, 100, 100, 0.2);
+    color: rgba(100, 100, 100, 0.5);
+    font-size: 200%;
+    margin-bottom: 0.3em;
+    padding: 0.3em 0.5em;
+}
+</style>
+
+</head> 
+<body class="yui3-skin-mine">   <!--yui3-skin-sam-->
+<div class="page-head">
+Skinner Demo
+</div>
+<div class="yui3-g">
+    <div class="yui3-u-2-3">
+        <div class="contents">
+            <div class="skin-name-box">
+                <label>Skin Name: </label>
+                <span class="hint">yui3-skin-</span><input class="inp-skin-name" value="mine">
+                <div class="hint">(you'll need to change the class in the body tag to match)</div>
+            </div>
+            <h1>Color Schemes</h1>
+            <ul class="scheme-radios">
+                <li class="pick">
+                    <input id="monochrome" type="radio" checked="checked"/>
+                    <label for="monochrome">
+                        <ul class="swatches">
+                            <li></li><li></li><li></li><li></li>
+                        </ul>
+                        Monochrome
+                    </label>
+                </li>
+                <li class="pick">
+                    <input id="color-plus-gray" type="radio"/>
+                    <label for="color-plus-gray">
+                        <ul class="swatches">
+                            <li></li><li></li><li></li><li></li>
+                        </ul>
+                        Color Plus Gray
+                    </label>
+                </li>
+                <li class="pick">
+                    <input id="complimentary" type="radio"/>
+                    <label for="complimentary">
+                        <ul class="swatches">
+                            <li></li><li></li><li></li><li></li>
+                        </ul>
+                        Complimentary
+                    </label>
+                </li>
+                <li class="pick">
+                    <input id="dark-complimentary" type="radio"/>
+                    <label for="dark-complimentary">
+                        <ul class="swatches swatches-dark">
+                            <li></li><li></li><li></li><li></li>
+                        </ul>
+                        Dark Complimentary
+                    </label>
+                </li>
+
+            </ul>
+            <h1>Color Palette <div class="twisty" title="Show Full Color Palette"></div></h1>
+            <div class="color-space">
+                <div class="bucket bucket-page" title="Click to edit Color">Page<br>background</div>
+                <div class="block background border">
+                    <div class="text text-low"></div>
+                    <div class="text text-normal"></div>
+                    <div class="text text-high"></div>
+                    <div class="rule rule-low"></div>
+                    <div class="rule rule-high"></div>
+
+                    <div class="block block-highest block-highest-border">
+                        <div class="text block-highest-text-low"></div>
+                        <div class="text block-highest-text-normal"></div>
+                        <div class="text block-highest-text-high"></div>
+                        <div class="rule block-highest-rule-low"></div>
+                        <div class="rule block-highest-rule-high"></div>
+                        <div class="bucket bucket-highest" title="Click to edit 'Master' color"></div>
+                    </div>
+                    <div class="block block-high block-high-border">
+                        <div class="text block-high-text-low"></div>
+                        <div class="text block-high-text-normal"></div>
+                        <div class="text block-high-text-high"></div>
+                        <div class="rule block-high-rule-low"></div>
+                        <div class="rule block-high-rule-high"></div>
+                    </div>
+                    <div class="block block-normal block-normal-border">
+                        <div class="text block-normal-text-low"></div>
+                        <div class="text block-normal-text-normal"></div>
+                        <div class="text block-normal-text-high"></div>
+                        <div class="rule block-normal-rule-low"></div>
+                        <div class="rule block-normal-rule-high"></div>
+                    </div>
+                    <div class="block block-low block-low-border">
+                        <div class="text block-low-text-low"></div>
+                        <div class="text block-low-text-normal"></div>
+                        <div class="text block-low-text-high"></div>
+                        <div class="rule block-low-rule-low"></div>
+                        <div class="rule block-low-rule-high"></div>
+                    </div>
+
+                </div>
+            </div>
+            <style type="text/css">
+                .markup {
+                    margin: 10px 0;
+                    position: relative;
+                }
+                .markup .reset {
+                    position: absolute;
+                    top: 20px;
+                    left: 215px;
+                    cursor: pointer;
+                    color: #7E92CC;
+                }
+                .markup .reset:hover {
+                    text-decoration: underline;
+                }
+
+            </style>
+            <div class="markup yui3-skin-sam">
+                <label>Adjust border-radius</label><a class="reset reset-radius">Reset</a>
+                <div id="slider-radius"></div>
+            </div>
+            <div class="markup yui3-skin-sam">
+                <label>Adjust padding</label><a class="reset reset-padding">Reset</a>
+                <div id="slider-padding"></div>
+            </div>
+
+            <label class="label-textarea">Style block containing CSS for all widgets</label>
+            <textarea id=textarea-style></textarea>
+
+        </div>
+    </div>
+    <div class="yui3-u-1-3">
+        <div class="contents widget-column">
+            <h1>YUI Widgets Preview</h1>
+
+
+            <div id="widget-container">
+
+                <div id="mycalendar"></div>
+
+                <div id="tabview">
+                    <ul>
+                        <li><a href="#foo">foo</a></li>
+                        <li><a href="#bar">bar</a></li>
+                        <li><a href="#baz">baz</a></li>
+                    </ul>
+                    <div>
+                        <div id="foo">foo content is here when the foo tab is selected. This is the place for the tab contents.</div>
+                        <div id="bar">bar content is bar bar bar bar bar bar bar bar bar This is correct for this bar contents.</div>
+                        <div id="baz">baz belongs here and it appears when the baz tab is selected, just as it should.</div>
+                    </div>
+                </div>
+                <button class="checkbox yui3-button yui3-button-selected" id="yui_3_6_0_1_1343853873543_37">Button 3</button>
+                <button class="checkbox yui3-button" id="yui_3_6_0_1_1343853873543_37">Button 3</button>
+                <button class="yui3-button-disabled yui3-button" id="myDisabledButton" disabled="">Disabled</button>
+
+                <div id="datatable"></div>
+                <div id="scrollview-content" class="yui3-scrollview-loading">
+                    <ul>
+                        <li>Dog</li>
+                        <li>Cat</li>
+                        <li>Bird</li>
+                        <li>Fish</li>
+                        <li>Snake</li>
+                        <li>Turtle</li>
+                        <li>Horse</li>
+                        <li>Cow</li>
+                        <li>Chicken</li>
+                    </ul>
+                </div>
+                <style>
+                    /* To layout horizontal LIs */
+                    #scrollview-content-horiz {
+                        white-space:nowrap;
+                    }
+
+                    #scrollview-content-horiz li {
+                        display:inline-block;
+                    }
+
+                    /* For IE 6/7 - needs inline block hack (and the background color mentioned above) */
+                    #scrollview-content-horiz li {
+                        *display:inline;
+                        *zoom:1;
+}                </style>
+                <div id="scrollview-content-horiz" class="yui3-scrollview-loading">
+                    <ul>
+                        <li>Dog</li>
+                        <li>Cat</li>
+                        <li>Bird</li>
+                        <li>Fish</li>
+                        <li>Snake</li>
+                        <li>Turtle</li>
+                        <li>Horse</li>
+                        <li>Cow</li>
+                        <li>Chicken</li>
+                    </ul>
+                </div>
+                <div id="my-autocomplete">
+                    <label for="ac-input">Enter the name of a US state:</label><br>
+                    <input id="ac-input" type="text">
+                </div>
+                <div id="dial"></div>
+                <div id="node-menunav" class="yui3-menu yui3-menu-horizontal"><!-- Bounding box -->
+                    <div class="yui3-menu-content"><!-- Content box -->
+                        <ul>
+                            <!-- Menu items -->
+                            <li class="yui3-menuitem" role="presentation"><a href="" class="yui3-menuitem-content" role="menuitem" tabindex="0">Straw</a></li>
+                            <li class="yui3-menuitem" role="presentation"><a href="" class="yui3-menuitem-content" role="menuitem" tabindex="0">Sticks</a></li>
+                            <li class="yui3-menuitem" role="presentation"><a href="" class="yui3-menuitem-content" role="menuitem" tabindex="0">Bricks</a></li>
+                            <li class="yui3-menuitem" role="presentation">
+                                <a href="#actors" class="yui3-menu-label" role="menuitem" aria-haspopup="true" tabindex="0">Actors</a>
+                                <div id="actors" class="yui3-menu yui3-menu-hidden" role="menu" aria-labelledby="yui_3_7_2_1_1350426637135_31" aria-hidden="true" style="height: 178px; width: 134px;">
+                                    <div class="yui3-menu-content" role="presentation">
+                                        <ul role="presentation" class="first-of-type">
+                                            <li class="yui3-menuitem" role="presentation"><a href="" class="yui3-menuitem-content" role="menuitem">Mother Pig</a></li>
+                                            <li class="yui3-menuitem" role="presentation"><a href="" class="yui3-menuitem-content" role="menuitem">Pig 1</a></li>
+                                            <li class="yui3-menuitem" role="presentation"><a href="" class="yui3-menuitem-content" role="menuitem">Pig 2</a></li>
+                                            <li class="yui3-menuitem" role="presentation"><a href="" class="yui3-menuitem-content" role="menuitem">Pig 3</a></li>
+                                        </ul>
+                                        <ul role="presentation">
+                                            <li class="yui3-menuitem" role="presentation">
+                                                <a href="#your-yahoo" class="yui3-menu-label" role="menuitem" aria-haspopup="true" tabindex="0">Wolf</a>
+                                                <div id="your-yahoo" class="yui3-menu yui3-menu-hidden" role="menu" aria-labelledby="yui_3_7_2_1_1350426637135_31" aria-hidden="true" style="height: 178px; width: 134px;">
+                                                    <div class="yui3-menu-content" role="presentation">
+                                                        <ul role="presentation" class="first-of-type">
+                                                            <li class="yui3-menuitem" role="presentation"><a href="" class="yui3-menuitem-content" role="menuitem">Access Protocol</a></li>
+                                                            <li class="yui3-menuitem" role="presentation"><a href="" class="yui3-menuitem-content" role="menuitem">Huffing</a></li>
+                                                            <li class="yui3-menuitem" role="presentation"><a href="" class="yui3-menuitem-content" role="menuitem">Puffing</a></li>
+                                                        </ul>
+                                                        <ul role="presentation">
+                                                            <li class="yui3-menuitem" role="presentation"><a href="" class="yui3-menuitem-content" role="menuitem">Breath Control</a></li>
+                                                            <li class="yui3-menuitem" role="presentation"><a href="" class="yui3-menuitem-content" role="menuitem">Anger Management</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                             </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="node-menunav-split" class="yui3-menu yui3-menu-horizontal yui3-splitbuttonnav"><!-- Bounding box -->
+
+
+                    <div class="yui3-menu-content"><!-- Content box -->
+                        <ul>
+                            <li>
+
+                                <span class="yui3-menu-label"><!-- menu label root node -->
+                                    <a href="">Answers</a><!-- menu label default action -->
+                                    <a href="#answers-options" class="yui3-menu-toggle">Answers Options</a><!-- menu label submenu toggle -->
+                                </span>
+
+                                <div id="answers-options" class="yui3-menu">
+                                    <div class="yui3-menu-content">
+                                        <ul>
+                                            <li class="yui3-menuitem"><a class="yui3-menuitem-content" href="">Answer</a></li>
+                                            <li class="yui3-menuitem"><a class="yui3-menuitem-content" href="">Answers on the Street</a></li>
+                                            <li class="yui3-menuitem"><a class="yui3-menuitem-content" href="">Ask</a></li>
+                                            <li class="yui3-menuitem"><a class="yui3-menuitem-content" href="">Discover</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </li>
+                        </ul>
+                    </div>
+
+
+
+
+
+                </div>
+                <div id="overlayAnchor"></div>
+                <div id="overlayContent">
+                    <div class="yui3-widget-hd">Overlay Header</div>
+                    <div class="yui3-widget-bd">Overlay Body</div>
+                    <div class="yui3-widget-ft">Overlay Footer</div>
+                </div>
+
+                <div id="panelAnchor"></div>
+                <div id="panelContent">
+                    <div class="yui3-widget-bd">
+                        <form>
+                                <p>
+                                    <label for="id">ID</label><br/>
+                                    <input type="text" name="id" id="productId" placeholder="">
+                                </p>
+                                <p>
+                                    <label for="name">Name</label><br/>
+                                    <input type="text" name="name" id="name" value="" placeholder="">
+                                </p>
+                                <p>
+                                    <label for="password">Price</label><br/>
+                                    <input type="text" name="price" id="price" value="" placeholder="$">
+                                </p>
+                        </form>
+                    </div>
+                </div>
+
+
+
+            </div> <!-- end widget container-->
+
+        </div> <!-- end of markup for widgets class widget-column -->
+        <div id="picker-outer">
+            <div class="grip"></div>
+            <img class="close" src="assets/images/close.png" width="18" height="18" />
+            <div id="picker">
+                <div id="hs">
+                    <img src="assets/images/hue_sat.jpg" width="180" height="180"/>
+                    <div id="hs-dot"><div>&#8226;</div></div>
+                </div>
+                <div id="sliderL">
+                    <img src="assets/images/lightness.jpg" width="20" height="180">
+                    <div id="sliderL-line"></div>
+                </div>
+                <div class="picker-swatch">
+                    <input type="text" class="picker-input" value="hello"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+
+<script>
+    var doHandlebars = function(){
+        // creates the CSS style block for each widget
+        var stylesheet,
+            styleSheetOutput = document.getElementById('textarea-style'),
+            template,
+            result,
+            i,
+            widgets = [
+                {'id': 'calendar',      'templateFileName': calendarSkin},
+                {'id': 'tabview',       'templateFileName': tabviewSkin},
+                {'id': 'button',        'templateFileName': buttonSkin},
+                {'id': 'datatable',     'templateFileName': datatableSkin},
+                {'id': 'scrollview',    'templateFileName': scrollviewSkin},
+                {'id': 'autocomplete',  'templateFileName': autocompleteSkin},
+                {'id': 'dial',          'templateFileName': dialSkin},
+                {'id': 'nodeMenunav',   'templateFileName': nodeMenunavSkin},
+                {'id': 'overlay',       'templateFileName': overlaySkin},
+                {'id': 'panel',         'templateFileName': panelSkin},
+                {'id': 'space',         'templateFileName': spaceSkin}
+            ];
+        // creates the style block if not null to receive the result from the handlebars substitution
+        // of Space -> Widget Skin Map + Widget Template -> Style block
+        if (document.getElementById('calendar-style') === null){
+            for (i = 0; i < widgets.length; i += 1) {
+                stylesheet = document.documentElement.appendChild(document.createElement('style'));
+                stylesheet.setAttribute('id', widgets[i].id + '-style', 0);
+            }
+        }
+
+        // does the handlebars substitution from Widget Skin Map -> Widget Stylesheet
+        styleSheetOutput.value = "";
+        for (i = 0; i < widgets.length; i += 1) {
+            template = Handlebars.compile(document.getElementById(widgets[i].id + '-template').innerHTML);
+            result = template(widgets[i].templateFileName);
+            stylesheet = document.getElementById(widgets[i].id + '-style');
+            stylesheet.innerHTML = result;
+            styleSheetOutput.value += result;
+        }
+
+    },
+
+    // This returns a value for a CSS border-radius property
+    // It's used by Widget Map files to set radii for widget specific objects
+    // at a value equal to some factor of the global radius value found in
+    // space.radius
+    // space.radius can then be manipulated by UI and the widgets will respond proportionally
+    getRadius = function(factor) {
+        return Math.round(space.radius * factor) + 'px';
+    },
+
+    getPadding = function(top, right, bottom, left) {
+        var str = "";
+
+        if (top) {
+            str += (Math.round((space.padding * top) * 100 ) / 100) + 'em ';
+        }
+        if (right) {
+            str += (Math.round((space.padding * right) * 100 ) / 100) + 'em ';
+        }
+        if (bottom) {
+            str += (Math.round((space.padding * bottom) * 100 ) / 100) + 'em ';
+        }
+        if (left) {
+            str += (Math.round((space.padding * left) * 100 ) / 100) + 'em';
+        }
+        return str;
+    }
+
+</script>
+
+<script>
+YUI().use('slider', 'overlay', 'panel', 'node-menunav', 'dial', 'autocomplete', 'autocomplete-filters', 'autocomplete-highlighters', 'scrollview', 'datatable-sort', 'dd-drag', 'dd-constrain', 'calendar', 'button-plugin', 'tabview', 'datatype-date', 'button-group', 'cssbutton', 'node-event-delegate', 'overlay', 'color',  function(Y) {
+
+    var schemeName = 'monochrome', // default schemeName
+        arrSchemeNames = ['monochrome', 'color-plus-gray', 'complimentary', 'dark-complimentary'],
+
+    // returns hsl Array
+    hexToHsl = function(hexInput) {
+        var hslStr = Y.Color.toHSL(hexInput),
+            hslArr = Y.Color.toArray(hslStr);
+
+        return hslArr;
+    },
+
+
+
+    getPercentToEndAdjust = function(val, percentToEnd) {
+    	var theMaxAdjust; // the distance from the val to "the end", meaning either 0 or 1
+    	if (percentToEnd > 0){ // if going bigger
+    		theMaxAdjust = 100 - val; // the most you could go from the val to the max (white or full sat)
+    		return (theMaxAdjust * (percentToEnd / 100));// - val; // this gives a factor like 0.2 ...
+    		// that can be simply added to the val to give the effect of "go this percent of the distance to the max"
+    	}else{
+    		theMaxAdjust = val;	// the most you could go from val toward dark or low sat or "0"
+    		return (theMaxAdjust * (percentToEnd / 100));
+    	}
+    },
+
+
+    // adjusts the h s l of a color
+    /**
+     * @param {String} hexInput
+     * @param {Object} adjust
+     *      @param h integer in the range of 0 to 360
+     *      @param s number between 0 and 1
+     *      @param l number between 0 and 1
+     * @param {string} type. valid strings 'flip', 'cap', 'percent'
+     *      flip: when a value goes beyond min or max by some factor,
+     *          the value flips to the negative value of change
+     *          example: orig value 0.8, adjust by 0.4 results in 0.8 adjust by -0.4
+     *      cap: orig value 0.8, adjust by 0.4 results in 1
+     *      percent: orig value 0.8, adjust by 0.4 means go 0.4 percent of the distance
+     *          from 0.8 to 1 results in  0.88 (0.2 * 0.4 = 0.08 + 0.8)
+     */
+    adjustColor = function(hexInput, adjust, type) {
+        var hsl = hexToHsl(hexInput),
+            hex,
+            rgb,
+            hexAdjustedSameHue,
+            adjustType = 'cap'; // default
+
+        if (typeof(type) != 'undefined') {
+            adjustType = type;
+        }
+
+        // adjust saturation. Always cap saturation at 0 or 1
+        // Is capping of sat done by Y.Color?
+        // if needed regardless of method attr 'type'
+        if ((adjustType === 'cap') ||
+            (adjustType === 'flip')) {
+            //adjust.s = adjust.s;
+        } else if (adjustType === 'percent') {
+            adjust.s = getPercentToEndAdjust(hsl[1], adjust.s);
+        }
+
+        // adjust lightness based on 'type' attribute
+        if (adjustType === 'cap') {
+            //adjust.l = adjust.l;
+        } else if (adjustType === 'flip') {
+                adjust.l = getFlippedAdjust(hsl[2], adjust.l);
+        } else if (adjustType === 'percent') {
+                adjust.l = getPercentToEndAdjust(hsl[2], adjust.l);
+        } else {
+            alert('a call to adjustColor has an invalid type of: ' + type);
+        }
+
+        hexAdjustedSameHue = Y.Color.getOffset(hexInput, {s: adjust.s, l: adjust.l});
+        hex = Y.Color.getOffset(hexInput, {h: adjust.h, s: adjust.s, l: adjust.l});
+
+        // if there's a change in hue, adjust the resultant lightness to
+        // compensate for lightness variation caused by hue-change.
+        // see Y.Color getSimilarBrightness docs
+        if (adjust.h !== 0) {
+            hex = Y.Color.getSimilarBrightness(hex, hexAdjustedSameHue);
+        }
+        return hex;
+    },
+
+    /** if lit is adjusted beyond min or max it reverses (flips and subtracts the adjustment if over or under max/min by ______)
+     * This is needed for text
+     */
+    getFlippedAdjust = function(sourceLit, adjust) {
+        var overBy = 10,
+            newAdjust = adjust,
+            newLit = (parseInt(sourceLit, 10) + adjust);
+
+        // if over by big enough amount, then reverse to negative
+        if (newLit > (100 + overBy)) {
+            newAdjust = -adjust;
+        } else if (newLit > 100) { // let it stay at max
+            newAdjust = adjust; // Y.Color will cap at max
+        }
+        if (newAdjust < 0 - overBy) {
+            newAdjust = -adjust;
+        } else if (newAdjust < 0) {
+            newAdjust = adjust;
+        }
+        return newAdjust;
+    },
+
+
+    // color schemes and foreground color gen ////////////////////////////////////////////////
+    makeGradient = function(k) {
+        var CSSStr = ""+
+//         "<!--[if gte IE 9]>"+
+//         "  <style type='text/css'>"+
+//         "    .gradient {"+
+//         "       filter: none;"+
+//         "    }"+
+//         "  </style>"+
+//         "<![endif]-->"+
+
+        "/* IE9 SVG, needs conditional override of 'filter' to 'none' */"+
+//        "background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwLjIiLz4KICAgIDxzdG9wIG9mZnNldD0iNDklIiBzdG9wLWNvbG9yPSIjZmZmZmZmIiBzdG9wLW9wYWNpdHk9IjAiLz4KICAgIDxzdG9wIG9mZnNldD0iNTElIiBzdG9wLWNvbG9yPSIjMDAwMDAwIiBzdG9wLW9wYWNpdHk9IjAiLz4KICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzAwMDAwMCIgc3RvcC1vcGFjaXR5PSIwLjEiLz4KICA8L2xpbmVhckdyYWRpZW50PgogIDxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9InVybCgjZ3JhZC11Y2dnLWdlbmVyYXRlZCkiIC8+Cjwvc3ZnPg==);"+
+        "background: -moz-linear-gradient(top,  rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 49%, rgba(0,0,0,0) 51%, rgba(0,0,0,0.1) 100%); /* FF3.6+ */"+
+        "background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0.2)), color-stop(49%,rgba(255,255,255,0)), color-stop(51%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,0.1))); /* Chrome,Safari4+ */"+
+        "background: -webkit-linear-gradient(top,  rgba(255,255,255,0.2) 0%,rgba(255,255,255,0) 49%,rgba(0,0,0,0) 51%,rgba(0,0,0,0.1) 100%); /* Chrome10+,Safari5.1+ */"+
+        "background: -o-linear-gradient(top,  rgba(255,255,255,0.2) 0%,rgba(255,255,255,0) 49%,rgba(0,0,0,0) 51%,rgba(0,0,0,0.1) 100%); /* Opera 11.10+ */"+
+        "background: -ms-linear-gradient(top,  rgba(255,255,255,0.2) 0%,rgba(255,255,255,0) 49%,rgba(0,0,0,0) 51%,rgba(0,0,0,0.1) 100%); /* IE10+ */"+
+        "background: linear-gradient(to bottom,  rgba(255,255,255,0.2) 0%,rgba(255,255,255,0) 49%,rgba(0,0,0,0) 51%,rgba(0,0,0,0.1) 100%); /* W3C */"+
+        "filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#33ffffff', endColorstr='#1a000000',GradientType=0 ); /* IE6-8 */"+
+
+        ""+
+        "";
+
+        return CSSStr;
+    },
+
+    /**
+     * This adjusts and sets the value of all the foreground object colors associated with a block
+     * It also assigns the adjusted values to the objects in the master color var, "space"
+     * found in space.js
+     * @param {Object} block. A specific block from space. For example space.block.normal
+     */
+    adjustForegroundColors = function(block) {
+        var b = block,
+            k = b.background; // the source color, *from* which we adjust to get the new foreground color
+        b.text.low = adjustColor(k, {h:0, s:0, l:20}, 'flip');
+        b.text.normal = adjustColor(k, {h:0, s:0, l:40}, 'flip');
+        b.text.high = adjustColor(k, {h:0, s:0, l:55}, 'flip');
+        b.rule.low = adjustColor(k, {h:0, s:0, l:-10});
+        b.rule.high = adjustColor(k, {h:0, s:0, l:10});
+        b.border.high = adjustColor(k, {h:0, s:0, l:10});
+        b.border.low = adjustColor(k, {h:0, s:0, l:-5});
+        b.gradient = makeGradient(k);
+    },
+
+    /**
+     * This makes an entire "hover" block including it's foreground object colors
+     * based on it's non-hover state
+     * It also assigns the adjusted values to the objects in the master color var, "space"
+     * found in space.js
+     * @param {Object} block. A specific block from space. For example space.block.normal
+     */
+    makeHoverBlock = function(block) {
+
+        var pageLite = Y.Color.toArray(Y.Color.toHSL(keyColor.page));
+        if (pageLite[2] < 50) {
+            block.hover.background = adjustColor(block.background, {h:0, s:0, l:10}, 'percent');
+        } else {
+            block.hover.background = adjustColor(block.background, {h:0, s:0, l:-10}, 'percent');
+        }
+        adjustForegroundColors(block.hover);
+    },
+
+    // This sets all the values in the space JSON object, based on scheme definition below
+    // Argument is the string name of the scheme
+    // all calculations are based on the user color-picker selected color (keyColor.block.highest.background)
+    setColors = function(schemeName){
+        var b,
+            k = keyColor.block.highest.background,  // note: this is from keyColor set by end user intention as the highest block background
+            blocks,
+            i,
+            setColorsPerBlock = function(blocks) { // generates all the colors for each block
+                var b = space.block.highest;
+                // assign the user color picked value to space.block.highest.background
+                // The background of the highest value block is always the user picked color
+                space.block.highest.background = k;
+                adjustForegroundColors(b); // generate foreground object colors for this block
+                makeHoverBlock(b); // generate hover block and it's forground object colors for this block
+
+                // generate forground and hover object colors for other blocks
+                for (i = 0; i < blocks.length; i += 1) {
+                    var adjustBy = blocks[i].adjust;
+                    b = blocks[i].block;
+
+        //  *********************** adjustColor() is found in colormix.js
+                    b.background = adjustColor(k, adjustBy, 'percent');
+                    adjustForegroundColors(b);
+                    makeHoverBlock(b);
+                }
+            };
+
+        ///////////////////////////////////////////////////////////////
+        //'monochrome'
+        if (schemeName === arrSchemeNames[0]) {
+            blocks = [
+                {'block': space.block.high,      'adjust': {h:0, s:-30,  l:60}},
+                {'block': space.block.normal,    'adjust': {h:0, s:-30,  l:75}},
+                {'block': space.block.low,       'adjust': {h:0, s:-30,  l:80}},
+                {'block': space,                 'adjust': {h:0, s:-30,  l:90}}
+            ],
+            setColorsPerBlock(blocks);
+
+        ///////////////////////////////////////////////////////////////
+        //'color-plus-gray'
+        } else if (schemeName === arrSchemeNames[1]) {
+            blocks = [
+                {'block': space.block.high,      'adjust': {h:0, s:-99,  l:60}},
+                {'block': space.block.normal,    'adjust': {h:0, s:-99,  l:75}},
+                {'block': space.block.low,       'adjust': {h:0, s:-99,  l:80}},
+                {'block': space,                 'adjust': {h:0, s:-99,  l:90}}
+            ],
+            setColorsPerBlock(blocks);
+
+        ///////////////////////////////////////////////////////////////
+        //'complimentary'
+        } else if (schemeName === arrSchemeNames[2]) {
+            blocks = [
+                {'block': space.block.high,      'adjust': {h:180, s:-40,  l:30}},
+                {'block': space.block.normal,    'adjust': {h:180, s:-40,  l:70}},
+                {'block': space.block.low,       'adjust': {h:180, s:-40,  l:80}},
+                {'block': space,                 'adjust': {h:180, s:-30,  l:90}}
+            ],
+            setColorsPerBlock(blocks);
+
+        ///////////////////////////////////////////////////////////////
+        //'dark-complimentary'
+        } else if (schemeName === arrSchemeNames[3]) {
+            blocks = [
+                {'block': space.block.high,      'adjust': {h:180, s:-50,  l:-30}},
+                {'block': space.block.normal,    'adjust': {h:180, s:-50,  l:-50}},
+                {'block': space.block.low,       'adjust': {h:180, s:-50,  l:-60}},
+                {'block': space,                 'adjust': {h:0,   s:-40,  l:-70}}
+            ],
+            setColorsPerBlock(blocks);
+        }
+    },
+
+    // This runs loops through each color scheme, running it's code
+    // to update the color space
+    // It sets the swatches in the color scheme radio controls
+    // It does NOT send colors to the widget css by handlebars
+    //
+    updateSchemePreviews = function() {
+        // arrSchemeNames is defined in space-schemes.js
+        var i,
+            schemeChoices = Y.all('.scheme-radios .pick');
+
+        for (i = 0; i < arrSchemeNames.length; i+=1) {
+            setColors(arrSchemeNames[i]);
+            schemeChoices.item(i).one('.swatches li:nth-child(1)').setStyle('backgroundColor', space.block.highest.background);
+            schemeChoices.item(i).one('.swatches li:nth-child(2)').setStyle('backgroundColor', space.block.high.background);
+            schemeChoices.item(i).one('.swatches li:nth-child(3)').setStyle('backgroundColor', space.block.normal.background);
+            schemeChoices.item(i).one('.swatches li:nth-child(4)').setStyle('backgroundColor', space.block.low.background);
+
+        }
+    }
+
+    // this runs the code for the correct scheme
+    // sets the page background color
+    // updates the widgetSkinMaps
+    // runs the handlebars for substituting the new colors into the CSS
+    updateColors = function() {
+        //Y.log("hit updateColors");
+        updateSchemePreviews();
+
+        // function found in space-schemes.js
+        // sets all colors in the cSpace literal with relationships from a few key colors
+        setColors(schemeName);
+        // also set background-color of <html>
+        Y.one('.page-background').setStyle('backgroundColor', keyColor.page);
+
+        // after setColors() sets all cspce color relationships
+        // the "widgetSkinMaps" need to be refreshed with correct values from the cspace
+        // example:
+        // selectedText:       space.block.highest.text.normal,
+        refreshButtonSkin();    // skin-button.js
+        refreshTabviewSkin();   // skin-tabview.js
+        refreshCalendarSkin();  // skin-calendar.js
+        refreshDatatableSkin(); // skin-datatable.js
+        refreshScrollviewSkin(); // skin-scrollview.js
+        refreshAutocompleteSkin(); // skin-autocomplete.js
+        refreshDialSkin(); // skin-dial.js
+        refreshNodeMenunavSkin();  // skin-node-menunav.js
+        refreshOverlaySkin(); // skin-overlay.js
+        refreshPanelSkin(); // skin-panel.js
+
+        refreshSpaceSkin();     // skin-space.js
+
+        // runs the code that does the handlebars replacements in the "Stylesheet Templates"   (.css section above in this file)
+        // example:
+        // <style>
+        // .yui3-button-selected {
+        //      color: {{selectedText}};
+        // }
+        // {{variableName}} from widgetSkinMaps are replaced by values in widgetSkinMap
+        doHandlebars();
+    };
+    updateColors();
+    updateSchemePreviews();
+
+
+    // END  color schemes and foreground color gen ////////////////////////////////////////////////
+
+
+
+
+    // For UI display only /////////////////////////////////////////////////////
+    // dynamically add gradient divs to color space
+    // and add text in all blocks that match their unique classnames
+    var cspaceUnits = Y.all('.color-space div'),
+        i = 0;
+    for (i = 0; i < cspaceUnits.size(); i+=1) {
+        var me = cspaceUnits.item(i),
+            cName = me.get('className'),
+            gName = '',
+            cName = cName.replace(/block\s/g, "");
+            cName = cName.replace(/text\s/g, "");
+            cName = cName.replace(/rule\s/g, "");
+
+        // don't add classnames to these
+        if (
+                (me.hasClass('bucket')) ||
+                (me.hasClass('close'))
+        ){
+            // do nothing
+        } else if (me.hasClass('block')) {
+            me.prepend('<span class="label-block">' + cName + '</span>');   // text label equal to className
+            if (cName.charAt(9) === " "){  //it's a level 1 such as class="block b-l ..."
+                var post = cName.slice(7, 9);
+//                gName = 'g' + post;
+//                alert('l1...cName: ' + cName + '\npost: ' + post + '\nnew: ' + gName);
+
+            } else if (cName.charAt(13) === " ") {  //it's a level 2 such as class="block b-l-b-n ..."
+                var pre = cName.slice(6, 10),
+                    post = cName.slice(11, 13);
+//                gName = pre + 'g' + post;
+//                alert('l2...cName: ' + cName + '\npre: ' + pre + '\npost: ' + post + '\nnew: ' + gName);
+            }
+            me.append('<div class="gradient"><div class="label-grad ' + gName + '">' + gName + '</div></div>');
+        }else{
+            me.prepend('<span class="label">' + cName + '</span>');
+        }
+    }
+
+    /**
+     * Begin adding instances of widgets to be colored by this tool
+     * These are for UI display
+     */
+    // Create a new instance of Calendar,    ////////////////////////////////////////////
+    //setting its width
+    // and height, allowing the dates from the previous
+    // and next month to be visible and setting the initial
+    // date to be November, 1982.
+    var calendar = new Y.Calendar({
+          contentBox: "#mycalendar",
+//          height:'200px',
+//          width:'600px',
+          showPrevMonth: true,
+          showNextMonth: true,
+          date: new Date(1982,11,1)}).render();
+    // make a day selected for display
+    var days = Y.all('.yui3-calendar-day');
+    days.item(12).addClass('yui3-calendar-day-selected');
+    days.item(13).addClass('yui3-calendar-selection-disabled');
+
+    // Instance of tabview  /////////////////////////////////////////////////////////////
+    var tabview = new Y.TabView({
+        srcNode: '#tabview',
+        width: '250px'
+    });
+
+    tabview.render();
+
+    // Disabled button //////////////////////////////////////////////
+    // A disabled button
+    var disabledButton = Y.one('#myDisabledButton');
+    disabledButton.plug(Y.Plugin.Button, {
+        disabled: true
+    });
+
+
+    // Datatable instance ///////////////////////////////////////////////////////
+    var cols = [
+        {key:"Company", label:"Sortable", sortable:true},
+        {key:"Phone", label:"Not Sortable"},
+        {key:"Contact", label:"Sortable", sortable:true}
+    ],
+    data = [
+        {Company:"Cabs", Phone:"415-555-1234", Contact:"Smith, S."},
+        {Company:"Acme", Phone:"650-555-4444", Contact:"Jones, J."},
+        {Company:"Washers", Phone:"408-555-5678", Contact:"Ward, R."}
+    ],
+    table = new Y.DataTable({
+        columns: cols,
+        data   : data,
+        summary: "Contacts list",
+        caption: "Table with simple column sorting"
+    }).render("#datatable");
+
+    // Scrollview instance ///////////////////////////////////////////////////
+    var scrollView = new Y.ScrollView({
+        id: "scrollview",
+        srcNode: '#scrollview-content',
+        height: 200,
+        width: 200,
+        flick: {
+            minDistance:10,
+            minVelocity:0.3,
+            axis: "x"
+        }
+    });
+    scrollView.render();
+
+    var scrollViewX = new Y.ScrollView({
+        id: "scrollview",
+        srcNode: '#scrollview-content-horiz',
+        //height: 100,
+        width: 200,
+        flick: {
+            minDistance:10,
+            minVelocity:0.3,
+            axis: "x"
+        }
+    });
+    scrollViewX.render();
+
+    // Autocomplete instance ////////////////////////////////////////////////////
+    var states = [     'Alabama',     'Alaska',     'Arizona',     'Arkansas',     'California',     'Colorado',     'Connecticut',     'Delaware',     'Florida',     'Georgia',     'Hawaii',     'Idaho',     'Illinois',     'Indiana',     'Iowa',     'Kansas',     'Kentucky',     'Louisiana',     'Maine',     'Maryland',     'Massachusetts',     'Michigan',     'Minnesota',     'Mississippi',     'Missouri',     'Montana',     'Nebraska',     'Nevada',     'New Hampshire',     'New Jersey',     'New Mexico',     'New York',     'North Dakota',     'North Carolina',     'Ohio',     'Oklahoma',     'Oregon',     'Pennsylvania',     'Rhode Island',     'South Carolina',     'South Dakota',     'Tennessee',     'Texas',     'Utah',     'Vermont',     'Virginia',     'Washington',     'West Virginia',     'Wisconsin',     'Wyoming'   ];
+    Y.one('#ac-input').plug(Y.Plugin.AutoComplete, {
+        resultFilters    : 'phraseMatch',
+        resultHighlighter: 'phraseMatch',
+        source           : states
+    });
+
+    // Dial instance ////////////////////////////////////////////////////////////
+    var dial = new Y.Dial({
+        min:-220,
+        max:220,
+        stepsPerRevolution:100,
+        value: 30
+    });
+    dial.render('#dial');
+
+    // Node Menunav instance /////////////////////////////////////////////////
+    var menu = Y.one("#node-menunav");
+    menu.plug(Y.Plugin.NodeMenuNav);
+
+    var menuSplit = Y.one("#node-menunav-split");
+    //menuSplit.plug(Y.Plugin.NodeMenuNav);
+    menuSplit.plug(Y.Plugin.NodeMenuNav, { autoSubmenuDisplay: false, mouseOutHideDelay: 0 });
+
+    // Overlay instance /////////////////////////////////////////////////////
+    var overlay = new Y.Overlay({
+        // Specify a reference to a node which already exists
+        // on the page and contains header/body/footer content
+        srcNode:"#overlayContent",
+
+        // Also set some of the attributes inherited from
+        // the base Widget class.
+        visible:true,
+        headerContent:"My Overlay Header",
+        bodyContent:"My Overlay Body",
+        footerContent:"My Footer Content",
+        //xy:[300, 300],
+        width: 200
+    });
+    overlay.render();
+    var menuSplitNode = Y.one('#node-menunav-split');
+    overlay.move([menuSplitNode.getX(),  menuSplitNode.get('region').bottom + 150] );
+
+    // Panel instance ////////////////////////////////////////////////////////
+    var panel = new Y.Panel({
+        srcNode      : '#panelContent',
+        headerContent: 'Add A New Product',
+        width        : 250,
+        zIndex       : 5,
+        centered     : false,
+        modal        : false,
+        visible      : true,
+        render       : true,
+        plugins      : [Y.Plugin.Drag]
+    });
+    panel.addButton({
+        value  : 'Add Item',
+        section: Y.WidgetStdMod.FOOTER,
+        action : function (e) {
+            e.preventDefault();
+            addItem();
+        }
+    });
+    var overlayNode = Y.one('#overlayContent');
+    panel.move([overlayNode.getX(),  overlayNode.get('region').bottom + 50] );
+
+    // End of adding instances of widgets to be colored by this tool
+    /////////////////////////////////////////////////////////////////
+
+
+    // slider for radius changing in the UI ///////////////////////////////////
+
+    var radiusDefaultValue = 10,
+        sliderRadius = new Y.Slider({
+        axis  : 'x',
+        length: '200px',
+        min   : 0,
+        max   : 40,
+        value : radiusDefaultValue,
+    //    minorStep: 3,
+        after : {
+            valueChange: function (e) {
+                //report.setHTML(e.newVal);
+                space.radius = e.newVal;
+                updateColors();
+            }
+        }
+    });
+
+    sliderRadius.render('#slider-radius');
+    Y.one('.reset-radius').on('click', function() {
+        sliderRadius.set('value', radiusDefaultValue);
+    })
+    // end slider for radius ///////////////////////////
+
+
+    // slider for padding changing in the UI ///////////////////////////////////
+    var paddingDefaultValue = 50,
+        sliderPadding = new Y.Slider({
+        axis  : 'x',
+        length: '200px',
+        min   : 0,
+        max   : 200,
+        value : paddingDefaultValue,
+//        minorStep: 0.1,
+        after : {
+            valueChange: function (e) {
+                //Y.log(e.newVal / 50);
+                //report.setHTML(e.newVal);
+                space.padding = e.newVal / 50;
+                updateColors();
+                overlay.move([menuSplitNode.getX(),  menuSplitNode.get('region').bottom + 50] );
+                panel.move([overlayNode.getX(),  overlayNode.get('region').bottom + 50] );
+
+            }
+        }
+    });
+
+    sliderPadding.render('#slider-padding');
+    Y.one('.reset-padding').on('click', function() {
+        sliderPadding.set('value', paddingDefaultValue);
+    })
+    // end slider for padding ///////////////////////////
+
+
+    //////////////////////////////////////////////////////////////////////////
+    // Color scheme changer //////////////////////////////////////////////////
+
+    /* this checks background-color of page (in space) and checks to see if
+     * it's appropriate for the choosen color scheme, if not it changes to
+     * either white or black
+     */
+    var handleSchemeChangePageColor = function(schemeName) {
+        //
+        //alert('keyColor.page: ' + keyColor.page);
+        var hsl = hexToHsl(keyColor.page);
+        if (schemeName.indexOf('dark') > -1) {
+            if (hsl[2] > 50) {
+                // dark scheme, but light page color
+                keyColor.page = '#000000';
+            }
+        } else if (hsl[2] <= 50){
+                // not a dark scheme, but dark page color
+                keyColor.page = '#ffffff';
+        }
+    }
+
+    // listener for scheme changing radios
+    Y.one('.scheme-radios').delegate('click', function(){
+        var radios = Y.all('.scheme-radios input');
+        schemeName = this.get('id');
+        handleSchemeChangePageColor(schemeName); // change page background-color if needed
+        updateColors();
+        radios.set('checked', false);
+        this.set('checked', true);
+    }, 'input');
+
+
+
+
+    ///////////////////////////  Color Picker instance and handlers  /////////////////////////////////
+    var xy = [40, 40];
+    var overlayPicker = new Y.Overlay({
+        srcNode:"#picker-outer",
+        width:"13em",
+        height:"10em",
+        xy: [-800, 200]
+    });
+    overlayPicker.render();
+
+    var ddPicker = new Y.DD.Drag({
+        node: '#picker-outer'
+    });
+
+    var hsDot = new Y.DD.Drag({
+        node: '#hs-dot'
+    }).plug(Y.Plugin.DDConstrained, {
+        constrain2node: '#hs'
+    });
+
+    var lightHandle = new Y.DD.Drag({
+        node: '#sliderL-line'
+    }).plug(Y.Plugin.DDConstrained, {
+        constrain2node: '#sliderL'
+    });
+
+        // set the picker outer box ready for drag by grip
+        var pickerOuter = Y.one('#picker-outer');
+        pickerOuter.plug(Y.Plugin.Drag);
+
+        //Now you can only drag it from the .grip at the top of the blue box
+        pickerOuter.dd.addHandle('#picker-outer .grip');
+
+
+    var pickerH = 0,
+        pickerS = 50,
+        pickerL = 50,
+        objBucket = Y.one('.bucket-highest');
+
+        /* this updates the color swatch in the picker
+        * and the hex input control when contol*/
+    var pickerUpdateColors = function(objBucket){
+            var hsl = Y.Color.fromArray([pickerH, pickerS, pickerL], Y.Color.TYPES.HSL),
+            hex = Y.Color.toHex(hsl);
+
+            // depending on which bucket was clicked
+            // change either the key color or the page background color
+            if (objBucket.hasClass('page-background')) {
+                keyColor.page = hex;
+            } else if (objBucket.hasClass('bucket-highest')) {
+                keyColor.block.highest.background = hex;
+            }
+            updateColors();
+
+            Y.one('.picker-swatch').setStyles({'backgroundColor': hex});
+            Y.one('.picker-swatch .picker-input').set('value', hex);
+        };
+
+    var handlePickerTextInput = function(e) {
+        var hex = Y.one('.picker-input').get('value');
+        if (objBucket.hasClass('page-background')) {
+            keyColor.page = hex;
+        } else if (objBucket.hasClass('bucket-highest')) {
+            keyColor.block.highest.background = hex;
+        }
+        updateColors();
+
+        Y.one('.picker-swatch').setStyles({'backgroundColor': hex});
+        //Y.one('.picker-swatch .picker-input').set('value', hex);
+    }
+    Y.one('.picker-swatch .picker-input').on('blur', handlePickerTextInput);
+
+
+    var handlePicker = function(e) {
+        var relX = (e.clientX - e.currentTarget.getX() + Y.one('document').get('scrollLeft')),
+            relY = (e.clientY - e.currentTarget.getY() + Y.one('document').get('scrollTop'));
+
+        pickerH = relX * 2; // hue sat image in picker is 180 px wide. 2 * 180 = range of 0 to 360 for hue
+        pickerS = 100 -( relY / 180) * 100; // sat range is 0 to 100
+        Y.one('#hs-dot').setStyles({'top': relY + 'px', 'left': relX + 'px'});
+
+        pickerUpdateColors(objBucket);
+    }
+    var handleLight = function(e) {
+        pickerL = 100 - ((e.clientY - e.currentTarget.getY() + Y.one('document').get('scrollTop')) / 180) * 100; // lightness range is 0 to 100
+        Y.one('#sliderL-line').setStyle('top', (e.clientY - e.currentTarget.getY() + Y.one('document').get('scrollTop')) + 'px');
+        pickerUpdateColors(objBucket);
+    }
+    var showPicker = function(e) {
+        var relX = (e.clientX + Y.one('document').get('scrollLeft')),
+            relY = (e.clientY + Y.one('document').get('scrollTop')),
+            bucketHex,
+            hsl;
+
+
+        // For case of multiple buckets to click on
+        // we need to update the color picker display
+        // on picker show
+        // also set the var objBucket, which is the DOM obj to receive the new color
+        if (e.currentTarget.hasClass('bucket-page')) {
+            objBucket = Y.one('.page-background');
+            bucketHex = keyColor.page;
+        } else if (e.currentTarget.hasClass('bucket-highest')){
+            objBucket = e.currentTarget;
+            bucketHex = space.block.highest.background;
+        }
+        Y.one('.picker-swatch .picker-input').set('value', bucketHex);
+
+        // set UI to match color of bucket value clicked on
+        hsl = Y.Color.toArray(Y.Color.toHSL(bucketHex));
+        Y.one('#hs-dot').setStyles({'left': hsl[0] / 2, 'top': (hsl[1] / 100) * 180});
+        Y.one('#sliderL-line').setStyle('top', 180 - ((hsl[2] / 100) * 180));
+        Y.one('.picker-swatch').setStyle('backgroundColor', bucketHex);
+        // set all of the values that are used in pickerUpdateColors()
+        // so it will be ready to take a click, either h&s  or l
+        pickerH = hsl[0];
+        pickerS = hsl[1];
+        pickerL = hsl[2];
+
+        overlayPicker.show();
+        overlayPicker.move([(relX + 250), (relY - 10)]);
+
+    }
+    var handlePickerInputBlur = function(e) {
+        var hsl = hexToHsl(e.currentTarget.get('value'));
+
+        pickerH = hsl[0];
+        pickerS = hsl[1];
+        pickerL = hsl[2];
+        pickerUpdateColors(objBucket);
+
+    }
+
+    //  Twisty  ////////////////////////////////////////////////////////////////////////////////
+    // Expand/collapse the sub-items in the color space boxes
+    var handleTwisty = function(e){
+            var cspaceDivs = Y.one('.color-space').all('div'),
+                twisty = Y.one('.twisty');
+
+            // just for initial twisty expand while testing
+            if (typeof(e) === 'undefined') {
+                twisty.addClass('twisty-expand');
+                cspaceDivs.setStyle('display', 'block');
+                twisty.setAttribute('title', 'Collapse Color Palette');
+            }
+
+            if (e.currentTarget.hasClass('twisty-expand')) {
+                twisty.removeClass('twisty-expand');
+                cspaceDivs.setStyle('display', 'none');
+                Y.one('.color-space .background').setStyle('display', 'block');
+                Y.one('.color-space .background .text-normal').setStyle('display', 'block');
+                Y.one('.color-space .block-low').setStyle('display', 'block');
+                Y.one('.color-space .block-low-text-normal').setStyle('display', 'block');
+                Y.one('.color-space .block-normal').setStyle('display', 'block');
+                Y.one('.color-space .block-normal-text-normal').setStyle('display', 'block');
+                Y.one('.color-space .block-high').setStyle('display', 'block');
+                Y.one('.color-space .block-high-text-normal').setStyle('display', 'block');
+                Y.one('.color-space .block-highest').setStyle('display', 'block');
+                Y.one('.color-space .block-highest-text-normal').setStyle('display', 'block');
+                Y.all('.bucket').setStyle('display', 'block');
+                twisty.setAttribute('title', 'Show Full Color Palette')
+            } else {
+                twisty.addClass('twisty-expand');
+                cspaceDivs.setStyle('display', 'block');
+                twisty.setAttribute('title', 'Collapse Color Palette')
+            }
+
+        }
+
+
+    Y.one('.twisty').on('click', handleTwisty);
+    Y.one('#hs').on('click', handlePicker);
+    Y.one('#sliderL').on('click', handleLight);
+    Y.one('.picker-input').on('blur', handlePickerInputBlur);
+    Y.one('.close').on('click', function(e){
+        overlayPicker.hide();
+    });
+
+
+// for testing only
+//    setTimeout(handleTwisty, 1000);
+
+    Y.one('.inp-skin-name').on('blur', function(e) {
+        var body = Y.one('body');
+        // sets the skin name and class prefix that will be replaced in all the
+        // stylesheet templates
+        space.skin.name = Y.one('.inp-skin-name').get('value');
+        body.setAttribute('class', '');
+        body.addClass(space.skin.prefix.substring(1) + 'skin-' + space.skin.name);
+
+        // Then we need to do refresh[component]Skin() function calls
+        // Which are found in updateColors();
+        // This will send the skin name into the Widget Maps -> Stylesheet Templates -> CSS
+        updateColors();
+    });
+
+    Y.all('.bucket').on('click', showPicker);
+    Y.one('.page-background').setStyle('backgroundColor', keyColor.page);
+
+
+    Y.one('.block.background').on('mouseenter', function(e){
+        e.target.addClass('show-hover');
+    });
+    Y.one('.block.background').on('mouseout', function(e){
+        e.target.removeClass('show-hover');
+    });
 });
 </script>
-</body>
-</html>
+</html> 
