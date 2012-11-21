@@ -1,7 +1,6 @@
 YUI({
     modules: {
-        'skin-space': 'skin-space.js',
-
+        'skin-space'       : 'skin-space.js',
         'skin-autocomplete': 'skin-autocomplete.js',
         'skin-button'      : 'skin-button.js',
         'skin-calendar'    : 'skin-calendar.js',
@@ -11,14 +10,19 @@ YUI({
         'skin-overlay'     : 'skin-overlay.js',
         'skin-panel'       : 'skin-panel.js',
         'skin-scrollview'  : 'skin-scrollview.js',
-        'skin-tabview'     : 'skin-tabview.js'
+        'skin-tabview'     : 'skin-tabview.js',
+
+        'skinner': {
+            use: [
+                'skin-space', 'skin-autocomplete', 'skin-button',
+                'skin-calendar', 'skin-datatable', 'skin-dial',
+                'skin-node-menunav', 'skin-overlay', 'skin-panel',
+                'skin-scrollview', 'skin-tabview'
+            ]
+        }
     }
 }).use(
-    'skin-space',
-    'skin-autocomplete', 'skin-button', 'skin-calendar', 'skin-datatable',
-    'skin-dial', 'skin-node-menunav', 'skin-overlay', 'skin-panel',
-    'skin-scrollview', 'skin-tabview',
-    'handlebars',
+    'skinner', 'handlebars',
     'slider', 'overlay', 'panel', 'node-menunav', 'dial', 'autocomplete',
     'autocomplete-filters', 'autocomplete-highlighters', 'scrollview',
     'datatable-sort', 'dd-drag', 'dd-constrain', 'calendar', 'button-plugin',
