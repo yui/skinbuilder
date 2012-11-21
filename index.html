@@ -1572,341 +1572,342 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
 
 <script id="space-template" type="text/x-handlebars-template">
 /*************** Begin styles for the UI display of the color space in this tool *************/
-.yui3-skin-{{skin.name}} .background {
+.yui3-skin-{{skinName}} .background {
     background-color: {{background}};
     border: solid 1px;
-    border-color: {{border.high}} {{border.low}} {{border.low}} {{border.high}};
+    border-color: {{borderHigh}} {{borderLow}} {{borderLow}} {{borderHigh}};
 }
 
-.yui3-skin-{{skin.name}} .text-low {
-    color: {{text.low}};
+.yui3-skin-{{skinName}} .text-low {
+    color: {{textLow}};
 }
 
-.yui3-skin-{{skin.name}} .text-normal {
-    color: {{text.normal}};
+.yui3-skin-{{skinName}} .text-normal {
+    color: {{textNormal}};
 }
 
-.yui3-skin-{{skin.name}} .text-high {
-    color: {{text.high}};
+.yui3-skin-{{skinName}} .text-high {
+    color: {{textHigh}};
 }
 
-.yui3-skin-{{skin.name}} .rule-low {
-    border-top: solid 1px {{rule.low}};
+.yui3-skin-{{skinName}} .rule-low {
+    border-top: solid 1px {{ruleLow}};
 }
 
-.yui3-skin-{{skin.name}} .rule-high {
-    border-top: solid 1px {{rule.high}};
+.yui3-skin-{{skinName}} .rule-high {
+    border-top: solid 1px {{ruleHigh}};
 }
 
-.yui3-skin-{{skin.name}} .gradient {
+.yui3-skin-{{skinName}} .gradient {
     background: {{gradient}};
 }
 /* background:hover **************/
-.yui3-skin-{{skin.name}} .background.show-hover {
-    background-color: {{hover.background}};
+.yui3-skin-{{skinName}} .background.show-hover {
+    background-color: {{hoverBackground}};
     border: solid 1px;
-    border-color: {{hover.border.high}} {{hover.border.low}} {{hover.border.low}} {{hover.border.high}};
+    border-color: {{hoverBorderHigh}} {{hoverBorderLow}} {{hoverBorderLow}} {{hoverBorderHigh}};
 }
 
-.yui3-skin-{{skin.name}} .background.show-hover .text-low {
-    color: {{hover.text.low}};
+.yui3-skin-{{skinName}} .background.show-hover .text-low {
+    color: {{hoverTextLow}};
 }
 
-.yui3-skin-{{skin.name}} .background.show-hover .text-normal {
-    color: {{hover.text.normal}};
+.yui3-skin-{{skinName}} .background.show-hover .text-normal {
+    color: {{hoverTextNormal}};
 }
 
-.yui3-skin-{{skin.name}} .background.show-hover .text-high {
-    color: {{hover.text.high}};
+.yui3-skin-{{skinName}} .background.show-hover .text-high {
+    color: {{hoverTextHigh}};
 }
 
-.yui3-skin-{{skin.name}} .background.show-hover .rule-low {
-    border-top: solid 1px {{hover.rule.low}};
+.yui3-skin-{{skinName}} .background.show-hover .rule-low {
+    border-top: solid 1px {{hoverRuleLow}};
 }
 
-.yui3-skin-{{skin.name}} .background.show-hover .rule-high {
-    border-top: solid 1px {{hover.rule.high}};
+.yui3-skin-{{skinName}} .background.show-hover .rule-high {
+    border-top: solid 1px {{hoverRuleHigh}};
 }
 
-.yui3-skin-{{skin.name}} .background.show-hover .gradient {
-    background: {{hover.gradient}};
+.yui3-skin-{{skinName}} .background.show-hover .gradient {
+    background: {{hoverGradient}};
 }
 
 
 
 /* block low ************************************/
-.yui3-skin-{{skin.name}} .block-low {
-    background-color: {{block.low.background}};
+.yui3-skin-{{skinName}} .block-low {
+    background-color: {{blockLowBackground}};
 }
 
-.yui3-skin-{{skin.name}} .block-low {
-    border: solid 1px {{block.low.border.low}};
-    border-color: {{block.low.border.high}} {{block.low.border.low}} {{block.low.border.low}} {{block.low.border.high}};
+.yui3-skin-{{skinName}} .block-low {
+    border: solid 1px {{blockLowBorderLow}};
+    border-color: {{blockLowBorderHigh}} {{blockLowBorderLow}} {{blockLowBorderLow}} {{blockLowBorderHigh}};
 }
 
-.yui3-skin-{{skin.name}} .block-low-text-low {
-    color: {{block.low.text.low}};
+.yui3-skin-{{skinName}} .block-low-text-low {
+    color: {{blockLowTextLow}};
 }
 
-.yui3-skin-{{skin.name}} .block-low-text-normal {
-    color: {{block.low.text.normal}};
+.yui3-skin-{{skinName}} .block-low-text-normal {
+    color: {{blockLowTextNormal}};
 }
 
-.yui3-skin-{{skin.name}} .block-low-text-high {
-    color: {{block.low.text.high}};
+.yui3-skin-{{skinName}} .block-low-text-high {
+    color: {{blockLowTextHigh}};
 }
 
-.yui3-skin-{{skin.name}} .block-low-rule-low {
-    border-top: solid 1px {{block.low.rule.low}};
+.yui3-skin-{{skinName}} .block-low-rule-low {
+    border-top: solid 1px {{blockLowRuleLow}};
 }
 
-.yui3-skin-{{skin.name}} .block-low-rule-high {
-    border-top: solid 1px {{block.low.rule.high}};
+.yui3-skin-{{skinName}} .block-low-rule-high {
+    border-top: solid 1px {{blockLowRuleHigh}};
 }
 
-.yui3-skin-{{skin.name}} .block-low .gradient {
-    background: {{block.low.gradient}};
+.yui3-skin-{{skinName}} .block-low .gradient {
+    background: {{blockLowGradient}};
 }
 
 /* block low:hover ************************************/
-.yui3-skin-{{skin.name}} .block-low:hover {
-    background-color: {{block.low.hover.background}};
+.yui3-skin-{{skinName}} .block-low:hover {
+    background-color: {{blockLowHoverBackground}};
 }
 
-.yui3-skin-{{skin.name}} .block-low:hover {
-    border: solid 1px {{block.low.hover.border.low}};
-    border-color: {{block.low.hover.border.high}} {{block.low.hover.border.low}} {{block.low.hover.border.low}} {{block.low.hover.border.high}};
+.yui3-skin-{{skinName}} .block-low:hover {
+    border: solid 1px {{blockLowHoverBorderLow}};
+    border-color: {{blockLowHoverBorderHigh}} {{blockLowHoverBorderLow}} {{blockLowHoverBorderLow}} {{blockLowHoverBorderHigh}};
 }
 
-.yui3-skin-{{skin.name}} .block-low:hover .block-low-text-low {
-    color: {{block.low.hover.text.low}};
+.yui3-skin-{{skinName}} .block-low:hover .block-low-text-low {
+    color: {{blockLowHoverTextLow}};
 }
 
-.yui3-skin-{{skin.name}} .block-low:hover .block-low-text-normal {
-    color: {{block.low.hover.text.normal}};
+.yui3-skin-{{skinName}} .block-low:hover .block-low-text-normal {
+    color: {{blockLowHoverTextNormal}};
 }
 
-.yui3-skin-{{skin.name}} .block-low:hover .block-low-text-high {
-    color: {{block.low.hover.text.high}};
+.yui3-skin-{{skinName}} .block-low:hover .block-low-text-high {
+    color: {{blockLowHoverTextHigh}};
 }
 
-.yui3-skin-{{skin.name}} .block-low:hover .block-low-rule-low {
-    border-top: solid 1px {{block.low.hover.rule.low}};
+.yui3-skin-{{skinName}} .block-low:hover .block-low-rule-low {
+    border-top: solid 1px {{blockLowHoverRuleLow}};
 }
 
-.yui3-skin-{{skin.name}} .block-low:hover .block-low-rule-high {
-    border-top: solid 1px {{block.low.hover.rule.high}};
+.yui3-skin-{{skinName}} .block-low:hover .block-low-rule-high {
+    border-top: solid 1px {{blockLowHoverRuleHigh}};
 }
 
-.yui3-skin-{{skin.name}} .block-low:hover .gradient {
-    background: {{block.low.hover.gradient}};
+.yui3-skin-{{skinName}} .block-low:hover .gradient {
+    background: {{blockLowHoverGradient}};
 }
 
 /* block normal *********************************/
-.yui3-skin-{{skin.name}} .block-normal {
-    background-color: {{block.normal.background}};
+.yui3-skin-{{skinName}} .block-normal {
+    background-color: {{blockNormalBackground}};
 }
 
-.yui3-skin-{{skin.name}} .block-normal {
-    border: solid 1px {{block.normal.border.low}};
-    border-color: {{block.normal.border.high}} {{block.normal.border.low}} {{block.normal.border.low}} {{block.normal.border.high}};
+.yui3-skin-{{skinName}} .block-normal {
+    border: solid 1px {{blockNormalBorderLow}};
+    border-color: {{blockNormalBorderHigh}} {{blockNormalBorderLow}} {{blockNormalBorderLow}} {{blockNormalBorderHigh}};
 }
 
-.yui3-skin-{{skin.name}} .block-normal-text-low {
-    color: {{block.normal.text.low}};
+.yui3-skin-{{skinName}} .block-normal-text-low {
+    color: {{blockNormalTextLow}};
 }
 
-.yui3-skin-{{skin.name}} .block-normal-text-normal {
-    color: {{block.normal.text.normal}};
+.yui3-skin-{{skinName}} .block-normal-text-normal {
+    color: {{blockNormalTextNormal}};
 }
 
-.yui3-skin-{{skin.name}} .block-normal-text-high {
-    color: {{block.normal.text.high}};
+.yui3-skin-{{skinName}} .block-normal-text-high {
+    color: {{blockNormalTextHigh}};
 }
 
-.yui3-skin-{{skin.name}} .block-normal-rule-low {
-    border-top: solid 1px {{block.normal.rule.low}};
+.yui3-skin-{{skinName}} .block-normal-rule-low {
+    border-top: solid 1px {{blockNormalRuleLow}};
 }
 
-.yui3-skin-{{skin.name}} .block-normal-rule-high {
-    border-top: solid 1px {{block.normal.rule.high}};
+.yui3-skin-{{skinName}} .block-normal-rule-high {
+    border-top: solid 1px {{blockNormalRuleHigh}};
 }
 
-.yui3-skin-{{skin.name}} .block-normal .gradient {
-    background: {{block.normal.gradient}};
+.yui3-skin-{{skinName}} .block-normal .gradient {
+    background: {{blockNormalGradient}};
 }
 
 /* block normal:hover  *********************************/
-.yui3-skin-{{skin.name}} .block-normal:hover {
-    background-color: {{block.normal.hover.background}};
+.yui3-skin-{{skinName}} .block-normal:hover {
+    background-color: {{blockNormalHoverBackground}};
 }
 
-.yui3-skin-{{skin.name}} .block-normal:hover {
-    border: solid 1px {{block.normal.hover.border.low}};
-    border-color: {{block.normal.hover.border.high}} {{block.normal.hover.border.low}} {{block.normal.hover.border.low}} {{block.normal.hover.border.high}};
+.yui3-skin-{{skinName}} .block-normal:hover {
+    border: solid 1px {{blockNormalHoverBorderLow}};
+    border-color: {{blockNormalHoverBorderHigh}} {{blockNormalHoverBorderLow}} {{blockNormalHoverBorderLow}} {{blockNormalHoverBorderHigh}};
 }
 
-.yui3-skin-{{skin.name}} .block-normal:hover .block-normal-text-low {
-    color: {{block.normal.hover.text.low}};
+.yui3-skin-{{skinName}} .block-normal:hover .block-normal-text-low {
+    color: {{blockNormalHoverTextLow}};
 }
 
-.yui3-skin-{{skin.name}} .block-normal:hover .block-normal-text-normal {
-    color: {{block.normal.hover.text.normal}};
+.yui3-skin-{{skinName}} .block-normal:hover .block-normal-text-normal {
+    color: {{blockNormalHoverTextNormal}};
 }
 
-.yui3-skin-{{skin.name}} .block-normal:hover .block-normal-text-high {
-    color: {{block.normal.hover.text.high}};
+.yui3-skin-{{skinName}} .block-normal:hover .block-normal-text-high {
+    color: {{blockNormalHoverTextHigh}};
 }
 
-.yui3-skin-{{skin.name}} .block-normal:hover .block-normal-rule-low {
-    border-top: solid 1px {{block.normal.hover.rule.low}};
+.yui3-skin-{{skinName}} .block-normal:hover .block-normal-rule-low {
+    border-top: solid 1px {{blockNormalHoverRuleLow}};
 }
 
-.yui3-skin-{{skin.name}} .block-normal:hover .block-normal-rule-high {
-    border-top: solid 1px {{block.normal.hover.rule.high}};
+.yui3-skin-{{skinName}} .block-normal:hover .block-normal-rule-high {
+    border-top: solid 1px {{blockNormalHoverRuleHigh}};
 }
 
-.yui3-skin-{{skin.name}} .block-normal:hover .gradient {
-    background: {{block.normal.hover.gradient}};
+.yui3-skin-{{skinName}} .block-normal:hover .gradient {
+    background: {{blockNormalHoverGradient}};
 }
 
 /* block high *********************************/
-.yui3-skin-{{skin.name}} .block-high {
-    background-color: {{block.high.background}};
+.yui3-skin-{{skinName}} .block-high {
+    background-color: {{blockHighBackground}};
 }
 
-.yui3-skin-{{skin.name}} .block-high {
-    border: solid 1px {{block.high.border.low}};
-    border-color: {{block.high.border.high}} {{block.high.border.low}} {{block.high.border.low}} {{block.high.border.high}};
+.yui3-skin-{{skinName}} .block-high {
+    border: solid 1px {{blockHighBorderLow}};
+    border-color: {{blockHighBorderHigh}} {{blockHighBorderLow}} {{blockHighBorderLow}} {{blockHighBorderHigh}};
 }
 
-.yui3-skin-{{skin.name}} .block-high-text-low {
-    color: {{block.high.text.low}};
+.yui3-skin-{{skinName}} .block-high-text-low {
+    color: {{blockHighTextLow}};
 }
 
-.yui3-skin-{{skin.name}} .block-high-text-normal {
-    color: {{block.high.text.normal}};
+.yui3-skin-{{skinName}} .block-high-text-normal {
+    color: {{blockHighTextNormal}};
 }
 
-.yui3-skin-{{skin.name}} .block-high-text-high {
-    color: {{block.high.text.high}};
+.yui3-skin-{{skinName}} .block-high-text-high {
+    color: {{blockHighTextHigh}};
 }
 
-.yui3-skin-{{skin.name}} .block-high-rule-low {
-    border-top: solid 1px {{block.high.rule.low}};
+.yui3-skin-{{skinName}} .block-high-rule-low {
+    border-top: solid 1px {{blockHighRuleLow}};
 }
 
-.yui3-skin-{{skin.name}} .block-high-rule-high {
-    border-top: solid 1px {{block.high.rule.high}};
+.yui3-skin-{{skinName}} .block-high-rule-high {
+    border-top: solid 1px {{blockHighRuleHigh}};
 }
 
-.yui3-skin-{{skin.name}} .block-high .gradient {
-    background: {{block.high.gradient}};
+.yui3-skin-{{skinName}} .block-high .gradient {
+    background: {{blockHighGradient}};
 }
 
 /* block high:hover *********************************/
-.yui3-skin-{{skin.name}} .block-high:hover {
-    background-color: {{block.high.hover.background}};
+.yui3-skin-{{skinName}} .block-high:hover {
+    background-color: {{blockHighHoverBackground}};
 }
 
-.yui3-skin-{{skin.name}} .block-high:hover {
-    border: solid 1px {{block.high.hover.border.low}};
-    border-color: {{block.high.hover.border.high}} {{block.high.hover.border.low}} {{block.high.hover.border.low}} {{block.high.hover.border.high}};
+.yui3-skin-{{skinName}} .block-high:hover {
+    border: solid 1px {{blockHighHoverBorderLow}};
+    border-color: {{blockHighHoverBorderHigh}} {{blockHighHoverBorderLow}} {{blockHighHoverBorderLow}} {{blockHighHoverBorderHigh}};
 }
 
-.yui3-skin-{{skin.name}} .block-high:hover .block-high-text-low {
-    color: {{block.high.hover.text.low}};
+.yui3-skin-{{skinName}} .block-high:hover .block-high-text-low {
+    color: {{blockHighHoverTextLow}};
 }
 
-.yui3-skin-{{skin.name}} .block-high:hover .block-high-text-normal {
-    color: {{block.high.hover.text.normal}};
+.yui3-skin-{{skinName}} .block-high:hover .block-high-text-normal {
+    color: {{blockHighHoverTextNormal}};
 }
 
-.yui3-skin-{{skin.name}} .block-high:hover .block-high-text-high {
-    color: {{block.high.hover.text.high}};
+.yui3-skin-{{skinName}} .block-high:hover .block-high-text-high {
+    color: {{blockHighHoverTextHigh}};
 }
 
-.yui3-skin-{{skin.name}} .block-high:hover .block-high-rule-low {
-    border-top: solid 1px {{block.high.hover.rule.low}};
+.yui3-skin-{{skinName}} .block-high:hover .block-high-rule-low {
+    border-top: solid 1px {{blockHighHoverRuleLow}};
 }
 
-.yui3-skin-{{skin.name}} .block-high:hover .block-high-rule-high {
-    border-top: solid 1px {{block.high.hover.rule.high}};
+.yui3-skin-{{skinName}} .block-high:hover .block-high-rule-high {
+    border-top: solid 1px {{blockHighHoverRuleHigh}};
 }
 
-.yui3-skin-{{skin.name}} .block-high:hover .gradient {
-    background: {{block.high.hover.gradient}};
+.yui3-skin-{{skinName}} .block-high:hover .gradient {
+    background: {{blockHighHoverGradient}};
 }
 
 /* block highest *********************************/
-.yui3-skin-{{skin.name}} .block-highest {
-    background-color: {{block.highest.background}};
+.yui3-skin-{{skinName}} .block-highest {
+    background-color: {{blockHighestBackground}};
 }
 
-.yui3-skin-{{skin.name}} .block-highest {
-    border: solid 1px {{block.highest.border.low}};
-    border-color: {{block.highest.border.high}} {{block.highest.border.low}} {{block.highest.border.low}} {{block.highest.border.high}};
+.yui3-skin-{{skinName}} .block-highest {
+    border: solid 1px {{blockHighestBorderLow}};
+    border-color: {{blockHighestBorderHigh}} {{blockHighestBorderLow}} {{blockHighestBorderLow}} {{blockHighestBorderHigh}};
 }
 
-.yui3-skin-{{skin.name}} .block-highest-text-low {
-    color: {{block.highest.text.low}};
+.yui3-skin-{{skinName}} .block-highest-text-low {
+    color: {{blockHighestTextLow}};
 }
 
-.yui3-skin-{{skin.name}} .block-highest-text-normal {
-    color: {{block.highest.text.normal}};
+.yui3-skin-{{skinName}} .block-highest-text-normal {
+    color: {{blockHighestTextNormal}};
 }
 
-.yui3-skin-{{skin.name}} .block-highest-text-high {
-    color: {{block.highest.text.high}};
+.yui3-skin-{{skinName}} .block-highest-text-high {
+    color: {{blockHighestTextHigh}};
 }
 
-.yui3-skin-{{skin.name}} .block-highest-rule-low {
-    border-top: solid 1px {{block.highest.rule.low}};
+.yui3-skin-{{skinName}} .block-highest-rule-low {
+    border-top: solid 1px {{blockHighestRuleLow}};
 }
 
-.yui3-skin-{{skin.name}} .block-highest-rule-high {
-    border-top: solid 1px {{block.highest.rule.high}};
+.yui3-skin-{{skinName}} .block-highest-rule-high {
+    border-top: solid 1px {{blockHighestRuleHigh}};
 }
 
-.yui3-skin-{{skin.name}} .block-highest .gradient {
-    background: {{block.highest.gradient}};
+.yui3-skin-{{skinName}} .block-highest .gradient {
+    background: {{blockHighestGradient}};
 }
 
 /* block highest:hover *********************************/
-.yui3-skin-{{skin.name}} .block-highest:hover {
-    background-color: {{block.highest.hover.background}};
+.yui3-skin-{{skinName}} .block-highest:hover {
+    background-color: {{blockHighestHoverBackground}};
 }
 
-.yui3-skin-{{skin.name}} .block-highest:hover {
-    border: solid 1px {{block.highest.hover.border.low}};
-    border-color: {{block.highest.hover.border.high}} {{block.highest.hover.border.low}} {{block.highest.hover.border.low}} {{block.highest.hover.border.high}};
+.yui3-skin-{{skinName}} .block-highest:hover {
+    border: solid 1px {{blockHighestHoverBorderLow}};
+    border-color: {{blockHighestHoverBorderHigh}} {{blockHighestHoverBorderLow}} {{blockHighestHoverBorderLow}} {{blockHighestHoverBorderHigh}};
 }
 
-.yui3-skin-{{skin.name}} .block-highest:hover .block-highest-text-low {
-    color: {{block.highest.hover.text.low}};
+.yui3-skin-{{skinName}} .block-highest:hover .block-highest-text-low {
+    color: {{blockHighestHoverTextLow}};
 }
 
-.yui3-skin-{{skin.name}} .block-highest:hover .block-highest-text-normal {
-    color: {{block.highest.hover.text.normal}};
+.yui3-skin-{{skinName}} .block-highest:hover .block-highest-text-normal {
+    color: {{blockHighestHoverTextNormal}};
 }
 
-.yui3-skin-{{skin.name}} .block-highest:hover .block-highest-text-high {
-    color: {{block.highest.hover.text.high}};
+.yui3-skin-{{skinName}} .block-highest:hover .block-highest-text-high {
+    color: {{blockHighestHoverTextHigh}};
 }
 
-.yui3-skin-{{skin.name}} .block-highest:hover .block-highest-rule-low {
-    border-top: solid 1px {{block.highest.hover.rule.low}};
+.yui3-skin-{{skinName}} .block-highest:hover .block-highest-rule-low {
+    border-top: solid 1px {{blockHighestHoverRuleLow}};
 }
 
-.yui3-skin-{{skin.name}} .block-highest:hover .block-highest-rule-high {
-    border-top: solid 1px {{block.highest.hover.rule.high}};
+.yui3-skin-{{skinName}} .block-highest:hover .block-highest-rule-high {
+    border-top: solid 1px {{blockHighestHoverRuleHigh}};
 }
 
-.yui3-skin-{{skin.name}} .block-highest:hover .gradient {
-    background: {{block.highest.hover.gradient}};
+.yui3-skin-{{skinName}} .block-highest:hover .gradient {
+    background: {{blockHighestHoverGradient}};
 }
 
 /*************** End styles for the UI display of the color space in this tool *************/
+
 </script>
 </head>
 
