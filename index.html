@@ -1,6 +1,6 @@
 <!doctype html>
 <html class='page-background'>
-<head> 
+<head>
 <meta charset="utf-8">
 <title>Skinner Demo</title>
 
@@ -1928,330 +1928,11 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
 }
 
 /*************** End styles for the UI display of the color space in this tool *************/
-
 </script>
-<style>
-/*****  this is only to layout calendar display on UI tool page ****/
-.yui3-widget {
-    margin-bottom: 2em;
-}
-#dial {
-    margin-top: 2em;
-}
-.widget-column{
-/*    position: fixed;*/
-}
-#widget-container{
-/*    display: none;
-    padding-left: 129px;*/
-}
-/*************************  CSS for Overlay and Panel placement in UI of tool *************/
-#overlayAnchor {
-    margin-top: 7em;
-}
-#overlayContent{
-    /*opacity: 0; */
-}
-#panelAnchor {
-    margin-top: 200px;
-}
-#panelContent{
-    /*opacity: 0;  */
-}
-#node-menunav-split {
-    margin-top: 2em;
-}
 
-</style>
+<link rel="stylesheet" href="styles.css" />
+</head>
 
-
-
-<style>
-/*****************  this is only to layout abstract color space  ****************/
-body {
-    margin: 0;
-    width: 100%;
-    font-family: arial;
-    color: #444;
-}
-.color-space {
-    width: 284px;
-    position: relative;
-}
-.contents {
-    padding-left: 1em;
-}
-h1 {
-    font-size: 145%;
-    margin: 0 0 0.3em;
-}
-.color-space .label-block, .color-space .rule, .color-space .label-grad, .color-space .label-master {
-    font-family: arial;
-    font-size: 11px;
-}
-.color-space .text {
-    font-size: 17px;
-}
-.background {
-    position: relative;
-    padding: 0.5em 2em 1em 1em !important;
-    margin-bottom: 1em !important;
-}
-
-.block {
-    position: relative;
-    padding: 0.5em 1.5em 0.5em 0.5em;
-    margin: 0.5em 0 0.5em;
-    border-width: 3px !important;
-    border-radius: 4px;
-}
-.rule {
-    margin-top: 1em;
-}
-
-/*just to move labels of gradients so they are readable*/
-.color-space .g-master,
-.color-space .g-l,
-.color-space .g-n,
-.color-space .g-h,
-.color-space .b-l-g-l,
-.color-space .b-l-g-n,
-.color-space .b-l-g-h,
-
-.color-space .b-n-g-l,
-.color-space .b-n-g-n,
-.color-space .b-n-g-h,
-
-.color-space .b-h-g-l,
-.color-space .b-h-g-n,
-.color-space .b-h-g-h {
-    text-indent: -1.5em;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 1.5em;
-    overflow-x: visible;
-}
-
-.gradient{
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 1em;
-    height: 100%;
-}
-
-.label-grad {
-    position: absolute;
-    top: 0;
-    right: 0;
-}
-.bucket {
-    background: url(assets/images/bucket_pour.png) no-repeat;
-    width: 24px;
-    height: 32px;
-    cursor: pointer;
-}
-.bucket-background {
-    display: none;
-}
-.bucket-page {
-    font-size: 60%;
-    padding: 1em 3em;
-    position: absolute;
-    top: 0;
-    right: -95px;
-}
-/* expand/collapse color blocks and content */
-.twisty {
-    display: inline-block;
-    width: 0;
-    height: 0;
-    border: solid 10px;
-    border-color: transparent transparent transparent #444444;
-    margin-left: 10px;
-    cursor: pointer;
-}
-.twisty-expand {
-    border-color: #444444 transparent transparent  transparent;
-    border-bottom-width: 2px;
-    margin-left: 5px;
-}
-/********* skin name controls ***************/
-.skin-name-box {
-    margin-bottom: 1em;
-}
-/************* Scheme choosing radios *************/
-.scheme-radios {
-    list-style: none;
-    margin: 0 0 2em;
-    padding: 0;
-}
-.scheme-radios label {
-    cursor: pointer;
-}
-.scheme-radios .swatches {
-    display: inline-block;
-    margin: 0;
-    padding: 5px;
-    background-color: #fff;
-}
-.scheme-radios .swatches-dark {
-    background-color: #000;
-}
-.scheme-radios .swatches li {
-    width: 15px;
-    height: 20px;
-    display: inline-block;
-    margin: 0;
-    vertical-align: top;
-}
-.scheme-radios .swatches li:first-child {
-    width: 30px;
-}
-
-.block,
-.rule .label, .block .label-block,
-.rule,
-.gradient {
-    display: none;
-}
-.block {
-    display:block;
-}
-.color-space .background {
-    display: block;
-}
-.text {
-/**/    display: none;
-}
-.block .text-normal,
-.block .block-highest-text-normal,
-.block .block-high-text-normal,
-.block .block-normal-text-normal,
-.block .block-low-text-normal
-{
-    display: block;
-}
-</style>
-
-
-<style>
-/* color picker styles*/
-.yui3-overlay {
-    z-index: 10;
-}
-.yui3-overlay #picker-outer {
-    border: 1px solid #CCCCCC;
-    background-color: #eee;
-    height: 220px;
-    padding: 1.3em 1em;
-    position: absolute;
-    width: 335px;
-    box-shadow: 6px 6px 5px rgba(0, 0, 0, 0.15);
-    border-radius: 5px;
-}
-.yui3-overlay #picker-outer .grip {
-    background: url(assets/images/picker_grip.png);
-    position: absolute;
-    height: 11px;
-    left: 16px;
-    top: 5px;
-    width: 284px;
-    cursor: pointer;
-}
-#picker {
-    position: relative;
-    height: 180px;
-    width: 200px;
-}
-#hs-dot {
-    position: absolute;
-    top: 90px;
-    left: 0;
-    cursor: pointer;
-    width: 2px;
-    height: 2px;
-}
-#hs-dot div {
-    position: absolute;
-    left: -4px;
-    top: -9px;
-    width: 2px;
-    height: 2px;
-    cursor: pointer;
-    text-shadow: 0px 0px 3px rgba(255, 255, 255, 0.9);
-}
-#sliderL-line {
-    position: absolute;
-    top: 90px;
-    left: -3px;
-    width: 25px;
-    height: 0px;
-    border: solid 1px;
-    border-color: #fff #fff #000 #fff;
-    cursor: pointer;
-}
-#hs {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 180px;
-    height: 180px;
-    cursor: pointer;
-}
-#sliderL {
-    position: absolute;
-    top: 0;
-    left: 193px;
-    width: 20px;
-    height: 180px;
-    cursor: pointer;
-    margin-left: 10px;
-}
-.picker-swatch {
-
-    position: absolute;
-    left: 243px;
-    top: 59px;
-    width: 50px;
-    height: 50px;
-    border: solid 1px #ccc;
-    background-color: #BB3E3E;
-    text-indent: 1em;
-    line-height: 44px;
-}
-.picker-input {
-    margin: 56px 0 0 -17px;
-    width: 57px;}
-.close {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    cursor: pointer;
-}
-.label-textarea {
-    display: block;
-}
-#textarea-style {
-    width: 284px;
-    height: 300px;
-}
-.skin-name-box .hint {
-    font-size: 80%;
-    color: #bbb;
-}
-.page-head {
-    background-color: rgba(100, 100, 100, 0.2);
-    color: rgba(100, 100, 100, 0.5);
-    font-size: 200%;
-    margin-bottom: 0.3em;
-    padding: 0.3em 0.5em;
-}
-</style>
-
-</head> 
 <body class="yui3-skin-mine">   <!--yui3-skin-sam-->
 <div class="page-head">
 Skinner Demo
@@ -2346,23 +2027,6 @@ Skinner Demo
 
                 </div>
             </div>
-            <style type="text/css">
-                .markup {
-                    margin: 10px 0;
-                    position: relative;
-                }
-                .markup .reset {
-                    position: absolute;
-                    top: 20px;
-                    left: 215px;
-                    cursor: pointer;
-                    color: #7E92CC;
-                }
-                .markup .reset:hover {
-                    text-decoration: underline;
-                }
-
-            </style>
             <div class="markup yui3-skin-sam">
                 <label>Adjust border-radius</label><a class="reset reset-radius">Reset</a>
                 <div id="slider-radius"></div>
@@ -2416,21 +2080,6 @@ Skinner Demo
                         <li>Chicken</li>
                     </ul>
                 </div>
-                <style>
-                    /* To layout horizontal LIs */
-                    #scrollview-content-horiz {
-                        white-space:nowrap;
-                    }
-
-                    #scrollview-content-horiz li {
-                        display:inline-block;
-                    }
-
-                    /* For IE 6/7 - needs inline block hack (and the background color mentioned above) */
-                    #scrollview-content-horiz li {
-                        *display:inline;
-                        *zoom:1;
-}                </style>
                 <div id="scrollview-content-horiz" class="yui3-scrollview-loading">
                     <ul>
                         <li>Dog</li>
@@ -3454,7 +3103,7 @@ YUI().use('slider', 'overlay', 'panel', 'node-menunav', 'dial', 'autocomplete', 
     });
 });
 </script>
-</html> 
+</html>
 <!--
 Copyright 2012 Yahoo! Inc. All rights reserved.
 
