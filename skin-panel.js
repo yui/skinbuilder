@@ -1,17 +1,20 @@
+YUI.add('skin-panel', function (Y) {
 
-var panelSkin,
-    refreshPanelSkin = function() {
+var Skin  = Y.Skin,
+    space = Skin.SPACE;
 
-    panelSkin = {
+Skin.panel = null;
+Skin.refreshPanelSkin = function () {
+    Skin.panel = {
         skinName: space.skin.name,
         prefix:   space.skin.prefix,
 
-        hdPadding: getPadding(0.5), // /*8px 28px 8px 8px
-        bdPadding: getPadding(0.5), // /*8px;*/
-        ftPadding: getPadding(0.5), // /*8px;*/
-        hdButtonPadding: getPadding(0.2), // /*8px;*/
+        hdPadding: Skin.getPadding(0.5), // /*8px 28px 8px 8px
+        bdPadding: Skin.getPadding(0.5), // /*8px;*/
+        ftPadding: Skin.getPadding(0.5), // /*8px;*/
+        hdButtonPadding: Skin.getPadding(0.2), // /*8px;*/
 
-        panelRadius:        getRadius(0.4), // 40% of the global space.radius
+        panelRadius:        Skin.getRadius(0.4), // 40% of the global space.radius
         background:         space.background,
         border:             space.block.low.border.low,
         text:               space.text.normal,
@@ -24,8 +27,9 @@ var panelSkin,
         footBackground:         space.block.low.background,
 
         foo: space
-
-
     };
-
 };
+
+}, '0.0.1', {
+    requires: ['skin-space']
+});

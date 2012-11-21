@@ -1,14 +1,17 @@
+YUI.add('skin-calendar', function (Y) {
 
-var calendarSkin,
-    refreshCalendarSkin = function() {
+var Skin  = Y.Skin,
+    space = Skin.SPACE;
 
-    calendarSkin = {
+Skin.calendar = null;
+Skin.refreshCalendarSkin = function () {
+    Skin.calendar = {
         skinName: space.skin.name,
         prefix:   space.skin.prefix,
 
-        containerPadding: getPadding(1, 1, 1.5),  // 100% of the global padding in space.padding (space.js)
-        dayPadding: getPadding(0.16,0.16,0.24),
-        containerRadius: getRadius(0.8),  // 80% of the global radius in space.radius (space.js)
+        containerPadding: Skin.getPadding(1, 1, 1.5),  // 100% of the global padding in space.padding (space.js)
+        dayPadding: Skin.getPadding(0.16, 0.16, 0.24),
+        containerRadius: Skin.getRadius(0.8),  // 80% of the global radius in space.radius (space.js)
         background: space.background,
         gradient: space.gradient,
         text: space.text.normal,
@@ -45,5 +48,8 @@ var calendarSkin,
 
         foo: space
     };
-
 };
+
+}, '0.0.1', {
+    requires: ['skin-space']
+});

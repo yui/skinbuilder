@@ -1,13 +1,16 @@
+YUI.add('skin-button', function (Y) {
 
-var buttonSkin,
-    refreshButtonSkin = function() {
+var Skin  = Y.Skin,
+    space = Skin.SPACE;
 
-    buttonSkin = {
+Skin.button = null;
+Skin.refreshButtonSkin = function () {
+    Skin.button = {
         skinName: space.skin.name,
         prefix:   space.skin.prefix,
 
-        buttonRadius: getRadius(0.4),
-        padding: getPadding(0.4, 1, 0.45),
+        buttonRadius: Skin.getRadius(0.4),
+        padding: Skin.getPadding(0.4, 1, 0.45),
         background: space.block.high.background,
         gradient:   space.block.high.gradient,
         text:       space.block.high.text.normal,
@@ -37,8 +40,9 @@ var buttonSkin,
 
 
         foo: space
-
-
     };
-
 };
+
+}, '0.0.1', {
+    requires: ['skin-space']
+});

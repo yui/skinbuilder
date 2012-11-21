@@ -1,8 +1,11 @@
+YUI.add('skin-dial', function (Y) {
 
-var dialSkin,
-    refreshDialSkin = function() {
+var Skin  = Y.Skin,
+    space = Skin.SPACE;
 
-    dialSkin = {
+Skin.dial = null;
+Skin.refreshDialSkin = function () {
+    Skin.dial = {
         skinName: space.skin.name,
         prefix:   space.skin.prefix,
 
@@ -18,8 +21,9 @@ var dialSkin,
         label:                          space.text.normal,
 
         foo: space
-
-
     };
-
 };
+
+}, '0.0.1', {
+    requires: ['skin-space']
+});

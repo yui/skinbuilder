@@ -1,16 +1,19 @@
+YUI.add('skin-node-menunav', function (Y) {
 
-var nodeMenunavSkin,
-    refreshNodeMenunavSkin = function() {
+var Skin  = Y.Skin,
+    space = Skin.SPACE;
 
-    nodeMenunavSkin = {
+Skin.nodeMenunav = null;
+Skin.refreshNodeMenunavSkin = function () {
+    Skin.nodeMenunav = {
         skinName: space.skin.name,
         prefix:   space.skin.prefix,
 
-        menuContentPadding: getPadding(0.1, 0),
-        itemPadding: getPadding(0.1, 0.5), ///*0 1em;
-        horizontalLabelPadding: getPadding(0.1, 0.5), /*0 10px;*/
-        splitButtonNavPadding: getPadding(0.1, 0.3, 0.1, 0.5), //*0 5px 0 10px;*/
-        togglePadding: getPadding(0.1, 0.001, 0.1),
+        menuContentPadding: Skin.getPadding(0.1, 0),
+        itemPadding: Skin.getPadding(0.1, 0.5), ///*0 1em;
+        horizontalLabelPadding: Skin.getPadding(0.1, 0.5), /*0 10px;*/
+        splitButtonNavPadding: Skin.getPadding(0.1, 0.3, 0.1, 0.5), //*0 5px 0 10px;*/
+        togglePadding: Skin.getPadding(0.1, 0.001, 0.1),
 
         background:         space.background,
         border:             space.border.low,
@@ -28,8 +31,9 @@ var nodeMenunavSkin,
 //        selectedMenuItemBackground: space.block.high.background,
 
         foo: space
-
-
     };
-
 };
+
+}, '0.0.1', {
+    requires: ['skin-space']
+});

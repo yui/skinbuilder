@@ -1,12 +1,15 @@
+YUI.add('skin-scrollview', function (Y) {
 
-var scrollviewSkin,
-    refreshScrollviewSkin = function() {
+var Skin  = Y.Skin,
+    space = Skin.SPACE;
 
-    scrollviewSkin = {
+Skin.scrollview = null;
+Skin.refreshScrollviewSkin = function () {
+    Skin.scrollview = {
         skinName: space.skin.name,
         prefix:   space.skin.prefix,
 
-        itemPadding: getPadding(0.3, 0.5),
+        itemPadding: Skin.getPadding(0.3, 0.5),
 
         background:         space.background,
         border:             space.border.low,
@@ -21,8 +24,9 @@ var scrollviewSkin,
         scrollbarBackground:  space.block.normal.background,
 
         foo: space
-
-
     };
-
 };
+
+}, '0.0.1', {
+    requires: ['skin-space']
+});

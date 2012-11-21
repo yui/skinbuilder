@@ -1,15 +1,18 @@
+YUI.add('skin-tabview', function (Y) {
 
-var tabviewSkin,
-    refreshTabviewSkin = function() {
+var Skin  = Y.Skin,
+    space = Skin.SPACE;
 
-    tabviewSkin = {
+Skin.tabview = null;
+Skin.refreshTabviewSkin = function () {
+    Skin.tabview = {
         skinName: space.skin.name,
         prefix:   space.skin.prefix,
 
-        paddingTab: getPadding(0.3, 0.75),
-        paddingTabSelected: getPadding(0.4, 0.75),
-        paddingPanel: getPadding(0.25, 0.5),
-        tabRadius: getRadius(0.4),    // 30% of global space.radius
+        paddingTab: Skin.getPadding(0.3, 0.75),
+        paddingTabSelected: Skin.getPadding(0.4, 0.75),
+        paddingPanel: Skin.getPadding(0.25, 0.5),
+        tabRadius: Skin.getRadius(0.4),    // 30% of global space.radius
         tabBackground: space.block.high.background,
         tabGradient: space.block.high.gradient,
         tabText: space.block.high.text.normal,
@@ -42,5 +45,8 @@ var tabviewSkin,
 
         foo: space
     };
-
 };
+
+}, '0.0.1', {
+    requires: ['skin-space']
+});

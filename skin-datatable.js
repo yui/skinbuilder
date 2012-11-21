@@ -1,13 +1,16 @@
+YUI.add('skin-datatable', function (Y) {
 
-var datatableSkin,
-    refreshDatatableSkin = function() {
+var Skin  = Y.Skin,
+    space = Skin.SPACE;
 
-    datatableSkin = {
+Skin.datatable = null;
+Skin.refreshDatatableSkin = function () {
+    Skin.datatable = {
         skinName: space.skin.name,
         prefix:   space.skin.prefix,
 
-        captionPadding: getPadding(1, 0),
-        cellPadding: getPadding(0.3, 0.6),   // 4px 10px 4px 10px;
+        captionPadding: Skin.getPadding(1, 0),
+        cellPadding: Skin.getPadding(0.3, 0.6),   // 4px 10px 4px 10px;
 
         headGradient:   space.block.normal.gradient,
         headBackground: space.block.normal.background,
@@ -33,5 +36,8 @@ var datatableSkin,
 
         foo: space
     };
-
 };
+
+}, '0.0.1', {
+    requires: ['skin-space']
+});
