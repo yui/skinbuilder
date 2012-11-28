@@ -305,6 +305,7 @@ function (Y) {
             styleSheetOutput = document.getElementById('textarea-style'),
             template,
             result,
+            pageBackgroundComment = '/* This skin was designed to have this page background color \nhtml {\n    background-color: ' + Y.Skin.KEY_COLOR.page + ';\n}*/\n',
             i,
             widgets = [
                 {'id': 'calendar',      'templateFileName': Skin.calendar},
@@ -332,7 +333,7 @@ function (Y) {
         styleSheetOutput.value = "";
         for (i = 0; i < widgets.length; i += 1) {
             template = Y.Handlebars.compile(document.getElementById(widgets[i].id + '-template').innerHTML);
-            result = template(widgets[i].templateFileName);
+            result = pageBackgroundComment + template(widgets[i].templateFileName);
             stylesheet = document.getElementById(widgets[i].id + '-style');
             stylesheet.innerHTML = result;
             styleSheetOutput.value += result;
