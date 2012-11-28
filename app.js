@@ -11,13 +11,14 @@ YUI({
         'skin-panel'       : 'skin-panel.js',
         'skin-scrollview'  : 'skin-scrollview.js',
         'skin-tabview'     : 'skin-tabview.js',
+        'skin-slider'      : 'skin-slider.js',
 
         'skinner': {
             use: [
                 'skin-space', 'skin-autocomplete', 'skin-button',
                 'skin-calendar', 'skin-datatable', 'skin-dial',
                 'skin-node-menunav', 'skin-overlay', 'skin-panel',
-                'skin-scrollview', 'skin-tabview'
+                'skin-scrollview', 'skin-tabview', 'skin-slider'
             ]
         }
     }
@@ -27,7 +28,7 @@ YUI({
     'autocomplete-filters', 'autocomplete-highlighters', 'scrollview',
     'datatable-sort', 'dd-drag', 'dd-constrain', 'calendar', 'button-plugin',
     'tabview', 'datatype-date', 'button-group', 'cssbutton',
-    'node-event-delegate', 'overlay', 'color',
+    'node-event-delegate', 'overlay', 'slider', 'color',
 function (Y) {
 
     // Supports the old global `space`.
@@ -318,6 +319,7 @@ function (Y) {
                 {'id': 'nodeMenunav',   'templateFileName': Skin.nodeMenunav},
                 {'id': 'overlay',       'templateFileName': Skin.overlay},
                 {'id': 'panel',         'templateFileName': Skin.panel},
+                {'id': 'slider',        'templateFileName': Skin.slider},
                 {'id': 'space',         'templateFileName': Skin.space}
             ];
         // creates the style block if not null to receive the result from the handlebars substitution
@@ -370,6 +372,7 @@ function (Y) {
         Skin.refreshNodeMenunavSkin();  // skin-node-menunav.js
         Skin.refreshOverlaySkin(); // skin-overlay.js
         Skin.refreshPanelSkin(); // skin-panel.js
+        Skin.refreshSliderSkin(); // skin-slider.js
 
         Skin.refreshSpaceSkin();     // skin-space.js
 
@@ -578,6 +581,23 @@ function (Y) {
     });
     var overlayNode = Y.one('#overlayContent');
     panel.move([overlayNode.getX(),  overlayNode.get('region').bottom + 50] );
+
+    // Slider instance ///////////////////////////////////////////////////////////
+    var report = Y.one('#slider-report'),
+        slider = new Y.Slider({
+            //axis  : 'y',
+            length: '350px',
+            min   : 10,
+            max   : 218,
+            value : 136,
+        //    minorStep: 3,
+            after : {
+                valueChange: function (e) {
+                    report.setHTML(e.newVal);
+                }
+            }
+        });
+    slider.render('#slider');
 
     // End of adding instances of widgets to be colored by this tool
     /////////////////////////////////////////////////////////////////

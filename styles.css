@@ -1,3 +1,22 @@
+
+
+
+/***** scrollview horizontal widget ******************************/
+/* To layout horizontal LIs */
+#scrollview-content-horiz {
+    white-space:nowrap;
+}
+
+#scrollview-content-horiz li {
+    display:inline-block;
+}
+
+/* For IE 6/7 - needs inline block hack (and the background color mentioned above) */
+#scrollview-content-horiz li {
+    *display:inline;
+    *zoom:1;
+}
+
 /*****  this is only to layout calendar display on UI tool page ****/
 .yui3-widget {
     margin-bottom: 2em;
@@ -324,17 +343,3 @@ h1 {
     text-decoration: underline;
 }
 
-/* To layout horizontal LIs */
-#scrollview-content-horiz {
-    white-space:nowrap;
-}
-
-#scrollview-content-horiz li {
-    display:inline-block;
-}
-
-/* For IE 6/7 - needs inline block hack (and the background color mentioned above) */
-#scrollview-content-horiz li {
-    *display:inline;
-    *zoom:1;
-}

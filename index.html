@@ -1541,8 +1541,122 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
     /* Required for IE > 7 to deal with pseudo :before element */
     display: none;
 }
+</script>
+
+
+
+
+<script id="slider-template" type="text/x-handlebars-template">
+/** slider-base-skin.css (sam)***************************************/
+/* Horizontal Slider */
+
+/* Use thumbUrl /build/slider-base/assets/skins/sam/thumb-x.png */
+
+{{prefix}}skin-{{skinName}} {{prefix}}slider-x {{prefix}}slider-rail,
+{{prefix}}skin-{{skinName}} {{prefix}}slider-x {{prefix}}slider-rail-cap-left,
+{{prefix}}skin-{{skinName}} {{prefix}}slider-x {{prefix}}slider-rail-cap-right {
+    background-image: none;
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}slider-x {{prefix}}slider-rail {
+    height: 26px;
+}
+{{prefix}}skin-{{skinName}} {{prefix}}slider-x {{prefix}}slider-thumb {
+    background-color: {{thumbBackground}};
+    height: 18px;
+    width: 12px;
+    border: solid 1px {{thumbBorderLight}};
+    border-color: {{thumbBorderLight}} {{thumbBorderDark}} {{thumbBorderDark}} {{thumbBorderLight}};
+    border-radius: 50% 50% {{thumbRadiusBottom}} {{thumbRadiusBottom}};
+    margin-top: 5px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15), -1px -1px 3px rgba(0, 0, 0, 0.15) inset;
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}slider-x {{prefix}}slider-rail-cap-left {
+    background-color: {{railBackground}};
+    height: 2px;
+    left: -4px;
+    width: 100%;
+    border: solid 1px #ddd;
+    border-color: {{railBorderDark}} {{railBorderLight}} {{railBorderLight}} {{railBorderDark}};
+    border-right: none;
+    margin-top: 0.5em;
+    border-radius: 2px 0 0 2px;
+}
+{{prefix}}skin-{{skinName}} {{prefix}}slider-x {{prefix}}slider-rail-cap-right {
+    background-color: {{railBackground}};
+    height: 2px;
+    right: -4px;
+    width: 8px;
+    border: solid 1px #ddd;
+    border-color: {{railBorderDark}} {{railBorderLight}} {{railBorderLight}} {{railBorderDark}};
+    border-left: none;
+    margin-top: 0.5em;
+    border-radius: 0 2px 2px 0;
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}slider-x {{prefix}}slider-thumb-image {
+    display: none;
+    left: 0;
+    top: -10px;
+}
+{{prefix}}skin-{{skinName}} {{prefix}}slider-x {{prefix}}slider-thumb-shadow {
+    display: none;
+/*
+    left: 0;
+    opacity: 0.15;
+    filter: alpha(opacity=15);
+    top: -50px;
+*/
+}
+
+/* Vertical Slider */
+
+/* Use thumbUrl /build/slider-base/assets/skins/sam/thumb-y.png */
+
+{{prefix}}skin-{{skinName}} {{prefix}}slider-y {{prefix}}slider-rail,
+{{prefix}}skin-{{skinName}} {{prefix}}slider-y {{prefix}}slider-rail-cap-top,
+{{prefix}}skin-{{skinName}} {{prefix}}slider-y {{prefix}}slider-rail-cap-bottom {
+    background-image: url(rail-y.png);
+    background-repeat: repeat-y;
+    /* alternate: rail-y-lines.png */
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}slider-y {{prefix}}slider-rail {
+    width: 26px;
+}
+{{prefix}}skin-{{skinName}} {{prefix}}slider-y {{prefix}}slider-thumb {
+    width: 26px;
+    height: 15px;
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}slider-y {{prefix}}slider-rail-cap-top {
+    background-position: -20px 0;
+    width: 20px;
+    top: -2px;
+    height: 5px;
+}
+{{prefix}}skin-{{skinName}} {{prefix}}slider-y {{prefix}}slider-rail-cap-bottom {
+    background-position: -40px 0;
+    width: 20px;
+    bottom: -2px;
+    height: 5px;
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}slider-y {{prefix}}slider-thumb-image {
+    left: -10px;
+    top: 0;
+}
+{{prefix}}skin-{{skinName}} {{prefix}}slider-y {{prefix}}slider-thumb-shadow {
+    left: -50px;
+    opacity: 0.15;
+    filter: alpha(opacity=15);
+    top: 0;
+}
 
 </script>
+
+
 
 <!-- ///////////////////////////////////////////////////////////////////////////////////////////////  -->
 <!-- this template for UI display of the color space ///////////////////////////////////////////////  -->
@@ -2005,6 +2119,9 @@ Skinner Demo
 
                 <div id="mycalendar"></div>
 
+                <div id="slider-report">0</div>
+                <div id="slider"></div>
+
                 <div id="tabview">
                     <ul>
                         <li><a href="#foo">foo</a></li>
@@ -2152,7 +2269,6 @@ Skinner Demo
                         </form>
                     </div>
                 </div>
-
 
 
             </div> <!-- end widget container-->

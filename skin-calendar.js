@@ -46,7 +46,7 @@ Skin.refreshCalendarSkin = function () {
         dayDisabledBackground:  space.background,
         dayDisabledText:        space.text.low,
 
-        foo: space
+        foo: space.background
     };
 };
 
