@@ -25,10 +25,12 @@ Skin.refreshNodeMenunavSkin = function () {
         horizontalGradient: space.gradient,
         horizontalBackground: space.background,
 
+        itemActiveHorizontalBorder: space.border.low,
+    	itemActiveHorizontalBackgroundGradient: space.block.low.hover.gradient,
+    	itemActiveHorizontalBackgroundColor:    space.block.low.hover.background,
+
         itemActiveBackground:   space.hover.background,
         itemAcitveText:         space.hover.text.high,
-//        textHover:              space.block.normal.hover.text.normal,
-//        selectedMenuItemBackground: space.block.high.background,
 
         foo: space
     };

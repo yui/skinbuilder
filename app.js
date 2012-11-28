@@ -33,7 +33,7 @@ function (Y) {
     // Supports the old global `space`.
     var space = Y.Skin.SPACE;
 
-    var schemeName = 'monochrome', // default schemeName
+    var schemeName =  'monochrome', // default schemeName
         arrSchemeNames = ['monochrome', 'color-plus-gray', 'complimentary', 'dark-complimentary'],
 
     // returns hsl Array
@@ -231,7 +231,6 @@ function (Y) {
                     makeHoverBlock(b);
                 }
             };
-
         ///////////////////////////////////////////////////////////////
         //'monochrome'
         if (schemeName === arrSchemeNames[0]) {

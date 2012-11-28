@@ -181,7 +181,7 @@
     color: {{tabHoverText}};
     border: solid 1px;
     border-color: {{tabHoverBorderHigh}} {{tabHoverBorderLow}} {{tabHoverBorderLow}} {{tabHoverBorderHigh}};
-
+    border-bottom: none;
     outline:0;
 }
 
@@ -883,26 +883,16 @@ v\:fill {
 	font-size:1px;
 }
 {{prefix}}skin-{{skinName}} {{prefix}}dial-ring {
-    /*background: {{ringGradient}};*/
-    background: -moz-linear-gradient(-45deg, rgba(255,255,255, 0.1) 0%, rgba(255,255,255,0) 39%, rgba(0,0,0,0) 40%, rgba(0,0,0, 0.2) 100%); /* FF3.6+ */
+    background: {{ringGradient}};
     background-color: {{ringBackgroundColor}};
 	box-shadow:1px 1px 5px rgba(0, 0, 0, 0.4) inset;
 	-webkit-box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4) inset; /*Chrome 7/Win bug*/
 	-moz-box-shadow:1px 1px 5px rgba(0, 0, 0, 0.4) inset;
 }
 {{prefix}}skin-{{skinName}} {{prefix}}dial-center-button{
-    /*
-    background: -moz-radial-gradient(30% 30% 0deg, circle farthest-side, rgba(255,255,255, 0.2) 24%, rgba(255,255,255, 0.1) 41%, rgba(0,0,0, 0.1) 42%, rgba(0,0,0, 0.2) 83%) repeat scroll 0 0 transparent;
-    background: -moz-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 46%, rgba(0,0,0,0) 50%, rgba(0,0,0,1) 100%);
-    */
-    background: -moz-radial-gradient(30% 30% 0deg, circle farthest-side, rgba(255,255,255, 0.1) 24%, rgba(255,255,255,0) 49%, rgba(0,0,0,0) 50%, rgba(0,0,0, 0.2) 83%); /* FF3.6+ */
-
-
-	background:-webkit-gradient(radial, 15 15, 15, 30 30, 40, from(#FBFBF9), to(#D3D0C3), color-stop(.2,#F2F0EA));
+    background: {{centerButtonGradient}};
     background-color: {{centerButtonBackgroundColor}};
 	box-shadow:-1px -1px 2px rgba(0, 0, 0, 0.3) inset, 1px 1px 2px rgba(0, 0, 0, 0.5);
-	-moz-box-shadow:-1px -1px 2px rgba(0, 0, 0, 0.3) inset, 1px 1px 2px rgba(0, 0, 0, 0.5);
-	/*-webkit-box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.3) inset, 1px 1px 2px rgba(0, 0, 0, 0.5); Chrome 7/Win bug*/
 	cursor:pointer;
 	opacity:0.7;
 	/*text-align:center;*/
@@ -918,26 +908,17 @@ v\:fill {
 }
 {{prefix}}skin-{{skinName}} {{prefix}}dial-value-string{
 	margin-left:0.5em;
-	/*color:#f00;   this sits directly on page background */
+	color: {{valueString}};   /*this sits directly on page background */
 	font-size:130%;
 }
-/* I cannot find this class in markup
 {{prefix}}skin-{{skinName}} {{prefix}}dial-value {
-/*	visibility:hidden;
-	position:absolute;
-	top:0;
-	left:102%;
-	width:4em;
-*/
 	visibility:visible;
 	position:absolute;
 	top:0;
 	left:0;
 	width:4em;
-
-
 }
-*/
+
 {{prefix}}skin-{{skinName}} {{prefix}}dial-north-mark{
 	position:absolute;
 	border-left:2px solid {{northMark}};
@@ -1174,13 +1155,12 @@ v\:fill {
     padding: 0;
 
 }
+/* 2nd and subsequent {{prefix}}menu-content should not have gradient */
 {{prefix}}skin-{{skinName}} {{prefix}}menu-horizontal {{prefix}}menu-content {{prefix}}menu-content {
-
-	background: none; /* 2nd and subsequent {{prefix}}menu-content should not have gradient */
+	background: none;
     background-color: {{horizontalBackground}};
     box-shadow: 2px 2px 7px rgba(0,0,0, 0.15);
 }
-
 
 {{prefix}}skin-{{skinName}} {{prefix}}menu ul,
 {{prefix}}skin-{{skinName}} {{prefix}}menu ul ul {
@@ -1287,58 +1267,45 @@ v\:fill {
     width: auto;
 
 }
-
 {{prefix}}skin-{{skinName}} {{prefix}}menu-label,
 {{prefix}}skin-{{skinName}} {{prefix}}menu {{prefix}}menu {{prefix}}menu-label {
-
+    /* Jeff fix me. need icons */
 	background: url(assets/images/vertical-menu-submenu-indicator.png) right center no-repeat;
-
 }
 
 {{prefix}}skin-{{skinName}} {{prefix}}menu-horizontal {{prefix}}menu-label {
-
     background: none;
-
 }
 
 {{prefix}}skin-{{skinName}} {{prefix}}menubuttonnav {{prefix}}menu-label,
 {{prefix}}skin-{{skinName}} {{prefix}}splitbuttonnav {{prefix}}menu-label {
-
 	background-image: none;
-
 }
 
 {{prefix}}skin-{{skinName}} {{prefix}}menubuttonnav {{prefix}}menu-label {
-
     padding-right: 0;
-
 }
 
 {{prefix}}skin-{{skinName}} {{prefix}}menubuttonnav {{prefix}}menu-label em {
-
 	font-style: normal;
 	padding-right: 20px;
     display: block;
+    /* Jeff fix me. need icons */
     background: url(assets/images/horizontal-menu-submenu-indicator.png) right center no-repeat;
-
 }
 
 
 {{prefix}}skin-{{skinName}} {{prefix}}splitbuttonnav {{prefix}}menu-label {
-
 	padding: 0;
-
 }
 
 {{prefix}}skin-{{skinName}} {{prefix}}splitbuttonnav {{prefix}}menu-label a {
-
 	float: left;
 	width: auto;
     color: {{text}};
     text-decoration: none;
     cursor: default;
 	padding: {{splitButtonNavPadding}}; /*0 5px 0 10px;*/
-
 }
 
 {{prefix}}skin-{{skinName}} {{prefix}}splitbuttonnav {{prefix}}menu-label {{prefix}}menu-toggle {
@@ -1368,7 +1335,9 @@ v\:fill {
 
 {{prefix}}skin-{{skinName}} {{prefix}}menuitem-active {{prefix}}menuitem-content,
 {{prefix}}skin-{{skinName}} {{prefix}}menu {{prefix}}menu {{prefix}}menuitem-active {{prefix}}menuitem-content {
-
+	background-image: none;
+    background: none;  /* supress menuitems from having gradients */
+    background-color: {{itemActiveBackground}};
     /*
     	Undo values set for "border-left-width" and "margin-left" when the root
     	menu has a class of "yui-menubuttonnav" or "yui-splitbuttonnav" applied.
@@ -1383,13 +1352,23 @@ v\:fill {
 {{prefix}}skin-{{skinName}} {{prefix}}menu-horizontal {{prefix}}menuitem-active {{prefix}}menuitem-content,
 {{prefix}}skin-{{skinName}} {{prefix}}menu-horizontal {{prefix}}menu-label-menuvisible {
 
-    border-color: {{itemActiveBackground}};
-	background-color: {{itemActiveBackground}};
+    border-color: {{itemActiveHorizontalBorder}};                 /* added this varialble after YUI conf for sam skin */
+	background: {{itemActiveHorizontalBackgroundGradient}};       /* added this varialble AND PROPERTY after YUI conf for sam skin */
+	background-color: {{itemActiveHorizontalBackgroundColor}};    /* added this varialble after YUI conf for sam skin */
     color: {{itemAcitveText}};
 }
+
+/* this keeps the background of a submenu from getting the active color when it is first made visible, before you cursor over it.*/
 {{prefix}}skin-{{skinName}} {{prefix}}menu-horizontal {{prefix}}menuitem-active {{prefix}}menu {{prefix}}menuitem-content{
-    background-color: transparent; /* this keeps the background of a submenu from getting the active color when it is first made visible, before you cursor over it.*/
+    background: none;
+    background-color: transparent;
     color: {{text}};
+}
+
+/* protects the items in a menu from having a gradient when hovered over */
+{{prefix}}skin-{{skinName}} {{prefix}}menu-horizontal {{prefix}}menuitem-active {{prefix}}menuitem-content {
+	background: {{itemActiveHorizontalBackgroundGradient}};
+    background-color: {{itemActiveHorizontalBackgroundColor}};
 }
 
 {{prefix}}skin-{{skinName}} {{prefix}}menubuttonnav {{prefix}}menu-label-active,
@@ -1407,14 +1386,12 @@ v\:fill {
 
 {{prefix}}skin-{{skinName}} {{prefix}}splitbuttonnav {{prefix}}menu-label-menuvisible {
 
-    /*border-color: #883030;*/
     background: transparent;
 
 }
 
 {{prefix}}skin-{{skinName}} {{prefix}}splitbuttonnav {{prefix}}menu-label-menuvisible {{prefix}}menu-toggle {
 
-    /*border-color: #303030;*/
     background-color: {{itemActiveBackground}};
 
 }
@@ -1926,7 +1903,7 @@ Skinner Demo
             <h1>Color Schemes</h1>
             <ul class="scheme-radios">
                 <li class="pick">
-                    <input id="monochrome" type="radio" checked="checked"/>
+                    <input id="monochrome" type="radio"/>
                     <label for="monochrome">
                         <ul class="swatches">
                             <li></li><li></li><li></li><li></li>
