@@ -1547,6 +1547,40 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
 
 
 <script id="slider-template" type="text/x-handlebars-template">
+/** slider-base-core.css *********************************************/
+{{prefix}}slider,
+{{prefix}}slider-rail {
+    /* xbrowser inline-block styles */
+    display: -moz-inline-stack; /* FF2 */
+    display: inline-block;
+    *display: inline; /* IE 7- (with zoom) */
+    zoom: 1;
+    vertical-align: middle;
+}
+
+{{prefix}}slider-content {
+    position: relative;
+    display: block;
+}
+{{prefix}}slider-rail {
+    position: relative;
+}
+
+{{prefix}}slider-rail-cap-top,
+{{prefix}}slider-rail-cap-left,
+{{prefix}}slider-rail-cap-bottom,
+{{prefix}}slider-rail-cap-right,
+{{prefix}}slider-thumb,
+{{prefix}}slider-thumb-image,
+{{prefix}}slider-thumb-shadow {
+    position: absolute;
+}
+
+{{prefix}}slider-thumb {
+    overflow: hidden;
+}
+
+
 /** slider-base-skin.css (sam)***************************************/
 /* Horizontal Slider */
 
@@ -1595,63 +1629,59 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
     border-radius: 0 2px 2px 0;
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}slider-x {{prefix}}slider-thumb-image {
-    display: none;
-    left: 0;
-    top: -10px;
-}
+{{prefix}}skin-{{skinName}} {{prefix}}slider-x {{prefix}}slider-thumb-image,
 {{prefix}}skin-{{skinName}} {{prefix}}slider-x {{prefix}}slider-thumb-shadow {
     display: none;
-/*
-    left: 0;
-    opacity: 0.15;
-    filter: alpha(opacity=15);
-    top: -50px;
-*/
 }
 
 /* Vertical Slider */
 
-/* Use thumbUrl /build/slider-base/assets/skins/sam/thumb-y.png */
-
 {{prefix}}skin-{{skinName}} {{prefix}}slider-y {{prefix}}slider-rail,
 {{prefix}}skin-{{skinName}} {{prefix}}slider-y {{prefix}}slider-rail-cap-top,
 {{prefix}}skin-{{skinName}} {{prefix}}slider-y {{prefix}}slider-rail-cap-bottom {
-    background-image: url(rail-y.png);
-    background-repeat: repeat-y;
-    /* alternate: rail-y-lines.png */
+    background-image: none;
 }
 
 {{prefix}}skin-{{skinName}} {{prefix}}slider-y {{prefix}}slider-rail {
     width: 26px;
 }
 {{prefix}}skin-{{skinName}} {{prefix}}slider-y {{prefix}}slider-thumb {
-    width: 26px;
-    height: 15px;
+    background-color: {{thumbBackground}};
+    height: 12px;
+    width: 18px;
+    border: solid 1px {{thumbBorderLight}};
+    border-color: {{thumbBorderLight}} {{thumbBorderDark}} {{thumbBorderDark}} {{thumbBorderLight}};
+    border-radius: 50% {{thumbRadiusBottom}} {{thumbRadiusBottom}} 50%;
+    margin-left: 5px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15), -1px -1px 3px rgba(0, 0, 0, 0.15) inset;
 }
 
 {{prefix}}skin-{{skinName}} {{prefix}}slider-y {{prefix}}slider-rail-cap-top {
-    background-position: -20px 0;
-    width: 20px;
-    top: -2px;
-    height: 5px;
+    background-color: {{railBackground}};
+    width: 2px;
+    top: -4px;
+    height: 100%;
+    border: solid 1px #ddd;
+    border-color: {{railBorderDark}} {{railBorderLight}} {{railBorderLight}} {{railBorderDark}};
+    border-bottom: none;
+    margin-left: 0.5em;
+    border-radius: 2px 2px 0 0;
 }
 {{prefix}}skin-{{skinName}} {{prefix}}slider-y {{prefix}}slider-rail-cap-bottom {
-    background-position: -40px 0;
-    width: 20px;
-    bottom: -2px;
-    height: 5px;
+    background-color: {{railBackground}};
+    width: 2px;
+    bottom: -4px;
+    height: 8px;
+    border: solid 1px #ddd;
+    border-color: {{railBorderDark}} {{railBorderLight}} {{railBorderLight}} {{railBorderDark}};
+    border-top: none;
+    margin-left: 0.5em;
+    border-radius: 0 0 2px 2px;
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}slider-y {{prefix}}slider-thumb-image {
-    left: -10px;
-    top: 0;
-}
+{{prefix}}skin-{{skinName}} {{prefix}}slider-y {{prefix}}slider-thumb-image,
 {{prefix}}skin-{{skinName}} {{prefix}}slider-y {{prefix}}slider-thumb-shadow {
-    left: -50px;
-    opacity: 0.15;
-    filter: alpha(opacity=15);
-    top: 0;
+    display: none;
 }
 
 </script>
@@ -2201,6 +2231,7 @@ Skinner Demo
 
                 <div id="slider-report">0</div>
                 <div id="slider"></div>
+                <!--<div id="slider-y"></div> vertical slider tested OK, then removed -->
 
                 <div id="tabview">
                     <ul>

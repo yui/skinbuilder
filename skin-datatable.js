@@ -32,7 +32,7 @@ Skin.refreshDatatableSkin = function () {
         cellSortedEvenText:         space.block.low.hover.text.normal,
 
         border:        space.border.low,
-        captionText:    space.text.low,
+        captionText:    space.block.page.text.low,
 
         foo: space
     };

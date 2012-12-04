@@ -17,9 +17,9 @@ Skin.refreshDialSkin = function () {
 
         handle:                         space.block.highest.background,
         marker:                         space.text.high,
-        northMark:                      space.border.low,
-        label:                          space.text.normal,
-        valueString:                    space.text.high,
+        northMark:                      space.block.page.text.low,
+        label:                          space.block.page.text.normal,
+        valueString:                    space.block.page.text.high,
 
         foo: space
     };

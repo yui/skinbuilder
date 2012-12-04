@@ -302,6 +302,8 @@ function (Y) {
     // It does NOT send colors to the widget css by handlebars
     //
     updateSchemePreviews = function() {
+// fixme for testing turned off swatch update
+//return;
 
         // arrSchemeNames is defined in space-schemes.js
         var i,
@@ -617,6 +619,24 @@ function (Y) {
             }
         });
     slider.render('#slider');
+
+
+    // Slider y instance ///////////////////////////////////////////////////////////
+// vertical slider tested OK, then removed to make more UI space
+//     var sliderY = new Y.Slider({
+//             axis  : 'y',
+//             length: '350px',
+//             min   : 10,
+//             max   : 218,
+//             value : 136,
+//         //    minorStep: 3,
+//             after : {
+//                 valueChange: function (e) {
+//                     report.setHTML(e.newVal);
+//                 }
+//             }
+//         });
+//     sliderY.render('#slider-y');
 
     // End of adding instances of widgets to be colored by this tool
     /////////////////////////////////////////////////////////////////
