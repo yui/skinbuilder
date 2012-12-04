@@ -26,7 +26,7 @@ Skin.refreshPanelSkin = function () {
 
         footBackground:         space.block.low.background,
 
-        foo: space
+        foo: space.background
     };
 };
 

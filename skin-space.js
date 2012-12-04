@@ -59,6 +59,55 @@ Skin.SPACE = {
     },
 
     block: {
+        page: {
+            background: '#fff',     //'#F7F7F7'
+            gradient: '-moz-linear-gradient(top,  rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 49%, rgba(0,0,0,0) 51%, rgba(0,0,0,0.1) 100%)',
+            border: {
+                low: '#CFCFCF',
+                normal: '',
+                high: '#E6E6E6'
+            },
+
+            text: {
+                low: '#AAAAAA',
+                normal: '#555555',
+                high: '#000000'
+            },
+
+            rule: {
+                low: '#E6E6E6',
+                normal: '',
+                high: '#D7D7D7'
+            },
+
+            hover: {
+                background: '#B3D4FF',
+                gradient: '-moz-linear-gradient(top,  rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 49%, rgba(0,0,0,0) 51%, rgba(0,0,0,0.1) 100%)',
+                border: {
+                    low: '#94B8EB',
+                    normal: '',
+                    high: '#E1E8F2'
+                },
+
+                text: {
+                    low: '#8BB1E4',
+                    normal: '#4C71A4',
+                    high: '#112B4E'
+                },
+
+                rule: {
+                    low: '#A2C9FF',
+                    normal: '',
+                    high: '#CCE1FF'
+                }
+            }
+
+        },
+
+
+
+
+
         low: {
             background: '#fff',     //'#F7F7F7'
             gradient: '-moz-linear-gradient(top,  rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 49%, rgba(0,0,0,0) 51%, rgba(0,0,0,0.1) 100%)',
@@ -325,6 +374,29 @@ Skin.refreshSpaceSkin = function () {
     hoverTextHigh: space.hover.text.high,
     hoverRuleLow: space.hover.rule.low,
     hoverRuleHigh: space.hover.rule.high,
+
+
+    // page
+    blockPageBackground: space.block.page.background,
+    blockPageGradient: space.block.page.gradient,
+    blockPageBorderLow: space.block.page.border.low,
+    blockPageBorderHigh: space.block.page.border.high,
+    blockPageTextLow: space.block.page.text.low,
+    blockPageTextNormal: space.block.page.text.normal,
+    blockPageTextHigh: space.block.page.text.high,
+    blockPageRuleLow: space.block.page.rule.low,
+    blockPageRuleHigh: space.block.page.rule.high,
+
+    // page.hover
+    blockPageHoverBackground: space.block.page.hover.background,
+    blockPageHoverGradient: space.block.page.hover.gradient,
+    blockPageHoverBorderLow: space.block.page.hover.border.low,
+    blockPageHoverBorderHigh: space.block.page.hover.border.high,
+    blockPageHoverTextLow: space.block.page.hover.text.low,
+    blockPageHoverTextNormal: space.block.page.hover.text.normal,
+    blockPageHoverTextHigh: space.block.page.hover.text.high,
+    blockPageHoverRuleLow: space.block.page.hover.rule.low,
+    blockPageHoverRuleHigh: space.block.page.hover.rule.high,
 
     // low
     blockLowBackground: space.block.low.background,

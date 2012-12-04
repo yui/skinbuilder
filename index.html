@@ -1723,6 +1723,76 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
     background: {{hoverGradient}};
 }
 
+/* block page ***********************************/
+
+.yui3-skin-{{skinName}} .block-page {
+    background-color: {{blockPageBackground}};
+}
+
+.yui3-skin-{{skinName}} .block-page {
+    border: solid 1px {{blockPageBorderLow}};
+    border-color: {{blockPageBorderHigh}} {{blockPageBorderLow}} {{blockPageBorderLow}} {{blockPageBorderHigh}};
+}
+
+.yui3-skin-{{skinName}} .block-page-text-low {
+    color: {{blockPageTextLow}};
+}
+
+.yui3-skin-{{skinName}} .block-page-text-normal {
+    color: {{blockPageTextNormal}};
+}
+
+.yui3-skin-{{skinName}} .block-page-text-high {
+    color: {{blockPageTextHigh}};
+}
+
+.yui3-skin-{{skinName}} .block-page-rule-low {
+    border-top: solid 1px {{blockPageRuleLow}};
+}
+
+.yui3-skin-{{skinName}} .block-page-rule-high {
+    border-top: solid 1px {{blockPageRuleHigh}};
+}
+
+.yui3-skin-{{skinName}} .block-page .gradient {
+    background: {{blockPageGradient}};
+}
+
+/* block page:hover ************************************/
+.yui3-skin-{{skinName}} .block-page:hover {
+    background-color: {{blockPageHoverBackground}};
+}
+
+.yui3-skin-{{skinName}} .block-page:hover {
+    border: solid 1px {{blockPageHoverBorderLow}};
+    border-color: {{blockPageHoverBorderHigh}} {{blockPageHoverBorderLow}} {{blockPageHoverBorderLow}} {{blockPageHoverBorderHigh}};
+}
+
+.yui3-skin-{{skinName}} .block-page:hover .block-page-text-low {
+    color: {{blockPageHoverTextLow}};
+}
+
+.yui3-skin-{{skinName}} .block-page:hover .block-page-text-normal {
+    color: {{blockPageHoverTextNormal}};
+}
+
+.yui3-skin-{{skinName}} .block-page:hover .block-page-text-high {
+    color: {{blockPageHoverTextHigh}};
+}
+
+.yui3-skin-{{skinName}} .block-page:hover .block-page-rule-low {
+    border-top: solid 1px {{blockPageHoverRuleLow}};
+}
+
+.yui3-skin-{{skinName}} .block-page:hover .block-page-rule-high {
+    border-top: solid 1px {{blockPageHoverRuleHigh}};
+}
+
+.yui3-skin-{{skinName}} .block-page:hover .gradient {
+    background: {{blockPageHoverGradient}};
+}
+
+
 
 
 /* block low ************************************/
@@ -2095,7 +2165,17 @@ Skinner Demo
                     </div>
 
                 </div>
-            </div>
+
+                <div class="block block-page block-page-border">
+                    <div class="text block-page-text-low"></div>
+                    <div class="text block-page-text-normal"></div>
+                    <div class="text block-page-text-high"></div>
+                    <div class="rule block-page-rule-low"></div>
+                    <div class="rule block-page-rule-high"></div>
+                </div>
+
+
+            </div> <!-- end of .color-space  -->
             <div class="markup yui3-skin-sam">
                 <label>Adjust border-radius</label><a class="reset reset-radius">Reset</a>
                 <div id="slider-radius"></div>

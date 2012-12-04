@@ -218,16 +218,17 @@ function (Y) {
                 // assign the user color picked value to space.block.highest.background
                 // The background of the highest value block is always the user picked color
                 space.block.highest.background = k;
+                space.block.page.background = Y.Skin.KEY_COLOR.page;
                 adjustForegroundColors(b); // generate foreground object colors for this block
                 makeHoverBlock(b); // generate hover block and it's forground object colors for this block
 
-                // generate forground and hover object colors for other blocks
+                // generate forground and hover object colors for all other, non-space.block.highest,  blocks
                 for (i = 0; i < blocks.length; i += 1) {
                     var adjustBy = blocks[i].adjust;
                     b = blocks[i].block;
-
-        //  *********************** adjustColor() is found in colormix.js
-                    b.background = adjustColor(k, adjustBy, 'percent');
+                    if (blocks[i].block !== space.block.page) {
+                        b.background = adjustColor(k, adjustBy, 'percent');
+                    }
                     adjustForegroundColors(b);
                     makeHoverBlock(b);
                 }
@@ -239,6 +240,7 @@ function (Y) {
                 {'block': space.block.high,      'adjust': {h:0, s:-30,  l:60}},
                 {'block': space.block.normal,    'adjust': {h:0, s:-30,  l:75}},
                 {'block': space.block.low,       'adjust': {h:0, s:-30,  l:80}},
+                {'block': space.block.page,      'adjust': {h:0, s:0,    l:0}},
                 {'block': space,                 'adjust': {h:0, s:-30,  l:90}}
             ],
             setColorsPerBlock(blocks);
@@ -803,7 +805,7 @@ function (Y) {
 
         // set UI to match color of bucket value clicked on
         hsl = Y.Color.toArray(Y.Color.toHSL(bucketHex));
-        Y.one('#hs-dot').setStyles({'left': hsl[0] / 2, 'top': (hsl[1] / 100) * 180});
+        Y.one('#hs-dot').setStyles({'left': hsl[0] / 2, 'top': 180 - (hsl[1] / 100) * 180});
         Y.one('#sliderL-line').setStyle('top', 180 - ((hsl[2] / 100) * 180));
         Y.one('.picker-swatch').setStyle('backgroundColor', bucketHex);
         // set all of the values that are used in pickerUpdateColors()
@@ -873,7 +875,7 @@ function (Y) {
 
 
 // for testing only
-//    setTimeout(handleTwisty, 1000);
+    setTimeout(handleTwisty, 100);
 
     Y.one('.inp-skin-name').on('blur', function(e) {
         var body = Y.one('body');

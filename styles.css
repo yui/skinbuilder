@@ -211,7 +211,8 @@ h1 {
 .block .block-highest-text-normal,
 .block .block-high-text-normal,
 .block .block-normal-text-normal,
-.block .block-low-text-normal
+.block .block-low-text-normal,
+.block .block-page-text-normal
 {
     display: block;
 }
