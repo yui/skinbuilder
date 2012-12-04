@@ -27,14 +27,14 @@ Skin.refreshButtonSkin = function () {
 
         selectedBackground: space.block.highest.background,
         selectedGradient:   space.block.highest.gradient,
-        selectedText:       space.block.highest.text.normal,
+        selectedText:       space.block.highest.text.high,
         selectedBorderHigh: space.block.highest.border.high,
         selectedBorderLow:  space.block.highest.border.low,
 
 
 
         selectedHoverBackground:    space.block.highest.hover.background,
-        selectedHoverText:          space.block.highest.hover.text.normal,
+        selectedHoverText:          space.block.highest.hover.text.high,
         selectedHoverBorderHigh:    space.block.highest.hover.border.high,
         selectedHoverBorderLow:     space.block.highest.hover.border.low,
 

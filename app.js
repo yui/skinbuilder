@@ -913,7 +913,7 @@ function (Y) {
 
 
 // for testing only
-    setTimeout(handleTwisty, 2000);
+//    setTimeout(handleTwisty, 2000);
 
     Y.one('.inp-skin-name').on('blur', function(e) {
         var body = Y.one('body');
