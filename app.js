@@ -50,11 +50,11 @@ function (Y) {
         var theMaxAdjust; // the distance from the val to "the end", meaning either 0 or 1
         if (percentToEnd > 0){ // if going bigger
             theMaxAdjust = 100 - val; // the most you could go from the val to the max (white or full sat)
-            return (theMaxAdjust * (percentToEnd / 100));// - val; // this gives a factor like 0.2 ...
+            return Math.round(theMaxAdjust * (percentToEnd / 100));// - val; // this gives a factor like 0.2 ...
             // that can be simply added to the val to give the effect of "go this percent of the distance to the max"
         }else{
             theMaxAdjust = val; // the most you could go from val toward dark or low sat or "0"
-            return (theMaxAdjust * (percentToEnd / 100));
+            return Math.round(theMaxAdjust * (percentToEnd / 100));
         }
     },
 
@@ -74,67 +74,83 @@ function (Y) {
      *      percent: orig value 0.8, adjust by 0.4 means go 0.4 percent of the distance
      *          from 0.8 to 1 results in  0.88 (0.2 * 0.4 = 0.08 + 0.8)
      */
-    adjustColor = function(hexInput, adjust, type) {
+    adjustColor = function(hexInput, adjustInp, type) {
         var hsl = hexToHsl(hexInput),
             hex,
-            rgb,
-            hexAdjustedSameHue,
-            adjustType = 'cap'; // default
+            grayProxy,
+            adjust = adjustInp,
+            adjustType = 'cap';   // default
 
         if (typeof(type) != 'undefined') {
             adjustType = type;
         }
 
-        // adjust saturation. Always cap saturation at 0 or 1
-        // Is capping of sat done by Y.Color?
-        // if needed regardless of method attr 'type'
-        if ((adjustType === 'cap') ||
-            (adjustType === 'flip')) {
-            //adjust.s = adjust.s;
-        } else if (adjustType === 'percent') {
+        // Saturation adjustment if needed
+        if ((adjust.s !== 0) && (adjustType === 'percent')) {  // adjust the sat with percent-style adjustment
             adjust.s = getPercentToEndAdjust(hsl[1], adjust.s);
         }
 
-        // adjust lightness based on 'type' attribute
+        // get a Hex for adjusted sat and
+        // Hue adjustment if needed
+        // Note: hue adjustment is the same no matter what the adjustment type
+        if ((adjustInp.s !== 0) || (adjustInp.h !== 0)) {
+            hex = Y.Color.getOffset(hexInput, {h: adjust.h, s: adjust.s});
+        } else {  // if both Hue and Sat adjust are 0
+            hex = hexInput;
+        }
+
+        // Convert hex color to gray scale before adjusting lightness
+        // Do all the adjusting to the grayProxy color before turning it back into a color
+        // of a similar brightness.
+        // This compensates for "different hues appear lighter/darker than others" (yellow / blue issue)
+        grayProxy = Y.Color.getSimilarBrightness('#808080', hex);
+        grayProxyLightness = Math.round(Y.Color.getBrightness(grayProxy) * 100);  // fixme when Tony changes api for getBrightness to return values in range of 0 - 100
+
+        // adjust lightness (of grayProxy) based on 'type' attribute
         if (adjustType === 'cap') {
             //adjust.l = adjust.l;
         } else if (adjustType === 'flip') {
-                adjust.l = getFlippedAdjust(hsl[2], adjust.l);
+            adjust.l = getFlippedAdjust(grayProxy, grayProxyLightness, adjust.l);
         } else if (adjustType === 'percent') {
-                adjust.l = getPercentToEndAdjust(hsl[2], adjust.l);
+            adjust.l = getPercentToEndAdjust(grayProxyLightness, adjust.l);
         } else {
             alert('a call to adjustColor has an invalid type of: ' + type);
         }
+        // adjust grayProxy to the desired lightness
+        grayProxy = Y.Color.getOffset(grayProxy, {l: adjust.l});
 
-        hexAdjustedSameHue = Y.Color.getOffset(hexInput, {s: adjust.s, l: adjust.l});
-        hex = Y.Color.getOffset(hexInput, {h: adjust.h, s: adjust.s, l: adjust.l});
-
-        // if there's a change in hue, adjust the resultant lightness to
-        // compensate for lightness variation caused by hue-change.
-        // see Y.Color getSimilarBrightness docs
-        if (adjust.h !== 0) {
-            hex = Y.Color.getSimilarBrightness(hex, hexAdjustedSameHue);
-        }
+        // adjust the desired color to have the same brightness as the grayProxy
+        hex = Y.Color.getSimilarBrightness(hex, grayProxy);
+        Y.log('hex: ' + hex);
         return hex;
     },
 
     /** if lit is adjusted beyond min or max it reverses (flips and subtracts the adjustment if over or under max/min by ______)
      * This is needed for text
+     * Note: when text is offset from it's background by some amount,
+     * text readability is affected by the current hue.
+     * This is due to perceived brightness.
+     * One way to compensate is to determine when to "flip" the sign of the adjust
+     * by perceived brightness of the background color lit + adjust
+     * instead of                     background color lit + adjust
+     *
+     *
      */
-    getFlippedAdjust = function(sourceLit, adjust) {
+    getFlippedAdjust = function(origColor, sourceLit, adjust) {
         var overBy = 10,
             newAdjust = adjust,
             newLit = (parseInt(sourceLit, 10) + adjust);
+//            newLit = (parseInt(Y.Color.getBrightness(origColor) * 100, 10) + adjust);      // XXX
 
         // if over by big enough amount, then reverse to negative
         if (newLit > (100 + overBy)) {
-            newAdjust = -adjust;
+            newAdjust = -adjust; // the newAdjust will flip the sign of the requested adjust (flip to a darker color)
         } else if (newLit > 100) { // let it stay at max
             newAdjust = adjust; // Y.Color will cap at max
         }
-        if (newAdjust < 0 - overBy) {
-            newAdjust = -adjust;
-        } else if (newAdjust < 0) {
+        if (newLit < 0 - overBy) {
+            newAdjust = -adjust;  // the newAdjust will flip the sign of the requested adjust (flip to a lighter color)
+        } else if (newLit < 0) {
             newAdjust = adjust;
         }
         return newAdjust;
@@ -178,7 +194,7 @@ function (Y) {
         var b = block,
             k = b.background; // the source color, *from* which we adjust to get the new foreground color
         b.text.low = adjustColor(k, {h:0, s:0, l:20}, 'flip');
-        b.text.normal = adjustColor(k, {h:0, s:0, l:40}, 'flip');
+        b.text.normal = adjustColor(k, {h:0, s:0, l:45}, 'flip');    // was l:40
         b.text.high = adjustColor(k, {h:0, s:0, l:55}, 'flip');
         b.rule.low = adjustColor(k, {h:0, s:0, l:-10});
         b.rule.high = adjustColor(k, {h:0, s:0, l:10});
@@ -286,6 +302,7 @@ function (Y) {
     // It does NOT send colors to the widget css by handlebars
     //
     updateSchemePreviews = function() {
+
         // arrSchemeNames is defined in space-schemes.js
         var i,
             schemeChoices = Y.all('.scheme-radios .pick');
@@ -387,8 +404,8 @@ function (Y) {
         // {{variableName}} from widgetSkinMaps are replaced by values in widgetSkinMap
         doHandlebars();
     };
-    updateColors();
-    updateSchemePreviews();
+    updateColors();         // initialize
+    updateSchemePreviews(); // initialize
 
 
     // END  color schemes and foreground color gen ////////////////////////////////////////////////
@@ -875,7 +892,7 @@ function (Y) {
 
 
 // for testing only
-    setTimeout(handleTwisty, 100);
+//    setTimeout(handleTwisty, 2000);
 
     Y.one('.inp-skin-name').on('blur', function(e) {
         var body = Y.one('body');
