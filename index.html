@@ -1686,8 +1686,73 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
 
 </script>
 
+<!--////////////////////////////  non-widget template (html form elements) /////////////////  -->
+<!-- This template is for tables -->
+<script id="form-template" type="text/x-handlebars-template">
 
+{{prefix}}skin-{{skinName}} {{prefix}}table {
+    margin: 0;
+    padding: 0;
+    font-family: arial, sans-serif;
+    border-collapse: separate;
+    border-spacing: 0;
+    /* IE7- don't support border-spacing, but separate is needed for more
+     * reliable dimension calculation for scrollable's header width sync,
+     * and it doesn't hurt to have the declaration here.
+     */
+    border-collapse: collapse;
+    border: 1px solid {{border}};
+}
 
+{{prefix}}skin-{{skinName}} {{prefix}}table-caption {
+    color: {{captionText}};
+    font: italic 85%/1 arial, sans-serif;
+    padding: {{captionPadding}}; /*1em 0;*/
+    text-align: center;
+}
+{{prefix}}skin-{{skinName}} {{prefix}}table td {
+    background-color: {{cellBackground}};
+    border-top: 1px solid {{border}}; /*  inner row border */
+    color: {{cellText}};
+}
+{{prefix}}skin-{{skinName}} {{prefix}}table td,
+{{prefix}}skin-{{skinName}} {{prefix}}table th {
+    border-left: 1px solid {{border}}; /*  inner column border */
+/*    border-width: 0 0 0 1px;*/
+    font-size: inherit;
+    margin: 0;
+	overflow: visible; /*to make ths where the title is really long work*/
+    padding: {{cellPadding}}; /*4px 10px 4px 10px;*/ /* cell padding */
+}
+{{prefix}}skin-{{skinName}} {{prefix}}table td:first-child,
+{{prefix}}skin-{{skinName}} {{prefix}}table th:first-child {
+    border-left-width: 0px;
+}
+
+{{prefix}}skin-{{skinName}} {{prefix}}table th {
+    background: {{headGradient}};
+    background-color: {{headBackground}};
+    color: {{headText}};
+
+    font-weight: normal;
+    text-align: left;
+/*    text-shadow: 0 1px 1px #fff;  */
+    vertical-align: bottom;
+    white-space: nowrap;
+}
+
+/*
+striping:
+   even - #fff (white)
+   odd  - #edf5ff (light blue)
+*/
+{{prefix}}skin-{{skinName}} {{prefix}}table-even td {
+    background-color: {{cellEvenBackground}};
+    color: {{cellEvenText}};
+}
+{{prefix}}skin-{{skinName}} {{prefix}}table-odd  td  {
+}
+</script>
 <!-- ///////////////////////////////////////////////////////////////////////////////////////////////  -->
 <!-- this template for UI display of the color space ///////////////////////////////////////////////  -->
 
@@ -2280,6 +2345,36 @@ Skinner Demo
                     <label for="ac-input">Enter the name of a US state:</label><br>
                     <input id="ac-input" type="text">
                 </div>
+
+                <!-- begin Form Elements -->
+                <h2 style="margin-top: 1em;">Form Elements</h2>
+                <table class="yui3-table" border="1">
+                    <caption class="yui3-table-caption">A caption for this table</caption>
+                    <tbody>
+                        <tr>
+                            <th>head 1
+                            </th>
+                            <th>head 2
+                            </th>
+                        </tr>
+                        <tr class=""><td>cell 1</td><td>cell 2</td>
+                        </tr>
+                        <tr class=""><td>cell 3</td><td>cell 4</td>
+                        </tr>
+                        <tr class=""><td>cell 5</td><td>cell 6</td>
+                        </tr>
+                        <tr class="yui3-table-even"><td>cell 7 even</td><td>cell 8 even</td>
+                        </tr>
+                        <tr class=""><td>cell 9</td><td>cell 10</td>
+                        </tr>
+                        <tr class="yui3-table-even"><td>cell 11 even</td><td>cell 12 even</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- end Form Elements -->
+
+
+
                 <div id="dial"></div>
                 <div id="node-menunav" class="yui3-menu yui3-menu-horizontal"><!-- Bounding box -->
                     <div class="yui3-menu-content"><!-- Content box -->
@@ -2380,8 +2475,6 @@ Skinner Demo
                         </form>
                     </div>
                 </div>
-
-
             </div> <!-- end widget container-->
 
         </div> <!-- end of markup for widgets class widget-column -->

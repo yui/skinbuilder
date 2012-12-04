@@ -12,13 +12,15 @@ YUI({
         'skin-scrollview'  : 'skin-scrollview.js',
         'skin-tabview'     : 'skin-tabview.js',
         'skin-slider'      : 'skin-slider.js',
+        'skin-form'        : 'skin-form.js',
 
         'skinner': {
             use: [
                 'skin-space', 'skin-autocomplete', 'skin-button',
                 'skin-calendar', 'skin-datatable', 'skin-dial',
                 'skin-node-menunav', 'skin-overlay', 'skin-panel',
-                'skin-scrollview', 'skin-tabview', 'skin-slider'
+                'skin-scrollview', 'skin-tabview', 'skin-slider',
+                'skin-form'
             ]
         }
     }
@@ -121,7 +123,6 @@ function (Y) {
 
         // adjust the desired color to have the same brightness as the grayProxy
         hex = Y.Color.getSimilarBrightness(hex, grayProxy);
-        Y.log('hex: ' + hex);
         return hex;
     },
 
@@ -341,6 +342,7 @@ function (Y) {
                 {'id': 'overlay',       'templateFileName': Skin.overlay},
                 {'id': 'panel',         'templateFileName': Skin.panel},
                 {'id': 'slider',        'templateFileName': Skin.slider},
+                {'id': 'form',          'templateFileName': Skin.form},
                 {'id': 'space',         'templateFileName': Skin.space}
             ];
         // creates the style block if not null to receive the result from the handlebars substitution
@@ -370,7 +372,6 @@ function (Y) {
     updateColors = function() {
         var Skin = Y.Skin;
 
-        //Y.log("hit updateColors");
         updateSchemePreviews();
 
         // function found in space-schemes.js
@@ -394,6 +395,7 @@ function (Y) {
         Skin.refreshOverlaySkin(); // skin-overlay.js
         Skin.refreshPanelSkin(); // skin-panel.js
         Skin.refreshSliderSkin(); // skin-slider.js
+        Skin.refreshFormSkin(); // skin-form.js
 
         Skin.refreshSpaceSkin();     // skin-space.js
 
@@ -679,7 +681,6 @@ function (Y) {
 //        minorStep: 0.1,
         after : {
             valueChange: function (e) {
-                //Y.log(e.newVal / 50);
                 //report.setHTML(e.newVal);
                 space.padding = e.newVal / 50;
                 updateColors();
@@ -912,7 +913,7 @@ function (Y) {
 
 
 // for testing only
-//    setTimeout(handleTwisty, 2000);
+    setTimeout(handleTwisty, 2000);
 
     Y.one('.inp-skin-name').on('blur', function(e) {
         var body = Y.one('body');
