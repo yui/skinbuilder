@@ -167,14 +167,16 @@ function (Y) {
                 color = Y.Color.toRGBA(color);  // needs to be in format of (255, 255, 255, ) instead of hex
                 color = color.replace(', 1)', ', ' + opacity + ')');
                 return color;
-            }
+            },
+            midColor,
+            startColor = getGradientStopColor(0, 99, 0.3), // these values could be user-controlled to adjust the gradients
+            endColor = getGradientStopColor(0, -20, 0.3),  // these values could be user-controlled to adjust the gradients
+            colorComboStr;
 
-            var midColor,
-                startColor = getGradientStopColor(0, 99, 0.3), // these values could be user-controlled to adjust the gradients
-                endColor = getGradientStopColor(0, -20, 0.3);  // these values could be user-controlled to adjust the gradients
 
             midColor = Y.Color.toRGBA(k);
             midColor = midColor.replace(', 1)', ', 0)');
+            colorComboStr = startColor + " 0%, " + midColor + " 49%, " + midColor + " 51%, " + endColor + " 100%";
 
         var CSSStr = ""+
 //         "<!--[if gte IE 9]>"+
@@ -185,22 +187,22 @@ function (Y) {
 //         "  </style>"+
 //         "<![endif]-->"+
 
-//        "\/* IE9 SVG, needs conditional override of 'filter' to 'none' *\/"+
+//        "\/* xxxIE9 SVG, needs conditional override of 'filter' to 'none' *\/"+
 //       "background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwLjIiLz4KICAgIDxzdG9wIG9mZnNldD0iNDklIiBzdG9wLWNvbG9yPSIjZmZmZmZmIiBzdG9wLW9wYWNpdHk9IjAiLz4KICAgIDxzdG9wIG9mZnNldD0iNTElIiBzdG9wLWNvbG9yPSIjMDAwMDAwIiBzdG9wLW9wYWNpdHk9IjAiLz4KICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzAwMDAwMCIgc3RvcC1vcGFjaXR5PSIwLjEiLz4KICA8L2xpbmVhckdyYWRpZW50PgogIDxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9InVybCgjZ3JhZC11Y2dnLWdlbmVyYXRlZCkiIC8+Cjwvc3ZnPg==);"+
 //       "background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zY2dnLWdlbmVyYXRlZCkiIC8+Cjwvc3ZnPg==);"+
 //       "background: url(data:image/svg+xml;base64,PD94bvc3ZnPg==);"+
 //        "background: url();"+
 
 
-        "background: -moz-linear-gradient(top,  " + startColor + " 0%, " + midColor + " 49%, " + midColor + " 51%, " + endColor + " 100%);"+     //\/* W3C *\/
+        "background:    -moz-linear-gradient(top, " + colorComboStr + ");\n"+     //  \/* W3C *\/
 
 
-        "background:  -webkit-gradient(linear, left top, left bottom, color-stop(0%, " + startColor + "), color-stop(49%, " + midColor + "), color-stop(51%, " + midColor + "), color-stop(100%," + endColor + ")); "+    //\/* Chrome,Safari4+ *\/
-        "background: -webkit-linear-gradient(top, " + startColor + " 0%, " + midColor + " 49%, " + midColor + " 51%, " + endColor + " 100%);"+    // \/* Chrome10+,Safari5.1+ *\/
-        "background:  -o-linear-gradient(top, " + startColor + " 0%, " + midColor + " 49%, " + midColor + " 51%, " + endColor + " 100%);"+         // \/* Opera 11.10+ *\/
-        "background: -ms-linear-gradient(top, " + startColor + " 0%, " + midColor + " 49%, " + midColor + " 51%, " + endColor + " 100%);"+       // \/* IE10+ *\/
-        "background: linear-gradient(to bottom, " + startColor + " 0%, " + midColor + " 49%, " + midColor + " 51%, " + endColor + " 100%);"+     //\/* W3C *\/
-        "filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#33ffffff', endColorstr='#1a000000',GradientType=0 )"+    // \/* IE6-8 *\/
+        "    background:  -webkit-gradient(linear, left top, left bottom, color-stop(0%, " + startColor + "), color-stop(49%, " + midColor + "), color-stop(51%, " + midColor + "), color-stop(100%," + endColor + "));\n"+    //\/* Chrome,Safari4+ *\/
+        "    background: -webkit-linear-gradient(top, " + colorComboStr + ");\n"+    // \/* Chrome10+,Safari5.1+ *\/
+        "    background:      -o-linear-gradient(top, " + colorComboStr + ");\n"+         // \/* Opera 11.10+ *\/
+        "    background:     -ms-linear-gradient(top, " + colorComboStr + ");\n"+       // \/* IE10+ *\/
+        "    background:   linear-gradient(to bottom, " + colorComboStr + ");\n"+     //\/* W3C *\/
+        "    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#33ffffff', endColorstr='#1a000000',GradientType=0 )"+    // \/* IE6-8 *\/
         // NOTICE NO ENDING ";" on last one. it's in the template after the {{}}
 
         "";
