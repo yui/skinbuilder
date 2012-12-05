@@ -160,6 +160,22 @@ function (Y) {
 
     // color schemes and foreground color gen ////////////////////////////////////////////////
     makeGradient = function(k) {
+
+        var getGradientStopColor = function(adjustSat, adjustLit, opacity) {
+                var color;
+                color = adjustColor(k, {h:0, s:adjustSat, l:adjustLit}, 'cap');
+                color = Y.Color.toRGBA(color);  // needs to be in format of (255, 255, 255, ) instead of hex
+                color = color.replace(', 1)', ', ' + opacity + ')');
+                return color;
+            }
+
+            var midColor,
+                startColor = getGradientStopColor(0, 99, 0.3), // these values could be user-controlled to adjust the gradients
+                endColor = getGradientStopColor(0, -20, 0.3);  // these values could be user-controlled to adjust the gradients
+
+            midColor = Y.Color.toRGBA(k);
+            midColor = midColor.replace(', 1)', ', 0)');
+
         var CSSStr = ""+
 //         "<!--[if gte IE 9]>"+
 //         "  <style type='text/css'>"+
@@ -169,17 +185,24 @@ function (Y) {
 //         "  </style>"+
 //         "<![endif]-->"+
 
-        "/* IE9 SVG, needs conditional override of 'filter' to 'none' */"+
-//        "background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwLjIiLz4KICAgIDxzdG9wIG9mZnNldD0iNDklIiBzdG9wLWNvbG9yPSIjZmZmZmZmIiBzdG9wLW9wYWNpdHk9IjAiLz4KICAgIDxzdG9wIG9mZnNldD0iNTElIiBzdG9wLWNvbG9yPSIjMDAwMDAwIiBzdG9wLW9wYWNpdHk9IjAiLz4KICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzAwMDAwMCIgc3RvcC1vcGFjaXR5PSIwLjEiLz4KICA8L2xpbmVhckdyYWRpZW50PgogIDxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9InVybCgjZ3JhZC11Y2dnLWdlbmVyYXRlZCkiIC8+Cjwvc3ZnPg==);"+
-        "background: -moz-linear-gradient(top,  rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 49%, rgba(0,0,0,0) 51%, rgba(0,0,0,0.1) 100%); /* FF3.6+ */"+
-        "background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0.2)), color-stop(49%,rgba(255,255,255,0)), color-stop(51%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,0.1))); /* Chrome,Safari4+ */"+
-        "background: -webkit-linear-gradient(top,  rgba(255,255,255,0.2) 0%,rgba(255,255,255,0) 49%,rgba(0,0,0,0) 51%,rgba(0,0,0,0.1) 100%); /* Chrome10+,Safari5.1+ */"+
-        "background: -o-linear-gradient(top,  rgba(255,255,255,0.2) 0%,rgba(255,255,255,0) 49%,rgba(0,0,0,0) 51%,rgba(0,0,0,0.1) 100%); /* Opera 11.10+ */"+
-        "background: -ms-linear-gradient(top,  rgba(255,255,255,0.2) 0%,rgba(255,255,255,0) 49%,rgba(0,0,0,0) 51%,rgba(0,0,0,0.1) 100%); /* IE10+ */"+
-        "background: linear-gradient(to bottom,  rgba(255,255,255,0.2) 0%,rgba(255,255,255,0) 49%,rgba(0,0,0,0) 51%,rgba(0,0,0,0.1) 100%); /* W3C */"+
-        "filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#33ffffff', endColorstr='#1a000000',GradientType=0 ); /* IE6-8 */"+
+//        "\/* IE9 SVG, needs conditional override of 'filter' to 'none' *\/"+
+//       "background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwLjIiLz4KICAgIDxzdG9wIG9mZnNldD0iNDklIiBzdG9wLWNvbG9yPSIjZmZmZmZmIiBzdG9wLW9wYWNpdHk9IjAiLz4KICAgIDxzdG9wIG9mZnNldD0iNTElIiBzdG9wLWNvbG9yPSIjMDAwMDAwIiBzdG9wLW9wYWNpdHk9IjAiLz4KICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzAwMDAwMCIgc3RvcC1vcGFjaXR5PSIwLjEiLz4KICA8L2xpbmVhckdyYWRpZW50PgogIDxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9InVybCgjZ3JhZC11Y2dnLWdlbmVyYXRlZCkiIC8+Cjwvc3ZnPg==);"+
+//       "background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zY2dnLWdlbmVyYXRlZCkiIC8+Cjwvc3ZnPg==);"+
+//       "background: url(data:image/svg+xml;base64,PD94bvc3ZnPg==);"+
+//        "background: url();"+
 
-        ""+
+
+        "background: -moz-linear-gradient(top,  " + startColor + " 0%, " + midColor + " 49%, " + midColor + " 51%, " + endColor + " 100%);"+     //\/* W3C *\/
+
+
+        "background:  -webkit-gradient(linear, left top, left bottom, color-stop(0%, " + startColor + "), color-stop(49%, " + midColor + "), color-stop(51%, " + midColor + "), color-stop(100%," + endColor + ")); "+    //\/* Chrome,Safari4+ *\/
+        "background: -webkit-linear-gradient(top, " + startColor + " 0%, " + midColor + " 49%, " + midColor + " 51%, " + endColor + " 100%);"+    // \/* Chrome10+,Safari5.1+ *\/
+        "background:  -o-linear-gradient(top, " + startColor + " 0%, " + midColor + " 49%, " + midColor + " 51%, " + endColor + " 100%);"+         // \/* Opera 11.10+ *\/
+        "background: -ms-linear-gradient(top, " + startColor + " 0%, " + midColor + " 49%, " + midColor + " 51%, " + endColor + " 100%);"+       // \/* IE10+ *\/
+        "background: linear-gradient(to bottom, " + startColor + " 0%, " + midColor + " 49%, " + midColor + " 51%, " + endColor + " 100%);"+     //\/* W3C *\/
+        "filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#33ffffff', endColorstr='#1a000000',GradientType=0 )"+    // \/* IE6-8 *\/
+        // NOTICE NO ENDING ";" on last one. it's in the template after the {{}}
+
         "";
 
         return CSSStr;
@@ -201,7 +224,8 @@ function (Y) {
         b.rule.high = adjustColor(k, {h:0, s:0, l:10});
         b.border.high = adjustColor(k, {h:0, s:0, l:10});
         b.border.low = adjustColor(k, {h:0, s:0, l:-5});
-        b.gradient = makeGradient(k);
+        var foo = makeGradient(k);
+        b.gradient = foo;
     },
 
     /**

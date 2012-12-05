@@ -31,6 +31,7 @@ Skin.refreshCalendarSkin = function () {
         dayHoverText: space.block.normal.hover.text.normal,
 
         daySelectedBackground: space.block.highest.background,
+        daySelectedGradient: space.block.highest.gradient,
         daySelectedText: space.block.highest.text.normal,
         daySelectedBorderLow: space.block.highest.border.low,
         daySelectedBorderHigh: space.block.highest.border.high,

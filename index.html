@@ -14,7 +14,7 @@
 {{prefix}}skin-{{skinName}} {{prefix}}calendar-content {
     padding: {{containerPadding}};
     border-radius: {{containerRadius}};
-    background: {{gradient}};
+    {{gradient}};
     background-color: {{background}};
     color: {{text}};
     border: solid 1px;
@@ -74,14 +74,13 @@
 }
 
 {{prefix}}skin-{{skinName}} {{prefix}}calendar-day-selected {
-    background: {{gradient}};
+    {{daySelectedGradient}};
     background-color: {{daySelectedBackground}};
     color: {{daySelectedText}};
 }
 
 {{prefix}}skin-{{skinName}} {{prefix}}calendar-day-selected:hover, /* When cursor hovers over selected days */
 {{prefix}}skin-{{skinName}} {{prefix}}calendar-day-selected{{prefix}}calendar-day-highlighted { /* When keyboard focuses over selected days */
-    background: {{gradient}};
     background-color: {{daySelectedHoverBackground}};
     color: {{daySelectedHoverText}};
 }
@@ -161,7 +160,7 @@
 }
 
 {{prefix}}skin-{{skinName}} {{prefix}}tab-label {
-    background: {{tabGradient}};
+    {{tabGradient}};
     background-color: {{tabBackground}};
     border-style: solid;
     border-color: {{tabBorderHigh}} {{tabBorderLow}} {{tabBorderLow}} {{tabBorderHigh}};
@@ -176,7 +175,7 @@
 
 {{prefix}}skin-{{skinName}} {{prefix}}tab-label:hover,
 {{prefix}}skin-{{skinName}} {{prefix}}tab-label:focus {
-    background: {{tabHoverGradient}};
+    {{tabHoverGradient}};
     background-color: {{tabHoverBackground}};
     color: {{tabHoverText}};
     border: solid 1px;
@@ -186,7 +185,7 @@
 }
 
 {{prefix}}skin-{{skinName}} {{prefix}}tab-selected {{prefix}}tab-label {
-    background: {{tabSelectedGradient}};
+    {{tabSelectedGradient}};
     background-color: {{tabSelectedBackground}};
     color: {{tabSelectedText}};
     border: solid 1px;
@@ -195,7 +194,7 @@
 /* separated out hover state for selected tab */
 {{prefix}}skin-{{skinName}} {{prefix}}tab-selected {{prefix}}tab-label:hover,
 {{prefix}}skin-{{skinName}} {{prefix}}tab-selected {{prefix}}tab-label:focus {
-    background: {{tabSelectedHoverGradient}};
+    {{tabSelectedHoverGradient}};
     background-color: {{tabSelectedHoverBackground}};
     color: {{tabSelectedHoverText}};
     border: solid 1px;
@@ -389,8 +388,7 @@
 
 {{prefix}}skin-{{skinName}} {{prefix}}skin-night {{prefix}}button:-moz-focusring {
     outline-color: rgba(255, 255, 255, 0.85);
-}
-</script>
+}</script>
 
 
 <script id="datatable-template" type="text/x-handlebars-template">
@@ -436,7 +434,7 @@
 }
 
 {{prefix}}skin-{{skinName}} {{prefix}}datatable-header {
-    background: {{headGradient}};
+    {{headGradient}};
     background-color: {{headBackground}};
     color: {{headText}};
 
@@ -1731,7 +1729,7 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
 }
 
 {{prefix}}skin-{{skinName}} {{prefix}}table th {
-    background: {{headGradient}};
+    {{headGradient}};
     background-color: {{headBackground}};
     color: {{headText}};
 
@@ -1786,7 +1784,7 @@ striping:
 }
 
 .yui3-skin-{{skinName}} .gradient {
-    background: {{gradient}};
+    {{gradient}};
 }
 /* background:hover **************/
 .yui3-skin-{{skinName}} .background.show-hover {
@@ -1816,7 +1814,7 @@ striping:
 }
 
 .yui3-skin-{{skinName}} .background.show-hover .gradient {
-    background: {{hoverGradient}};
+    {{hoverGradient}};
 }
 
 /* block page ***********************************/
@@ -1851,7 +1849,7 @@ striping:
 }
 
 .yui3-skin-{{skinName}} .block-page .gradient {
-    background: {{blockPageGradient}};
+    {{blockPageGradient}};
 }
 
 /* block page:hover ************************************/
@@ -1885,7 +1883,7 @@ striping:
 }
 
 .yui3-skin-{{skinName}} .block-page:hover .gradient {
-    background: {{blockPageHoverGradient}};
+    {{blockPageHoverGradient}};
 }
 
 
@@ -1922,7 +1920,7 @@ striping:
 }
 
 .yui3-skin-{{skinName}} .block-low .gradient {
-    background: {{blockLowGradient}};
+    {{blockLowGradient}};
 }
 
 /* block low:hover ************************************/
@@ -1956,7 +1954,7 @@ striping:
 }
 
 .yui3-skin-{{skinName}} .block-low:hover .gradient {
-    background: {{blockLowHoverGradient}};
+    {{blockLowHoverGradient}};
 }
 
 /* block normal *********************************/
@@ -1990,7 +1988,7 @@ striping:
 }
 
 .yui3-skin-{{skinName}} .block-normal .gradient {
-    background: {{blockNormalGradient}};
+    {{blockNormalGradient}};
 }
 
 /* block normal:hover  *********************************/
@@ -2024,7 +2022,7 @@ striping:
 }
 
 .yui3-skin-{{skinName}} .block-normal:hover .gradient {
-    background: {{blockNormalHoverGradient}};
+    {{blockNormalHoverGradient}};
 }
 
 /* block high *********************************/
@@ -2058,7 +2056,7 @@ striping:
 }
 
 .yui3-skin-{{skinName}} .block-high .gradient {
-    background: {{blockHighGradient}};
+    {{blockHighGradient}};
 }
 
 /* block high:hover *********************************/
@@ -2092,7 +2090,7 @@ striping:
 }
 
 .yui3-skin-{{skinName}} .block-high:hover .gradient {
-    background: {{blockHighHoverGradient}};
+    {{blockHighHoverGradient}};
 }
 
 /* block highest *********************************/
@@ -2126,7 +2124,7 @@ striping:
 }
 
 .yui3-skin-{{skinName}} .block-highest .gradient {
-    background: {{blockHighestGradient}};
+    {{blockHighestGradient}};
 }
 
 /* block highest:hover *********************************/
@@ -2160,7 +2158,7 @@ striping:
 }
 
 .yui3-skin-{{skinName}} .block-highest:hover .gradient {
-    background: {{blockHighestHoverGradient}};
+    {{blockHighestHoverGradient}};
 }
 
 /*************** End styles for the UI display of the color space in this tool *************/
