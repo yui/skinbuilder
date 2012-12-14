@@ -1,0 +1,241 @@
+YUI.add('colorspace', function(Y) {
+Y.ColorSpace = function(options) {
+    this.init(options);
+};
+
+Y.ColorSpace.schemes = {};
+
+Y.ColorSpace.prototype = {
+    constructor: Y.ColorSpace,
+
+    init: function(options) {
+        var scheme = options.scheme;
+        if (typeof scheme === 'string') {
+            scheme = Y.ColorSpace.schemes[scheme];
+        }
+
+        this._adjust = {
+            highest: {h: 0, s: 0, l: 0},
+            high: scheme.high,
+            normal: scheme.normal,
+            low: scheme.low,
+            container: {h: 0, s: 0, l: 0}
+        };
+
+        this._adjustBG = scheme.background;
+
+        this.scheme = scheme;
+        this.name = options.name;
+
+        if (options.keycolor) {
+            this.render(options.keycolor);
+        }
+    },
+
+    adjustColors: function(b) {
+        var k = b.background; // the source color, *from* which we adjust to get the new foreground color
+        b.text = {
+            low: this.adjustColor(k, {h:0, s:0, l:20}, 'flip'),
+            normal: this.adjustColor(k, {h:0, s:0, l:45}, 'flip'),
+            high: this.adjustColor(k, {h:0, s:0, l:55}, 'flip')
+        };
+
+        b.rule = {
+            low: this.adjustColor(k, {h:0, s:0, l:-10}),
+            high: this.adjustColor(k, {h:0, s:0, l:10})
+        };
+
+        b.border = {
+            high: this.adjustColor(k, {h:0, s:0, l:10}),
+            low: this.adjustColor(k, {h:0, s:0, l:-5})
+
+        };
+
+        b.gradient = this.makeGradient(k);
+    },
+
+    getGradientStopColor: function(k, adjustSat, adjustLit, opacity) {
+        var color;
+        color = this.adjustColor(k, {h:0, s:adjustSat, l:adjustLit}, 'cap');
+        color = Y.Color.toRGBA(color);  // needs to be in format of (255, 255, 255, ) instead of hex
+        color = color.replace(', 1)', ', ' + opacity + ')');
+        return color;
+    },
+
+    makeGradient: function(k) {
+        var midColor,
+            startColor = this.getGradientStopColor(k, 0, 99, 0.3), // these values could be user-controlled to adjust the gradients
+            endColor = this.getGradientStopColor(k, 0, -20, 0.3),  // these values could be user-controlled to adjust the gradients
+            colorComboStr,
+            CSSStr;
+
+        midColor = Y.Color.toRGBA(k);
+        midColor = midColor.replace(', 1)', ', 0)');
+        colorComboStr = startColor + " 0%, " + midColor + " 49%, " + midColor + " 51%, " + endColor + " 100%";
+
+        CSSStr = ""+
+        "background:    -moz-linear-gradient(top, " + colorComboStr + ");\n"+     //  \/* W3C *\/
+
+
+        "    background:  -webkit-gradient(linear, left top, left bottom, color-stop(0%, " + startColor + "), color-stop(49%, " + midColor + "), color-stop(51%, " + midColor + "), color-stop(100%," + endColor + "));\n"+    //\/* Chrome,Safari4+ *\/
+        "    background: -webkit-linear-gradient(top, " + colorComboStr + ");\n"+    // \/* Chrome10+,Safari5.1+ *\/
+        "    background:      -o-linear-gradient(top, " + colorComboStr + ");\n"+         // \/* Opera 11.10+ *\/
+        "    background:     -ms-linear-gradient(top, " + colorComboStr + ");\n"+       // \/* IE10+ *\/
+        "    background:   linear-gradient(to bottom, " + colorComboStr + ");\n"+     //\/* W3C *\/
+        "    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#33ffffff', endColorstr='#1a000000',GradientType=0 )"+    // \/* IE6-8 *\/
+        // NOTICE NO ENDING ";" on last one. it's in the template after the {{}}
+
+        "";
+
+        return CSSStr;
+    },
+
+    getPercentToEndAdjust: function(val, percentToEnd) {
+        var theMaxAdjust; // the distance from the val to "the end", meaning either 0 or 1
+        if (percentToEnd > 0) { // if going bigger
+            theMaxAdjust = 100 - val; // the most you could go from the val to the max (white or full sat)
+            return (theMaxAdjust * (percentToEnd / 100)); // - val; // this gives a factor like 0.2 ...
+            // that can be simply added to the val to give the effect of "go this percent of the distance to the max"
+        } else {
+            theMaxAdjust = val; // the most you could go from val toward dark or low sat or "0"
+            return (theMaxAdjust * (percentToEnd / 100));
+        }
+    },
+
+
+    // adjusts the h s l of a color
+    /**
+     * @param {String} hexInput
+     * @param {Object} adjust
+     *      @param h integer in the range of 0 to 360
+     *      @param s number between 0 and 1
+     *      @param l number between 0 and 1
+     * @param {string} type. valid strings 'flip', 'cap', 'percent'
+     *      flip: when a value goes beyond min or max by some factor,
+     *          the value flips to the negative value of change
+     *          example: orig value 0.8, adjust by 0.4 results in 0.8 adjust by -0.4
+     *      cap: orig value 0.8, adjust by 0.4 results in 1
+     *      percent: orig value 0.8, adjust by 0.4 means go 0.4 percent of the distance
+     *          from 0.8 to 1 results in  0.88 (0.2 * 0.4 = 0.08 + 0.8)
+     */
+    adjustColor: function(hexInput, adjust, type) {
+        var hsl = Y.Color.toArray(Y.Color.toHSL(hexInput)),
+            hex,
+            grayProxy,
+            adjustType = 'cap';   // default
+
+        if (typeof(type) != 'undefined') {
+            adjustType = type;
+        }
+
+        // Saturation adjustment if needed
+        if ((adjust.s !== 0) && (adjustType === 'percent')) {  // adjust the sat with percent-style adjustment
+            adjust.s = this.getPercentToEndAdjust(hsl[1], adjust.s);
+        }
+
+        // get a Hex for adjusted sat and
+        // Hue adjustment if needed
+        // Note: hue adjustment is the same no matter what the adjustment type
+        if ((adjust.s !== 0) || (adjust.h !== 0)) {
+            hex = Y.Color.getOffset(hexInput, {h: adjust.h, s: adjust.s});
+        } else {  // if both Hue and Sat adjust are 0
+            hex = hexInput;
+        }
+
+        // Convert hex color to gray scale before adjusting lightness
+        // Do all the adjusting to the grayProxy color before turning it back into a color
+        // of a similar brightness.
+        // This compensates for "different hues appear lighter/darker than others" (yellow / blue issue)
+        grayProxy = Y.Color.getSimilarBrightness('#808080', hex);
+        grayProxyLightness = Math.round(Y.Color.getBrightness(grayProxy) * 100);  // fixme when Tony changes api for getBrightness to return values in range of 0 - 100
+
+        // adjust lightness (of grayProxy) based on 'type' attribute
+        if (adjustType === 'cap') {
+            //adjust.l = adjust.l;
+        } else if (adjustType === 'flip') {
+            adjust.l = this.getFlippedAdjust(grayProxy, grayProxyLightness, adjust.l);
+        } else if (adjustType === 'percent') {
+            adjust.l = this.getPercentToEndAdjust(grayProxyLightness, adjust.l);
+        } else {
+            alert('a call to adjustColor has an invalid type of: ' + type);
+        }
+        // adjust grayProxy to the desired lightness
+        grayProxy = Y.Color.getOffset(grayProxy, {l: adjust.l});
+
+        // adjust the desired color to have the same brightness as the grayProxy
+        hex = Y.Color.getSimilarBrightness(hex, grayProxy);
+        return hex;
+    },
+
+    /** if lit is adjusted beyond min or max it reverses (flips and subtracts the adjustment if over or under max/min by ______)
+     * This is needed for text
+     */
+    getFlippedAdjust: function(sourceLit, adjust) {
+        var overBy = 10,
+            newAdjust = adjust,
+            newLit = (parseInt(sourceLit, 10) + adjust);
+//            newLit = (parseInt(Y.Color.getBrightness(origColor) * 100, 10) + adjust);      // XXX
+
+        // if over by big enough amount, then reverse to negative
+        if (newLit > (100 + overBy)) {
+            newAdjust = -adjust; // the newAdjust will flip the sign of the requested adjust (flip to a darker color)
+        } else if (newLit > 100) { // let it stay at max
+            newAdjust = adjust; // Y.Color will cap at max
+        }
+        if (newLit < 0 - overBy) {
+            newAdjust = -adjust;  // the newAdjust will flip the sign of the requested adjust (flip to a lighter color)
+        } else if (newLit < 0) {
+            newAdjust = adjust;
+        }
+        return newAdjust;
+    },
+        
+    makeHoverBlock: function(block, darkBG) {
+        block.hover = {
+            background: ''
+        };
+
+        if (darkBG) {
+            block.hover.background = this.adjustColor(block.background, {h:0, s:0, l:10}, 'percent');
+        } else {
+            block.hover.background = this.adjustColor(block.background, {h:0, s:0, l:-10}, 'percent');
+        }
+        this.adjustColors(block.hover);
+    },
+
+    render: function(color) {
+        var block;
+
+        this.keycolor = color;
+
+        this._space = {
+            background: this.adjustColor(color, this._adjustBG, 'flip'),
+            block: {}
+        };
+
+        //this.adjustColors(this._space.block);
+        //this.makeHoverBlock(this._space.block);
+
+        // generate forground and hover object colors for blocks
+        for (block in this._adjust) {
+            var adjustBy = this._adjust[block];
+            this._space.block[block] = {
+                background: this.adjustColor(color, this._adjust[block], 'percent')
+            };
+
+            this.adjustColors(this._space.block[block]);
+            this.makeHoverBlock(this._space.block[block]);
+        }
+    },
+
+    getData: function() {
+        if (!this._space) {
+            this.render(this.keycolor);
+        }
+
+        return this._space;
+    }
+};
+// TODO: Figure out why this breaks Y.Color import.
+//}, '@VERSION@', {'requires': ['color']});
+}, '@VERSION@', {'requires': []});
