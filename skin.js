@@ -53,8 +53,11 @@ Skin.prototype = {
             });
 
             this._space = colorspace;
-        } else {
-            colorspace.scheme = this.options.scheme;
+        }
+        
+
+        if (colorspace.scheme !== this.options.scheme) {
+            colorspace.options.scheme = this.options.scheme;
         }
 
         this.colorspace = colorspace.render(this.options.keycolor);
