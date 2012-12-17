@@ -1,4 +1,11 @@
+// TODO:
+// - Remove Color Palette CSS from textarea output.
+// - Break out sample widgets into separate module.
+// - Convert input handling and Picker to OO-style.
+// - Y.Appify?
+
 YUI({
+    filter: 'raw',
     modules: {
         'skin'       : 'skin.js',
         'colorspace'       : 'colorspace.js',
@@ -13,13 +20,14 @@ YUI({
         'skin-panel'       : 'skin-panel.js',
         'skin-scrollview'  : 'skin-scrollview.js',
         'skin-tabview'     : 'skin-tabview.js',
+        'skin-space'     : 'skin-space.js',
 
         'skinner': {
             use: [
                 'skin', 'colorspace-schemes', 'skin-autocomplete', 'skin-button',
                 'skin-calendar', 'skin-datatable', 'skin-dial',
                 'skin-node-menunav', 'skin-overlay', 'skin-panel',
-                'skin-scrollview', 'skin-tabview'
+                'skin-scrollview', 'skin-tabview', 'skin-space'
             ]
         }
     }
@@ -33,29 +41,32 @@ YUI({
 function (Y) {
 
     var PAGE_BG_COLOR = '#fff',
-        schemeName = 'monochrome', // default schemeName
-        schemeNames = Y.Object.keys(Y.ColorSpace.schemes),
-        Skin = Y.Skin,
+        KEY_COLOR = { 
+            page: PAGE_BG_COLOR,
+            background: '#ffffff',
+            block: {
+                low: {},  
+                normal: {},  
+                high: {},  
+                highest: {
+                    background: '#3355BA'
+                }   
+            }   
+        },
 
-        colorspace = new Y.ColorSpace({
-            name: 'bulue monochrome',
-            scheme: schemeName,
-            keycolor: '#3355BA'
-        }),
+        SCHEME_NAME = 'monochrome', // default schemeName
+        SCHEME_NAMES = Y.Object.keys(Y.ColorSpace.schemes),
 
-        space = colorspace.getData(),
+        STYLESHEET = document.documentElement.appendChild(document.createElement('style')),
 
         SKIN = new Y.Skin({
             name: 'mine',
-            scheme: 'monochrome',
-            color: '#3355BA',
-            containerColor: '#000'
+            scheme: SCHEME_NAME,
+            keycolor: KEY_COLOR.block.highest.background,
+            container: PAGE_BG_COLOR
         }),
 
-        TEMPLATES = {},
-        DATA = {};
-
-    console.log(space);
+        TEMPLATES = {};
 
     function hexToHsl(hexInput) {
         var hslStr = Y.Color.toHSL(hexInput),
@@ -64,123 +75,54 @@ function (Y) {
         return hslArr;
     }
 
-
-    Y.Object.each(Y.Skin.renderers, function(fn, name) {
-        TEMPLATES[name] = document.getElementById(name + '-template').innerHTML;
-    });
-
-
-    // This runs loops through each color scheme, running it's code
-    // to update the color space
-    // It sets the swatches in the color scheme radio controls
-    // It does NOT send colors to the widget css by handlebars
-    //
     function updateSchemePreviews() {
         var i,
+            space,
             schemeChoices = Y.all('.scheme-radios .pick');
 
-        for (i = 0; i < schemeNames.length; i+=1) {
+        for (i = 0; i < SCHEME_NAMES.length; i+=1) {
+            space = new Y.ColorSpace({
+                scheme: SCHEME_NAMES[i]
+            }).render(KEY_COLOR.block.highest.background);
             schemeChoices.item(i).one('.swatches li:nth-child(1)').setStyle('backgroundColor', space.block.highest.background);
             schemeChoices.item(i).one('.swatches li:nth-child(2)').setStyle('backgroundColor', space.block.high.background);
             schemeChoices.item(i).one('.swatches li:nth-child(3)').setStyle('backgroundColor', space.block.normal.background);
             schemeChoices.item(i).one('.swatches li:nth-child(4)').setStyle('backgroundColor', space.block.low.background);
-
         }
     }
 
-    function doHandlebars() {
-        // creates the CSS style block for each widget
-        var stylesheet,
-            styleSheetOutput = document.getElementById('textarea-style'),
-            template,
-            result,
-            i,
-            widgets = [
-//                {'id': 'calendar',      'templateFileName': Skin.calendar},
-                {'id': 'tabview',       'templateFileName': Skin.tabview},
-/*
-                {'id': 'button',        'templateFileName': Skin.button},
-                {'id': 'datatable',     'templateFileName': Skin.datatable},
-                {'id': 'scrollview',    'templateFileName': Skin.scrollview},
-                {'id': 'autocomplete',  'templateFileName': Skin.autocomplete},
-                {'id': 'dial',          'templateFileName': Skin.dial},
-                {'id': 'nodeMenunav',   'templateFileName': Skin.nodeMenunav},
-                {'id': 'overlay',       'templateFileName': Skin.overlay},
-                {'id': 'panel',         'templateFileName': Skin.panel},
-                {'id': 'space',         'templateFileName': Skin.space}
-*/
-            ];
-        // creates the style block if not null to receive the result from the handlebars substitution
-        // of Space -> Widget Skin Map + Widget Template -> Style block
-        if (document.getElementById('calendar-style') === null){
-            for (i = 0; i < widgets.length; i += 1) {
-                stylesheet = document.documentElement.appendChild(document.createElement('style'));
-                stylesheet.setAttribute('id', widgets[i].id + '-style', 0);
-            }
-        }
+    function updateCSS() {
+        var cssOutput = document.getElementById('textarea-style'),
+            css = '';
 
-        // does the handlebars substitution from Widget Skin Map -> Widget Stylesheet
-        styleSheetOutput.value = "";
-        for (i = 0; i < widgets.length; i += 1) {
-            template = TEMPLATES[widgets[i].id];
-            result = SKIN.render(widgets[i].id, template);
-            stylesheet = document.getElementById(widgets[i].id + '-style');
-            stylesheet.innerHTML = result;
-            styleSheetOutput.value += result;
-        }
+        Y.Object.each(TEMPLATES, function(template, name) {
+            css += SKIN.render(name, template);
+        });
+
+        cssOutput.value = css;
+        STYLESHEET.innerHTML = css;
     }
 
     // this runs the code for the correct scheme
     // sets the page background color
     // updates the widgetSkinMaps
-    // runs the handlebars for substituting the new colors into the CSS
-    updateColors = function() {
-        var Skin = Y.Skin;
-
-        //Y.log("hit updateColors");
+    // substitutes the new colors into the CSS
+    function updateColors() {
+        SKIN.options.container = PAGE_BG_COLOR;
+        SKIN.options.scheme = SCHEME_NAME;
+        updateCSS();
         updateSchemePreviews();
-
-        // function found in space-schemes.js
-        // sets all colors in the cSpace literal with relationships from a few key colors
-        //setColors(schemeName);
-        // also set background-color of <html>
         Y.one('.page-background').setStyle('backgroundColor', PAGE_BG_COLOR);
+    }
 
-        // after setColors() sets all cspce color relationships
-        // the "widgetSkinMaps" need to be refreshed with correct values from the cspace
-        // example:
-        // selectedText:       space.block.highest.text.normal,
-        //Skin.refreshButtonSkin();    // skin-button.js
-        DATA.tabview = SKIN.render('tabview', TEMPLATES.tabview);   // skin-tabview.js
-        /*
-        Skin.refreshCalendarSkin();  // skin-calendar.js
-        Skin.refreshDatatableSkin(); // skin-datatable.js
-        Skin.refreshScrollviewSkin(); // skin-scrollview.js
-        Skin.refreshAutocompleteSkin(); // skin-autocomplete.js
-        Skin.refreshDialSkin(); // skin-dial.js
-        Skin.refreshNodeMenunavSkin();  // skin-node-menunav.js
-        Skin.refreshOverlaySkin(); // skin-overlay.js
-        Skin.refreshPanelSkin(); // skin-panel.js
+    // Populate TEMPLATES from HTML document.
+    Y.Object.each(Y.Skin.renderers, function(fn, name) {
+        TEMPLATES[name] = document.getElementById(name + '-template').innerHTML;
+    });
 
-        Skin.refreshSpaceSkin();     // skin-space.js
-        */
-
-        // runs the code that does the handlebars replacements in the "Stylesheet Templates"   (.css section above in this file)
-        // example:
-        // <style>
-        // .yui3-button-selected {
-        //      color: {{selectedText}};
-        // }
-        // {{variableName}} from widgetSkinMaps are replaced by values in widgetSkinMap
-        doHandlebars();
-    };
     updateColors();
-    updateSchemePreviews();
-
 
     // END  color schemes and foreground color gen ////////////////////////////////////////////////
-
-
 
 
     // For UI display only /////////////////////////////////////////////////////
@@ -388,7 +330,7 @@ function (Y) {
         after : {
             valueChange: function (e) {
                 //report.setHTML(e.newVal);
-                space.radius = e.newVal;
+                SKIN.options.radius = e.newVal;
                 updateColors();
             }
         }
@@ -414,7 +356,7 @@ function (Y) {
             valueChange: function (e) {
                 //Y.log(e.newVal / 50);
                 //report.setHTML(e.newVal);
-                space.padding = e.newVal / 50;
+                SKIN.options.padding = e.newVal / 50;
                 updateColors();
                 overlay.move([menuSplitNode.getX(),  menuSplitNode.get('region').bottom + 50] );
                 panel.move([overlayNode.getX(),  overlayNode.get('region').bottom + 50] );
@@ -455,13 +397,12 @@ function (Y) {
     // listener for scheme changing radios
     Y.one('.scheme-radios').delegate('click', function(){
         var radios = Y.all('.scheme-radios input');
-        schemeName = this.get('id');
-        handleSchemeChangePageColor(schemeName); // change page background-color if needed
+        SCHEME_NAME = this.get('id');
+        handleSchemeChangePageColor(SCHEME_NAME); // change page background-color if needed
         updateColors();
         radios.set('checked', false);
         this.set('checked', true);
     }, 'input');
-
 
 
 
@@ -515,9 +456,12 @@ function (Y) {
             if (objBucket.hasClass('page-background')) {
                 PAGE_BG_COLOR = hex;
             } else if (objBucket.hasClass('bucket-highest')) {
-                Y.Skin.KEY_COLOR.block.highest.background = hex;
+                KEY_COLOR.block.highest.background = hex;
+                SKIN.options.keycolor = hex;
             }
-            updateColors();
+
+            // Using async to keep UI snappy.
+            Y.config.win.setTimeout(updateColors, 20);
 
             Y.one('.picker-swatch').setStyles({'backgroundColor': hex});
             Y.one('.picker-swatch .picker-input').set('value', hex);
@@ -528,7 +472,7 @@ function (Y) {
         if (objBucket.hasClass('page-background')) {
             PAGE_BG_COLOR = hex;
         } else if (objBucket.hasClass('bucket-highest')) {
-            Y.Skin.KEY_COLOR.block.highest.background = hex;
+            KEY_COLOR.block.highest.background = hex;
         }
         updateColors();
 
@@ -569,7 +513,7 @@ function (Y) {
             bucketHex = PAGE_BG_COLOR;
         } else if (e.currentTarget.hasClass('bucket-highest')){
             objBucket = e.currentTarget;
-            bucketHex = space.block.highest.background;
+            bucketHex = KEY_COLOR.block.highest.background;
         }
         Y.one('.picker-swatch .picker-input').set('value', bucketHex);
 
@@ -651,9 +595,9 @@ function (Y) {
         var body = Y.one('body');
         // sets the skin name and class prefix that will be replaced in all the
         // stylesheet templates
-        space.skin.name = Y.Escape.html(Y.one('.inp-skin-name').get('value'));
+        SKIN.options.name = Y.Escape.html(Y.one('.inp-skin-name').get('value'));
         body.setAttribute('class', '');
-        body.addClass(space.skin.prefix.substring(1) + 'skin-' + space.skin.name);
+        body.addClass(SKIN.options.prefix.substring(1) + SKIN.options.skinPrefix + SKIN.options.name);
 
         // Then we need to do refresh[component]Skin() function calls
         // Which are found in updateColors();

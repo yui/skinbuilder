@@ -1,15 +1,13 @@
 YUI.add('skin-autocomplete', function (Y) {
 
-var Skin  = Y.Skin,
-    space = Skin.SPACE;
+Y.Skin.renderers.autocomplete = function (skin) {
+    var space = skin.colorspace;
 
-Skin.autocomplete = null;
-Skin.refreshAutocompleteSkin = function () {
-    Skin.autocomplete = {
-        skinName: space.skin.name,
-        prefix:   space.skin.prefix,
+    return {
+        skinName: skin.name,
+        prefix:   skin.prefix,
 
-        itemPadding: Skin.getPadding(0.2, 0.5), //2px 5px;*/
+        itemPadding: skin.padding(0.2, 0.5), //2px 5px;*/
 
         background:         space.background,
         border:             space.border.low,

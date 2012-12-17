@@ -1,19 +1,17 @@
 YUI.add('skin-node-menunav', function (Y) {
 
-var Skin  = Y.Skin,
-    space = Skin.SPACE;
+Y.Skin.renderers.nodeMenunav = function (skin) {
+    var space = skin.colorspace;
 
-Skin.nodeMenunav = null;
-Skin.refreshNodeMenunavSkin = function () {
-    Skin.nodeMenunav = {
-        skinName: space.skin.name,
-        prefix:   space.skin.prefix,
+    return {
+        skinName: skin.name,
+        prefix:   skin.prefix,
 
-        menuContentPadding: Skin.getPadding(0.1, 0),
-        itemPadding: Skin.getPadding(0.1, 0.5), ///*0 1em;
-        horizontalLabelPadding: Skin.getPadding(0.1, 0.5), /*0 10px;*/
-        splitButtonNavPadding: Skin.getPadding(0.1, 0.3, 0.1, 0.5), //*0 5px 0 10px;*/
-        togglePadding: Skin.getPadding(0.1, 0.001, 0.1),
+        menuContentPadding: skin.padding(0.1, 0),
+        itemPadding: skin.padding(0.1, 0.5), ///*0 1em;
+        horizontalLabelPadding: skin.padding(0.1, 0.5), /*0 10px;*/
+        splitButtonNavPadding: skin.padding(0.1, 0.3, 0.1, 0.5), //*0 5px 0 10px;*/
+        togglePadding: skin.padding(0.1, 0.001, 0.1),
 
         background:         space.background,
         border:             space.border.low,

@@ -1,20 +1,18 @@
 YUI.add('skin-panel', function (Y) {
 
-var Skin  = Y.Skin,
-    space = Skin.SPACE;
+Y.Skin.renderers.panel = function (skin) {
+    var space = skin.colorspace;
 
-Skin.panel = null;
-Skin.refreshPanelSkin = function () {
-    Skin.panel = {
-        skinName: space.skin.name,
-        prefix:   space.skin.prefix,
+    return {
+        skinName: skin.name,
+        prefix:   skin.prefix,
 
-        hdPadding: Skin.getPadding(0.5), // /*8px 28px 8px 8px
-        bdPadding: Skin.getPadding(0.5), // /*8px;*/
-        ftPadding: Skin.getPadding(0.5), // /*8px;*/
-        hdButtonPadding: Skin.getPadding(0.2), // /*8px;*/
+        hdPadding: skin.padding(0.5), // /*8px 28px 8px 8px
+        bdPadding: skin.padding(0.5), // /*8px;*/
+        ftPadding: skin.padding(0.5), // /*8px;*/
+        hdButtonPadding: skin.padding(0.2), // /*8px;*/
 
-        panelRadius:        Skin.getRadius(0.4), // 40% of the global space.radius
+        panelRadius:        skin.radius(0.4), // 40% of the global space.radius
         background:         space.background,
         border:             space.block.low.border.low,
         text:               space.text.normal,

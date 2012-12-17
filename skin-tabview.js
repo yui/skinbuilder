@@ -1,12 +1,10 @@
 YUI.add('skin-tabview', function (Y) {
 
 Y.Skin.renderers.tabview = function (skin) {
-    var block = skin.colorspace.block;
+    var space = skin.colorspace,
+        block = skin.colorspace.block;
 
     return {
-        skinName: skin.name,
-        prefix:   skin.prefix,
-
         paddingTab: skin.padding(0.3, 0.75),
         paddingTabSelected: skin.padding(0.4, 0.75),
         paddingPanel: skin.padding(0.25, 0.5),
@@ -38,9 +36,9 @@ Y.Skin.renderers.tabview = function (skin) {
 
         listBorderColor: block.highest.border.low,
 
-        panelBackground: block.background,
-        panelBorder: block.border.low,
-        panelText: block.text.normal
+        panelBackground: space.background,
+        panelBorder: space.border.low,
+        panelText: space.text.normal
     }
 };
 

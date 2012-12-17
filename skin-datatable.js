@@ -1,16 +1,14 @@
 YUI.add('skin-datatable', function (Y) {
 
-var Skin  = Y.Skin,
-    space = Skin.SPACE;
+Y.Skin.renderers.datatable = function (skin) {
+    var space = skin.colorspace;
 
-Skin.datatable = null;
-Skin.refreshDatatableSkin = function () {
-    Skin.datatable = {
-        skinName: space.skin.name,
-        prefix:   space.skin.prefix,
+    return {
+        skinName: skin.name,
+        prefix:   skin.prefix,
 
-        captionPadding: Skin.getPadding(1, 0),
-        cellPadding: Skin.getPadding(0.3, 0.6),   // 4px 10px 4px 10px;
+        captionPadding: skin.padding(1, 0),
+        cellPadding: skin.padding(0.3, 0.6),   // 4px 10px 4px 10px;
 
         headGradient:   space.block.normal.gradient,
         headBackground: space.block.normal.background,
@@ -32,7 +30,7 @@ Skin.refreshDatatableSkin = function () {
         cellSortedEvenText:         space.block.low.hover.text.normal,
 
         border:        space.border.low,
-        captionText:    space.block.page.text.low,
+        captionText:    space.block.container.text.low,
 
         foo: space
     };

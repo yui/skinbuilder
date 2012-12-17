@@ -1,15 +1,13 @@
 YUI.add('skin-scrollview', function (Y) {
 
-var Skin  = Y.Skin,
-    space = Skin.SPACE;
+Y.Skin.renderers.scrollview = function (skin) {
+    var space = skin.colorspace;
 
-Skin.scrollview = null;
-Skin.refreshScrollviewSkin = function () {
-    Skin.scrollview = {
-        skinName: space.skin.name,
-        prefix:   space.skin.prefix,
+    return {
+        skinName: skin.name,
+        prefix:   skin.prefix,
 
-        itemPadding: Skin.getPadding(0.3, 0.5),
+        itemPadding: skin.padding(0.3, 0.5),
 
         background:         space.background,
         border:             space.border.low,

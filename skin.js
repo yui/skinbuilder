@@ -1,5 +1,10 @@
 YUI.add('skin', function(Y, NAME) {
 
+// TODO:
+// - Use Y.Template for replaceVars abstraction?
+// - Handle pre-rendered ColorSpace.
+// - Don't allow re-rendering to avoid option syncing?
+
 function Skin() {
     this.init.apply(this, arguments);
 };
@@ -9,28 +14,50 @@ Skin.renderers = {};
 Skin._reUnit = /\D+$/;
 
 Skin.prototype = {
+    _openVarToken: '{{',
+    _closeVarToken: '}}',
+
+    _replaceVars: function(template, data) {
+        var regex = new RegExp(this._openVarToken + '\\s*(.+?)\\s*' + this._closeVarToken, 'g');
+
+        return template.replace ? template.replace(regex, function (match, key) {
+            return (key in data) ?  data[key] : match;
+        }) : template;
+    },
+
     constructor: Skin,
 
-    prefix: '.yui3-',
-    skinPrefix: 'skin-',
+    defaultPrefix: '.yui3-',
+    defaultSkinPrefix: 'skin-',
 
     init: function(options) {
-        var colorspace = options.scheme;
+        options = Y.merge(options);
 
-        if (typeof options.scheme === 'string') {
-            colorspace = new Y.ColorSpace({
-                scheme: Y.ColorSpace.schemes[options.scheme],
-                keycolor: options.color
-            });
+        if (!('prefix' in options)) {
+            options.prefix = this.defaultPrefix;
+        }
+
+        if (!('skinPrefix' in options)) {
+            options.skinPrefix = this.defaultSkinPrefix;
         }
 
         this.options = options;
-        this.name = options.name;
-        this.colorspace = colorspace.getData();
+        this.initColorSpace();
+    },
 
-        if (options.prefix) {
-            this.prefix = options.prefix;
+    initColorSpace: function() {
+        var colorspace = this._space;
+        if (!colorspace) {
+            colorspace = new Y.ColorSpace({
+                scheme: this.options.scheme,
+            });
+
+            this._space = colorspace;
+        } else {
+            colorspace.scheme = this.options.scheme;
         }
+
+        this.colorspace = colorspace.render(this.options.keycolor);
     },
 
     radius: function(factor) {
@@ -40,16 +67,6 @@ Skin.prototype = {
 
     gradient: function(k) {
         var CSSStr = ""+
-//         "<!--[if gte IE 9]>"+
-//         "  <style type='text/css'>"+
-//         "    .gradient {"+
-//         "       filter: none;"+
-//         "    }"+
-//         "  </style>"+
-//         "<![endif]-->"+
-
-//        "/* IE9 SVG, needs conditional override of 'filter' to 'none' */"+
-//        "background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwLjIiLz4KICAgIDxzdG9wIG9mZnNldD0iNDklIiBzdG9wLWNvbG9yPSIjZmZmZmZmIiBzdG9wLW9wYWNpdHk9IjAiLz4KICAgIDxzdG9wIG9mZnNldD0iNTElIiBzdG9wLWNvbG9yPSIjMDAwMDAwIiBzdG9wLW9wYWNpdHk9IjAiLz4KICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzAwMDAwMCIgc3RvcC1vcGFjaXR5PSIwLjEiLz4KICA8L2xpbmVhckdyYWRpZW50PgogIDxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9InVybCgjZ3JhZC11Y2dnLWdlbmVyYXRlZCkiIC8+Cjwvc3ZnPg==);"+
         "background: -moz-linear-gradient(top,  rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 49%, rgba(0,0,0,0) 51%, rgba(0,0,0,0.1) 100%);"+
         "background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0.2)), color-stop(49%,rgba(255,255,255,0)), color-stop(51%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,0.1)));"+
         "background: -webkit-linear-gradient(top,  rgba(255,255,255,0.2) 0%,rgba(255,255,255,0) 49%,rgba(0,0,0,0) 51%,rgba(0,0,0,0.1) 100%);"+
@@ -66,7 +83,7 @@ Skin.prototype = {
             val = '10px'; // TODO: Break out into default map.
         }
 
-        unit = Skin._reUnit.exec(val) || 'px';
+        unit = Skin._reUnit.exec(val) || 'em';
         val = parseFloat(val);
 
         if (typeof factor === 'undefined') {
@@ -99,15 +116,43 @@ Skin.prototype = {
         return str;
     },
 
-    render: function(fn, template) {
-        if (typeof fn === 'string') {
-            fn = Y.Skin.renderers[fn];
+    // @param renderer {Object|String|function}
+    render: function(renderer, template) {
+        var options = this.options,
+            space = this._space,
+            data;
+
+        // Allow a string for convenience.
+        if (typeof renderer === 'string') {
+            renderer = Y.Skin.renderers[renderer];
         }
-        var data = fn(this);
-        data.name = this.skinPrefix + this.name;
-        data.prefix = this.prefix;
-        console.log(data);
-        return Y.Handlebars.compile(template)(data);
+
+        data = renderer;
+
+        // Dynamic renderer, run with skin as argument.
+        if (typeof renderer === 'function') {
+            // Reinitialize ColorSpace if options have changed.
+            if (options.keycolor !== space.options.keycolor ||
+                options.scheme !== space.options.scheme) {
+
+                this.initColorSpace();
+            }
+
+            data = renderer(this);
+        }
+
+        // Set name and prefix unless already provided with skin data.
+
+        if (typeof data.skinName === 'undefined') {
+            data.skinName = options.skinPrefix + options.name;
+        }
+
+        if (typeof data.prefix === 'undefined') {
+            data.prefix = options.prefix;
+        }
+
+        return this._replaceVars(template, data);
+        //return Y.Handlebars.compile(template)(data);
     }
 };
 

@@ -6,30 +6,14 @@ Y.ColorSpace = function(options) {
 Y.ColorSpace.schemes = {};
 
 Y.ColorSpace.prototype = {
+    defaults: {
+        container: '#fff'
+    },
+
     constructor: Y.ColorSpace,
 
     init: function(options) {
-        var scheme = options.scheme;
-        if (typeof scheme === 'string') {
-            scheme = Y.ColorSpace.schemes[scheme];
-        }
-
-        this._adjust = {
-            highest: {h: 0, s: 0, l: 0},
-            high: scheme.high,
-            normal: scheme.normal,
-            low: scheme.low,
-            container: {h: 0, s: 0, l: 0}
-        };
-
-        this._adjustBG = scheme.background;
-
-        this.scheme = scheme;
-        this.name = options.name;
-
-        if (options.keycolor) {
-            this.render(options.keycolor);
-        }
+        this.options = Y.merge(options, this.defaults);
     },
 
     adjustColors: function(b) {
@@ -94,11 +78,11 @@ Y.ColorSpace.prototype = {
         var theMaxAdjust; // the distance from the val to "the end", meaning either 0 or 1
         if (percentToEnd > 0) { // if going bigger
             theMaxAdjust = 100 - val; // the most you could go from the val to the max (white or full sat)
-            return (theMaxAdjust * (percentToEnd / 100)); // - val; // this gives a factor like 0.2 ...
+            return Math.round(theMaxAdjust * (percentToEnd / 100)); // - val; // this gives a factor like 0.2 ...
             // that can be simply added to the val to give the effect of "go this percent of the distance to the max"
         } else {
             theMaxAdjust = val; // the most you could go from val toward dark or low sat or "0"
-            return (theMaxAdjust * (percentToEnd / 100));
+            return Math.round(theMaxAdjust * (percentToEnd / 100));
         }
     },
 
@@ -120,8 +104,10 @@ Y.ColorSpace.prototype = {
      */
     adjustColor: function(hexInput, adjust, type) {
         var hsl = Y.Color.toArray(Y.Color.toHSL(hexInput)),
+            adjust = Y.merge(adjust), // Clone to avoid mutating original.
             hex,
             grayProxy,
+            grayProxyLightness,
             adjustType = 'cap';   // default
 
         if (typeof(type) != 'undefined') {
@@ -147,17 +133,15 @@ Y.ColorSpace.prototype = {
         // of a similar brightness.
         // This compensates for "different hues appear lighter/darker than others" (yellow / blue issue)
         grayProxy = Y.Color.getSimilarBrightness('#808080', hex);
-        grayProxyLightness = Math.round(Y.Color.getBrightness(grayProxy) * 100);  // fixme when Tony changes api for getBrightness to return values in range of 0 - 100
+        grayProxyLightness = Math.round(Y.Color.getBrightness(grayProxy));
 
         // adjust lightness (of grayProxy) based on 'type' attribute
-        if (adjustType === 'cap') {
-            //adjust.l = adjust.l;
-        } else if (adjustType === 'flip') {
+        if (adjustType === 'flip') {
             adjust.l = this.getFlippedAdjust(grayProxy, grayProxyLightness, adjust.l);
         } else if (adjustType === 'percent') {
             adjust.l = this.getPercentToEndAdjust(grayProxyLightness, adjust.l);
-        } else {
-            alert('a call to adjustColor has an invalid type of: ' + type);
+        } else if (adjustType !== 'cap') {
+            Y.log('a call to adjustColor has an invalid type of: ' + type);
         }
         // adjust grayProxy to the desired lightness
         grayProxy = Y.Color.getOffset(grayProxy, {l: adjust.l});
@@ -170,11 +154,10 @@ Y.ColorSpace.prototype = {
     /** if lit is adjusted beyond min or max it reverses (flips and subtracts the adjustment if over or under max/min by ______)
      * This is needed for text
      */
-    getFlippedAdjust: function(sourceLit, adjust) {
+    getFlippedAdjust: function(origColor, sourceLit, adjust) {
         var overBy = 10,
             newAdjust = adjust,
             newLit = (parseInt(sourceLit, 10) + adjust);
-//            newLit = (parseInt(Y.Color.getBrightness(origColor) * 100, 10) + adjust);      // XXX
 
         // if over by big enough amount, then reverse to negative
         if (newLit > (100 + overBy)) {
@@ -191,9 +174,7 @@ Y.ColorSpace.prototype = {
     },
         
     makeHoverBlock: function(block, darkBG) {
-        block.hover = {
-            background: ''
-        };
+        block.hover = {};
 
         if (darkBG) {
             block.hover.background = this.adjustColor(block.background, {h:0, s:0, l:10}, 'percent');
@@ -203,37 +184,51 @@ Y.ColorSpace.prototype = {
         this.adjustColors(block.hover);
     },
 
+    _initScheme: function() {
+        var scheme = this.options.scheme;
+        if (typeof scheme === 'string') {
+            scheme = Y.ColorSpace.schemes[scheme];
+        }
+
+        this._adjust = {
+            highest: {h: 0, s: 0, l: 0}, // No adjustment, just used for setting up fields.
+            high: scheme.high,
+            normal: scheme.normal,
+            low: scheme.low,
+            container: {h: 0, s: 0, l: 0, color: this.options.container}
+        };
+
+        this._adjustBG = scheme.background;
+    },
+
     render: function(color) {
-        var block;
+        var block,
+            colorspace;
 
-        this.keycolor = color;
+        this.options.keycolor = color;
 
-        this._space = {
-            background: this.adjustColor(color, this._adjustBG, 'flip'),
+        this._initScheme();
+
+        colorspace = {
+            background: this.adjustColor(color, this._adjustBG, 'percent'),
             block: {}
         };
 
-        //this.adjustColors(this._space.block);
-        //this.makeHoverBlock(this._space.block);
+        this.adjustColors(colorspace);
+        this.makeHoverBlock(colorspace);
 
         // generate forground and hover object colors for blocks
         for (block in this._adjust) {
             var adjustBy = this._adjust[block];
-            this._space.block[block] = {
-                background: this.adjustColor(color, this._adjust[block], 'percent')
+            colorspace.block[block] = {
+                background: this.adjustColor(this._adjust[block].color || color, this._adjust[block], 'percent')
             };
 
-            this.adjustColors(this._space.block[block]);
-            this.makeHoverBlock(this._space.block[block]);
-        }
-    },
-
-    getData: function() {
-        if (!this._space) {
-            this.render(this.keycolor);
+            this.adjustColors(colorspace.block[block]);
+            this.makeHoverBlock(colorspace.block[block]);
         }
 
-        return this._space;
+        return colorspace;
     }
 };
 // TODO: Figure out why this breaks Y.Color import.

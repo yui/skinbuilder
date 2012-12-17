@@ -1,13 +1,11 @@
 YUI.add('skin-dial', function (Y) {
 
-var Skin  = Y.Skin,
-    space = Skin.SPACE;
+Y.Skin.renderers.dial = function (skin) {
+    var space = skin.colorspace;
 
-Skin.dial = null;
-Skin.refreshDialSkin = function () {
-    Skin.dial = {
-        skinName: space.skin.name,
-        prefix:   space.skin.prefix,
+    return {
+        skinName: skin.name,
+        prefix:   skin.prefix,
 
         ringBackgroundColor:        space.background,
         ringGradient:               '-moz-linear-gradient(-45deg, rgba(255,255,255, 0.1) 0%, rgba(255,255,255,0) 39%, rgba(0,0,0,0) 40%, rgba(0,0,0, 0.2) 100%)',
@@ -17,9 +15,9 @@ Skin.refreshDialSkin = function () {
 
         handle:                         space.block.highest.background,
         marker:                         space.text.high,
-        northMark:                      space.block.page.text.low,
-        label:                          space.block.page.text.normal,
-        valueString:                    space.block.page.text.high,
+        northMark:                      space.block.container.text.low,
+        label:                          space.block.container.text.normal,
+        valueString:                    space.block.container.text.high,
 
         foo: space
     };
