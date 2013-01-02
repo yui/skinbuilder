@@ -2,10 +2,7 @@ YUI.add('skin-panel', function (Y) {
 
 Y.Skin.renderers.panel = function (skin) {
     var space = skin.colorspace;
-
     return {
-        skinName: skin.name,
-        prefix:   skin.prefix,
 
         hdPadding: skin.padding(0.5), // /*8px 28px 8px 8px
         bdPadding: skin.padding(0.5), // /*8px;*/
@@ -22,12 +19,10 @@ Y.Skin.renderers.panel = function (skin) {
         headBorder:             space.block.high.border.low,
         headText:               space.block.high.text.normal,
 
-        footBackground:         space.block.low.background,
-
-        foo: space.background
+        footBackground:         space.block.low.background
     };
 };
 
 }, '0.0.1', {
-    requires: ['skin-space']
+    requires: []
 });

@@ -4,9 +4,6 @@ Y.Skin.renderers.calendar = function (skin) {
     var space = skin.colorspace;
 
     return {
-        skinName: skin.name,
-        prefix:   skin.prefix,
-
         containerPadding: skin.padding(1, 1, 1.5),  // 100% of the global padding in space.padding (space.js)
         dayPadding: skin.padding(0.16, 0.16, 0.24),
         containerRadius: skin.radius(0.8),  // 80% of the global radius in space.radius (space.js)
@@ -43,12 +40,10 @@ Y.Skin.renderers.calendar = function (skin) {
         nextPrevMonthDayText: space.text.low,
 
         dayDisabledBackground:  space.background,
-        dayDisabledText:        space.text.low,
-
-        foo: space.background
+        dayDisabledText:        space.text.low
     };
 };
 
 }, '0.0.1', {
-    requires: ['skin-space']
+    requires: []
 });

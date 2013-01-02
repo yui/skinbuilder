@@ -4,9 +4,6 @@ Y.Skin.renderers.scrollview = function (skin) {
     var space = skin.colorspace;
 
     return {
-        skinName: skin.name,
-        prefix:   skin.prefix,
-
         itemPadding: skin.padding(0.3, 0.5),
 
         background:         space.background,
@@ -19,12 +16,10 @@ Y.Skin.renderers.scrollview = function (skin) {
         itemHoverBorderBottom:  space.hover.background,
         textHover:              space.hover.text.high,
 
-        scrollbarBackground:  space.block.normal.background,
-
-        foo: space
+        scrollbarBackground:  space.block.normal.background
     };
 };
 
 }, '0.0.1', {
-    requires: ['skin-space']
+    requires: []
 });

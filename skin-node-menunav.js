@@ -4,9 +4,6 @@ Y.Skin.renderers.nodeMenunav = function (skin) {
     var space = skin.colorspace;
 
     return {
-        skinName: skin.name,
-        prefix:   skin.prefix,
-
         menuContentPadding: skin.padding(0.1, 0),
         itemPadding: skin.padding(0.1, 0.5), ///*0 1em;
         horizontalLabelPadding: skin.padding(0.1, 0.5), /*0 10px;*/
@@ -28,12 +25,10 @@ Y.Skin.renderers.nodeMenunav = function (skin) {
     	itemActiveHorizontalBackgroundColor:    space.block.low.hover.background,
 
         itemActiveBackground:   space.hover.background,
-        itemAcitveText:         space.hover.text.high,
-
-        foo: space
+        itemAcitveText:         space.hover.text.high
     };
 };
 
 }, '0.0.1', {
-    requires: ['skin-space']
+    requires: []
 });

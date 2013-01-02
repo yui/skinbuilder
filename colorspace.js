@@ -1,4 +1,5 @@
 YUI.add('colorspace', function(Y) {
+
 Y.ColorSpace = function(options) {
     this.init(options);
 };

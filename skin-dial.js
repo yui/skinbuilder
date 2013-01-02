@@ -4,9 +4,6 @@ Y.Skin.renderers.dial = function (skin) {
     var space = skin.colorspace;
 
     return {
-        skinName: skin.name,
-        prefix:   skin.prefix,
-
         ringBackgroundColor:        space.background,
         ringGradient:               '-moz-linear-gradient(-45deg, rgba(255,255,255, 0.1) 0%, rgba(255,255,255,0) 39%, rgba(0,0,0,0) 40%, rgba(0,0,0, 0.2) 100%)',
         centerButtonBackgroundColor:    space.block.normal.background,
@@ -17,12 +14,10 @@ Y.Skin.renderers.dial = function (skin) {
         marker:                         space.text.high,
         northMark:                      space.block.container.text.low,
         label:                          space.block.container.text.normal,
-        valueString:                    space.block.container.text.high,
-
-        foo: space
+        valueString:                    space.block.container.text.high
     };
 };
 
 }, '0.0.1', {
-    requires: ['skin-space']
+    requires: []
 });

@@ -26,12 +26,10 @@ Y.Skin.renderers.table = function (skin) {
         cellSortedEvenText:         space.block.low.hover.text.normal,
 
         border:        space.border.low,
-        captionText:    space.block.container.text.low,
-
-        foo: space
+        captionText:    space.block.container.text.low
     };
 };
 
 }, '0.0.1', {
-    requires: ['skin-space']
+    requires: []
 });

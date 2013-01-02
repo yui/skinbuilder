@@ -4,9 +4,6 @@ Y.Skin.renderers.button = function (skin) {
     var space = skin.colorspace;
 
     return {
-        skinName: skin.name,
-        prefix:   skin.prefix,
-
         buttonRadius: skin.radius(0.4),
         padding: skin.padding(0.4, 1, 0.45),
         background: space.block.high.background,
@@ -34,13 +31,10 @@ Y.Skin.renderers.button = function (skin) {
         selectedHoverBackground:    space.block.highest.hover.background,
         selectedHoverText:          space.block.highest.hover.text.high,
         selectedHoverBorderHigh:    space.block.highest.hover.border.high,
-        selectedHoverBorderLow:     space.block.highest.hover.border.low,
-
-
-        foo: space
+        selectedHoverBorderLow:     space.block.highest.hover.border.low
     };
 };
 
 }, '0.0.1', {
-    requires: ['skin-space']
+    requires: []
 });

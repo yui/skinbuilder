@@ -4,9 +4,6 @@ Y.Skin.renderers.overlay = function (skin) {
     var space = skin.colorspace;
 
     return {
-        skinName: skin.name,
-        prefix:   skin.prefix,
-
         hdBdFtPadding: skin.padding(0.3, 0.5), // /*0.3em 0.5em;*/
 
         background:         space.background,
@@ -18,5 +15,5 @@ Y.Skin.renderers.overlay = function (skin) {
 };
 
 }, '0.0.1', {
-    requires: ['skin-space']
+    requires: []
 });

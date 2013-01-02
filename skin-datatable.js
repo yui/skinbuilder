@@ -4,9 +4,6 @@ Y.Skin.renderers.datatable = function (skin) {
     var space = skin.colorspace;
 
     return {
-        skinName: skin.name,
-        prefix:   skin.prefix,
-
         captionPadding: skin.padding(1, 0),
         cellPadding: skin.padding(0.3, 0.6),   // 4px 10px 4px 10px;
 
@@ -30,9 +27,7 @@ Y.Skin.renderers.datatable = function (skin) {
         cellSortedEvenText:         space.block.low.hover.text.normal,
 
         border:        space.border.low,
-        captionText:    space.block.container.text.low,
-
-        foo: space
+        captionText:    space.block.container.text.low
     };
 };
 

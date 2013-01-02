@@ -15,19 +15,20 @@ YUI({
         'skin-calendar'    : 'skin-calendar.js',
         'skin-datatable'   : 'skin-datatable.js',
         'skin-dial'        : 'skin-dial.js',
+        'skin-table'        : 'skin-table.js',
         'skin-node-menunav': 'skin-node-menunav.js',
         'skin-overlay'     : 'skin-overlay.js',
         'skin-panel'       : 'skin-panel.js',
         'skin-scrollview'  : 'skin-scrollview.js',
+        'skin-slider'      : 'skin-slider.js',
         'skin-tabview'     : 'skin-tabview.js',
-        'skin-space'     : 'skin-space.js',
 
         'skinner': {
             use: [
                 'skin', 'colorspace-schemes', 'skin-autocomplete', 'skin-button',
                 'skin-calendar', 'skin-datatable', 'skin-dial',
                 'skin-node-menunav', 'skin-overlay', 'skin-panel',
-                'skin-scrollview', 'skin-tabview', 'skin-space'
+                'skin-scrollview', 'skin-slider', 'skin-tabview', 'skin-table'
             ]
         }
     }
@@ -312,6 +313,23 @@ function (Y) {
     });
     var overlayNode = Y.one('#overlayContent');
     panel.move([overlayNode.getX(),  overlayNode.get('region').bottom + 50] );
+
+    // Slider instance ///////////////////////////////////////////////////////////
+    var report = Y.one('#slider-report'),
+        slider = new Y.Slider({
+            //axis  : 'y',
+            length: '350px',
+            min   : 10,
+            max   : 218,
+            value : 136,
+        //    minorStep: 3,
+            after : {
+                valueChange: function (e) {
+                    report.setHTML(e.newVal);
+                }
+            }
+        });
+    slider.render('#slider');
 
     // End of adding instances of widgets to be colored by this tool
     /////////////////////////////////////////////////////////////////

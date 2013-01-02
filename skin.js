@@ -64,6 +64,7 @@ Skin.prototype = {
     },
 
     radius: function(factor) {
+        // TODO: Add a defaultRadius.
         var radius = this.options.radius || 0;
         return Math.round(radius * factor) + 'px';
     },
