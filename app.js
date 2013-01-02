@@ -21,6 +21,7 @@ YUI({
         'skin-panel'       : 'skin-panel.js',
         'skin-scrollview'  : 'skin-scrollview.js',
         'skin-slider'      : 'skin-slider.js',
+        'skin-space'      : 'skin-space.js',
         'skin-tabview'     : 'skin-tabview.js',
 
         'skinner': {
