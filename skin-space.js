@@ -6,7 +6,7 @@ var Skin = Y.namespace('Skin');
 // The values seen below are defaults and are over-ridden each time the
 // user selects a new color
 
-Skin.renderers.space = function(skin) {
+Y.Skin.renderers.space = function(skin) {
     var space = skin.colorspace;
     
     return {
@@ -145,5 +145,5 @@ Skin.renderers.space = function(skin) {
 };
 
 }, '0.0.1', {
-    requires: []
+    requires: ['skin']
 });
