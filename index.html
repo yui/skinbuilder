@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <title>Skinner Demo</title>
 
-<link rel="stylesheet" href="http://yui.yahooapis.com/3.8.0pr1/build/cssgrids/grids-min.css">
+<link rel="stylesheet" href="http://yui.yahooapis.com/3.8.0/build/cssgrids/grids-min.css">
 <link rel="stylesheet" href="styles.css">
 
-<script src="http://yui.yahooapis.com/3.8.0pr1/build/yui/yui-min.js"></script>
+<script src="http://yui.yahooapis.com/3.8.0/build/yui/yui-min.js"></script>
 
 
 <script id="calendar-template" type="text/x-handlebars-template">
-{{prefix}}skin-{{skinName}} {{prefix}}calendar-content {
+{{prefix}}{{skinName}} {{prefix}}calendar-content {
     padding: {{containerPadding}};
     border-radius: {{containerRadius}};
     {{gradient}};
@@ -21,26 +21,26 @@
     border-color: {{borderHigh}} {{borderLow}} {{borderLow}} {{borderHigh}};
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}calendar-grid {
+{{prefix}}{{skinName}} {{prefix}}calendar-grid {
     padding: 5px;  /* jeff sees no affect */
     border-collapse: collapse;
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}calendar-header {
+{{prefix}}{{skinName}} {{prefix}}calendar-header {
     padding-bottom:10px;
     color: {{headerText}};
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}calendar-header-label {
+{{prefix}}{{skinName}} {{prefix}}calendar-header-label {
     margin: 0;
     font-size: 1em;
     font-weight: bold;
 }
 
 
-{{prefix}}skin-{{skinName}} {{prefix}}calendar-day,
-{{prefix}}skin-{{skinName}} {{prefix}}calendar-prevmonth-day,
-{{prefix}}skin-{{skinName}} {{prefix}}calendar-nextmonth-day {
+{{prefix}}{{skinName}} {{prefix}}calendar-day,
+{{prefix}}{{skinName}} {{prefix}}calendar-prevmonth-day,
+{{prefix}}{{skinName}} {{prefix}}calendar-nextmonth-day {
     padding: {{dayPadding}};  /*was padding: 5px */
     text-align: center;
 }
@@ -48,62 +48,62 @@
 
 
 
-{{prefix}}skin-{{skinName}} {{prefix}}calendar-weekday {
+{{prefix}}{{skinName}} {{prefix}}calendar-weekday {
     font-weight: bold;
     background: {{weekdayHeadBackground}};
     color: {{weekdayHeadText}};
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}calendar-prevmonth-day,
-{{prefix}}skin-{{skinName}} {{prefix}}calendar-nextmonth-day {
+{{prefix}}{{skinName}} {{prefix}}calendar-prevmonth-day,
+{{prefix}}{{skinName}} {{prefix}}calendar-nextmonth-day {
     background: {{nextPrevMonthDayBackground}};
     color: {{nextPrevMonthDayText}};
     border: solid 1px {{dayBorder}};
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}calendar-day {
+{{prefix}}{{skinName}} {{prefix}}calendar-day {
     font-weight: bold;
     background: {{dayBackground}};
     color: {{dayText}};
     border: solid 1px {{dayBorder}};
 }
-{{prefix}}skin-{{skinName}} {{prefix}}calendar-day:hover,         /* When cursor   is used to navigate days */
-{{prefix}}skin-{{skinName}} {{prefix}}calendar-day-highlighted {  /* When keyboard is used to navigate days */
+{{prefix}}{{skinName}} {{prefix}}calendar-day:hover,         /* When cursor   is used to navigate days */
+{{prefix}}{{skinName}} {{prefix}}calendar-day-highlighted {  /* When keyboard is used to navigate days */
     background: {{dayHoverBackground}};
     color: {{dayHoverText}};
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}calendar-day-selected {
+{{prefix}}{{skinName}} {{prefix}}calendar-day-selected {
     {{daySelectedGradient}};
     background-color: {{daySelectedBackground}};
     color: {{daySelectedText}};
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}calendar-day-selected:hover, /* When cursor hovers over selected days */
-{{prefix}}skin-{{skinName}} {{prefix}}calendar-day-selected{{prefix}}calendar-day-highlighted { /* When keyboard focuses over selected days */
+{{prefix}}{{skinName}} {{prefix}}calendar-day-selected:hover, /* When cursor hovers over selected days */
+{{prefix}}{{skinName}} {{prefix}}calendar-day-selected{{prefix}}calendar-day-highlighted { /* When keyboard focuses over selected days */
     background-color: {{daySelectedHoverBackground}};
     color: {{daySelectedHoverText}};
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}calendar-header-label {
+{{prefix}}{{skinName}} {{prefix}}calendar-header-label {
     text-align: center;
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}calendar-left-grid {
+{{prefix}}{{skinName}} {{prefix}}calendar-left-grid {
    margin-right:1em;
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}calendar-right-grid {
+{{prefix}}{{skinName}} {{prefix}}calendar-right-grid {
    margin-left:1em;
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}calendar-selection-disabled,
-{{prefix}}skin-{{skinName}} {{prefix}}calendar-selection-disabled:hover {
+{{prefix}}{{skinName}} {{prefix}}calendar-selection-disabled,
+{{prefix}}{{skinName}} {{prefix}}calendar-selection-disabled:hover {
   color: {{dayDisabledText}};
   background: {{dayDisabledBackground}};
 }
 /**************** the following from calendarnavigator.css (allways seems to be included in widget)******************/
-{{prefix}}skin-{{skinName}} {{prefix}}calendarnav-prevmonth, {{prefix}}skin-{{skinName}} {{prefix}}calendarnav-nextmonth {
+{{prefix}}{{skinName}} {{prefix}}calendarnav-prevmonth, {{prefix}}{{skinName}} {{prefix}}calendarnav-nextmonth {
   color: #000000;  /*falls back to text if image not rendered */
   width: 12px;
   height: 14px;
@@ -111,28 +111,28 @@
   background-repeat: no-repeat;
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}calendarnav-prevmonth:hover, {{prefix}}skin-{{skinName}} {{prefix}}calendarnav-nextmonth:hover {
+{{prefix}}{{skinName}} {{prefix}}calendarnav-prevmonth:hover, {{prefix}}{{skinName}} {{prefix}}calendarnav-nextmonth:hover {
   background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAOCAYAAAA1+Nx+AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAPpJREFUeNpi/P//PwMxQD9jszSQ6oJyyy7O8H1KjD5GQhYADeYEUkVAXAHEPFDhL0DcAcR9QIu+k20B0PBAIDUBiOVwKHkExAVAS9aTZAHQYAOowfYMxIGDUIsu4LUAaLAQkGoB4kwG8sB0IK4BWvQOxQKgwcxAdj4Q1wExPwNl4CMQNwHxRKBFfxn10jd5ADm9QKzFQF1wDYiLmaAcNgbqA7CZTEBv7ADS2iDboN5joEIQgczSBpmNHsmiQKodiJPJNHwuEFcCDX49MMkUi0VRUB/hy2ggFy+jtKgohRYVnFDh79CiopuiogLNIjmobxigrn5EjD6AAAMAok9vhfHG8wQAAAAASUVORK5CYII=);
   color: #0066CC;
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}calendarnav-month-disabled, {{prefix}}skin-{{skinName}} {{prefix}}calendarnav-month-disabled:hover {
+{{prefix}}{{skinName}} {{prefix}}calendarnav-month-disabled, {{prefix}}{{skinName}} {{prefix}}calendarnav-month-disabled:hover {
   background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAOCAYAAAA1+Nx+AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAQhJREFUeNqs0yGLAlEUhuHrKoIgCFbBJghb3F+g0WrVarEqLIhBEEFYWKNNMBktU4z6C5RNkwyCyWQSTPuOfCOCrHNnxwMPyOGe73DAiTmOYywrhy/9/sTBZujN4k0KPbioi6teKuqCmsKGSN/10+q5ehN6QQkrLJB/Mp/Xm5VmAhdkMcEGZWNfZc1MlPGwII42dmiZ/1dLGW1lXhdU8YNvZEz0yijLy6z6FyTN6yvpX7DEOzo4vSD4pCwvc+lfcMEYBUwjhE+VMVbmw7/oiCY+sA4RvNZMUxmB38EWFTSwfxK815uKZkJ/yXMU0cf5rn9Wr6g3f1bC4nwvbIAZRup1Ay671a8AAwC3OzOqxK+rkwAAAABJRU5ErkJggg==);
   cursor: default;
   color: #CCCCCC;
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}calendarnav-prevmonth, {{prefix}}skin-{{skinName}} {{prefix}}calendarnav-prevmonth:hover {
+{{prefix}}{{skinName}} {{prefix}}calendarnav-prevmonth, {{prefix}}{{skinName}} {{prefix}}calendarnav-prevmonth:hover {
   background-position: 0px 0px;
   margin-left:-12px;
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}calendarnav-nextmonth, {{prefix}}skin-{{skinName}} {{prefix}}calendarnav-nextmonth:hover {
+{{prefix}}{{skinName}} {{prefix}}calendarnav-nextmonth, {{prefix}}{{skinName}} {{prefix}}calendarnav-nextmonth:hover {
   background-position: -12px 0px;
   margin-right: -12px;
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}calendarnav-prevmonth span, {{prefix}}skin-{{skinName}} {{prefix}}calendarnav-nextmonth span {
+{{prefix}}{{skinName}} {{prefix}}calendarnav-prevmonth span, {{prefix}}{{skinName}} {{prefix}}calendarnav-nextmonth span {
    display: none;
    *display: block;
 }
@@ -143,23 +143,23 @@
 
 <script id="tabview-template" type="text/x-handlebars-template">
 /* .yui-navset defaults to .yui-navset-top */
-{{prefix}}skin-{{skinName}} {{prefix}}tabview-list {
+{{prefix}}{{skinName}} {{prefix}}tabview-list {
     border:solid {{listBorderColor}}; /* color between tab list and content */
     border-width:0 0 5px;
     zoom:1;
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}tab {
+{{prefix}}{{skinName}} {{prefix}}tab {
     margin:0 0.2em 0 0;
     padding:1px 0 0; /* gecko: make room for overflow */
     zoom:1;
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}tab-selected {
+{{prefix}}{{skinName}} {{prefix}}tab-selected {
     margin-bottom:-1px; /* for overlap (mapped to tabview-list border-width) */
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}tab-label {
+{{prefix}}{{skinName}} {{prefix}}tab-label {
     {{tabGradient}};
     background-color: {{tabBackground}};
     border-style: solid;
@@ -173,8 +173,8 @@
     border-radius: {{tabRadius}} {{tabRadius}} 0 0;
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}tab-label:hover,
-{{prefix}}skin-{{skinName}} {{prefix}}tab-label:focus {
+{{prefix}}{{skinName}} {{prefix}}tab-label:hover,
+{{prefix}}{{skinName}} {{prefix}}tab-label:focus {
     {{tabHoverGradient}};
     background-color: {{tabHoverBackground}};
     color: {{tabHoverText}};
@@ -184,7 +184,7 @@
     outline:0;
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}tab-selected {{prefix}}tab-label {
+{{prefix}}{{skinName}} {{prefix}}tab-selected {{prefix}}tab-label {
     {{tabSelectedGradient}};
     background-color: {{tabSelectedBackground}};
     color: {{tabSelectedText}};
@@ -192,8 +192,8 @@
     border-color: {{tabSelectedBorderHigh}} {{tabSelectedBorderLow}} {{tabSelectedBorderLow}} {{tabSelectedBorderHigh}};
 }
 /* separated out hover state for selected tab */
-{{prefix}}skin-{{skinName}} {{prefix}}tab-selected {{prefix}}tab-label:hover,
-{{prefix}}skin-{{skinName}} {{prefix}}tab-selected {{prefix}}tab-label:focus {
+{{prefix}}{{skinName}} {{prefix}}tab-selected {{prefix}}tab-label:hover,
+{{prefix}}{{skinName}} {{prefix}}tab-selected {{prefix}}tab-label:focus {
     {{tabSelectedHoverGradient}};
     background-color: {{tabSelectedHoverBackground}};
     color: {{tabSelectedHoverText}};
@@ -203,11 +203,11 @@
 
 
 
-{{prefix}}skin-{{skinName}} {{prefix}}tab-selected {{prefix}}tab-label {
+{{prefix}}{{skinName}} {{prefix}}tab-selected {{prefix}}tab-label {
     padding: {{paddingTabSelected}}; /*0.4em 0.75em;*/ /* raise selected tab */
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}tabview-panel {
+{{prefix}}{{skinName}} {{prefix}}tabview-panel {
     background-color: {{panelBackground}};
     border: 1px solid {{panelBorder}};
     color: {{panelText}};
@@ -221,7 +221,7 @@
 
 
 <script id="button-template" type="text/x-handlebars-template">
-{{prefix}}skin-{{skinName}} {{prefix}}button {
+{{prefix}}{{skinName}} {{prefix}}button {
     /* Structure */
     display: inline-block;
     *display: inline; /*IE 6/7*/
@@ -278,7 +278,7 @@
     transition: 0.1s linear box-shadow;
 }
 
-{{prefix}}skin-{{skinName}} a{{prefix}}button {
+{{prefix}}{{skinName}} a{{prefix}}button {
     color: {{text}};
 
 /*
@@ -288,8 +288,8 @@
     text-decoration:none;
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}button-hover,
-{{prefix}}skin-{{skinName}} {{prefix}}button:hover {
+{{prefix}}{{skinName}} {{prefix}}button-hover,
+{{prefix}}{{skinName}} {{prefix}}button:hover {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#26000000', GradientType=0);
 /*
     background-image: -webkit-gradient(linear, 0 0, 0 100%, from(transparent), color-stop(40%, rgba(0,0,0, 0.05)), to(rgba(0,0,0, 0.15)));
@@ -304,8 +304,8 @@
     color: {{hoverText}};
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}button-active,
-{{prefix}}skin-{{skinName}} {{prefix}}button:active {
+{{prefix}}{{skinName}} {{prefix}}button-active,
+{{prefix}}{{skinName}} {{prefix}}button:active {
     border: inset 1px solid #999;  /*IE 6/7/8*/
     border: none rgba(0, 0, 0, 0);  /*IE9 + everything else*/
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#1A000000', endColorstr='#26000000', GradientType=0);
@@ -328,10 +328,10 @@
     box-shadow: 0 0 1px rgba(0,0,0, 0.25) inset, 0 2px 4px rgba(0,0,0, 0.30) inset;
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}button[disabled],
-{{prefix}}skin-{{skinName}} {{prefix}}button-disabled,
-{{prefix}}skin-{{skinName}} {{prefix}}button-disabled:hover,
-{{prefix}}skin-{{skinName}} {{prefix}}button-disabled:active {
+{{prefix}}{{skinName}} {{prefix}}button[disabled],
+{{prefix}}{{skinName}} {{prefix}}button-disabled,
+{{prefix}}{{skinName}} {{prefix}}button-disabled:hover,
+{{prefix}}{{skinName}} {{prefix}}button-disabled:active {
     cursor: default;
     background-image: none;
     filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
@@ -350,19 +350,19 @@
 }
 
 /* Firefox: Get rid of the inner focus border */
-{{prefix}}skin-{{skinName}} {{prefix}}button::-moz-focus-inner{
+{{prefix}}{{skinName}} {{prefix}}button::-moz-focus-inner{
     padding: 0;
     border: 0;
 }
 
 /* Firefox: Add a border around a focused button */
-{{prefix}}skin-{{skinName}} {{prefix}}button:-moz-focusring {
+{{prefix}}{{skinName}} {{prefix}}button:-moz-focusring {
     outline: thin dotted;
 }
 
 
-{{prefix}}skin-{{skinName}} {{prefix}}button-primary,
-{{prefix}}skin-{{skinName}} {{prefix}}button-selected {
+{{prefix}}{{skinName}} {{prefix}}button-primary,
+{{prefix}}{{skinName}} {{prefix}}button-selected {
     background-color: {{selectedBackground}};
     color: {{selectedText}};
     -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.25) inset, 0 2px 2px rgba(255, 255, 255, 0.17) inset, 0 1px 2px rgba(0, 0, 0, 0.15);
@@ -371,8 +371,8 @@
     border-color: {{selectedBorderHigh}} {{selectedBorderLow}} {{selectedBorderLow}} {{selectedBorderHigh}};
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}button-primary:hover,
-{{prefix}}skin-{{skinName}} {{prefix}}button-selected:hover {
+{{prefix}}{{skinName}} {{prefix}}button-primary:hover,
+{{prefix}}{{skinName}} {{prefix}}button-selected:hover {
     background-color: {{selectedHoverBackground}};
     color: {{selectedHoverText}};
     -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.25) inset, 0 2px 2px rgba(255, 255, 255, 0.17) inset, 0 1px 2px rgba(0, 0, 0, 0.15);
@@ -381,12 +381,12 @@
 }
 
 
-{{prefix}}skin-{{skinName}} {{prefix}}skin-sam {{prefix}}button:-moz-focusring {
+{{prefix}}{{skinName}} {{prefix}}sam {{prefix}}button:-moz-focusring {
     outline-color: rgba(0, 0, 0, 0.85);
 }
 
 
-{{prefix}}skin-{{skinName}} {{prefix}}skin-night {{prefix}}button:-moz-focusring {
+{{prefix}}{{skinName}} {{prefix}}night {{prefix}}button:-moz-focusring {
     outline-color: rgba(255, 255, 255, 0.85);
 }</script>
 
@@ -394,7 +394,7 @@
 <script id="datatable-template" type="text/x-handlebars-template">
 /* basic skin styles */
 /* basic skin styles */
-{{prefix}}skin-{{skinName}} {{prefix}}datatable-table {
+{{prefix}}{{skinName}} {{prefix}}datatable-table {
     margin: 0;
     padding: 0;
     font-family: arial, sans-serif;
@@ -408,19 +408,19 @@
     border: solid 1px {{border}};
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}datatable-caption {
+{{prefix}}{{skinName}} {{prefix}}datatable-caption {
     color: {{captionText}};
     font: italic 85%/1 arial, sans-serif;
     padding: {{captionPadding}}; /*1em 0;*/
     text-align: center;
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}datatable-cell {
+{{prefix}}{{skinName}} {{prefix}}datatable-cell {
     background-color: {{cellBackground}};
     color: {{cellText}};
 }
-{{prefix}}skin-{{skinName}} {{prefix}}datatable-cell,
-{{prefix}}skin-{{skinName}} {{prefix}}datatable-header {
+{{prefix}}{{skinName}} {{prefix}}datatable-cell,
+{{prefix}}{{skinName}} {{prefix}}datatable-header {
     border-left: 1px solid {{border}}; /*  inner column border */
     border-width: 0 0 0 1px;
     font-size: inherit;
@@ -428,12 +428,12 @@
 	overflow: visible; /*to make ths where the title is really long work*/
     padding: {{cellPadding}}; /*4px 10px 4px 10px;*/ /* cell padding */
 }
-{{prefix}}skin-{{skinName}} {{prefix}}datatable-cell:first-child,
-{{prefix}}skin-{{skinName}} {{prefix}}datatable-first-header {
+{{prefix}}{{skinName}} {{prefix}}datatable-cell:first-child,
+{{prefix}}{{skinName}} {{prefix}}datatable-first-header {
     border-left-width: 0px;
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}datatable-header {
+{{prefix}}{{skinName}} {{prefix}}datatable-header {
     {{headGradient}};
     background-color: {{headBackground}};
     color: {{headText}};
@@ -450,26 +450,26 @@ striping:
    even - #fff (white)
    odd  - #edf5ff (light blue)
 */
-{{prefix}}skin-{{skinName}} {{prefix}}datatable-even {{prefix}}datatable-cell {
+{{prefix}}{{skinName}} {{prefix}}datatable-even {{prefix}}datatable-cell {
     background-color: {{cellEvenBackground}};
     color: {{cellEvenText}};
 }
-{{prefix}}skin-{{skinName}} {{prefix}}datatable-odd  {{prefix}}datatable-cell  {
+{{prefix}}{{skinName}} {{prefix}}datatable-odd  {{prefix}}datatable-cell  {
     /*background-color: #edf5ff;*/
 }
 /************************  sortable ***************/
-{{prefix}}skin-{{skinName}} {{prefix}}datatable-sortable-column {
+{{prefix}}{{skinName}} {{prefix}}datatable-sortable-column {
     cursor: pointer;
 }
 
 /* Jeff: this seems to be just the header of a sorted column */
-{{prefix}}skin-{{skinName}} {{prefix}}datatable-columns {{prefix}}datatable-sorted,
-{{prefix}}skin-{{skinName}} {{prefix}}datatable-sortable-column:hover {
+{{prefix}}{{skinName}} {{prefix}}datatable-columns {{prefix}}datatable-sorted,
+{{prefix}}{{skinName}} {{prefix}}datatable-sortable-column:hover {
     background-color: {{headSortedHoverBackground}};
     color: {{headSortedHoverText}};
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}datatable-sort-liner {
+{{prefix}}{{skinName}} {{prefix}}datatable-sort-liner {
     display: block;
     height: 100%;
     position: relative;
@@ -477,7 +477,7 @@ striping:
     position: relative;
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}datatable-sort-indicator {
+{{prefix}}{{skinName}} {{prefix}}datatable-sort-indicator {
     position: absolute;
     right: 0;
     bottom: .5ex;
@@ -488,24 +488,24 @@ striping:
     overflow: hidden;
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}datatable-sorted {{prefix}}datatable-sort-indicator {
+{{prefix}}{{skinName}} {{prefix}}datatable-sorted {{prefix}}datatable-sort-indicator {
     background-position: 0 -10px;
 }
-{{prefix}}skin-{{skinName}} {{prefix}}datatable-sorted-desc {{prefix}}datatable-sort-indicator {
+{{prefix}}{{skinName}} {{prefix}}datatable-sorted-desc {{prefix}}datatable-sort-indicator {
     background-position: 0 -20px;
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}datatable-data {{prefix}}datatable-even {{prefix}}datatable-sorted {
+{{prefix}}{{skinName}} {{prefix}}datatable-data {{prefix}}datatable-even {{prefix}}datatable-sorted {
     background-color: {{cellSortedEvenBackground}};
     color: {{cellSortedEvenText}};
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}datatable-data {{prefix}}datatable-odd {{prefix}}datatable-sorted {
+{{prefix}}{{skinName}} {{prefix}}datatable-data {{prefix}}datatable-odd {{prefix}}datatable-sorted {
     background-color: {{cellSortedOddBackground}};
 }
 
 /* Jeff thinks this should be added */
-{{prefix}}skin-{{skinName}} {{prefix}}datatable-columns {{prefix}}datatable-sorted {
+{{prefix}}{{skinName}} {{prefix}}datatable-columns {{prefix}}datatable-sorted {
     background-color: {{headSortedBackground}};
 }
 
@@ -513,18 +513,18 @@ striping:
 
 <script id="scrollview-template" type="text/x-handlebars-template">
 /********  scrollview-base-skin.css **********************************************/
-{{prefix}}skin-{{skinName}} {{prefix}}scrollview {
+{{prefix}}{{skinName}} {{prefix}}scrollview {
     -webkit-tap-highlight-color: rgba(255,255,255,0);
 }
 /******** scrollview-scrollbars-skin.css   (sam) *************************************/
-{{prefix}}skin-{{skinName}} {{prefix}}scrollview-scrollbar {
+{{prefix}}{{skinName}} {{prefix}}scrollview-scrollbar {
     -webkit-transform: translate3d(0, 0, 0);
     -moz-transform: translate(0, 0);
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}scrollview-scrollbar {{prefix}}scrollview-first,
-{{prefix}}skin-{{skinName}} {{prefix}}scrollview-scrollbar {{prefix}}scrollview-middle,
-{{prefix}}skin-{{skinName}} {{prefix}}scrollview-scrollbar {{prefix}}scrollview-last {
+{{prefix}}{{skinName}} {{prefix}}scrollview-scrollbar {{prefix}}scrollview-first,
+{{prefix}}{{skinName}} {{prefix}}scrollview-scrollbar {{prefix}}scrollview-middle,
+{{prefix}}{{skinName}} {{prefix}}scrollview-scrollbar {{prefix}}scrollview-last {
     border-radius:3px;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -538,8 +538,8 @@ striping:
     opacity: 0.5;
 }}
 
-{{prefix}}skin-{{skinName}} {{prefix}}scrollview-scrollbar {{prefix}}scrollview-first,
-{{prefix}}skin-{{skinName}} {{prefix}}scrollview-scrollbar {{prefix}}scrollview-last {
+{{prefix}}{{skinName}} {{prefix}}scrollview-scrollbar {{prefix}}scrollview-first,
+{{prefix}}{{skinName}} {{prefix}}scrollview-scrollbar {{prefix}}scrollview-last {
     border-bottom-right-radius:0;
     border-bottom-left-radius:0;
 
@@ -550,7 +550,7 @@ striping:
     -moz-border-radius-bottomleft:0;
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}scrollview-scrollbar {{prefix}}scrollview-last {
+{{prefix}}{{skinName}} {{prefix}}scrollview-scrollbar {{prefix}}scrollview-last {
     border-radius:0;
     border-bottom-right-radius:3px;
     border-bottom-left-radius:3px;
@@ -566,7 +566,7 @@ striping:
     -moz-transform: translate(0, 0);
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}scrollview-scrollbar {{prefix}}scrollview-middle {
+{{prefix}}{{skinName}} {{prefix}}scrollview-scrollbar {{prefix}}scrollview-middle {
     border-radius:0;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
@@ -578,8 +578,8 @@ striping:
     -moz-transform-origin: 0 0;
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}scrollview-scrollbar-horiz {{prefix}}scrollview-first,
-{{prefix}}skin-{{skinName}} {{prefix}}scrollview-scrollbar-horiz {{prefix}}scrollview-last {
+{{prefix}}{{skinName}} {{prefix}}scrollview-scrollbar-horiz {{prefix}}scrollview-first,
+{{prefix}}{{skinName}} {{prefix}}scrollview-scrollbar-horiz {{prefix}}scrollview-last {
     border-top-right-radius: 0;
     border-bottom-left-radius: 3px;
 
@@ -590,7 +590,7 @@ striping:
     -moz-border-radius-bottomleft: 3px;
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}scrollview-scrollbar-horiz {{prefix}}scrollview-last {
+{{prefix}}{{skinName}} {{prefix}}scrollview-scrollbar-horiz {{prefix}}scrollview-last {
     border-bottom-left-radius: 0;
     border-top-right-radius: 3px;
 
@@ -601,7 +601,7 @@ striping:
     -moz-border-radius-topright: 3px;
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}scrollview-scrollbar-horiz {{prefix}}scrollview-middle {
+{{prefix}}{{skinName}} {{prefix}}scrollview-scrollbar-horiz {{prefix}}scrollview-middle {
     -webkit-transform: translate3d(0,0,0) scaleX(1);
     -webkit-transform-origin: 0 0;
 
@@ -609,8 +609,8 @@ striping:
     -moz-transform-origin: 0 0;
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}scrollview-scrollbar-vert-basic {{prefix}}scrollview-child,
-{{prefix}}skin-{{skinName}} {{prefix}}scrollview-scrollbar-horiz-basic {{prefix}}scrollview-child {
+{{prefix}}{{skinName}} {{prefix}}scrollview-scrollbar-vert-basic {{prefix}}scrollview-child,
+{{prefix}}{{skinName}} {{prefix}}scrollview-scrollbar-horiz-basic {{prefix}}scrollview-child {
     background-color: #f00;  /* #aaa   can't find this */
     background-image: none;
 }
@@ -711,28 +711,28 @@ striping:
     bottom:auto;
 }
 /******** scrollview-list-skin.css  (sam) *****************************/
-{{prefix}}skin-{{skinName}} {{prefix}}scrollview {
+{{prefix}}{{skinName}} {{prefix}}scrollview {
     -webkit-tap-highlight-color: rgba(255,255,255,0);
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}scrollview{
+{{prefix}}{{skinName}} {{prefix}}scrollview{
 	background-color: {{background}};
 }
 /* For IE 6/7 - needs a background color (above) to pick up events, and zoom, to fill the UL */
-{{prefix}}skin-{{skinName}} {{prefix}}scrollview-vert {{prefix}}scrollview-content {{prefix}}scrollview-item {
+{{prefix}}{{skinName}} {{prefix}}scrollview-vert {{prefix}}scrollview-content {{prefix}}scrollview-item {
     *zoom:1;
 }
 
 /* For IE7 - needs zoom, otherwise clipped content is not rendered */
-{{prefix}}skin-{{skinName}} {{prefix}}scrollview-vert {{prefix}}scrollview-content {{prefix}}scrollview-list {
+{{prefix}}{{skinName}} {{prefix}}scrollview-vert {{prefix}}scrollview-content {{prefix}}scrollview-list {
     *zoom:1;
 	list-style:none; /*need these since reset is not required*/
 	padding:0; /*need these since reset is not required*/
 	margin:0; /*need these since reset is not required*/
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}scrollview-content,
-{{prefix}}skin-{{skinName}} {{prefix}}scrollview-vert {{prefix}}scrollview-content {
+{{prefix}}{{skinName}} {{prefix}}scrollview-content,
+{{prefix}}{{skinName}} {{prefix}}scrollview-vert {{prefix}}scrollview-content {
     border:1px solid {{border}}; /* remove the ScrollView border here */
     /*border-top:0; Remove the top border if needed */
 	background-color: transparent;
@@ -740,7 +740,7 @@ striping:
 	color:black;
 }
                                         /*jeff can't find this ... -item class */
-{{prefix}}skin-{{skinName}} {{prefix}}scrollview-vert {{prefix}}scrollview-content {{prefix}}scrollview-item {
+{{prefix}}{{skinName}} {{prefix}}scrollview-vert {{prefix}}scrollview-content {{prefix}}scrollview-item {
     border-bottom: 1px solid #f00;
     padding: 15px 20px 16px;   /*jeff: not implemented since can't find -item class */
     font-size: 100%;
@@ -751,17 +751,17 @@ striping:
 
 
 /******** Jeff thinks these should be added, but it needs more group discussion ********/
-{{prefix}}skin-{{skinName}} {{prefix}}scrollview-content ul {
+{{prefix}}{{skinName}} {{prefix}}scrollview-content ul {
     list-style: none;
     margin: 0;
     padding: 0;
 }
-{{prefix}}skin-{{skinName}} {{prefix}}scrollview-content li {
+{{prefix}}{{skinName}} {{prefix}}scrollview-content li {
     padding: {{itemPadding}}; /*0.3em 0.5em;*/
     border-bottom: solid 1px {{itemBorderBottom}};
     color: {{text}};
 }
-{{prefix}}skin-{{skinName}} {{prefix}}scrollview-content li:hover {
+{{prefix}}{{skinName}} {{prefix}}scrollview-content li:hover {
     background: {{itemHoverBackground}};
     /*border-bottom: solid 1px {{itemHoverBorderBottom}};*/
     color: {{textHover}};
@@ -801,7 +801,7 @@ striping:
 }
 
 /* autocomplete-list-skin.css   (sam) ****************************************************/
-{{prefix}}skin-{{skinName}} {{prefix}}aclist-content {
+{{prefix}}{{skinName}} {{prefix}}aclist-content {
     background-color: {{background}};
     border: solid 1px {{border}};
     color: {{text}};
@@ -810,12 +810,12 @@ striping:
     box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.15);
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}aclist-item-hover {
+{{prefix}}{{skinName}} {{prefix}}aclist-item-hover {
     background-color: {{itemHoverBackground}};
     color: {{textHover}};
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}aclist-item-active {
+{{prefix}}{{skinName}} {{prefix}}aclist-item-active {
     background-color: {{itemActiveBackground}};
     color: {{textActive}};
     outline: none;
@@ -873,7 +873,7 @@ v\:fill {
 }
 
 /** dial-skin.css  (sam) *******************************/
-{{prefix}}skin-{{skinName}} {{prefix}}dial-handle{ /*container. top left corner used for trig positioning*/
+{{prefix}}{{skinName}} {{prefix}}dial-handle{ /*container. top left corner used for trig positioning*/
     background-color: {{handle}};
 	opacity:0.3;
 	-moz-box-shadow:1px 1px 1px rgba(0, 0, 0, 0.9) inset;
@@ -881,14 +881,14 @@ v\:fill {
 	cursor:pointer;
 	font-size:1px;
 }
-{{prefix}}skin-{{skinName}} {{prefix}}dial-ring {
+{{prefix}}{{skinName}} {{prefix}}dial-ring {
     background: {{ringGradient}};
     background-color: {{ringBackgroundColor}};
 	box-shadow:1px 1px 5px rgba(0, 0, 0, 0.4) inset;
 	-webkit-box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4) inset; /*Chrome 7/Win bug*/
 	-moz-box-shadow:1px 1px 5px rgba(0, 0, 0, 0.4) inset;
 }
-{{prefix}}skin-{{skinName}} {{prefix}}dial-center-button{
+{{prefix}}{{skinName}} {{prefix}}dial-center-button{
     background: {{centerButtonGradient}};
     background-color: {{centerButtonBackgroundColor}};
 	box-shadow:-1px -1px 2px rgba(0, 0, 0, 0.3) inset, 1px 1px 2px rgba(0, 0, 0, 0.5);
@@ -896,21 +896,21 @@ v\:fill {
 	opacity:0.7;
 	/*text-align:center;*/
 }
-{{prefix}}skin-{{skinName}} {{prefix}}dial-reset-string{
+{{prefix}}{{skinName}} {{prefix}}dial-reset-string{
     color: {{centerButtonText}};
 	font-size:85%;
 	text-decoration:underline;
 }
-{{prefix}}skin-{{skinName}} {{prefix}}dial-label{
+{{prefix}}{{skinName}} {{prefix}}dial-label{
 	color:    {{label}}; /* this sits directly on page background */
 	margin-bottom:0.8em;
 }
-{{prefix}}skin-{{skinName}} {{prefix}}dial-value-string{
+{{prefix}}{{skinName}} {{prefix}}dial-value-string{
 	margin-left:0.5em;
 	color: {{valueString}};   /*this sits directly on page background */
 	font-size:130%;
 }
-{{prefix}}skin-{{skinName}} {{prefix}}dial-value {
+{{prefix}}{{skinName}} {{prefix}}dial-value {
 	visibility:visible;
 	position:absolute;
 	top:0;
@@ -918,7 +918,7 @@ v\:fill {
 	width:4em;
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}dial-north-mark{
+{{prefix}}{{skinName}} {{prefix}}dial-north-mark{
 	position:absolute;
 	border-left:2px solid {{northMark}};
 	height:5px;
@@ -927,21 +927,21 @@ v\:fill {
 	top:-7px;
 	font-size:1px;
 }
-{{prefix}}skin-{{skinName}} {{prefix}}dial-marker {
+{{prefix}}{{skinName}} {{prefix}}dial-marker {
 	background-color: {{marker}};
 	opacity:0.2;
 	font-size:1px;
 }
-{{prefix}}skin-{{skinName}} {{prefix}}dial-marker-max-min{
+{{prefix}}{{skinName}} {{prefix}}dial-marker-max-min{
 	background-color:#AB3232;  /*red for max/min*/
 	opacity:0.6;
 }
-{{prefix}}skin-{{skinName}} {{prefix}}dial-ring-vml,
-{{prefix}}skin-{{skinName}} {{prefix}}dial-center-button-vml,
-{{prefix}}skin-{{skinName}} {{prefix}}dial-marker v\:oval{{prefix}}dial-marker-max-min,
-{{prefix}}skin-{{skinName}} v\:oval{{prefix}}dial-marker-max-min,
-{{prefix}}skin-{{skinName}} {{prefix}}dial-marker-vml,
-{{prefix}}skin-{{skinName}} {{prefix}}dial-handle-vml {
+{{prefix}}{{skinName}} {{prefix}}dial-ring-vml,
+{{prefix}}{{skinName}} {{prefix}}dial-center-button-vml,
+{{prefix}}{{skinName}} {{prefix}}dial-marker v\:oval{{prefix}}dial-marker-max-min,
+{{prefix}}{{skinName}} v\:oval{{prefix}}dial-marker-max-min,
+{{prefix}}{{skinName}} {{prefix}}dial-marker-vml,
+{{prefix}}{{skinName}} {{prefix}}dial-handle-vml {
     background: none;
     opacity:0;
 }
@@ -1125,8 +1125,8 @@ v\:fill {
 /* from node-menunav-skin.css   (sam) ***************************************/
 /* Vertical menus and submenus */
 
-{{prefix}}skin-{{skinName}} {{prefix}}menu-content,
-{{prefix}}skin-{{skinName}} {{prefix}}menu {{prefix}}menu {{prefix}}menu-content {
+{{prefix}}{{skinName}} {{prefix}}menu-content,
+{{prefix}}{{skinName}} {{prefix}}menu {{prefix}}menu {{prefix}}menu-content {
 
     font-size: 100%;
     line-height: 1.5;  /* 18px 1.5*/
@@ -1137,7 +1137,7 @@ v\:fill {
 
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}menu {{prefix}}menu {{prefix}}menu-content {
+{{prefix}}{{skinName}} {{prefix}}menu {{prefix}}menu {{prefix}}menu-content {
 
 	font-size: 100%;
 
@@ -1145,7 +1145,7 @@ v\:fill {
 
 
 /* Horizontal menus */
-{{prefix}}skin-{{skinName}} {{prefix}}menu-horizontal {{prefix}}menu-content {
+{{prefix}}{{skinName}} {{prefix}}menu-horizontal {{prefix}}menu-content {
 
     line-height: 2;  /* ~24px */
     *line-height: 1.9; /* For IE */
@@ -1155,14 +1155,14 @@ v\:fill {
 
 }
 /* 2nd and subsequent {{prefix}}menu-content should not have gradient */
-{{prefix}}skin-{{skinName}} {{prefix}}menu-horizontal {{prefix}}menu-content {{prefix}}menu-content {
+{{prefix}}{{skinName}} {{prefix}}menu-horizontal {{prefix}}menu-content {{prefix}}menu-content {
 	background: none;
     background-color: {{horizontalBackground}};
     box-shadow: 2px 2px 7px rgba(0,0,0, 0.15);
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}menu ul,
-{{prefix}}skin-{{skinName}} {{prefix}}menu ul ul {
+{{prefix}}{{skinName}} {{prefix}}menu ul,
+{{prefix}}{{skinName}} {{prefix}}menu ul ul {
 
 	margin-top: 3px;
 	padding-top: 3px;
@@ -1170,7 +1170,7 @@ v\:fill {
 
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}menu ul.first-of-type {
+{{prefix}}{{skinName}} {{prefix}}menu ul.first-of-type {
 
     border: 0;
 	margin: 0;
@@ -1178,7 +1178,7 @@ v\:fill {
 
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}menu-horizontal ul {
+{{prefix}}{{skinName}} {{prefix}}menu-horizontal ul {
 
 	padding: 0;
 	margin: 0;
@@ -1187,8 +1187,8 @@ v\:fill {
 }
 
 
-{{prefix}}skin-{{skinName}} {{prefix}}menu li,
-{{prefix}}skin-{{skinName}} {{prefix}}menu {{prefix}}menu li {
+{{prefix}}{{skinName}} {{prefix}}menu li,
+{{prefix}}{{skinName}} {{prefix}}menu {{prefix}}menu li {
 
     /*
         For and IE 6 (Strict Mode and Quirks Mode) and IE 7 (Quirks Mode only):
@@ -1201,26 +1201,26 @@ v\:fill {
 
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}menu-horizontal li {
+{{prefix}}{{skinName}} {{prefix}}menu-horizontal li {
 
 	_border-bottom: 0;
 
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}menubuttonnav li {
+{{prefix}}{{skinName}} {{prefix}}menubuttonnav li {
 
     border-right: solid 1px #f00;     /* fix me */
 
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}splitbuttonnav li {
+{{prefix}}{{skinName}} {{prefix}}splitbuttonnav li {
 
     border-right: solid 1px {{splitBorderRight}};
 
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}menubuttonnav li li,
-{{prefix}}skin-{{skinName}} {{prefix}}splitbuttonnav li li {
+{{prefix}}{{skinName}} {{prefix}}menubuttonnav li li,
+{{prefix}}{{skinName}} {{prefix}}splitbuttonnav li li {
 
 	border-right: 0;
 
@@ -1230,10 +1230,10 @@ v\:fill {
 /* Menuitems and menu labels */
 
 
-{{prefix}}skin-{{skinName}} {{prefix}}menu-label,
-{{prefix}}skin-{{skinName}} {{prefix}}menu {{prefix}}menu {{prefix}}menu-label,
-{{prefix}}skin-{{skinName}} {{prefix}}menuitem-content,
-{{prefix}}skin-{{skinName}} {{prefix}}menu {{prefix}}menu {{prefix}}menuitem-content {
+{{prefix}}{{skinName}} {{prefix}}menu-label,
+{{prefix}}{{skinName}} {{prefix}}menu {{prefix}}menu {{prefix}}menu-label,
+{{prefix}}{{skinName}} {{prefix}}menuitem-content,
+{{prefix}}{{skinName}} {{prefix}}menu {{prefix}}menu {{prefix}}menuitem-content {
 
     padding: {{itemPadding}}; /*0 1em; */
     color: {{text}};
@@ -1251,8 +1251,8 @@ v\:fill {
 
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}menu-horizontal {{prefix}}menu-label,
-{{prefix}}skin-{{skinName}} {{prefix}}menu-horizontal {{prefix}}menuitem-content {
+{{prefix}}{{skinName}} {{prefix}}menu-horizontal {{prefix}}menu-label,
+{{prefix}}{{skinName}} {{prefix}}menu-horizontal {{prefix}}menuitem-content {
 
     padding: {{horizontalLabelPadding}}; /*0 10px;*/
     border-style: solid;
@@ -1266,26 +1266,26 @@ v\:fill {
     width: auto;
 
 }
-{{prefix}}skin-{{skinName}} {{prefix}}menu-label,
-{{prefix}}skin-{{skinName}} {{prefix}}menu {{prefix}}menu {{prefix}}menu-label {
+{{prefix}}{{skinName}} {{prefix}}menu-label,
+{{prefix}}{{skinName}} {{prefix}}menu {{prefix}}menu {{prefix}}menu-label {
     /* Jeff fix me. need icons */
 	background: url(assets/images/vertical-menu-submenu-indicator.png) right center no-repeat;
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}menu-horizontal {{prefix}}menu-label {
+{{prefix}}{{skinName}} {{prefix}}menu-horizontal {{prefix}}menu-label {
     background: none;
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}menubuttonnav {{prefix}}menu-label,
-{{prefix}}skin-{{skinName}} {{prefix}}splitbuttonnav {{prefix}}menu-label {
+{{prefix}}{{skinName}} {{prefix}}menubuttonnav {{prefix}}menu-label,
+{{prefix}}{{skinName}} {{prefix}}splitbuttonnav {{prefix}}menu-label {
 	background-image: none;
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}menubuttonnav {{prefix}}menu-label {
+{{prefix}}{{skinName}} {{prefix}}menubuttonnav {{prefix}}menu-label {
     padding-right: 0;
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}menubuttonnav {{prefix}}menu-label em {
+{{prefix}}{{skinName}} {{prefix}}menubuttonnav {{prefix}}menu-label em {
 	font-style: normal;
 	padding-right: 20px;
     display: block;
@@ -1294,11 +1294,11 @@ v\:fill {
 }
 
 
-{{prefix}}skin-{{skinName}} {{prefix}}splitbuttonnav {{prefix}}menu-label {
+{{prefix}}{{skinName}} {{prefix}}splitbuttonnav {{prefix}}menu-label {
 	padding: 0;
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}splitbuttonnav {{prefix}}menu-label a {
+{{prefix}}{{skinName}} {{prefix}}splitbuttonnav {{prefix}}menu-label a {
 	float: left;
 	width: auto;
     color: {{text}};
@@ -1307,7 +1307,7 @@ v\:fill {
 	padding: {{splitButtonNavPadding}}; /*0 5px 0 10px;*/
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}splitbuttonnav {{prefix}}menu-label {{prefix}}menu-toggle {
+{{prefix}}{{skinName}} {{prefix}}splitbuttonnav {{prefix}}menu-label {{prefix}}menu-toggle {
 
 	padding: {{togglePadding}}; /*jeff added top and bottom padding to match menu-label a*/ /*0;*/	/* Overide padding applied by the preceeding rule. */
 	border-left: solid 1px {{splitBorderLeft}};
@@ -1321,10 +1321,10 @@ v\:fill {
 
 /* Selected menuitem */
 
-{{prefix}}skin-{{skinName}} {{prefix}}menu-label-active,
-{{prefix}}skin-{{skinName}} {{prefix}}menu-label-menuvisible,
-{{prefix}}skin-{{skinName}} {{prefix}}menu {{prefix}}menu {{prefix}}menu-label-active,
-{{prefix}}skin-{{skinName}} {{prefix}}menu {{prefix}}menu {{prefix}}menu-label-menuvisible {
+{{prefix}}{{skinName}} {{prefix}}menu-label-active,
+{{prefix}}{{skinName}} {{prefix}}menu-label-menuvisible,
+{{prefix}}{{skinName}} {{prefix}}menu {{prefix}}menu {{prefix}}menu-label-active,
+{{prefix}}{{skinName}} {{prefix}}menu {{prefix}}menu {{prefix}}menu-label-menuvisible {
 
 /* this is a menu item that has a child menu */
 
@@ -1332,8 +1332,8 @@ v\:fill {
     color: {{itemAcitveText}};
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}menuitem-active {{prefix}}menuitem-content,
-{{prefix}}skin-{{skinName}} {{prefix}}menu {{prefix}}menu {{prefix}}menuitem-active {{prefix}}menuitem-content {
+{{prefix}}{{skinName}} {{prefix}}menuitem-active {{prefix}}menuitem-content,
+{{prefix}}{{skinName}} {{prefix}}menu {{prefix}}menu {{prefix}}menuitem-active {{prefix}}menuitem-content {
 	background-image: none;
     background: none;  /* supress menuitems from having gradients */
     background-color: {{itemActiveBackground}};
@@ -1347,9 +1347,9 @@ v\:fill {
 
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}menu-horizontal {{prefix}}menu-label-active,
-{{prefix}}skin-{{skinName}} {{prefix}}menu-horizontal {{prefix}}menuitem-active {{prefix}}menuitem-content,
-{{prefix}}skin-{{skinName}} {{prefix}}menu-horizontal {{prefix}}menu-label-menuvisible {
+{{prefix}}{{skinName}} {{prefix}}menu-horizontal {{prefix}}menu-label-active,
+{{prefix}}{{skinName}} {{prefix}}menu-horizontal {{prefix}}menuitem-active {{prefix}}menuitem-content,
+{{prefix}}{{skinName}} {{prefix}}menu-horizontal {{prefix}}menu-label-menuvisible {
 
     border-color: {{itemActiveHorizontalBorder}};                 /* added this varialble after YUI conf for sam skin */
 	background: {{itemActiveHorizontalBackgroundGradient}};       /* added this varialble AND PROPERTY after YUI conf for sam skin */
@@ -1358,24 +1358,24 @@ v\:fill {
 }
 
 /* this keeps the background of a submenu from getting the active color when it is first made visible, before you cursor over it.*/
-{{prefix}}skin-{{skinName}} {{prefix}}menu-horizontal {{prefix}}menuitem-active {{prefix}}menu {{prefix}}menuitem-content{
+{{prefix}}{{skinName}} {{prefix}}menu-horizontal {{prefix}}menuitem-active {{prefix}}menu {{prefix}}menuitem-content{
     background: none;
     background-color: transparent;
     color: {{text}};
 }
 
 /* protects the items in a menu from having a gradient when hovered over */
-{{prefix}}skin-{{skinName}} {{prefix}}menu-horizontal {{prefix}}menuitem-active {{prefix}}menuitem-content {
+{{prefix}}{{skinName}} {{prefix}}menu-horizontal {{prefix}}menuitem-active {{prefix}}menuitem-content {
 	background: {{itemActiveHorizontalBackgroundGradient}};
     background-color: {{itemActiveHorizontalBackgroundColor}};
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}menubuttonnav {{prefix}}menu-label-active,
-{{prefix}}skin-{{skinName}} {{prefix}}menubuttonnav {{prefix}}menuitem-active {{prefix}}menuitem-content,
-{{prefix}}skin-{{skinName}} {{prefix}}menubuttonnav {{prefix}}menu-label-menuvisible,
-{{prefix}}skin-{{skinName}} {{prefix}}splitbuttonnav {{prefix}}menu-label-active a,
-{{prefix}}skin-{{skinName}} {{prefix}}splitbuttonnav {{prefix}}menuitem-active {{prefix}}menuitem-content,
-{{prefix}}skin-{{skinName}} {{prefix}}splitbuttonnav {{prefix}}menu-label-menuvisible a {
+{{prefix}}{{skinName}} {{prefix}}menubuttonnav {{prefix}}menu-label-active,
+{{prefix}}{{skinName}} {{prefix}}menubuttonnav {{prefix}}menuitem-active {{prefix}}menuitem-content,
+{{prefix}}{{skinName}} {{prefix}}menubuttonnav {{prefix}}menu-label-menuvisible,
+{{prefix}}{{skinName}} {{prefix}}splitbuttonnav {{prefix}}menu-label-active a,
+{{prefix}}{{skinName}} {{prefix}}splitbuttonnav {{prefix}}menuitem-active {{prefix}}menuitem-content,
+{{prefix}}{{skinName}} {{prefix}}splitbuttonnav {{prefix}}menu-label-menuvisible a {
 
     border-left-width: 1px;
     /*margin-left: -1px; */
@@ -1383,13 +1383,13 @@ v\:fill {
 
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}splitbuttonnav {{prefix}}menu-label-menuvisible {
+{{prefix}}{{skinName}} {{prefix}}splitbuttonnav {{prefix}}menu-label-menuvisible {
 
     background: transparent;
 
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}splitbuttonnav {{prefix}}menu-label-menuvisible {{prefix}}menu-toggle {
+{{prefix}}{{skinName}} {{prefix}}splitbuttonnav {{prefix}}menu-label-menuvisible {{prefix}}menu-toggle {
 
     background-color: {{itemActiveBackground}};
 
@@ -1412,16 +1412,16 @@ v\:fill {
 }
 
 /** jeff added, group discussion needed ***************************************/
-{{prefix}}skin-{{skinName}} {{prefix}}overlay-content {{prefix}}widget-hd,
-{{prefix}}skin-{{skinName}} {{prefix}}overlay-content {{prefix}}widget-bd,
-{{prefix}}skin-{{skinName}} {{prefix}}overlay-content {{prefix}}widget-ft {
+{{prefix}}{{skinName}} {{prefix}}overlay-content {{prefix}}widget-hd,
+{{prefix}}{{skinName}} {{prefix}}overlay-content {{prefix}}widget-bd,
+{{prefix}}{{skinName}} {{prefix}}overlay-content {{prefix}}widget-ft {
     background-color: {{background}};
     border: solid 1px {{border}};
     border-bottom: none;
     padding: {{hdBdFtPadding}}; /*0.3em 0.5em;*/
     color: {{text}};
 }
-{{prefix}}skin-{{skinName}} {{prefix}}overlay-content {{prefix}}widget-ft {
+{{prefix}}{{skinName}} {{prefix}}overlay-content {{prefix}}widget-ft {
     border-bottom: solid 1px {{border}};
 }
 </script>
@@ -1452,7 +1452,7 @@ v\:fill {
 }
 
 /** from panel-skin.css (sam)***************************************/
-{{prefix}}skin-{{skinName}} {{prefix}}panel-content {
+{{prefix}}{{skinName}} {{prefix}}panel-content {
     -webkit-box-shadow: 2 2 7px rgba(0,0,0,0.15);
     -moz-box-shadow: 2 2 7px rgba(0,0,0,0.15);
     box-shadow: 2px 2px 7px rgba(0,0,0,0.15);
@@ -1461,7 +1461,7 @@ v\:fill {
     color: {{text}};
     border-radius: {{panelRadius}};
 }
-{{prefix}}skin-{{skinName}} {{prefix}}panel {{prefix}}widget-hd {
+{{prefix}}{{skinName}} {{prefix}}panel {{prefix}}widget-hd {
     padding: {{hdPadding}}; /*8px 28px 8px 8px;*/  /* Room for close button. */
     padding-right: 40px; /* Room for Close button */
     min-height: 13px;           /* For the close button */
@@ -1476,19 +1476,19 @@ v\:fill {
     TODO: Add support for IE and W3C gradients
     */
 }
-{{prefix}}skin-{{skinName}} {{prefix}}panel {{prefix}}widget-hd {{prefix}}widget-buttons {
+{{prefix}}{{skinName}} {{prefix}}panel {{prefix}}widget-hd {{prefix}}widget-buttons {
     padding: {{hdButtonPadding}}; /*8px;*/
 }
-{{prefix}}skin-{{skinName}} {{prefix}}panel {{prefix}}widget-bd {
+{{prefix}}{{skinName}} {{prefix}}panel {{prefix}}widget-bd {
     padding: {{bdPadding}}; /*10px;*/
 }
-{{prefix}}skin-{{skinName}} {{prefix}}panel {{prefix}}widget-ft {
+{{prefix}}{{skinName}} {{prefix}}panel {{prefix}}widget-ft {
 	background: {{footBackground}};
 	padding: {{ftPadding}};8px;
     text-align: right;
     border-radius: 0 0 {{panelRadius}} {{panelRadius}};
 }
-{{prefix}}skin-{{skinName}} {{prefix}}panel {{prefix}}widget-ft {{prefix}}button {
+{{prefix}}{{skinName}} {{prefix}}panel {{prefix}}widget-ft {{prefix}}button {
     margin-left: 8px;
 }
 
@@ -1498,7 +1498,7 @@ Support for icon-based [x] "close" button in the header.
 Nicolas Gallagher: "CSS image replacement with pseudo-elements (NIR)"
 http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
 */
-{{prefix}}skin-{{skinName}} {{prefix}}panel {{prefix}}widget-hd {{prefix}}button-close {
+{{prefix}}{{skinName}} {{prefix}}panel {{prefix}}widget-hd {{prefix}}button-close {
     /* Reset base button styles */
     background: transparent;
     filter: none;
@@ -1523,7 +1523,7 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
     *color: #86A5EC;
     *background: url(sprite_icons.png) no-repeat 1px 1px;
 }
-{{prefix}}skin-{{skinName}} {{prefix}}panel {{prefix}}widget-hd {{prefix}}button-close:before {
+{{prefix}}{{skinName}} {{prefix}}panel {{prefix}}widget-hd {{prefix}}button-close:before {
     /*
     Displays the [x] icon in place of the "Close" text.
     Note: The `width` of this pseudo element is the same as its "host" element.
@@ -1536,7 +1536,7 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
     width: 13px;
     margin: 1px 0 0 1px;
 }
-{{prefix}}skin-{{skinName}} {{prefix}}panel-hidden {{prefix}}widget-hd {{prefix}}button-close {
+{{prefix}}{{skinName}} {{prefix}}panel-hidden {{prefix}}widget-hd {{prefix}}button-close {
     /* Required for IE > 7 to deal with pseudo :before element */
     display: none;
 }
@@ -1585,16 +1585,16 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
 
 /* Use thumbUrl /build/slider-base/assets/skins/sam/thumb-x.png */
 
-{{prefix}}skin-{{skinName}} {{prefix}}slider-x {{prefix}}slider-rail,
-{{prefix}}skin-{{skinName}} {{prefix}}slider-x {{prefix}}slider-rail-cap-left,
-{{prefix}}skin-{{skinName}} {{prefix}}slider-x {{prefix}}slider-rail-cap-right {
+{{prefix}}{{skinName}} {{prefix}}slider-x {{prefix}}slider-rail,
+{{prefix}}{{skinName}} {{prefix}}slider-x {{prefix}}slider-rail-cap-left,
+{{prefix}}{{skinName}} {{prefix}}slider-x {{prefix}}slider-rail-cap-right {
     background-image: none;
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}slider-x {{prefix}}slider-rail {
+{{prefix}}{{skinName}} {{prefix}}slider-x {{prefix}}slider-rail {
     height: 26px;
 }
-{{prefix}}skin-{{skinName}} {{prefix}}slider-x {{prefix}}slider-thumb {
+{{prefix}}{{skinName}} {{prefix}}slider-x {{prefix}}slider-thumb {
     background-color: {{thumbBackground}};
     height: 18px;
     width: 12px;
@@ -1605,7 +1605,7 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15), -1px -1px 3px rgba(0, 0, 0, 0.15) inset;
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}slider-x {{prefix}}slider-rail-cap-left {
+{{prefix}}{{skinName}} {{prefix}}slider-x {{prefix}}slider-rail-cap-left {
     background-color: {{railBackground}};
     height: 2px;
     left: -4px;
@@ -1616,7 +1616,7 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
     margin-top: 0.5em;
     border-radius: 2px 0 0 2px;
 }
-{{prefix}}skin-{{skinName}} {{prefix}}slider-x {{prefix}}slider-rail-cap-right {
+{{prefix}}{{skinName}} {{prefix}}slider-x {{prefix}}slider-rail-cap-right {
     background-color: {{railBackground}};
     height: 2px;
     right: -4px;
@@ -1628,23 +1628,23 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
     border-radius: 0 2px 2px 0;
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}slider-x {{prefix}}slider-thumb-image,
-{{prefix}}skin-{{skinName}} {{prefix}}slider-x {{prefix}}slider-thumb-shadow {
+{{prefix}}{{skinName}} {{prefix}}slider-x {{prefix}}slider-thumb-image,
+{{prefix}}{{skinName}} {{prefix}}slider-x {{prefix}}slider-thumb-shadow {
     display: none;
 }
 
 /* Vertical Slider */
 
-{{prefix}}skin-{{skinName}} {{prefix}}slider-y {{prefix}}slider-rail,
-{{prefix}}skin-{{skinName}} {{prefix}}slider-y {{prefix}}slider-rail-cap-top,
-{{prefix}}skin-{{skinName}} {{prefix}}slider-y {{prefix}}slider-rail-cap-bottom {
+{{prefix}}{{skinName}} {{prefix}}slider-y {{prefix}}slider-rail,
+{{prefix}}{{skinName}} {{prefix}}slider-y {{prefix}}slider-rail-cap-top,
+{{prefix}}{{skinName}} {{prefix}}slider-y {{prefix}}slider-rail-cap-bottom {
     background-image: none;
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}slider-y {{prefix}}slider-rail {
+{{prefix}}{{skinName}} {{prefix}}slider-y {{prefix}}slider-rail {
     width: 26px;
 }
-{{prefix}}skin-{{skinName}} {{prefix}}slider-y {{prefix}}slider-thumb {
+{{prefix}}{{skinName}} {{prefix}}slider-y {{prefix}}slider-thumb {
     background-color: {{thumbBackground}};
     height: 12px;
     width: 18px;
@@ -1655,7 +1655,7 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15), -1px -1px 3px rgba(0, 0, 0, 0.15) inset;
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}slider-y {{prefix}}slider-rail-cap-top {
+{{prefix}}{{skinName}} {{prefix}}slider-y {{prefix}}slider-rail-cap-top {
     background-color: {{railBackground}};
     width: 2px;
     top: -4px;
@@ -1666,7 +1666,7 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
     margin-left: 0.5em;
     border-radius: 2px 2px 0 0;
 }
-{{prefix}}skin-{{skinName}} {{prefix}}slider-y {{prefix}}slider-rail-cap-bottom {
+{{prefix}}{{skinName}} {{prefix}}slider-y {{prefix}}slider-rail-cap-bottom {
     background-color: {{railBackground}};
     width: 2px;
     bottom: -4px;
@@ -1678,8 +1678,8 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
     border-radius: 0 0 2px 2px;
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}slider-y {{prefix}}slider-thumb-image,
-{{prefix}}skin-{{skinName}} {{prefix}}slider-y {{prefix}}slider-thumb-shadow {
+{{prefix}}{{skinName}} {{prefix}}slider-y {{prefix}}slider-thumb-image,
+{{prefix}}{{skinName}} {{prefix}}slider-y {{prefix}}slider-thumb-shadow {
     display: none;
 }
 
@@ -1687,9 +1687,9 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
 
 <!--////////////////////////////  non-widget template (html form elements) /////////////////  -->
 <!-- This template is for tables -->
-<script id="form-template" type="text/x-handlebars-template">
+<script id="table-template" type="text/x-handlebars-template">
 
-{{prefix}}skin-{{skinName}} {{prefix}}table {
+{{prefix}}{{skinName}} {{prefix}}table {
     margin: 0;
     padding: 0;
     font-family: arial, sans-serif;
@@ -1703,19 +1703,19 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
     border: 1px solid {{border}};
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}table-caption {
+{{prefix}}{{skinName}} {{prefix}}table-caption {
     color: {{captionText}};
     font: italic 85%/1 arial, sans-serif;
     padding: {{captionPadding}}; /*1em 0;*/
     text-align: center;
 }
-{{prefix}}skin-{{skinName}} {{prefix}}table td {
+{{prefix}}{{skinName}} {{prefix}}table td {
     background-color: {{cellBackground}};
     border-top: 1px solid {{border}}; /*  inner row border */
     color: {{cellText}};
 }
-{{prefix}}skin-{{skinName}} {{prefix}}table td,
-{{prefix}}skin-{{skinName}} {{prefix}}table th {
+{{prefix}}{{skinName}} {{prefix}}table td,
+{{prefix}}{{skinName}} {{prefix}}table th {
     border-left: 1px solid {{border}}; /*  inner column border */
 /*    border-width: 0 0 0 1px;*/
     font-size: inherit;
@@ -1723,12 +1723,12 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
 	overflow: visible; /*to make ths where the title is really long work*/
     padding: {{cellPadding}}; /*4px 10px 4px 10px;*/ /* cell padding */
 }
-{{prefix}}skin-{{skinName}} {{prefix}}table td:first-child,
-{{prefix}}skin-{{skinName}} {{prefix}}table th:first-child {
+{{prefix}}{{skinName}} {{prefix}}table td:first-child,
+{{prefix}}{{skinName}} {{prefix}}table th:first-child {
     border-left-width: 0px;
 }
 
-{{prefix}}skin-{{skinName}} {{prefix}}table th {
+{{prefix}}{{skinName}} {{prefix}}table th {
     {{headGradient}};
     background-color: {{headBackground}};
     color: {{headText}};
@@ -1745,11 +1745,11 @@ striping:
    even - #fff (white)
    odd  - #edf5ff (light blue)
 */
-{{prefix}}skin-{{skinName}} {{prefix}}table-even td {
+{{prefix}}{{skinName}} {{prefix}}table-even td {
     background-color: {{cellEvenBackground}};
     color: {{cellEvenText}};
 }
-{{prefix}}skin-{{skinName}} {{prefix}}table-odd  td  {
+{{prefix}}{{skinName}} {{prefix}}table-odd  td  {
 }
 </script>
 <!-- ///////////////////////////////////////////////////////////////////////////////////////////////  -->
@@ -1757,132 +1757,132 @@ striping:
 
 <script id="space-template" type="text/x-handlebars-template">
 /*************** Begin styles for the UI display of the color space in this tool *************/
-.yui3-skin-{{skinName}} .background {
+{{prefix}}{{skinName}} .background {
     background-color: {{background}};
     border: solid 1px;
     border-color: {{borderHigh}} {{borderLow}} {{borderLow}} {{borderHigh}};
 }
 
-.yui3-skin-{{skinName}} .text-low {
+{{prefix}}{{skinName}} .text-low {
     color: {{textLow}};
 }
 
-.yui3-skin-{{skinName}} .text-normal {
+{{prefix}}{{skinName}} .text-normal {
     color: {{textNormal}};
 }
 
-.yui3-skin-{{skinName}} .text-high {
+{{prefix}}{{skinName}} .text-high {
     color: {{textHigh}};
 }
 
-.yui3-skin-{{skinName}} .rule-low {
+{{prefix}}{{skinName}} .rule-low {
     border-top: solid 1px {{ruleLow}};
 }
 
-.yui3-skin-{{skinName}} .rule-high {
+{{prefix}}{{skinName}} .rule-high {
     border-top: solid 1px {{ruleHigh}};
 }
 
-.yui3-skin-{{skinName}} .gradient {
+{{prefix}}{{skinName}} .gradient {
     {{gradient}};
 }
 /* background:hover **************/
-.yui3-skin-{{skinName}} .background.show-hover {
+{{prefix}}{{skinName}} .background.show-hover {
     background-color: {{hoverBackground}};
     border: solid 1px;
     border-color: {{hoverBorderHigh}} {{hoverBorderLow}} {{hoverBorderLow}} {{hoverBorderHigh}};
 }
 
-.yui3-skin-{{skinName}} .background.show-hover .text-low {
+{{prefix}}{{skinName}} .background.show-hover .text-low {
     color: {{hoverTextLow}};
 }
 
-.yui3-skin-{{skinName}} .background.show-hover .text-normal {
+{{prefix}}{{skinName}} .background.show-hover .text-normal {
     color: {{hoverTextNormal}};
 }
 
-.yui3-skin-{{skinName}} .background.show-hover .text-high {
+{{prefix}}{{skinName}} .background.show-hover .text-high {
     color: {{hoverTextHigh}};
 }
 
-.yui3-skin-{{skinName}} .background.show-hover .rule-low {
+{{prefix}}{{skinName}} .background.show-hover .rule-low {
     border-top: solid 1px {{hoverRuleLow}};
 }
 
-.yui3-skin-{{skinName}} .background.show-hover .rule-high {
+{{prefix}}{{skinName}} .background.show-hover .rule-high {
     border-top: solid 1px {{hoverRuleHigh}};
 }
 
-.yui3-skin-{{skinName}} .background.show-hover .gradient {
+{{prefix}}{{skinName}} .background.show-hover .gradient {
     {{hoverGradient}};
 }
 
 /* block page ***********************************/
 
-.yui3-skin-{{skinName}} .block-page {
+{{prefix}}{{skinName}} .block-page {
     background-color: {{blockPageBackground}};
 }
 
-.yui3-skin-{{skinName}} .block-page {
+{{prefix}}{{skinName}} .block-page {
     border: solid 1px {{blockPageBorderLow}};
     border-color: {{blockPageBorderHigh}} {{blockPageBorderLow}} {{blockPageBorderLow}} {{blockPageBorderHigh}};
 }
 
-.yui3-skin-{{skinName}} .block-page-text-low {
+{{prefix}}{{skinName}} .block-page-text-low {
     color: {{blockPageTextLow}};
 }
 
-.yui3-skin-{{skinName}} .block-page-text-normal {
+{{prefix}}{{skinName}} .block-page-text-normal {
     color: {{blockPageTextNormal}};
 }
 
-.yui3-skin-{{skinName}} .block-page-text-high {
+{{prefix}}{{skinName}} .block-page-text-high {
     color: {{blockPageTextHigh}};
 }
 
-.yui3-skin-{{skinName}} .block-page-rule-low {
+{{prefix}}{{skinName}} .block-page-rule-low {
     border-top: solid 1px {{blockPageRuleLow}};
 }
 
-.yui3-skin-{{skinName}} .block-page-rule-high {
+{{prefix}}{{skinName}} .block-page-rule-high {
     border-top: solid 1px {{blockPageRuleHigh}};
 }
 
-.yui3-skin-{{skinName}} .block-page .gradient {
+{{prefix}}{{skinName}} .block-page .gradient {
     {{blockPageGradient}};
 }
 
 /* block page:hover ************************************/
-.yui3-skin-{{skinName}} .block-page:hover {
+{{prefix}}{{skinName}} .block-page:hover {
     background-color: {{blockPageHoverBackground}};
 }
 
-.yui3-skin-{{skinName}} .block-page:hover {
+{{prefix}}{{skinName}} .block-page:hover {
     border: solid 1px {{blockPageHoverBorderLow}};
     border-color: {{blockPageHoverBorderHigh}} {{blockPageHoverBorderLow}} {{blockPageHoverBorderLow}} {{blockPageHoverBorderHigh}};
 }
 
-.yui3-skin-{{skinName}} .block-page:hover .block-page-text-low {
+{{prefix}}{{skinName}} .block-page:hover .block-page-text-low {
     color: {{blockPageHoverTextLow}};
 }
 
-.yui3-skin-{{skinName}} .block-page:hover .block-page-text-normal {
+{{prefix}}{{skinName}} .block-page:hover .block-page-text-normal {
     color: {{blockPageHoverTextNormal}};
 }
 
-.yui3-skin-{{skinName}} .block-page:hover .block-page-text-high {
+{{prefix}}{{skinName}} .block-page:hover .block-page-text-high {
     color: {{blockPageHoverTextHigh}};
 }
 
-.yui3-skin-{{skinName}} .block-page:hover .block-page-rule-low {
+{{prefix}}{{skinName}} .block-page:hover .block-page-rule-low {
     border-top: solid 1px {{blockPageHoverRuleLow}};
 }
 
-.yui3-skin-{{skinName}} .block-page:hover .block-page-rule-high {
+{{prefix}}{{skinName}} .block-page:hover .block-page-rule-high {
     border-top: solid 1px {{blockPageHoverRuleHigh}};
 }
 
-.yui3-skin-{{skinName}} .block-page:hover .gradient {
+{{prefix}}{{skinName}} .block-page:hover .gradient {
     {{blockPageHoverGradient}};
 }
 
@@ -1890,274 +1890,274 @@ striping:
 
 
 /* block low ************************************/
-.yui3-skin-{{skinName}} .block-low {
+{{prefix}}{{skinName}} .block-low {
     background-color: {{blockLowBackground}};
 }
 
-.yui3-skin-{{skinName}} .block-low {
+{{prefix}}{{skinName}} .block-low {
     border: solid 1px {{blockLowBorderLow}};
     border-color: {{blockLowBorderHigh}} {{blockLowBorderLow}} {{blockLowBorderLow}} {{blockLowBorderHigh}};
 }
 
-.yui3-skin-{{skinName}} .block-low-text-low {
+{{prefix}}{{skinName}} .block-low-text-low {
     color: {{blockLowTextLow}};
 }
 
-.yui3-skin-{{skinName}} .block-low-text-normal {
+{{prefix}}{{skinName}} .block-low-text-normal {
     color: {{blockLowTextNormal}};
 }
 
-.yui3-skin-{{skinName}} .block-low-text-high {
+{{prefix}}{{skinName}} .block-low-text-high {
     color: {{blockLowTextHigh}};
 }
 
-.yui3-skin-{{skinName}} .block-low-rule-low {
+{{prefix}}{{skinName}} .block-low-rule-low {
     border-top: solid 1px {{blockLowRuleLow}};
 }
 
-.yui3-skin-{{skinName}} .block-low-rule-high {
+{{prefix}}{{skinName}} .block-low-rule-high {
     border-top: solid 1px {{blockLowRuleHigh}};
 }
 
-.yui3-skin-{{skinName}} .block-low .gradient {
+{{prefix}}{{skinName}} .block-low .gradient {
     {{blockLowGradient}};
 }
 
 /* block low:hover ************************************/
-.yui3-skin-{{skinName}} .block-low:hover {
+{{prefix}}{{skinName}} .block-low:hover {
     background-color: {{blockLowHoverBackground}};
 }
 
-.yui3-skin-{{skinName}} .block-low:hover {
+{{prefix}}{{skinName}} .block-low:hover {
     border: solid 1px {{blockLowHoverBorderLow}};
     border-color: {{blockLowHoverBorderHigh}} {{blockLowHoverBorderLow}} {{blockLowHoverBorderLow}} {{blockLowHoverBorderHigh}};
 }
 
-.yui3-skin-{{skinName}} .block-low:hover .block-low-text-low {
+{{prefix}}{{skinName}} .block-low:hover .block-low-text-low {
     color: {{blockLowHoverTextLow}};
 }
 
-.yui3-skin-{{skinName}} .block-low:hover .block-low-text-normal {
+{{prefix}}{{skinName}} .block-low:hover .block-low-text-normal {
     color: {{blockLowHoverTextNormal}};
 }
 
-.yui3-skin-{{skinName}} .block-low:hover .block-low-text-high {
+{{prefix}}{{skinName}} .block-low:hover .block-low-text-high {
     color: {{blockLowHoverTextHigh}};
 }
 
-.yui3-skin-{{skinName}} .block-low:hover .block-low-rule-low {
+{{prefix}}{{skinName}} .block-low:hover .block-low-rule-low {
     border-top: solid 1px {{blockLowHoverRuleLow}};
 }
 
-.yui3-skin-{{skinName}} .block-low:hover .block-low-rule-high {
+{{prefix}}{{skinName}} .block-low:hover .block-low-rule-high {
     border-top: solid 1px {{blockLowHoverRuleHigh}};
 }
 
-.yui3-skin-{{skinName}} .block-low:hover .gradient {
+{{prefix}}{{skinName}} .block-low:hover .gradient {
     {{blockLowHoverGradient}};
 }
 
 /* block normal *********************************/
-.yui3-skin-{{skinName}} .block-normal {
+{{prefix}}{{skinName}} .block-normal {
     background-color: {{blockNormalBackground}};
 }
 
-.yui3-skin-{{skinName}} .block-normal {
+{{prefix}}{{skinName}} .block-normal {
     border: solid 1px {{blockNormalBorderLow}};
     border-color: {{blockNormalBorderHigh}} {{blockNormalBorderLow}} {{blockNormalBorderLow}} {{blockNormalBorderHigh}};
 }
 
-.yui3-skin-{{skinName}} .block-normal-text-low {
+{{prefix}}{{skinName}} .block-normal-text-low {
     color: {{blockNormalTextLow}};
 }
 
-.yui3-skin-{{skinName}} .block-normal-text-normal {
+{{prefix}}{{skinName}} .block-normal-text-normal {
     color: {{blockNormalTextNormal}};
 }
 
-.yui3-skin-{{skinName}} .block-normal-text-high {
+{{prefix}}{{skinName}} .block-normal-text-high {
     color: {{blockNormalTextHigh}};
 }
 
-.yui3-skin-{{skinName}} .block-normal-rule-low {
+{{prefix}}{{skinName}} .block-normal-rule-low {
     border-top: solid 1px {{blockNormalRuleLow}};
 }
 
-.yui3-skin-{{skinName}} .block-normal-rule-high {
+{{prefix}}{{skinName}} .block-normal-rule-high {
     border-top: solid 1px {{blockNormalRuleHigh}};
 }
 
-.yui3-skin-{{skinName}} .block-normal .gradient {
+{{prefix}}{{skinName}} .block-normal .gradient {
     {{blockNormalGradient}};
 }
 
 /* block normal:hover  *********************************/
-.yui3-skin-{{skinName}} .block-normal:hover {
+{{prefix}}{{skinName}} .block-normal:hover {
     background-color: {{blockNormalHoverBackground}};
 }
 
-.yui3-skin-{{skinName}} .block-normal:hover {
+{{prefix}}{{skinName}} .block-normal:hover {
     border: solid 1px {{blockNormalHoverBorderLow}};
     border-color: {{blockNormalHoverBorderHigh}} {{blockNormalHoverBorderLow}} {{blockNormalHoverBorderLow}} {{blockNormalHoverBorderHigh}};
 }
 
-.yui3-skin-{{skinName}} .block-normal:hover .block-normal-text-low {
+{{prefix}}{{skinName}} .block-normal:hover .block-normal-text-low {
     color: {{blockNormalHoverTextLow}};
 }
 
-.yui3-skin-{{skinName}} .block-normal:hover .block-normal-text-normal {
+{{prefix}}{{skinName}} .block-normal:hover .block-normal-text-normal {
     color: {{blockNormalHoverTextNormal}};
 }
 
-.yui3-skin-{{skinName}} .block-normal:hover .block-normal-text-high {
+{{prefix}}{{skinName}} .block-normal:hover .block-normal-text-high {
     color: {{blockNormalHoverTextHigh}};
 }
 
-.yui3-skin-{{skinName}} .block-normal:hover .block-normal-rule-low {
+{{prefix}}{{skinName}} .block-normal:hover .block-normal-rule-low {
     border-top: solid 1px {{blockNormalHoverRuleLow}};
 }
 
-.yui3-skin-{{skinName}} .block-normal:hover .block-normal-rule-high {
+{{prefix}}{{skinName}} .block-normal:hover .block-normal-rule-high {
     border-top: solid 1px {{blockNormalHoverRuleHigh}};
 }
 
-.yui3-skin-{{skinName}} .block-normal:hover .gradient {
+{{prefix}}{{skinName}} .block-normal:hover .gradient {
     {{blockNormalHoverGradient}};
 }
 
 /* block high *********************************/
-.yui3-skin-{{skinName}} .block-high {
+{{prefix}}{{skinName}} .block-high {
     background-color: {{blockHighBackground}};
 }
 
-.yui3-skin-{{skinName}} .block-high {
+{{prefix}}{{skinName}} .block-high {
     border: solid 1px {{blockHighBorderLow}};
     border-color: {{blockHighBorderHigh}} {{blockHighBorderLow}} {{blockHighBorderLow}} {{blockHighBorderHigh}};
 }
 
-.yui3-skin-{{skinName}} .block-high-text-low {
+{{prefix}}{{skinName}} .block-high-text-low {
     color: {{blockHighTextLow}};
 }
 
-.yui3-skin-{{skinName}} .block-high-text-normal {
+{{prefix}}{{skinName}} .block-high-text-normal {
     color: {{blockHighTextNormal}};
 }
 
-.yui3-skin-{{skinName}} .block-high-text-high {
+{{prefix}}{{skinName}} .block-high-text-high {
     color: {{blockHighTextHigh}};
 }
 
-.yui3-skin-{{skinName}} .block-high-rule-low {
+{{prefix}}{{skinName}} .block-high-rule-low {
     border-top: solid 1px {{blockHighRuleLow}};
 }
 
-.yui3-skin-{{skinName}} .block-high-rule-high {
+{{prefix}}{{skinName}} .block-high-rule-high {
     border-top: solid 1px {{blockHighRuleHigh}};
 }
 
-.yui3-skin-{{skinName}} .block-high .gradient {
+{{prefix}}{{skinName}} .block-high .gradient {
     {{blockHighGradient}};
 }
 
 /* block high:hover *********************************/
-.yui3-skin-{{skinName}} .block-high:hover {
+{{prefix}}{{skinName}} .block-high:hover {
     background-color: {{blockHighHoverBackground}};
 }
 
-.yui3-skin-{{skinName}} .block-high:hover {
+{{prefix}}{{skinName}} .block-high:hover {
     border: solid 1px {{blockHighHoverBorderLow}};
     border-color: {{blockHighHoverBorderHigh}} {{blockHighHoverBorderLow}} {{blockHighHoverBorderLow}} {{blockHighHoverBorderHigh}};
 }
 
-.yui3-skin-{{skinName}} .block-high:hover .block-high-text-low {
+{{prefix}}{{skinName}} .block-high:hover .block-high-text-low {
     color: {{blockHighHoverTextLow}};
 }
 
-.yui3-skin-{{skinName}} .block-high:hover .block-high-text-normal {
+{{prefix}}{{skinName}} .block-high:hover .block-high-text-normal {
     color: {{blockHighHoverTextNormal}};
 }
 
-.yui3-skin-{{skinName}} .block-high:hover .block-high-text-high {
+{{prefix}}{{skinName}} .block-high:hover .block-high-text-high {
     color: {{blockHighHoverTextHigh}};
 }
 
-.yui3-skin-{{skinName}} .block-high:hover .block-high-rule-low {
+{{prefix}}{{skinName}} .block-high:hover .block-high-rule-low {
     border-top: solid 1px {{blockHighHoverRuleLow}};
 }
 
-.yui3-skin-{{skinName}} .block-high:hover .block-high-rule-high {
+{{prefix}}{{skinName}} .block-high:hover .block-high-rule-high {
     border-top: solid 1px {{blockHighHoverRuleHigh}};
 }
 
-.yui3-skin-{{skinName}} .block-high:hover .gradient {
+{{prefix}}{{skinName}} .block-high:hover .gradient {
     {{blockHighHoverGradient}};
 }
 
 /* block highest *********************************/
-.yui3-skin-{{skinName}} .block-highest {
+{{prefix}}{{skinName}} .block-highest {
     background-color: {{blockHighestBackground}};
 }
 
-.yui3-skin-{{skinName}} .block-highest {
+{{prefix}}{{skinName}} .block-highest {
     border: solid 1px {{blockHighestBorderLow}};
     border-color: {{blockHighestBorderHigh}} {{blockHighestBorderLow}} {{blockHighestBorderLow}} {{blockHighestBorderHigh}};
 }
 
-.yui3-skin-{{skinName}} .block-highest-text-low {
+{{prefix}}{{skinName}} .block-highest-text-low {
     color: {{blockHighestTextLow}};
 }
 
-.yui3-skin-{{skinName}} .block-highest-text-normal {
+{{prefix}}{{skinName}} .block-highest-text-normal {
     color: {{blockHighestTextNormal}};
 }
 
-.yui3-skin-{{skinName}} .block-highest-text-high {
+{{prefix}}{{skinName}} .block-highest-text-high {
     color: {{blockHighestTextHigh}};
 }
 
-.yui3-skin-{{skinName}} .block-highest-rule-low {
+{{prefix}}{{skinName}} .block-highest-rule-low {
     border-top: solid 1px {{blockHighestRuleLow}};
 }
 
-.yui3-skin-{{skinName}} .block-highest-rule-high {
+{{prefix}}{{skinName}} .block-highest-rule-high {
     border-top: solid 1px {{blockHighestRuleHigh}};
 }
 
-.yui3-skin-{{skinName}} .block-highest .gradient {
+{{prefix}}{{skinName}} .block-highest .gradient {
     {{blockHighestGradient}};
 }
 
 /* block highest:hover *********************************/
-.yui3-skin-{{skinName}} .block-highest:hover {
+{{prefix}}{{skinName}} .block-highest:hover {
     background-color: {{blockHighestHoverBackground}};
 }
 
-.yui3-skin-{{skinName}} .block-highest:hover {
+{{prefix}}{{skinName}} .block-highest:hover {
     border: solid 1px {{blockHighestHoverBorderLow}};
     border-color: {{blockHighestHoverBorderHigh}} {{blockHighestHoverBorderLow}} {{blockHighestHoverBorderLow}} {{blockHighestHoverBorderHigh}};
 }
 
-.yui3-skin-{{skinName}} .block-highest:hover .block-highest-text-low {
+{{prefix}}{{skinName}} .block-highest:hover .block-highest-text-low {
     color: {{blockHighestHoverTextLow}};
 }
 
-.yui3-skin-{{skinName}} .block-highest:hover .block-highest-text-normal {
+{{prefix}}{{skinName}} .block-highest:hover .block-highest-text-normal {
     color: {{blockHighestHoverTextNormal}};
 }
 
-.yui3-skin-{{skinName}} .block-highest:hover .block-highest-text-high {
+{{prefix}}{{skinName}} .block-highest:hover .block-highest-text-high {
     color: {{blockHighestHoverTextHigh}};
 }
 
-.yui3-skin-{{skinName}} .block-highest:hover .block-highest-rule-low {
+{{prefix}}{{skinName}} .block-highest:hover .block-highest-rule-low {
     border-top: solid 1px {{blockHighestHoverRuleLow}};
 }
 
-.yui3-skin-{{skinName}} .block-highest:hover .block-highest-rule-high {
+{{prefix}}{{skinName}} .block-highest:hover .block-highest-rule-high {
     border-top: solid 1px {{blockHighestHoverRuleHigh}};
 }
 
-.yui3-skin-{{skinName}} .block-highest:hover .gradient {
+{{prefix}}{{skinName}} .block-highest:hover .gradient {
     {{blockHighestHoverGradient}};
 }
 
@@ -2181,7 +2181,7 @@ Skinner Demo
             <h1>Color Schemes</h1>
             <ul class="scheme-radios">
                 <li class="pick">
-                    <input id="monochrome" type="radio"/>
+                    <input id="monochrome" type="radio" checked="checked" />
                     <label for="monochrome">
                         <ul class="swatches">
                             <li></li><li></li><li></li><li></li>
@@ -2199,8 +2199,8 @@ Skinner Demo
                     </label>
                 </li>
                 <li class="pick">
-                    <input id="complimentary" type="radio"/>
-                    <label for="complimentary">
+                    <input id="complementary" type="radio"/>
+                    <label for="complementary">
                         <ul class="swatches">
                             <li></li><li></li><li></li><li></li>
                         </ul>
@@ -2208,8 +2208,8 @@ Skinner Demo
                     </label>
                 </li>
                 <li class="pick">
-                    <input id="dark-complimentary" type="radio"/>
-                    <label for="dark-complimentary">
+                    <input id="dark-complementary" type="radio"/>
+                    <label for="dark-complementary">
                         <ul class="swatches swatches-dark">
                             <li></li><li></li><li></li><li></li>
                         </ul>

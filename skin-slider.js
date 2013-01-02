@@ -1,13 +1,9 @@
 YUI.add('skin-slider', function (Y) {
 
-var Skin  = Y.Skin,
-    space = Skin.SPACE;
+Y.Skin.renderers.slider = function (skin) {
+    var space = skin.colorspace;
 
-Skin.slider = null;
-Skin.refreshSliderSkin = function () {
-    Skin.slider = {
-        skinName: space.skin.name,
-        prefix:   space.skin.prefix,
+    return {
 
 //        paddingTab: Skin.getPadding(0.3, 0.75),
 //        tabRadius: Skin.getRadius(0.4),    // 30% of global space.radius
@@ -15,15 +11,13 @@ Skin.refreshSliderSkin = function () {
           thumbBackground:      space.block.low.background,
           thumbBorderLight:     space.block.normal.border.low,
           thumbBorderDark:      space.block.normal.rule.low,
-          thumbRadiusBottom:    Skin.getRadius(0.3),
+          thumbRadiusBottom:    skin.radius(0.3),
           railBackground:       space.background,
           railBorderDark:       space.block.low.rule.low,
-          railBorderLight:      space.border.low,
-
-        foo: space
+          railBorderLight:      space.border.low
     };
 };
 
 }, '0.0.1', {
-    requires: ['skin-space']
+    requires: []
 });

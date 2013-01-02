@@ -1,16 +1,11 @@
 YUI.add('skin-button', function (Y) {
 
-var Skin  = Y.Skin,
-    space = Skin.SPACE;
+Y.Skin.renderers.button = function (skin) {
+    var space = skin.colorspace;
 
-Skin.button = null;
-Skin.refreshButtonSkin = function () {
-    Skin.button = {
-        skinName: space.skin.name,
-        prefix:   space.skin.prefix,
-
-        buttonRadius: Skin.getRadius(0.4),
-        padding: Skin.getPadding(0.4, 1, 0.45),
+    return {
+        buttonRadius: skin.radius(0.4),
+        padding: skin.padding(0.4, 1, 0.45),
         background: space.block.high.background,
         gradient:   space.block.high.gradient,
         text:       space.block.high.text.normal,
@@ -36,13 +31,10 @@ Skin.refreshButtonSkin = function () {
         selectedHoverBackground:    space.block.highest.hover.background,
         selectedHoverText:          space.block.highest.hover.text.high,
         selectedHoverBorderHigh:    space.block.highest.hover.border.high,
-        selectedHoverBorderLow:     space.block.highest.hover.border.low,
-
-
-        foo: space
+        selectedHoverBorderLow:     space.block.highest.hover.border.low
     };
 };
 
 }, '0.0.1', {
-    requires: ['skin-space']
+    requires: []
 });

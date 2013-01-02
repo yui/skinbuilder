@@ -1,15 +1,10 @@
 YUI.add('skin-overlay', function (Y) {
 
-var Skin  = Y.Skin,
-    space = Skin.SPACE;
+Y.Skin.renderers.overlay = function (skin) {
+    var space = skin.colorspace;
 
-Skin.overlay = null;
-Skin.refreshOverlaySkin = function () {
-    Skin.overlay = {
-        skinName: space.skin.name,
-        prefix:   space.skin.prefix,
-
-        hdBdFtPadding: Skin.getPadding(0.3, 0.5), // /*0.3em 0.5em;*/
+    return {
+        hdBdFtPadding: skin.padding(0.3, 0.5), // /*0.3em 0.5em;*/
 
         background:         space.background,
         border:             space.border.low,
@@ -20,5 +15,5 @@ Skin.refreshOverlaySkin = function () {
 };
 
 }, '0.0.1', {
-    requires: ['skin-space']
+    requires: []
 });

@@ -1,15 +1,10 @@
 YUI.add('skin-autocomplete', function (Y) {
 
-var Skin  = Y.Skin,
-    space = Skin.SPACE;
+Y.Skin.renderers.autocomplete = function (skin) {
+    var space = skin.colorspace;
 
-Skin.autocomplete = null;
-Skin.refreshAutocompleteSkin = function () {
-    Skin.autocomplete = {
-        skinName: space.skin.name,
-        prefix:   space.skin.prefix,
-
-        itemPadding: Skin.getPadding(0.2, 0.5), //2px 5px;*/
+    return {
+        itemPadding: skin.padding(0.2, 0.5), //2px 5px;*/
 
         background:         space.background,
         border:             space.border.low,
@@ -19,12 +14,10 @@ Skin.refreshAutocompleteSkin = function () {
         itemHoverBackground:    space.hover.background,
         textHover:              space.hover.text.normal,
         itemActiveBackground:   space.block.high.background,
-        textActive:             space.block.high.text.high,
-
-        foo: space
+        textActive:             space.block.high.text.high
     };
 };
 
 }, '0.0.1', {
-    requires: ['skin-space']
+    requires: []
 });

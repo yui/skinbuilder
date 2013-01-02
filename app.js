@@ -1,26 +1,34 @@
+// TODO:
+// - Remove Color Palette CSS from textarea output.
+// - Break out sample widgets into separate module.
+// - Convert input handling and Picker to OO-style.
+// - Y.Appify?
+
 YUI({
+    filter: 'raw',
     modules: {
-        'skin-space'       : 'skin-space.js',
+        'skin'       : 'skin.js',
+        'colorspace'       : 'colorspace.js',
+        'colorspace-schemes'       : 'colorspace-schemes.js',
         'skin-autocomplete': 'skin-autocomplete.js',
         'skin-button'      : 'skin-button.js',
         'skin-calendar'    : 'skin-calendar.js',
         'skin-datatable'   : 'skin-datatable.js',
         'skin-dial'        : 'skin-dial.js',
+        'skin-table'        : 'skin-table.js',
         'skin-node-menunav': 'skin-node-menunav.js',
         'skin-overlay'     : 'skin-overlay.js',
         'skin-panel'       : 'skin-panel.js',
         'skin-scrollview'  : 'skin-scrollview.js',
-        'skin-tabview'     : 'skin-tabview.js',
         'skin-slider'      : 'skin-slider.js',
-        'skin-form'        : 'skin-form.js',
+        'skin-tabview'     : 'skin-tabview.js',
 
         'skinner': {
             use: [
-                'skin-space', 'skin-autocomplete', 'skin-button',
+                'skin', 'colorspace-schemes', 'skin-autocomplete', 'skin-button',
                 'skin-calendar', 'skin-datatable', 'skin-dial',
                 'skin-node-menunav', 'skin-overlay', 'skin-panel',
-                'skin-scrollview', 'skin-tabview', 'skin-slider',
-                'skin-form'
+                'skin-scrollview', 'skin-slider', 'skin-tabview', 'skin-table'
             ]
         }
     }
@@ -30,417 +38,92 @@ YUI({
     'autocomplete-filters', 'autocomplete-highlighters', 'scrollview',
     'datatable-sort', 'dd-drag', 'dd-constrain', 'calendar', 'button-plugin',
     'tabview', 'datatype-date', 'button-group', 'cssbutton',
-    'node-event-delegate', 'overlay', 'slider', 'color',
+    'node-event-delegate', 'overlay', 'color',
 function (Y) {
 
-    // Supports the old global `space`.
-    var space = Y.Skin.SPACE;
+    var PAGE_BG_COLOR = '#fff',
+        KEY_COLOR = { 
+            page: PAGE_BG_COLOR,
+            background: '#ffffff',
+            block: {
+                low: {},  
+                normal: {},  
+                high: {},  
+                highest: {
+                    background: '#3355BA'
+                }   
+            }   
+        },
 
-    var schemeName =  'monochrome', // default schemeName
-        arrSchemeNames = ['monochrome', 'color-plus-gray', 'complimentary', 'dark-complimentary'],
+        SCHEME_NAME = 'monochrome', // default schemeName
+        SCHEME_NAMES = Y.Object.keys(Y.ColorSpace.schemes),
 
-    // returns hsl Array
-    hexToHsl = function(hexInput) {
+        STYLESHEET = document.documentElement.appendChild(document.createElement('style')),
+
+        SKIN = new Y.Skin({
+            name: 'mine',
+            scheme: SCHEME_NAME,
+            keycolor: KEY_COLOR.block.highest.background,
+            container: PAGE_BG_COLOR
+        }),
+
+        TEMPLATES = {};
+
+    function hexToHsl(hexInput) {
         var hslStr = Y.Color.toHSL(hexInput),
             hslArr = Y.Color.toArray(hslStr);
 
         return hslArr;
-    },
+    }
 
-
-    getPercentToEndAdjust = function(val, percentToEnd) {
-        var theMaxAdjust; // the distance from the val to "the end", meaning either 0 or 1
-        if (percentToEnd > 0){ // if going bigger
-            theMaxAdjust = 100 - val; // the most you could go from the val to the max (white or full sat)
-            return Math.round(theMaxAdjust * (percentToEnd / 100));// - val; // this gives a factor like 0.2 ...
-            // that can be simply added to the val to give the effect of "go this percent of the distance to the max"
-        }else{
-            theMaxAdjust = val; // the most you could go from val toward dark or low sat or "0"
-            return Math.round(theMaxAdjust * (percentToEnd / 100));
-        }
-    },
-
-
-    // adjusts the h s l of a color
-    /**
-     * @param {String} hexInput
-     * @param {Object} adjust
-     *      @param h integer in the range of 0 to 360
-     *      @param s number between 0 and 1
-     *      @param l number between 0 and 1
-     * @param {string} type. valid strings 'flip', 'cap', 'percent'
-     *      flip: when a value goes beyond min or max by some factor,
-     *          the value flips to the negative value of change
-     *          example: orig value 0.8, adjust by 0.4 results in 0.8 adjust by -0.4
-     *      cap: orig value 0.8, adjust by 0.4 results in 1
-     *      percent: orig value 0.8, adjust by 0.4 means go 0.4 percent of the distance
-     *          from 0.8 to 1 results in  0.88 (0.2 * 0.4 = 0.08 + 0.8)
-     */
-    adjustColor = function(hexInput, adjustInp, type) {
-        var hsl = hexToHsl(hexInput),
-            hex,
-            grayProxy,
-            adjust = adjustInp,
-            adjustType = 'cap';   // default
-
-        if (typeof(type) != 'undefined') {
-            adjustType = type;
-        }
-
-        // Saturation adjustment if needed
-        if ((adjust.s !== 0) && (adjustType === 'percent')) {  // adjust the sat with percent-style adjustment
-            adjust.s = getPercentToEndAdjust(hsl[1], adjust.s);
-        }
-
-        // get a Hex for adjusted sat and
-        // Hue adjustment if needed
-        // Note: hue adjustment is the same no matter what the adjustment type
-        if ((adjustInp.s !== 0) || (adjustInp.h !== 0)) {
-            hex = Y.Color.getOffset(hexInput, {h: adjust.h, s: adjust.s});
-        } else {  // if both Hue and Sat adjust are 0
-            hex = hexInput;
-        }
-
-        // Convert hex color to gray scale before adjusting lightness
-        // Do all the adjusting to the grayProxy color before turning it back into a color
-        // of a similar brightness.
-        // This compensates for "different hues appear lighter/darker than others" (yellow / blue issue)
-        grayProxy = Y.Color.getSimilarBrightness('#808080', hex);
-        grayProxyLightness = Math.round(Y.Color.getBrightness(grayProxy) * 100);  // fixme when Tony changes api for getBrightness to return values in range of 0 - 100
-
-        // adjust lightness (of grayProxy) based on 'type' attribute
-        if (adjustType === 'cap') {
-            //adjust.l = adjust.l;
-        } else if (adjustType === 'flip') {
-            adjust.l = getFlippedAdjust(grayProxy, grayProxyLightness, adjust.l);
-        } else if (adjustType === 'percent') {
-            adjust.l = getPercentToEndAdjust(grayProxyLightness, adjust.l);
-        } else {
-            alert('a call to adjustColor has an invalid type of: ' + type);
-        }
-        // adjust grayProxy to the desired lightness
-        grayProxy = Y.Color.getOffset(grayProxy, {l: adjust.l});
-
-        // adjust the desired color to have the same brightness as the grayProxy
-        hex = Y.Color.getSimilarBrightness(hex, grayProxy);
-        return hex;
-    },
-
-    /** if lit is adjusted beyond min or max it reverses (flips and subtracts the adjustment if over or under max/min by ______)
-     * This is needed for text
-     * Note: when text is offset from it's background by some amount,
-     * text readability is affected by the current hue.
-     * This is due to perceived brightness.
-     * One way to compensate is to determine when to "flip" the sign of the adjust
-     * by perceived brightness of the background color lit + adjust
-     * instead of                     background color lit + adjust
-     *
-     *
-     */
-    getFlippedAdjust = function(origColor, sourceLit, adjust) {
-        var overBy = 10,
-            newAdjust = adjust,
-            newLit = (parseInt(sourceLit, 10) + adjust);
-//            newLit = (parseInt(Y.Color.getBrightness(origColor) * 100, 10) + adjust);      // XXX
-
-        // if over by big enough amount, then reverse to negative
-        if (newLit > (100 + overBy)) {
-            newAdjust = -adjust; // the newAdjust will flip the sign of the requested adjust (flip to a darker color)
-        } else if (newLit > 100) { // let it stay at max
-            newAdjust = adjust; // Y.Color will cap at max
-        }
-        if (newLit < 0 - overBy) {
-            newAdjust = -adjust;  // the newAdjust will flip the sign of the requested adjust (flip to a lighter color)
-        } else if (newLit < 0) {
-            newAdjust = adjust;
-        }
-        return newAdjust;
-    },
-
-
-    // color schemes and foreground color gen ////////////////////////////////////////////////
-    makeGradient = function(k) {
-
-        var getGradientStopColor = function(adjustSat, adjustLit, opacity) {
-                var color;
-                color = adjustColor(k, {h:0, s:adjustSat, l:adjustLit}, 'cap');
-                color = Y.Color.toRGBA(color);  // needs to be in format of (255, 255, 255, ) instead of hex
-                color = color.replace(', 1)', ', ' + opacity + ')');
-                return color;
-            },
-            midColor,
-            startColor = getGradientStopColor(0, 99, 0.3), // these values could be user-controlled to adjust the gradients
-            endColor = getGradientStopColor(0, -20, 0.3),  // these values could be user-controlled to adjust the gradients
-            colorComboStr;
-
-
-            midColor = Y.Color.toRGBA(k);
-            midColor = midColor.replace(', 1)', ', 0)');
-            colorComboStr = startColor + " 0%, " + midColor + " 49%, " + midColor + " 51%, " + endColor + " 100%";
-
-        var CSSStr = ""+
-//         "<!--[if gte IE 9]>"+
-//         "  <style type='text/css'>"+
-//         "    .gradient {"+
-//         "       filter: none;"+
-//         "    }"+
-//         "  </style>"+
-//         "<![endif]-->"+
-
-//        "\/* xxxIE9 SVG, needs conditional override of 'filter' to 'none' *\/"+
-//       "background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwLjIiLz4KICAgIDxzdG9wIG9mZnNldD0iNDklIiBzdG9wLWNvbG9yPSIjZmZmZmZmIiBzdG9wLW9wYWNpdHk9IjAiLz4KICAgIDxzdG9wIG9mZnNldD0iNTElIiBzdG9wLWNvbG9yPSIjMDAwMDAwIiBzdG9wLW9wYWNpdHk9IjAiLz4KICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzAwMDAwMCIgc3RvcC1vcGFjaXR5PSIwLjEiLz4KICA8L2xpbmVhckdyYWRpZW50PgogIDxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9InVybCgjZ3JhZC11Y2dnLWdlbmVyYXRlZCkiIC8+Cjwvc3ZnPg==);"+
-//       "background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zY2dnLWdlbmVyYXRlZCkiIC8+Cjwvc3ZnPg==);"+
-//       "background: url(data:image/svg+xml;base64,PD94bvc3ZnPg==);"+
-//        "background: url();"+
-
-
-        "background:    -moz-linear-gradient(top, " + colorComboStr + ");\n"+     //  \/* W3C *\/
-
-
-        "    background:  -webkit-gradient(linear, left top, left bottom, color-stop(0%, " + startColor + "), color-stop(49%, " + midColor + "), color-stop(51%, " + midColor + "), color-stop(100%," + endColor + "));\n"+    //\/* Chrome,Safari4+ *\/
-        "    background: -webkit-linear-gradient(top, " + colorComboStr + ");\n"+    // \/* Chrome10+,Safari5.1+ *\/
-        "    background:      -o-linear-gradient(top, " + colorComboStr + ");\n"+         // \/* Opera 11.10+ *\/
-        "    background:     -ms-linear-gradient(top, " + colorComboStr + ");\n"+       // \/* IE10+ *\/
-        "    background:   linear-gradient(to bottom, " + colorComboStr + ");\n"+     //\/* W3C *\/
-        "    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#33ffffff', endColorstr='#1a000000',GradientType=0 )"+    // \/* IE6-8 *\/
-        // NOTICE NO ENDING ";" on last one. it's in the template after the {{}}
-
-        "";
-
-        return CSSStr;
-    },
-
-    /**
-     * This adjusts and sets the value of all the foreground object colors associated with a block
-     * It also assigns the adjusted values to the objects in the master color var, "space"
-     * found in space.js
-     * @param {Object} block. A specific block from space. For example space.block.normal
-     */
-    adjustForegroundColors = function(block) {
-        var b = block,
-            k = b.background; // the source color, *from* which we adjust to get the new foreground color
-        b.text.low = adjustColor(k, {h:0, s:0, l:20}, 'flip');
-        b.text.normal = adjustColor(k, {h:0, s:0, l:45}, 'flip');    // was l:40
-        b.text.high = adjustColor(k, {h:0, s:0, l:55}, 'flip');
-        b.rule.low = adjustColor(k, {h:0, s:0, l:-10});
-        b.rule.high = adjustColor(k, {h:0, s:0, l:10});
-        b.border.high = adjustColor(k, {h:0, s:0, l:10});
-        b.border.low = adjustColor(k, {h:0, s:0, l:-5});
-        var foo = makeGradient(k);
-        b.gradient = foo;
-    },
-
-    /**
-     * This makes an entire "hover" block including it's foreground object colors
-     * based on it's non-hover state
-     * It also assigns the adjusted values to the objects in the master color var, "space"
-     * found in space.js
-     * @param {Object} block. A specific block from space. For example space.block.normal
-     */
-    makeHoverBlock = function(block) {
-
-        var pageLite = Y.Color.toArray(Y.Color.toHSL(Y.Skin.KEY_COLOR.page));
-        if (pageLite[2] < 50) {
-            block.hover.background = adjustColor(block.background, {h:0, s:0, l:10}, 'percent');
-        } else {
-            block.hover.background = adjustColor(block.background, {h:0, s:0, l:-10}, 'percent');
-        }
-        adjustForegroundColors(block.hover);
-    },
-
-    // This sets all the values in the space JSON object, based on scheme definition below
-    // Argument is the string name of the scheme
-    // all calculations are based on the user color-picker selected color (Y.Skin.KEY_COLOR.block.highest.background)
-    setColors = function(schemeName){
-        var b,
-            k = Y.Skin.KEY_COLOR.block.highest.background,  // note: this is from Y.Skin.KEY_COLOR set by end user intention as the highest block background
-            blocks,
-            i,
-            setColorsPerBlock = function(blocks) { // generates all the colors for each block
-                var b = space.block.highest;
-                // assign the user color picked value to space.block.highest.background
-                // The background of the highest value block is always the user picked color
-                space.block.highest.background = k;
-                space.block.page.background = Y.Skin.KEY_COLOR.page;
-                adjustForegroundColors(b); // generate foreground object colors for this block
-                makeHoverBlock(b); // generate hover block and it's forground object colors for this block
-
-                // generate forground and hover object colors for all other, non-space.block.highest,  blocks
-                for (i = 0; i < blocks.length; i += 1) {
-                    var adjustBy = blocks[i].adjust;
-                    b = blocks[i].block;
-                    if (blocks[i].block !== space.block.page) {
-                        b.background = adjustColor(k, adjustBy, 'percent');
-                    }
-                    adjustForegroundColors(b);
-                    makeHoverBlock(b);
-                }
-            };
-        ///////////////////////////////////////////////////////////////
-        //'monochrome'
-        if (schemeName === arrSchemeNames[0]) {
-            blocks = [
-                {'block': space.block.high,      'adjust': {h:0, s:-30,  l:60}},
-                {'block': space.block.normal,    'adjust': {h:0, s:-30,  l:75}},
-                {'block': space.block.low,       'adjust': {h:0, s:-30,  l:80}},
-                {'block': space.block.page,      'adjust': {h:0, s:0,    l:0}},
-                {'block': space,                 'adjust': {h:0, s:-30,  l:90}}
-            ],
-            setColorsPerBlock(blocks);
-
-        ///////////////////////////////////////////////////////////////
-        //'color-plus-gray'
-        } else if (schemeName === arrSchemeNames[1]) {
-            blocks = [
-                {'block': space.block.high,      'adjust': {h:0, s:-99,  l:60}},
-                {'block': space.block.normal,    'adjust': {h:0, s:-99,  l:75}},
-                {'block': space.block.low,       'adjust': {h:0, s:-99,  l:80}},
-                {'block': space,                 'adjust': {h:0, s:-99,  l:90}}
-            ],
-            setColorsPerBlock(blocks);
-
-        ///////////////////////////////////////////////////////////////
-        //'complimentary'
-        } else if (schemeName === arrSchemeNames[2]) {
-            blocks = [
-                {'block': space.block.high,      'adjust': {h:180, s:-40,  l:30}},
-                {'block': space.block.normal,    'adjust': {h:180, s:-40,  l:70}},
-                {'block': space.block.low,       'adjust': {h:180, s:-40,  l:80}},
-                {'block': space,                 'adjust': {h:180, s:-30,  l:90}}
-            ],
-            setColorsPerBlock(blocks);
-
-        ///////////////////////////////////////////////////////////////
-        //'dark-complimentary'
-        } else if (schemeName === arrSchemeNames[3]) {
-            blocks = [
-                {'block': space.block.high,      'adjust': {h:180, s:-50,  l:-30}},
-                {'block': space.block.normal,    'adjust': {h:180, s:-50,  l:-50}},
-                {'block': space.block.low,       'adjust': {h:180, s:-50,  l:-60}},
-                {'block': space,                 'adjust': {h:0,   s:-40,  l:-70}}
-            ],
-            setColorsPerBlock(blocks);
-        }
-    },
-
-    // This runs loops through each color scheme, running it's code
-    // to update the color space
-    // It sets the swatches in the color scheme radio controls
-    // It does NOT send colors to the widget css by handlebars
-    //
-    updateSchemePreviews = function() {
-// fixme for testing turned off swatch update
-//return;
-
-        // arrSchemeNames is defined in space-schemes.js
+    function updateSchemePreviews() {
         var i,
+            space,
             schemeChoices = Y.all('.scheme-radios .pick');
 
-        for (i = 0; i < arrSchemeNames.length; i+=1) {
-            setColors(arrSchemeNames[i]);
+        for (i = 0; i < SCHEME_NAMES.length; i+=1) {
+            space = new Y.ColorSpace({
+                scheme: SCHEME_NAMES[i]
+            }).render(KEY_COLOR.block.highest.background);
             schemeChoices.item(i).one('.swatches li:nth-child(1)').setStyle('backgroundColor', space.block.highest.background);
             schemeChoices.item(i).one('.swatches li:nth-child(2)').setStyle('backgroundColor', space.block.high.background);
             schemeChoices.item(i).one('.swatches li:nth-child(3)').setStyle('backgroundColor', space.block.normal.background);
             schemeChoices.item(i).one('.swatches li:nth-child(4)').setStyle('backgroundColor', space.block.low.background);
-
         }
-    };
+    }
 
-    function doHandlebars() {
-        var Skin = Y.Skin;
+    function updateCSS() {
+        var cssOutput = document.getElementById('textarea-style'),
+            css = '';
 
-        // creates the CSS style block for each widget
-        var stylesheet,
-            styleSheetOutput = document.getElementById('textarea-style'),
-            template,
-            result,
-            pageBackgroundComment = '/* This skin was designed to have this page background color \nhtml {\n    background-color: ' + Y.Skin.KEY_COLOR.page + ';\n}*/\n',
-            i,
-            widgets = [
-                {'id': 'calendar',      'templateFileName': Skin.calendar},
-                {'id': 'tabview',       'templateFileName': Skin.tabview},
-                {'id': 'button',        'templateFileName': Skin.button},
-                {'id': 'datatable',     'templateFileName': Skin.datatable},
-                {'id': 'scrollview',    'templateFileName': Skin.scrollview},
-                {'id': 'autocomplete',  'templateFileName': Skin.autocomplete},
-                {'id': 'dial',          'templateFileName': Skin.dial},
-                {'id': 'nodeMenunav',   'templateFileName': Skin.nodeMenunav},
-                {'id': 'overlay',       'templateFileName': Skin.overlay},
-                {'id': 'panel',         'templateFileName': Skin.panel},
-                {'id': 'slider',        'templateFileName': Skin.slider},
-                {'id': 'form',          'templateFileName': Skin.form},
-                {'id': 'space',         'templateFileName': Skin.space}
-            ];
-        // creates the style block if not null to receive the result from the handlebars substitution
-        // of Space -> Widget Skin Map + Widget Template -> Style block
-        if (document.getElementById('calendar-style') === null){
-            for (i = 0; i < widgets.length; i += 1) {
-                stylesheet = document.documentElement.appendChild(document.createElement('style'));
-                stylesheet.setAttribute('id', widgets[i].id + '-style', 0);
-            }
-        }
+        Y.Object.each(TEMPLATES, function(template, name) {
+            css += SKIN.render(name, template);
+        });
 
-        // does the handlebars substitution from Widget Skin Map -> Widget Stylesheet
-        styleSheetOutput.value = "";
-        for (i = 0; i < widgets.length; i += 1) {
-            template = Y.Handlebars.compile(document.getElementById(widgets[i].id + '-template').innerHTML);
-            result = pageBackgroundComment + template(widgets[i].templateFileName);
-            stylesheet = document.getElementById(widgets[i].id + '-style');
-            stylesheet.innerHTML = result;
-            styleSheetOutput.value += result;
-        }
+        cssOutput.value = css;
+        STYLESHEET.innerHTML = css;
     }
 
     // this runs the code for the correct scheme
     // sets the page background color
     // updates the widgetSkinMaps
-    // runs the handlebars for substituting the new colors into the CSS
-    updateColors = function() {
-        var Skin = Y.Skin;
-
+    // substitutes the new colors into the CSS
+    function updateColors() {
+        SKIN.options.container = PAGE_BG_COLOR;
+        SKIN.options.scheme = SCHEME_NAME;
+        updateCSS();
         updateSchemePreviews();
+        Y.one('.page-background').setStyle('backgroundColor', PAGE_BG_COLOR);
+    }
 
-        // function found in space-schemes.js
-        // sets all colors in the cSpace literal with relationships from a few key colors
-        setColors(schemeName);
-        // also set background-color of <html>
-        Y.one('.page-background').setStyle('backgroundColor', Y.Skin.KEY_COLOR.page);
+    // Populate TEMPLATES from HTML document.
+    Y.Object.each(Y.Skin.renderers, function(fn, name) {
+        TEMPLATES[name] = document.getElementById(name + '-template').innerHTML;
+    });
 
-        // after setColors() sets all cspce color relationships
-        // the "widgetSkinMaps" need to be refreshed with correct values from the cspace
-        // example:
-        // selectedText:       space.block.highest.text.normal,
-        Skin.refreshButtonSkin();    // skin-button.js
-        Skin.refreshTabviewSkin();   // skin-tabview.js
-        Skin.refreshCalendarSkin();  // skin-calendar.js
-        Skin.refreshDatatableSkin(); // skin-datatable.js
-        Skin.refreshScrollviewSkin(); // skin-scrollview.js
-        Skin.refreshAutocompleteSkin(); // skin-autocomplete.js
-        Skin.refreshDialSkin(); // skin-dial.js
-        Skin.refreshNodeMenunavSkin();  // skin-node-menunav.js
-        Skin.refreshOverlaySkin(); // skin-overlay.js
-        Skin.refreshPanelSkin(); // skin-panel.js
-        Skin.refreshSliderSkin(); // skin-slider.js
-        Skin.refreshFormSkin(); // skin-form.js
-
-        Skin.refreshSpaceSkin();     // skin-space.js
-
-        // runs the code that does the handlebars replacements in the "Stylesheet Templates"   (.css section above in this file)
-        // example:
-        // <style>
-        // .yui3-button-selected {
-        //      color: {{selectedText}};
-        // }
-        // {{variableName}} from widgetSkinMaps are replaced by values in widgetSkinMap
-        doHandlebars();
-    };
-    updateColors();         // initialize
-    updateSchemePreviews(); // initialize
-
+    updateColors();
 
     // END  color schemes and foreground color gen ////////////////////////////////////////////////
-
-
 
 
     // For UI display only /////////////////////////////////////////////////////
@@ -648,24 +331,6 @@ function (Y) {
         });
     slider.render('#slider');
 
-
-    // Slider y instance ///////////////////////////////////////////////////////////
-// vertical slider tested OK, then removed to make more UI space
-//     var sliderY = new Y.Slider({
-//             axis  : 'y',
-//             length: '350px',
-//             min   : 10,
-//             max   : 218,
-//             value : 136,
-//         //    minorStep: 3,
-//             after : {
-//                 valueChange: function (e) {
-//                     report.setHTML(e.newVal);
-//                 }
-//             }
-//         });
-//     sliderY.render('#slider-y');
-
     // End of adding instances of widgets to be colored by this tool
     /////////////////////////////////////////////////////////////////
 
@@ -683,7 +348,7 @@ function (Y) {
         after : {
             valueChange: function (e) {
                 //report.setHTML(e.newVal);
-                space.radius = e.newVal;
+                SKIN.options.radius = e.newVal;
                 updateColors();
             }
         }
@@ -707,8 +372,9 @@ function (Y) {
 //        minorStep: 0.1,
         after : {
             valueChange: function (e) {
+                //Y.log(e.newVal / 50);
                 //report.setHTML(e.newVal);
-                space.padding = e.newVal / 50;
+                SKIN.options.padding = e.newVal / 50;
                 updateColors();
                 overlay.move([menuSplitNode.getX(),  menuSplitNode.get('region').bottom + 50] );
                 panel.move([overlayNode.getX(),  overlayNode.get('region').bottom + 50] );
@@ -733,29 +399,28 @@ function (Y) {
      */
     var handleSchemeChangePageColor = function(schemeName) {
         //
-        //alert('Y.Skin.KEY_COLOR.page: ' + Y.Skin.KEY_COLOR.page);
-        var hsl = hexToHsl(Y.Skin.KEY_COLOR.page);
+        //alert('PAGE_BG_COLOR: ' + PAGE_BG_COLOR);
+        var hsl = hexToHsl(PAGE_BG_COLOR);
         if (schemeName.indexOf('dark') > -1) {
             if (hsl[2] > 50) {
                 // dark scheme, but light page color
-                Y.Skin.KEY_COLOR.page = '#000000';
+                PAGE_BG_COLOR = '#000000';
             }
         } else if (hsl[2] <= 50){
                 // not a dark scheme, but dark page color
-                Y.Skin.KEY_COLOR.page = '#ffffff';
+                PAGE_BG_COLOR = '#ffffff';
         }
     };
 
     // listener for scheme changing radios
     Y.one('.scheme-radios').delegate('click', function(){
         var radios = Y.all('.scheme-radios input');
-        schemeName = this.get('id');
-        handleSchemeChangePageColor(schemeName); // change page background-color if needed
+        SCHEME_NAME = this.get('id');
+        handleSchemeChangePageColor(SCHEME_NAME); // change page background-color if needed
         updateColors();
         radios.set('checked', false);
         this.set('checked', true);
     }, 'input');
-
 
 
 
@@ -807,11 +472,14 @@ function (Y) {
             // depending on which bucket was clicked
             // change either the key color or the page background color
             if (objBucket.hasClass('page-background')) {
-                Y.Skin.KEY_COLOR.page = hex;
+                PAGE_BG_COLOR = hex;
             } else if (objBucket.hasClass('bucket-highest')) {
-                Y.Skin.KEY_COLOR.block.highest.background = hex;
+                KEY_COLOR.block.highest.background = hex;
+                SKIN.options.keycolor = hex;
             }
-            updateColors();
+
+            // Using async to keep UI snappy.
+            Y.config.win.setTimeout(updateColors, 20);
 
             Y.one('.picker-swatch').setStyles({'backgroundColor': hex});
             Y.one('.picker-swatch .picker-input').set('value', hex);
@@ -820,9 +488,9 @@ function (Y) {
     var handlePickerTextInput = function(e) {
         var hex = Y.one('.picker-input').get('value');
         if (objBucket.hasClass('page-background')) {
-            Y.Skin.KEY_COLOR.page = hex;
+            PAGE_BG_COLOR = hex;
         } else if (objBucket.hasClass('bucket-highest')) {
-            Y.Skin.KEY_COLOR.block.highest.background = hex;
+            KEY_COLOR.block.highest.background = hex;
         }
         updateColors();
 
@@ -860,16 +528,16 @@ function (Y) {
         // also set the var objBucket, which is the DOM obj to receive the new color
         if (e.currentTarget.hasClass('bucket-page')) {
             objBucket = Y.one('.page-background');
-            bucketHex = Y.Skin.KEY_COLOR.page;
+            bucketHex = PAGE_BG_COLOR;
         } else if (e.currentTarget.hasClass('bucket-highest')){
             objBucket = e.currentTarget;
-            bucketHex = space.block.highest.background;
+            bucketHex = KEY_COLOR.block.highest.background;
         }
         Y.one('.picker-swatch .picker-input').set('value', bucketHex);
 
         // set UI to match color of bucket value clicked on
         hsl = Y.Color.toArray(Y.Color.toHSL(bucketHex));
-        Y.one('#hs-dot').setStyles({'left': hsl[0] / 2, 'top': 180 - (hsl[1] / 100) * 180});
+        Y.one('#hs-dot').setStyles({'left': hsl[0] / 2, 'top': (hsl[1] / 100) * 180});
         Y.one('#sliderL-line').setStyle('top', 180 - ((hsl[2] / 100) * 180));
         Y.one('.picker-swatch').setStyle('backgroundColor', bucketHex);
         // set all of the values that are used in pickerUpdateColors()
@@ -939,15 +607,15 @@ function (Y) {
 
 
 // for testing only
-//    setTimeout(handleTwisty, 2000);
+//    setTimeout(handleTwisty, 1000);
 
     Y.one('.inp-skin-name').on('blur', function(e) {
         var body = Y.one('body');
         // sets the skin name and class prefix that will be replaced in all the
         // stylesheet templates
-        space.skin.name = Y.Escape.html(Y.one('.inp-skin-name').get('value'));
+        SKIN.options.name = Y.Escape.html(Y.one('.inp-skin-name').get('value'));
         body.setAttribute('class', '');
-        body.addClass(space.skin.prefix.substring(1) + 'skin-' + space.skin.name);
+        body.addClass(SKIN.options.prefix.substring(1) + SKIN.options.skinPrefix + SKIN.options.name);
 
         // Then we need to do refresh[component]Skin() function calls
         // Which are found in updateColors();
@@ -956,7 +624,7 @@ function (Y) {
     });
 
     Y.all('.bucket').on('click', showPicker);
-    Y.one('.page-background').setStyle('backgroundColor', Y.Skin.KEY_COLOR.page);
+    Y.one('.page-background').setStyle('backgroundColor', PAGE_BG_COLOR);
 
 
     Y.one('.block.background').on('mouseenter', function(e){
