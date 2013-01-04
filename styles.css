@@ -1,95 +1,86 @@
 
 
-
-/***** scrollview horizontal widget ******************************/
-/* To layout horizontal LIs */
-#scrollview-content-horiz {
-    white-space:nowrap;
-}
-
-#scrollview-content-horiz li {
-    display:inline-block;
-}
-
-/* For IE 6/7 - needs inline block hack (and the background color mentioned above) */
-#scrollview-content-horiz li {
-    *display:inline;
-    *zoom:1;
-}
-
-/*****  this is only to layout calendar display on UI tool page ****/
-.yui3-widget {
-    margin-bottom: 2em;
-}
-#dial {
-    margin-top: 2em;
-}
-.widget-column{
-/*    position: fixed;*/
-}
-#widget-container{
-/*    display: none;
-    padding-left: 129px;*/
-}
-/*************************  CSS for Overlay and Panel placement in UI of tool *************/
-#overlayAnchor {
-    margin-top: 7em;
-}
-#overlayContent{
-    /*opacity: 0; */
-}
-#panelAnchor {
-    margin-top: 200px;
-}
-#panelContent{
-    /*opacity: 0;  */
-}
-#node-menunav-split {
-    margin-top: 2em;
-}
-
-/*****************  this is only to layout abstract color space  ****************/
+/*****************  this is only to layout abstract color space and Tool UI ****************/
 body {
     margin: 0;
     width: 100%;
     font-family: arial;
+    font-size: 90%;
     color: #444;
 }
+.page-head .logo {
+    display: inline-block;
+    width: 80px;
+    height: 36px;
+    background: url(assets/images/yui_logo_sprite.png);
+    vertical-align: middle;
+}
+.page-head .logo:hover {
+    background-position: 0 -36px;
+}
+#widget-container{
+    margin: 0 0 1em 1em;
+    padding: 0;
+}
+#tabview-controls .yui3-tabview-panel{
+    background-color: transparent;
+    min-height: 166px;
+
+}
+#tabview-controls{
+    margin: 0 1em;
+}
+#tabview-controls a img {
+    vertical-align: top;
+    margin-right: 0.3em;
+}
+#tab-code .contents {
+    padding: 0.3em;
+}
 .color-space {
-    width: 284px;
     position: relative;
 }
-.contents {
-    padding-left: 1em;
+.flow>li{
+    display: inline-block;
+    vertical-align: top;
+    margin: 0.5em;
 }
 h1 {
     font-size: 145%;
-    margin: 0 0 0.3em;
+    margin: 1em 0 0.3em 1em;
 }
 .color-space .label-block, .color-space .rule, .color-space .label-grad, .color-space .label-master {
     font-family: arial;
-    font-size: 11px;
+/*    font-size: 11px;*/
 }
 .color-space .text {
-    font-size: 17px;
+/*    font-size: 17px;*/
 }
-.background {
+.color-space .background {
     position: relative;
-    padding: 0.5em 2em 1em 1em !important;
+    padding: 0.5em 0 0.6em 0.6em;
     margin-bottom: 1em !important;
 }
-
+.color-space ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
 .block {
     position: relative;
+    display: inline-block;
+    vertical-align: top;
     padding: 0.5em 1.5em 0.5em 0.5em;
-    margin: 0.5em 0 0.5em;
     border-width: 3px !important;
     border-radius: 4px;
+    margin: 4px;
 }
 .rule {
     margin-top: 1em;
 }
-
+.rule {
+    margin-right: 35px;
+}
 /*just to move labels of gradients so they are readable*/
 .color-space .g-master,
 .color-space .g-l,
@@ -129,35 +120,40 @@ h1 {
     right: 0;
 }
 .bucket {
-    background: url(assets/images/bucket_pour.png) no-repeat;
-    width: 24px;
-    height: 32px;
+    position: absolute;
+    right: 19px;
+    top: 71px;
+    background: url(assets/images/picker_icon.png) no-repeat;
+    width: 28px;
+    height: 28px;
+/*    box-shadow: 1px 1px 2px rgba(0,0,0,0.2);*/
     cursor: pointer;
+}
+.bucket div {
+    position: absolute;
+    left: 30px;
+    top: 2px;
+}
+.bucket-scheme {
+    background: url(assets/images/scheme_icon.png) no-repeat;
+    opacity: 0.3;    
+
+    transition: opacity 0.2s;
+    -moz-transition: opacity 0.2s; /* Firefox 4 */
+    -webkit-transition: opacity 0.2s; /* Safari and Chrome */
+    -o-transition: opacity 0.2s; /* Opera */
+}
+.bucket-scheme:hover {
+    opacity:1;         
 }
 .bucket-background {
     display: none;
 }
-.bucket-page {
-    font-size: 60%;
-    padding: 1em 3em;
-    position: absolute;
-    top: 0;
-    right: -95px;
+.bucket-scheme-hidden {
+    visibility: hidden;
 }
-/* expand/collapse color blocks and content */
-.twisty {
-    display: inline-block;
-    width: 0;
-    height: 0;
-    border: solid 10px;
-    border-color: transparent transparent transparent #444444;
-    margin-left: 10px;
-    cursor: pointer;
-}
-.twisty-expand {
-    border-color: #444444 transparent transparent  transparent;
-    border-bottom-width: 2px;
-    margin-left: 5px;
+.bucket-scheme-selected {
+    opacity: 1;
 }
 /********* skin name controls ***************/
 .skin-name-box {
@@ -166,7 +162,7 @@ h1 {
 /************* Scheme choosing radios *************/
 .scheme-radios {
     list-style: none;
-    margin: 0 0 2em;
+    margin: 0;
     padding: 0;
 }
 .scheme-radios label {
@@ -191,21 +187,14 @@ h1 {
 .scheme-radios .swatches li:first-child {
     width: 30px;
 }
-
-.block,
-.rule .label, .block .label-block,
-.rule,
-.gradient {
+.rule .label, .block .label-block {
     display: none;
 }
-.block {
+.rule, .gradient {
+
+}
+.scheme-radios .block {
     display:block;
-}
-.color-space .background {
-    display: block;
-}
-.text {
-/**/    display: none;
 }
 .block .text-normal,
 .block .block-highest-text-normal,
@@ -224,10 +213,10 @@ h1 {
 .yui3-overlay #picker-outer {
     border: 1px solid #CCCCCC;
     background-color: #eee;
-    height: 220px;
+    height: 194px;
     padding: 1.3em 1em;
     position: absolute;
-    width: 335px;
+    width: 306px;
     box-shadow: 6px 6px 5px rgba(0, 0, 0, 0.15);
     border-radius: 5px;
 }
@@ -274,7 +263,7 @@ h1 {
 }
 #hs {
     position: absolute;
-    top: 0;
+    top: 11px;
     left: 0;
     width: 180px;
     height: 180px;
@@ -282,7 +271,7 @@ h1 {
 }
 #sliderL {
     position: absolute;
-    top: 0;
+    top: 11px;
     left: 193px;
     width: 20px;
     height: 180px;
@@ -310,16 +299,124 @@ h1 {
     right: 5px;
     cursor: pointer;
 }
-.label-textarea {
+/* scheme overlay styles ********************************/
+#schemer-outer .yui3-g {
+    margin-top: 0.3em;
+}
+#schemer-outer .schemer-hint {
+    color: #9D9D9D;
+    font-size: 92%;
+}
+.yui3-overlay #schemer-outer {
+    border: 1px solid #CCCCCC;
+    background-color: #eee;
+    width: 245px;
+    height: 275px;
+    padding: 1.3em 1em;
+    position: absolute;
+    box-shadow: 6px 6px 5px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+}
+.yui3-overlay #schemer-outer .grip {
+    background: url(assets/images/picker_grip.png);
+    position: absolute;
+    height: 11px;
+    left: 16px;
+    top: 5px;
+    width: 225px;
+    cursor: pointer;
+}
+#schemer-outer .arrow-stem {
+    display: inline-block;
+    background-color: #D6D6D6;
+    width: 9px;
+    height: 40px;
+    margin-bottom: 20px;
+}
+#schemer-outer .content-arrow {
+    text-align: center;
+    padding-top: 73px;
+}
+#schemer-outer .yui3-u-1-2 .content {
+    text-align: center;
+}
+#schemer-outer .arrow-head {
+    display: inline-block;
+    border-color: transparent transparent transparent #D6D6D6;
+    border-style: solid;
+    border-width: 40px 0 40px 20px;
+    width: 1px;
+    height: 1px;
+}
+.schemer-key .icon-label,
+.schemer-swatch .icon-label {
+    margin: 5px 0 0 15px;
+    width: 28px;
+    height: 28px;
+    opacity: 0.7;
+    background: url(assets/images/picker_icon.png);
+}
+.schemer-swatch .icon-label{
+    margin: 5px 0 0 -15px;
+    background: url(assets/images/scheme_icon.png);
+}
+#schemer-outer .schemer-key,
+#schemer-outer .schemer-swatch {
+    width: 100%;
+    height: 240px;
+    border: solid 1px #ccc;
+    background-color: #BB3E3E;
+}
+#schemer-outer .slider-markup {
+    position: relative;
+    margin-top: 0.4em;
+}
+#schemer-outer .slider-markup a{
+    position: absolute;
+    top: 17px;
+    left: 112px;
+}
+#schemer-outer .yui3-slider-rail-cap-left {
+    background-color: #D9D9D9;
+    border-color: #ccc transparent #fff #ccc;
+}
+#schemer-outer .yui3-slider-rail-cap-right {
+    background-color: #D9D9D9;
+    border-color: #ccc #ccc #fff transparent;
+}
+#schemer-outer .yui3-dial-ring{
+    background-color: #ddd;
+}
+#schemer-outer .yui3-dial-center-button{
+    background-color: #CFCFCF;
+}
+#schemer-outer .yui3-slider-x .yui3-slider-thumb {
+    background-color: #D5D5D5;
+    border-color: #EFEFEF #B4B4B4 #B3B3B3 #EFEFEF;
+    border-radius: 50% 50% 3px 3px;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15), -1px -1px 3px rgba(0, 0, 0, 0.15) inset;
+    height: 18px;
+    margin-top: 5px;
+    width: 12px;
+}
+/* end scheme overlay styles */
+.tab-code-textarea-label {
     display: block;
 }
-#textarea-style {
-    width: 284px;
-    height: 300px;
+#textarea-style,
+#textarea-scheme {
+    width: 98%;
+    height: 126px;
+    z-index: 10;
+    padding: 0.3em;
+    border: solid 1px rgba(0,0,0, 0.3);
+    background-color: rgba(255,255,255, 0.2);
+
 }
 .skin-name-box .hint {
     font-size: 80%;
-    color: #bbb;
 }
 .page-head {
     background-color: rgba(100, 100, 100, 0.2);
@@ -338,9 +435,48 @@ h1 {
     top: 20px;
     left: 215px;
     cursor: pointer;
-    color: #7E92CC;
 }
 .markup .reset:hover {
     text-decoration: underline;
 }
 
+
+
+/***** scrollview horizontal widget ******************************/
+/* To layout horizontal LIs */
+#scrollview-content-horiz {
+    white-space:nowrap;
+}
+
+#scrollview-content-horiz li {
+    display:inline-block;
+}
+
+/* For IE 6/7 - needs inline block hack (and the background color mentioned above) */
+#scrollview-content-horiz li {
+    *display:inline;
+    *zoom:1;
+}
+
+/*****  this is only to layout calendar display on UI tool page ****/
+#dial {
+}
+/*************************  CSS for Overlay and Panel placement in UI of tool *************/
+#anchorOverlay {
+    margin-top: 0em;
+    width: 200px;
+    height: 4px;
+}
+#overlayContent{
+    /*opacity: 0; */
+}
+#anchorPanel {
+    margin-top: 0px;
+    height: 4px;
+    width: 200px;
+}
+#panelContent p{
+    margin: 0;
+}
+#node-menunav-split {
+}

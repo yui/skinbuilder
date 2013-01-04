@@ -95,14 +95,19 @@ function (Y) {
 
     function updateCSS() {
         var cssOutput = document.getElementById('textarea-style'),
-            css = '';
+            css = '',
+            cssSpace = '';
 
         Y.Object.each(TEMPLATES, function(template, name) {
-            css += SKIN.render(name, template);
+            if(name === 'space') {
+                cssSpace += SKIN.render(name, template);
+            } else {
+                css += SKIN.render(name, template);                
+            }
         });
 
         cssOutput.value = css;
-        STYLESHEET.innerHTML = css;
+        STYLESHEET.innerHTML = cssSpace + css;
     }
 
     // this runs the code for the correct scheme
@@ -126,45 +131,6 @@ function (Y) {
 
     // END  color schemes and foreground color gen ////////////////////////////////////////////////
 
-
-    // For UI display only /////////////////////////////////////////////////////
-    // dynamically add gradient divs to color space
-    // and add text in all blocks that match their unique classnames
-    var cspaceUnits = Y.all('.color-space div'),
-        i = 0;
-    for (i = 0; i < cspaceUnits.size(); i+=1) {
-        var me = cspaceUnits.item(i),
-            cName = me.get('className'),
-            gName = '';
-
-        cName = cName.replace(/block\s/g, "");
-        cName = cName.replace(/text\s/g, "");
-        cName = cName.replace(/rule\s/g, "");
-
-        // don't add classnames to these
-        if (
-                (me.hasClass('bucket')) ||
-                (me.hasClass('close'))
-        ){
-            // do nothing
-        } else if (me.hasClass('block')) {
-            me.prepend('<span class="label-block">' + cName + '</span>');   // text label equal to className
-            if (cName.charAt(9) === " "){  //it's a level 1 such as class="block b-l ..."
-                var post = cName.slice(7, 9);
-//                gName = 'g' + post;
-//                alert('l1...cName: ' + cName + '\npost: ' + post + '\nnew: ' + gName);
-
-            } else if (cName.charAt(13) === " ") {  //it's a level 2 such as class="block b-l-b-n ..."
-                var pre = cName.slice(6, 10),
-                    post = cName.slice(11, 13);
-//                gName = pre + 'g' + post;
-//                alert('l2...cName: ' + cName + '\npre: ' + pre + '\npost: ' + post + '\nnew: ' + gName);
-            }
-            me.append('<div class="gradient"><div class="label-grad ' + gName + '">' + gName + '</div></div>');
-        }else{
-            me.prepend('<span class="label">' + cName + '</span>');
-        }
-    }
 
     /**
      * Begin adding instances of widgets to be colored by this tool
@@ -289,8 +255,8 @@ function (Y) {
         width: 200
     });
     overlay.render();
-    var menuSplitNode = Y.one('#node-menunav-split');
-    overlay.move([menuSplitNode.getX(),  menuSplitNode.get('region').bottom + 150] );
+    // var menuSplitNode = Y.one('#node-menunav-split');
+    var anchorOverlay = Y.one('#anchorOverlay');
 
     // Panel instance ////////////////////////////////////////////////////////
     var panel = new Y.Panel({
@@ -312,14 +278,14 @@ function (Y) {
             addItem();
         }
     });
-    var overlayNode = Y.one('#overlayContent');
-    panel.move([overlayNode.getX(),  overlayNode.get('region').bottom + 50] );
+    // var overlayNode = Y.one('#overlayContent');
+    var anchorPanel = Y.one('#anchorPanel');
 
     // Slider instance ///////////////////////////////////////////////////////////
     var report = Y.one('#slider-report'),
         slider = new Y.Slider({
             //axis  : 'y',
-            length: '350px',
+            length: '150px',
             min   : 10,
             max   : 218,
             value : 136,
@@ -335,6 +301,13 @@ function (Y) {
     // End of adding instances of widgets to be colored by this tool
     /////////////////////////////////////////////////////////////////
 
+    // tabview for holding controls in left grid column //////////////////////////////////
+    var tabviewControls = new Y.TabView({
+        srcNode: '#tabview-controls',
+        //width: '285px'
+    });
+
+    tabviewControls.render();
 
     // slider for radius changing in the UI ///////////////////////////////////
 
@@ -429,8 +402,8 @@ function (Y) {
     var xy = [40, 40];
     var overlayPicker = new Y.Overlay({
         srcNode:"#picker-outer",
-        width:"13em",
-        height:"10em",
+        // width:"13em",
+        // height:"10em",
         xy: [-800, 200]
     });
     overlayPicker.render();
@@ -548,7 +521,7 @@ function (Y) {
         pickerL = hsl[2];
 
         overlayPicker.show();
-        overlayPicker.move([(relX + 250), (relY - 10)]);
+        overlayPicker.move([(relX + 40), (relY + 10)]);
 
     };
     var handlePickerInputBlur = function(e) {
@@ -561,44 +534,178 @@ function (Y) {
 
     };
 
-    //  Twisty  ////////////////////////////////////////////////////////////////////////////////
-    // Expand/collapse the sub-items in the color space boxes
-    var handleTwisty = function(e){
-            var cspaceDivs = Y.one('.color-space').all('div'),
-                twisty = Y.one('.twisty');
+    ////////////////////  scheme creator overlay  /////////////////////////////
+    var schemeAdjust = {h:0, s:0, l:0}, // the adjust object for ONLY currently adjusted main block color
+        blockIndex,
+        schemeOverlayIsReady = false;
 
-            // just for initial twisty expand while testing
-            if (typeof(e) === 'undefined') {
-                twisty.addClass('twisty-expand');
-                cspaceDivs.setStyle('display', 'block');
-                twisty.setAttribute('title', 'Collapse Color Palette');
+//        xy = [40, 40];
+
+    // set the scheme color swatch in the schemeOverlay
+    // Update the scheme with the new scheme color adjustment object values
+    var handleSchemeValueChange = function() {
+        var schemeOutputStr = '';
+        if (schemeOverlayIsReady) { // if this is NOT the initial control instance valueChanges, there should be a block index
+            // put new adjust into the right place in the global blocks object
+            blocks[blockIndex].adjust = {
+                h: schemeAdjust.h,
+                s: schemeAdjust.s,
+                l: schemeAdjust.l
+            };
+            updateColors();
+            Y.one('.schemer-swatch').setStyle('backgroundColor', blocks[blockIndex].block.background);
+            schemeOutputStr = ''+
+            'Y.colorspace.schemes.' + schemeName + ' = {\n' +
+            '    high:       {h: ' + blocks[0].adjust.h + ', s: ' + blocks[0].adjust.s + ', l: ' + blocks[0].adjust.l + '},\n'+
+            '    normal:     {h: ' + blocks[1].adjust.h + ', s: ' + blocks[1].adjust.s + ', l: ' + blocks[1].adjust.l + '},\n'+
+            '    low:        {h: ' + blocks[2].adjust.h + ', s: ' + blocks[2].adjust.s + ', l: ' + blocks[2].adjust.l + '},\n'+ 
+            '    background: {h: ' + blocks[4].adjust.h + ', s: ' + blocks[4].adjust.s + ', l: ' + blocks[4].adjust.l + '},\n'+ 
+            '    page:       {h: ' + blocks[3].adjust.h + ', s: ' + blocks[3].adjust.s + ', l: ' + blocks[3].adjust.l + '},\n'+ 
+            '};';
+
+            Y.one('#textarea-scheme').setHTML(schemeOutputStr);
+        }
+    }
+
+    var overlaySchemer = new Y.Overlay({
+        srcNode:"#schemer-outer",
+//         width: "600px",
+//         height:"300px",
+//           xy: 
+
+//        xy: [-800, 200]
+    });
+    overlaySchemer.render();
+    overlaySchemer.hide();
+
+    var ddSchemer = new Y.DD.Drag({
+        node: '#schemer-outer'
+    });
+
+
+    // controls inside the scheme creator overlay //
+    var keyHue = 0,
+        dialSchemeHue = new Y.Dial({
+            min:-360,
+            max:360,
+            stepsPerRevolution:360,
+            value: keyHue,
+            strings:{label:'Hue:', resetStr: 'Reset', tooltipHandle: 'Drag to set'},
+            after : {
+                valueChange: function (e) {
+                    schemeAdjust.h = e.newVal;
+                    handleSchemeValueChange();
+                }
             }
+    });
+    dialSchemeHue.render('#dial-scheme-hue');
 
-            if (e.currentTarget.hasClass('twisty-expand')) {
-                twisty.removeClass('twisty-expand');
-                cspaceDivs.setStyle('display', 'none');
-                Y.one('.color-space .background').setStyle('display', 'block');
-                Y.one('.color-space .background .text-normal').setStyle('display', 'block');
-                Y.one('.color-space .block-low').setStyle('display', 'block');
-                Y.one('.color-space .block-low-text-normal').setStyle('display', 'block');
-                Y.one('.color-space .block-normal').setStyle('display', 'block');
-                Y.one('.color-space .block-normal-text-normal').setStyle('display', 'block');
-                Y.one('.color-space .block-high').setStyle('display', 'block');
-                Y.one('.color-space .block-high-text-normal').setStyle('display', 'block');
-                Y.one('.color-space .block-highest').setStyle('display', 'block');
-                Y.one('.color-space .block-highest-text-normal').setStyle('display', 'block');
-                Y.all('.bucket').setStyle('display', 'block');
-                twisty.setAttribute('title', 'Show Full Color Palette');
-            } else {
-                twisty.addClass('twisty-expand');
-                cspaceDivs.setStyle('display', 'block');
-                twisty.setAttribute('title', 'Collapse Color Palette');
+    var keySat = 23,
+        sliderSchemeSat = new Y.Slider({
+            axis  : 'x',
+            length: '100px',
+            min   : -100,
+            max   : 100,
+            value : keySat,
+            after : {
+                valueChange: function (e) {
+                    Y.one('.sat-output').setHTML(e.newVal);
+                    schemeAdjust.s = e.newVal;
+                    handleSchemeValueChange();
+                }
             }
+    });
+    sliderSchemeSat.render('#slider-scheme-sat');
+    Y.one('.sat-output').setHTML(keySat);
 
+    var keyLit = 13,
+        sliderSchemeLit = new Y.Slider({
+            axis  : 'x',
+            length: '100px',
+            min   : -100,
+            max   : 100,
+            value : keyLit,
+            after : {
+                valueChange: function (e) {
+                    Y.one('.lit-output').setHTML(e.newVal);
+                    schemeAdjust.l = e.newVal;
+                    handleSchemeValueChange();
+                }
+            }
+    });
+
+    sliderSchemeLit.render('#slider-scheme-lit');
+    Y.one('.lit-output').setHTML(keyLit);
+
+    var showSchemer = function(e) {
+        var relX = (e.clientX + Y.one('document').get('scrollLeft')),
+            relY = (e.clientY + Y.one('document').get('scrollTop')),
+            bucketHex,
+            hsl;
+
+            overlayPicker.hide();
+            if (Y.one('.bucket-scheme-selected')) {
+                Y.one('.bucket-scheme-selected').removeClass('bucket-scheme-selected');
+            }
+            e.target.addClass('bucket-scheme-selected');
+
+        // For case of multiple buckets to click on
+        // we need to update the color picker display
+        // on picker show
+        // also set the var objBucket, which is the DOM obj to receive the new color
+        if (e.currentTarget.hasClass('bucket-high')){
+            blockIndex = 0;
+            bucketHex = space.block.high.background;
+        }else if (e.currentTarget.hasClass('bucket-normal')){
+            blockIndex = 1;
+            bucketHex = space.block.normal.background;
+        }else if (e.currentTarget.hasClass('bucket-low')){
+            blockIndex = 2;
+            bucketHex = space.block.low.background;
+        }else if (e.currentTarget.hasClass('bucket-page')){
+            blockIndex = 3;
+            bucketHex = space.block.low.background;
+        }else if (e.currentTarget.hasClass('bucket-lowest')){
+            blockIndex = 4;
+            bucketHex = space.background;
+        }
+        overlaySchemer.show();
+        // set UI to match color of bucket value clicked on
+        hsl = Y.Color.toArray(Y.Color.toHSL(bucketHex));
+        Y.one('.schemer-key').setStyle('backgroundColor', space.block.highest.background);
+        Y.one('.schemer-swatch').setStyle('backgroundColor', bucketHex);
+
+        // needed so that handleSchemeValueChange() won't adjust the colors until 
+        //all three, h, s, l, controls are initialized with the new values for the selected block.
+        schemeOverlayIsReady = false; 
+
+        // set dial and sliders with current H, S, L of the main color that is the
+        // parent of the color icon clicked on.
+        dialSchemeHue.set('value', blocks[blockIndex].adjust.h);
+        sliderSchemeSat.set('value', blocks[blockIndex].adjust.s);
+        sliderSchemeLit.set('value', blocks[blockIndex].adjust.l);
+        schemeAdjust = {
+            h:blocks[blockIndex].adjust.h,
+            s:blocks[blockIndex].adjust.s,
+            l:blocks[blockIndex].adjust.l
         };
+        schemeOverlayIsReady = true;
+        overlaySchemer.move([(relX + 50), (relY - 10)]);
+
+    };
+    Y.one('#schemer-outer .close').on('click', function(e){
+        overlaySchemer.hide();
+        // remove the selected class from scheme icons
+        Y.one('.bucket-scheme-selected').removeClass('bucket-scheme-selected');
+    });
 
 
-    Y.one('.twisty').on('click', handleTwisty);
+    Y.all('.bucket-scheme').on('click', showSchemer);
+
+    ////////////////////  END scheme creator overlay  /////////////////////////////
+
+    
+
     Y.one('#hs').on('click', handlePicker);
     Y.one('#sliderL').on('click', handleLight);
     Y.one('.picker-input').on('blur', handlePickerInputBlur);
@@ -634,4 +741,18 @@ function (Y) {
     Y.one('.block.background').on('mouseout', function(e){
         e.target.removeClass('show-hover');
     });
+
+
+    overlay.move([anchorOverlay.getX(),  anchorOverlay.getY()] );
+    panel.move([anchorPanel.getX(),  anchorPanel.getY()] );
+    
+    Y.on("windowresize", function(){
+        overlay.move([anchorOverlay.getX(),  anchorOverlay.getY()] );
+        panel.move([anchorPanel.getX(),  anchorPanel.getY()] );
+    });
+    Y.one('#tabview-controls a').prepend('<img src="assets/images/picker_icon.png" width="14" height="14"/>');
+
+
+
+
 });

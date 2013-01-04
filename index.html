@@ -1757,6 +1757,66 @@ striping:
 
 <script id="space-template" type="text/x-handlebars-template">
 /*************** Begin styles for the UI display of the color space in this tool *************/
+/* Not needed for a skin */
+
+.page-head {
+    color: {{blockPageTextHigh}};
+    background-color: {{blockPageBorderLow}};
+    border-bottom: solid 1px {{blockPageRuleLow}};
+}
+
+#tab-schemes,
+#tab-controls,
+.preview-label {
+    color: {{blockPageTextNormal}};
+}
+.hint, .reset {
+    color: {{blockPageTextLow}};
+}
+
+.widget-preview-label {
+    border: solid 1px {{blockPageBorderLow}};
+    border-radius: 6px;
+    color: {{blockPageTextLow}};
+    font-size: 70%;
+    font-style: italic;
+    margin: 0 0 6px;
+    width: 1.2em;
+    height: 1.2em;
+    overflow: hidden;
+    text-indent: 3em;
+}
+.widget-preview-label:hover {
+    color: {{blockPageTextHigh}};
+    display: inline-block;
+    padding: 0.2em 0.5em;
+    width: auto;
+    margin: 0 0 -2px;
+    text-indent: 1.2em;
+}
+.widget-preview-label-button:hover {
+    display: block;
+    margin: 0 0 2px;
+    width: 45px;
+}
+
+
+#textarea-style,
+#textarea-scheme {
+    color: {{blockPageTextHigh}};
+}
+
+.tab-code-textarea-label {
+    color: {{blockPageTextNormal}};
+}
+
+#tabview-controls .yui3-tabview-panel {
+    border: solid 1px;
+    border-color: {{blockPageBorderLow}};
+}
+
+/* start elements in the palette */
+
 {{prefix}}{{skinName}} .background {
     background-color: {{background}};
     border: solid 1px;
@@ -2168,20 +2228,85 @@ striping:
 
 <body class="yui3-skin-mine">   <!--yui3-skin-sam-->
 <div class="page-head">
-Skinner Demo
+    <div class="logo"></div> Skinner Demo
 </div>
-<div class="yui3-g">
-    <div class="yui3-u-2-3">
-        <div class="contents">
-            <div class="skin-name-box">
-                <label>Skin Name: </label>
-                <span class="hint">yui3-skin-</span><input class="inp-skin-name" value="mine">
-                <div class="hint">(you'll need to change the class in the body tag to match)</div>
-            </div>
-            <h1>Color Schemes</h1>
+<div id="tabview-controls">
+    <ul>
+        <li><a href="#tab-palette">Palette</a></li>
+        <li><a class="tab-schemes" href="#tab-schemes">Schemes</a></li>
+        <li><a href="#tab-controls">Controls</a></li>
+        <li><a href="#tab-code">Code</a></li>
+    </ul>
+    <div>
+        <div id="tab-palette">
+            <div class="color-space">
+                <ul>
+                    <li class="block block-page block-page-border" title="Page or Container Colors">
+                        <div class="text block-page-text-low">text.low</div>
+                        <div class="text block-page-text-normal">text.normal</div>
+                        <div class="text block-page-text-high">text.high</div>
+                        <div class="rule block-page-rule-low"></div>
+                        <div class="rule block-page-rule-high"></div>
+                        <div class="bucket bucket-picker bucket-page" title="Click to edit Page/Container Color"></div>
+                    </li>
+                    <li class="block background border">
+                        <ul>
+                            <li class="block block-highest block-highest-border" title="Highest / Master Color">
+                                <div class="text block-highest-text-low">text.low</div>
+                                <div class="text block-highest-text-normal">text.normal</div>
+                                <div class="text block-highest-text-high">text.high</div>
+                                <div class="rule block-highest-rule-low"></div>
+                                <div class="rule block-highest-rule-high"></div>
+                                <div class="bucket bucket-picker bucket-highest" title="Click to edit 'Master' color"></div>
+                                <div class="gradient"></div>
+                            </li>
+                            <li class="block block-high block-high-border" title="High">
+                                <div class="text block-high-text-low">text.low</div>
+                                <div class="text block-high-text-normal">text.normal</div>
+                                <div class="text block-high-text-high">text.high</div>
+                                <div class="rule block-high-rule-low"></div>
+                                <div class="rule block-high-rule-high"></div>
+                                <div class="bucket bucket-scheme bucket-high bucket-scheme-hidden" title="Click to adjust this scheme Color"></div>
+                                <div class="gradient"></div>
+                            </li>
+                            <li class="block block-normal block-normal-border" title="Normal">
+                                <div class="text block-normal-text-low">text.low</div>
+                                <div class="text block-normal-text-normal">text.normal</div>
+                                <div class="text block-normal-text-high">text.high</div>
+                                <div class="rule block-normal-rule-low"></div>
+                                <div class="rule block-normal-rule-high"></div>
+                                <div class="bucket bucket-scheme bucket-normal bucket-scheme-hidden" title="Click to adjust this scheme Color"></div>
+                                <div class="gradient"></div>
+                            </li>
+                            <li class="block block-low block-low-border" title="Low">
+                                <div class="text block-low-text-low">text.low</div>
+                                <div class="text block-low-text-normal">text.normal</div>
+                                <div class="text block-low-text-high">text.high</div>
+                                <div class="rule block-low-rule-low"></div>
+                                <div class="rule block-low-rule-high"></div>
+                                <div class="bucket bucket-scheme bucket-low bucket-scheme-hidden" title="Click to adjust this scheme Color"></div>
+                                <div class="gradient"></div>
+                            </li>
+                            <li class="block" title="Lowest">
+                                <div class="text text-low">text.low</div>
+                                <div class="text text-normal">text.normal</div>
+                                <div class="text text-high">text.high</div>
+                                <div class="rule rule-low"></div>
+                                <div class="rule rule-high"></div>
+                                <div class="bucket bucket-scheme bucket-lowest bucket-scheme-hidden" title="Click to adjust this scheme Color"></div>
+                            </li>
+                        </ul>
+                        <div class="gradient"></div>
+                    </li>
+                </ul>
+
+
+            </div> <!-- end of .color-space  -->
+        </div>
+        <div id="tab-schemes">
             <ul class="scheme-radios">
                 <li class="pick">
-                    <input id="monochrome" type="radio" checked="checked" />
+                    <input id="monochrome" type="radio" checked="checked"/>
                     <label for="monochrome">
                         <ul class="swatches">
                             <li></li><li></li><li></li><li></li>
@@ -2204,7 +2329,7 @@ Skinner Demo
                         <ul class="swatches">
                             <li></li><li></li><li></li><li></li>
                         </ul>
-                        Complimentary
+                        Complementary
                     </label>
                 </li>
                 <li class="pick">
@@ -2213,63 +2338,41 @@ Skinner Demo
                         <ul class="swatches swatches-dark">
                             <li></li><li></li><li></li><li></li>
                         </ul>
-                        Dark Complimentary
+                        Dark Complementary
                     </label>
                 </li>
+<!--  this is needed for night simulation. add when ready. Also define in colorspace-schemes.js -->             
+                <li class="pick">
+                    <input id="dark-monochrome" type="radio"/>
+                    <label for="dark-monochrome">
+                        <ul class="swatches swatches-dark">
+                            <li></li><li></li><li></li><li></li>
+                        </ul>
+                        Dark Monochrome
+                    </label>
+                </li>
+<!--needed for custom color schemes
+                 <li class="pick">
+                    <input id="custom" type="radio"/>
+                    <label for="custom">
+                        <ul class="swatches swatches">
+                            <li></li><li></li><li></li><li></li>
+                        </ul>
+                        Create Custom Scheme
+                    </label>
+                </li>
+ -->
 
             </ul>
-            <h1>Color Palette <div class="twisty" title="Show Full Color Palette"></div></h1>
-            <div class="color-space">
-                <div class="bucket bucket-page" title="Click to edit Color">Page<br>background</div>
-                <div class="block background border">
-                    <div class="text text-low"></div>
-                    <div class="text text-normal"></div>
-                    <div class="text text-high"></div>
-                    <div class="rule rule-low"></div>
-                    <div class="rule rule-high"></div>
-
-                    <div class="block block-highest block-highest-border">
-                        <div class="text block-highest-text-low"></div>
-                        <div class="text block-highest-text-normal"></div>
-                        <div class="text block-highest-text-high"></div>
-                        <div class="rule block-highest-rule-low"></div>
-                        <div class="rule block-highest-rule-high"></div>
-                        <div class="bucket bucket-highest" title="Click to edit 'Master' color"></div>
-                    </div>
-                    <div class="block block-high block-high-border">
-                        <div class="text block-high-text-low"></div>
-                        <div class="text block-high-text-normal"></div>
-                        <div class="text block-high-text-high"></div>
-                        <div class="rule block-high-rule-low"></div>
-                        <div class="rule block-high-rule-high"></div>
-                    </div>
-                    <div class="block block-normal block-normal-border">
-                        <div class="text block-normal-text-low"></div>
-                        <div class="text block-normal-text-normal"></div>
-                        <div class="text block-normal-text-high"></div>
-                        <div class="rule block-normal-rule-low"></div>
-                        <div class="rule block-normal-rule-high"></div>
-                    </div>
-                    <div class="block block-low block-low-border">
-                        <div class="text block-low-text-low"></div>
-                        <div class="text block-low-text-normal"></div>
-                        <div class="text block-low-text-high"></div>
-                        <div class="rule block-low-rule-low"></div>
-                        <div class="rule block-low-rule-high"></div>
-                    </div>
-
-                </div>
-
-                <div class="block block-page block-page-border">
-                    <div class="text block-page-text-low"></div>
-                    <div class="text block-page-text-normal"></div>
-                    <div class="text block-page-text-high"></div>
-                    <div class="rule block-page-rule-low"></div>
-                    <div class="rule block-page-rule-high"></div>
-                </div>
+        </div>
+        <div id="tab-controls">
 
 
-            </div> <!-- end of .color-space  -->
+            <div class="skin-name-box">
+                <label>Skin Name: </label>
+                <span class="hint">yui3-skin-</span><input class="inp-skin-name" value="mine">
+                <div class="hint">(you'll need to change the class in the body tag to match)</div>
+            </div>
             <div class="markup yui3-skin-sam">
                 <label>Adjust border-radius</label><a class="reset reset-radius">Reset</a>
                 <div id="slider-radius"></div>
@@ -2279,223 +2382,292 @@ Skinner Demo
                 <div id="slider-padding"></div>
             </div>
 
-            <label class="label-textarea">Style block containing CSS for all widgets</label>
-            <textarea id=textarea-style></textarea>
-
         </div>
-    </div>
-    <div class="yui3-u-1-3">
-        <div class="contents widget-column">
-            <h1>YUI Widgets Preview</h1>
-
-
-            <div id="widget-container">
-
-                <div id="mycalendar"></div>
-
-                <div id="slider-report">0</div>
-                <div id="slider"></div>
-                <!--<div id="slider-y"></div> vertical slider tested OK, then removed -->
-
-                <div id="tabview">
-                    <ul>
-                        <li><a href="#foo">foo</a></li>
-                        <li><a href="#bar">bar</a></li>
-                        <li><a href="#baz">baz</a></li>
-                    </ul>
-                    <div>
-                        <div id="foo">foo content is here when the foo tab is selected. This is the place for the tab contents.</div>
-                        <div id="bar">bar content is bar bar bar bar bar bar bar bar bar This is correct for this bar contents.</div>
-                        <div id="baz">baz belongs here and it appears when the baz tab is selected, just as it should.</div>
+        <div id="tab-code">
+            <div class="yui3-g" id="layout">
+                <div class="yui3-u-1-2" id="out-style">
+                    <div class="contents">
+                        <label class="tab-code-textarea-label">CSS for all widgets</label>
+                        <textarea id="textarea-style"></textarea>
                     </div>
                 </div>
-                <button class="checkbox yui3-button yui3-button-selected" id="yui_3_6_0_1_1343853873543_37">Button 3</button>
-                <button class="checkbox yui3-button" id="yui_3_6_0_1_1343853873543_37">Button 3</button>
-                <button class="yui3-button-disabled yui3-button" id="myDisabledButton" disabled="">Disabled</button>
-
-                <div id="datatable"></div>
-                <div id="scrollview-content" class="yui3-scrollview-loading">
-                    <ul>
-                        <li>Dog</li>
-                        <li>Cat</li>
-                        <li>Bird</li>
-                        <li>Fish</li>
-                        <li>Snake</li>
-                        <li>Turtle</li>
-                        <li>Horse</li>
-                        <li>Cow</li>
-                        <li>Chicken</li>
-                    </ul>
-                </div>
-                <div id="scrollview-content-horiz" class="yui3-scrollview-loading">
-                    <ul>
-                        <li>Dog</li>
-                        <li>Cat</li>
-                        <li>Bird</li>
-                        <li>Fish</li>
-                        <li>Snake</li>
-                        <li>Turtle</li>
-                        <li>Horse</li>
-                        <li>Cow</li>
-                        <li>Chicken</li>
-                    </ul>
-                </div>
-                <div id="my-autocomplete">
-                    <label for="ac-input">Enter the name of a US state:</label><br>
-                    <input id="ac-input" type="text">
-                </div>
-
-                <!-- begin Form Elements -->
-                <h2 style="margin-top: 1em;">Form Elements</h2>
-                <table class="yui3-table" border="1">
-                    <caption class="yui3-table-caption">A caption for this table</caption>
-                    <tbody>
-                        <tr>
-                            <th>head 1
-                            </th>
-                            <th>head 2
-                            </th>
-                        </tr>
-                        <tr class=""><td>cell 1</td><td>cell 2</td>
-                        </tr>
-                        <tr class=""><td>cell 3</td><td>cell 4</td>
-                        </tr>
-                        <tr class=""><td>cell 5</td><td>cell 6</td>
-                        </tr>
-                        <tr class="yui3-table-even"><td>cell 7 even</td><td>cell 8 even</td>
-                        </tr>
-                        <tr class=""><td>cell 9</td><td>cell 10</td>
-                        </tr>
-                        <tr class="yui3-table-even"><td>cell 11 even</td><td>cell 12 even</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <!-- end Form Elements -->
-
-
-
-                <div id="dial"></div>
-                <div id="node-menunav" class="yui3-menu yui3-menu-horizontal"><!-- Bounding box -->
-                    <div class="yui3-menu-content"><!-- Content box -->
-                        <ul>
-                            <!-- Menu items -->
-                            <li class="yui3-menuitem" role="presentation"><a href="" class="yui3-menuitem-content" role="menuitem" tabindex="0">Straw</a></li>
-                            <li class="yui3-menuitem" role="presentation"><a href="" class="yui3-menuitem-content" role="menuitem" tabindex="0">Sticks</a></li>
-                            <li class="yui3-menuitem" role="presentation"><a href="" class="yui3-menuitem-content" role="menuitem" tabindex="0">Bricks</a></li>
-                            <li class="yui3-menuitem" role="presentation">
-                                <a href="#actors" class="yui3-menu-label" role="menuitem" aria-haspopup="true" tabindex="0">Actors</a>
-                                <div id="actors" class="yui3-menu yui3-menu-hidden" role="menu" aria-labelledby="yui_3_7_2_1_1350426637135_31" aria-hidden="true" style="height: 178px; width: 134px;">
-                                    <div class="yui3-menu-content" role="presentation">
-                                        <ul role="presentation" class="first-of-type">
-                                            <li class="yui3-menuitem" role="presentation"><a href="" class="yui3-menuitem-content" role="menuitem">Mother Pig</a></li>
-                                            <li class="yui3-menuitem" role="presentation"><a href="" class="yui3-menuitem-content" role="menuitem">Pig 1</a></li>
-                                            <li class="yui3-menuitem" role="presentation"><a href="" class="yui3-menuitem-content" role="menuitem">Pig 2</a></li>
-                                            <li class="yui3-menuitem" role="presentation"><a href="" class="yui3-menuitem-content" role="menuitem">Pig 3</a></li>
-                                        </ul>
-                                        <ul role="presentation">
-                                            <li class="yui3-menuitem" role="presentation">
-                                                <a href="#your-yahoo" class="yui3-menu-label" role="menuitem" aria-haspopup="true" tabindex="0">Wolf</a>
-                                                <div id="your-yahoo" class="yui3-menu yui3-menu-hidden" role="menu" aria-labelledby="yui_3_7_2_1_1350426637135_31" aria-hidden="true" style="height: 178px; width: 134px;">
-                                                    <div class="yui3-menu-content" role="presentation">
-                                                        <ul role="presentation" class="first-of-type">
-                                                            <li class="yui3-menuitem" role="presentation"><a href="" class="yui3-menuitem-content" role="menuitem">Access Protocol</a></li>
-                                                            <li class="yui3-menuitem" role="presentation"><a href="" class="yui3-menuitem-content" role="menuitem">Huffing</a></li>
-                                                            <li class="yui3-menuitem" role="presentation"><a href="" class="yui3-menuitem-content" role="menuitem">Puffing</a></li>
-                                                        </ul>
-                                                        <ul role="presentation">
-                                                            <li class="yui3-menuitem" role="presentation"><a href="" class="yui3-menuitem-content" role="menuitem">Breath Control</a></li>
-                                                            <li class="yui3-menuitem" role="presentation"><a href="" class="yui3-menuitem-content" role="menuitem">Anger Management</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                             </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
+                <div class="yui3-u-1-2" id="out-scheme">
+                    <div class="contents">
+                        <label class="tab-code-textarea-label">Color Scheme Code</label>
+                        <textarea id="textarea-scheme"></textarea>
                     </div>
-                </div>
-                <div id="node-menunav-split" class="yui3-menu yui3-menu-horizontal yui3-splitbuttonnav"><!-- Bounding box -->
-
-
-                    <div class="yui3-menu-content"><!-- Content box -->
-                        <ul>
-                            <li>
-
-                                <span class="yui3-menu-label"><!-- menu label root node -->
-                                    <a href="">Answers</a><!-- menu label default action -->
-                                    <a href="#answers-options" class="yui3-menu-toggle">Answers Options</a><!-- menu label submenu toggle -->
-                                </span>
-
-                                <div id="answers-options" class="yui3-menu">
-                                    <div class="yui3-menu-content">
-                                        <ul>
-                                            <li class="yui3-menuitem"><a class="yui3-menuitem-content" href="">Answer</a></li>
-                                            <li class="yui3-menuitem"><a class="yui3-menuitem-content" href="">Answers on the Street</a></li>
-                                            <li class="yui3-menuitem"><a class="yui3-menuitem-content" href="">Ask</a></li>
-                                            <li class="yui3-menuitem"><a class="yui3-menuitem-content" href="">Discover</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                            </li>
-                        </ul>
-                    </div>
-
-
-
-
-
-                </div>
-                <div id="overlayAnchor"></div>
-                <div id="overlayContent">
-                    <div class="yui3-widget-hd">Overlay Header</div>
-                    <div class="yui3-widget-bd">Overlay Body</div>
-                    <div class="yui3-widget-ft">Overlay Footer</div>
-                </div>
-
-                <div id="panelAnchor"></div>
-                <div id="panelContent">
-                    <div class="yui3-widget-bd">
-                        <form>
-                                <p>
-                                    <label for="id">ID</label><br/>
-                                    <input type="text" name="id" id="productId" placeholder="">
-                                </p>
-                                <p>
-                                    <label for="name">Name</label><br/>
-                                    <input type="text" name="name" id="name" value="" placeholder="">
-                                </p>
-                                <p>
-                                    <label for="password">Price</label><br/>
-                                    <input type="text" name="price" id="price" value="" placeholder="$">
-                                </p>
-                        </form>
-                    </div>
-                </div>
-            </div> <!-- end widget container-->
-
-        </div> <!-- end of markup for widgets class widget-column -->
-        <div id="picker-outer">
-            <div class="grip"></div>
-            <img class="close" src="assets/images/close.png" width="18" height="18" />
-            <div id="picker">
-                <div id="hs">
-                    <img src="assets/images/hue_sat.jpg" width="180" height="180"/>
-                    <div id="hs-dot"><div>&#8226;</div></div>
-                </div>
-                <div id="sliderL">
-                    <img src="assets/images/lightness.jpg" width="20" height="180">
-                    <div id="sliderL-line"></div>
-                </div>
-                <div class="picker-swatch">
-                    <input type="text" class="picker-input" value="hello"/>
                 </div>
             </div>
         </div>
     </div>
+</div>
+<h1 class="preview-label">YUI Widgets Preview</h1>
 
+<!-- this UL is the container for all previewed widgets -->
+<ul id="widget-container" class="flow">
+    <li><div class="widget-preview-label">TabView</div>
+        <div id="tabview">
+            <ul>
+                <li><a href="#foo">foo</a></li>
+                <li><a href="#bar">bar</a></li>
+                <li><a href="#baz">baz</a></li>
+            </ul>
+            <div>
+                <div id="foo">foo content is here when the foo tab is selected. This is the place for the tab contents.</div>
+                <div id="bar">bar content is bar bar bar bar bar bar bar bar bar This is correct for this bar contents.</div>
+                <div id="baz">baz belongs here and it appears when the baz tab is selected, just as it should.</div>
+            </div>
+        </div>
+    </li>
+    <li><div class="widget-preview-label widget-preview-label-button">Button</div>
+        <button class="checkbox yui3-button yui3-button-selected" id="yui_3_6_0_1_1343853873543_37">Button 3</button>
+        <button class="checkbox yui3-button" id="yui_3_6_0_1_1343853873543_37">Button 3</button>
+        <button class="yui3-button-disabled yui3-button" id="myDisabledButton" disabled="">Disabled</button>
+    </li>
+    <li><div class="widget-preview-label">Dial</div>
+        <div id="dial"></div>
+    </li>
+    <li><div class="widget-preview-label">AutoComplete</div>
+        <div id="my-autocomplete">
+            <label for="ac-input" class="block-page-text-normal">Enter the name of a US state:</label><br>
+            <input id="ac-input" type="text">
+        </div>
+    </li>
+    <li><div class="widget-preview-label">Menu Nav Top</div>
+        <div id="node-menunav" class="yui3-menu yui3-menu-horizontal"><!-- Bounding box -->
+            <div class="yui3-menu-content"><!-- Content box -->
+                <ul>
+                    <!-- Menu items -->
+                    <li class="yui3-menuitem" role="presentation">
+                        <a href="#actors" class="yui3-menu-label" role="menuitem" aria-haspopup="true" tabindex="0">Actors</a>
+                        <div id="actors" class="yui3-menu yui3-menu-hidden" role="menu" aria-labelledby="yui_3_7_2_1_1350426637135_31" aria-hidden="true" style="height: 178px; width: 134px;">
+                            <div class="yui3-menu-content" role="presentation">
+                                <ul role="presentation" class="first-of-type">
+                                    <li class="yui3-menuitem" role="presentation"><a href="" class="yui3-menuitem-content" role="menuitem">Mother Pig</a></li>
+                                    <li class="yui3-menuitem" role="presentation"><a href="" class="yui3-menuitem-content" role="menuitem">Pig 1</a></li>
+                                    <li class="yui3-menuitem" role="presentation"><a href="" class="yui3-menuitem-content" role="menuitem">Pig 2</a></li>
+                                    <li class="yui3-menuitem" role="presentation"><a href="" class="yui3-menuitem-content" role="menuitem">Pig 3</a></li>
+                                </ul>
+                                <ul role="presentation">
+                                    <li class="yui3-menuitem" role="presentation">
+                                        <a href="#your-yahoo" class="yui3-menu-label" role="menuitem" aria-haspopup="true" tabindex="0">Wolf</a>
+                                        <div id="your-yahoo" class="yui3-menu yui3-menu-hidden" role="menu" aria-labelledby="yui_3_7_2_1_1350426637135_31" aria-hidden="true" style="height: 178px; width: 134px;">
+                                            <div class="yui3-menu-content" role="presentation">
+                                                <ul role="presentation" class="first-of-type">
+                                                    <li class="yui3-menuitem" role="presentation"><a href="" class="yui3-menuitem-content" role="menuitem">Access Protocol</a></li>
+                                                    <li class="yui3-menuitem" role="presentation"><a href="" class="yui3-menuitem-content" role="menuitem">Huffing</a></li>
+                                                    <li class="yui3-menuitem" role="presentation"><a href="" class="yui3-menuitem-content" role="menuitem">Puffing</a></li>
+                                                </ul>
+                                                <ul role="presentation">
+                                                    <li class="yui3-menuitem" role="presentation"><a href="" class="yui3-menuitem-content" role="menuitem">Breath Control</a></li>
+                                                    <li class="yui3-menuitem" role="presentation"><a href="" class="yui3-menuitem-content" role="menuitem">Anger Management</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                     </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="yui3-menuitem" role="presentation"><a href="" class="yui3-menuitem-content" role="menuitem" tabindex="0">Straw</a></li>
+                    <li class="yui3-menuitem" role="presentation"><a href="" class="yui3-menuitem-content" role="menuitem" tabindex="0">Sticks</a></li>
+                    <li class="yui3-menuitem" role="presentation"><a href="" class="yui3-menuitem-content" role="menuitem" tabindex="0">Bricks</a></li>
+                </ul>
+            </div>
+        </div>
+    </li>
+    <li><div class="widget-preview-label">Split Button Nav Top</div>
+        <div id="node-menunav-split" class="yui3-menu yui3-menu-horizontal yui3-splitbuttonnav"><!-- Bounding box -->
+
+
+            <div class="yui3-menu-content"><!-- Content box -->
+                <ul>
+                    <li>
+
+                        <span class="yui3-menu-label"><!-- menu label root node -->
+                            <a href="">Answers</a><!-- menu label default action -->
+                            <a href="#answers-options" class="yui3-menu-toggle">Answers Options</a><!-- menu label submenu toggle -->
+                        </span>
+
+                        <div id="answers-options" class="yui3-menu">
+                            <div class="yui3-menu-content">
+                                <ul>
+                                    <li class="yui3-menuitem"><a class="yui3-menuitem-content" href="">Answer</a></li>
+                                    <li class="yui3-menuitem"><a class="yui3-menuitem-content" href="">Answers on the Street</a></li>
+                                    <li class="yui3-menuitem"><a class="yui3-menuitem-content" href="">Ask</a></li>
+                                    <li class="yui3-menuitem"><a class="yui3-menuitem-content" href="">Discover</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </li>
+    <li><div class="widget-preview-label">Slider Horiz.</div>
+        <div id="slider-report" class="block-page-text-normal">0</div>
+        <div id="slider"></div>
+        <!--<div id="slider-y"></div> vertical slider tested OK, then removed -->
+    </li>
+    <li><div class="widget-preview-label">ScrollView Horiz.</div>
+        <div id="scrollview-content-horiz" class="yui3-scrollview-loading">
+            <ul>
+                <li>Dog</li>
+                <li>Cat</li>
+                <li>Bird</li>
+                <li>Fish</li>
+                <li>Snake</li>
+                <li>Turtle</li>
+                <li>Horse</li>
+                <li>Cow</li>
+                <li>Chicken</li>
+            </ul>
+        </div>
+    </li>
+    <li><div class="widget-preview-label">ScrollView Vert.</div>
+        <div id="scrollview-content" class="yui3-scrollview-loading">
+            <ul>
+                <li>Dog</li>
+                <li>Cat</li>
+                <li>Bird</li>
+                <li>Fish</li>
+                <li>Snake</li>
+                <li>Turtle</li>
+                <li>Horse</li>
+                <li>Cow</li>
+                <li>Chicken</li>
+            </ul>
+        </div>
+    </li>
+    <li><div class="widget-preview-label">DataTable</div>
+        <div id="datatable"></div>
+    </li>
+    <li><div class="widget-preview-label">Table</div>
+        <!-- begin Form Elements -->
+        <table class="yui3-table" border="1">
+            <caption class="yui3-table-caption">Caption for this HTML table</caption>
+            <tbody>
+                <tr>
+                    <th>head 1
+                    </th>
+                    <th>head 2
+                    </th>
+                </tr>
+                <tr class=""><td>cell 1</td><td>cell 2</td>
+                </tr>
+                <tr class=""><td>cell 3</td><td>cell 4</td>
+                </tr>
+                <tr class=""><td>cell 5</td><td>cell 6</td>
+                </tr>
+                <tr class="yui3-table-even"><td>cell 7 even</td><td>cell 8 even</td>
+                </tr>
+                <tr class=""><td>cell 9</td><td>cell 10</td>
+                </tr>
+                <tr class="yui3-table-even"><td>cell 11 even</td><td>cell 12 even</td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- end Form Elements -->
+    </li>
+    <li><div class="widget-preview-label">Calendar</div>
+        <div id="mycalendar"></div>
+    </li>
+    <li><div class="widget-preview-label">Overlay</div>
+        <div id="anchorOverlay"></div>
+        <div id="overlayContent">
+            <div class="yui3-widget-hd">Overlay Header</div>
+            <div class="yui3-widget-bd">Overlay Body</div>
+            <div class="yui3-widget-ft">Overlay Footer</div>
+        </div>
+    </li>
+    <li><div class="widget-preview-label">Panel</div>
+        <div id="anchorPanel"></div>
+        <div id="panelContent">
+            <div class="yui3-widget-bd">
+                <form>
+                        <p>
+                            <label for="id">ID</label><br/>
+                            <input type="text" name="id" id="productId" placeholder="">
+                        </p>
+                        <p>
+                            <label for="name">Name</label><br/>
+                            <input type="text" name="name" id="name" value="" placeholder="">
+                        </p>
+                        <p>
+                            <label for="password">Price</label><br/>
+                            <input type="text" name="price" id="price" value="" placeholder="$">
+                        </p>
+                </form>
+            </div>
+        </div>
+    </li>
+</ul>
+
+<div id="picker-outer">
+    <div class="grip"></div>
+    <img class="close" src="assets/images/close.png" width="18" height="18" />
+    <div id="picker">
+    <div id="hs">
+        <img src="assets/images/hue_sat.jpg" width="180" height="180"/>
+        <div id="hs-dot"><div>&#8226;</div></div>
+    </div>
+    <div id="sliderL">
+        <img src="assets/images/lightness.jpg" width="20" height="180">
+        <div id="sliderL-line"></div>
+    </div>
+    <div class="picker-swatch">
+        <input type="text" class="picker-input" value="hello"/>
+    </div>
+    </div>
+</div>
+
+<div id="schemer-outer">
+    <div class="grip"></div>
+    <div class="schemer-hint">
+    Define this scheme color by adjusting its differences from the Master color.
+    </div>
+    <div class="yui3-g">
+    <div class="yui3-u-1-12">
+        <div class="content">
+            <div class="schemer-key">
+                <div class="icon-label"></div>
+            </div>
+        </div>
+    </div>
+    <div class="yui3-u-1-6">
+        <div class="content content-arrow">
+            <div class="arrow-stem"></div><div class="arrow-head"></div>
+        </div>
+    </div>
+    <div class="yui3-u-1-2">
+        <div class="content">
+            <div id="dial-scheme-hue"></div>
+            <div class="slider-markup">
+                <label>Saturation: </label> <span class="sat-output">4</span>
+                <div id="slider-scheme-sat"></div>
+            </div>
+            <div class="slider-markup">
+                <label>Lightness: </label> <span class="lit-output">2</span>
+                <div id="slider-scheme-lit"></div>
+            </div>
+        </div>
+    </div>
+    <div class="yui3-u-1-6">
+        <div class="content content-arrow">
+            <div class="arrow-stem"></div><div class="arrow-head"></div>
+        </div>
+    </div>
+    <div class="yui3-u-1-12">
+        <div class="content">
+            <div class="schemer-swatch">
+                <div class="icon-label"></div>
+            </div>
+        </div>
+    </div>
+    </div>            
+
+    <img class="close" src="assets/images/close.png" width="18" height="18" />
 </div>
 
 <script src="app.js"></script>
