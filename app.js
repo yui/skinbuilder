@@ -49,7 +49,9 @@ function (Y) {
             block: {
                 low: {},  
                 normal: {},  
-                high: {},  
+                high: {
+                    background: ''
+                },  
                 highest: {
                     background: '#3355BA'
                 }   
@@ -77,20 +79,36 @@ function (Y) {
         return hslArr;
     }
 
-    function updateSchemePreviews() {
+    
+    /** Updates the swatches in the UI display of scheme choices
+    renders a colorspace for each scheme
+    this takes time. Only do this when the Scheme tabview is shown.
+    @param {Boolean} custom   true = only render new scheme 'custom' and only update it's preview swatches 
+                              false or undefined = render all schemes and update all preview swatches
+    **/
+    function updateSchemePreviews(custom) {
         var i,
-            space,
-            schemeChoices = Y.all('.scheme-radios .pick');
+            space;
 
-        for (i = 0; i < SCHEME_NAMES.length; i+=1) {
-            space = new Y.ColorSpace({
-                scheme: SCHEME_NAMES[i]
-            }).render(KEY_COLOR.block.highest.background);
-            schemeChoices.item(i).one('.swatches li:nth-child(1)').setStyle('backgroundColor', space.block.highest.background);
-            schemeChoices.item(i).one('.swatches li:nth-child(2)').setStyle('backgroundColor', space.block.high.background);
-            schemeChoices.item(i).one('.swatches li:nth-child(3)').setStyle('backgroundColor', space.block.normal.background);
-            schemeChoices.item(i).one('.swatches li:nth-child(4)').setStyle('backgroundColor', space.block.low.background);
-        }
+/*        if (custom === true) { // render only the custom scheme and update it's preview swatches
+            var customChoice = Y.one('.scheme-radios .custom');
+            space = new Y.ColorSpace({scheme: 'custom'}).render(KEY_COLOR.block.highest.background);
+                customChoice.one('.swatches li:nth-child(1)').setStyle('backgroundColor', space.block.highest.background);
+                customChoice.one('.swatches li:nth-child(2)').setStyle('backgroundColor', space.block.high.background);
+                customChoice.one('.swatches li:nth-child(3)').setStyle('backgroundColor', space.block.normal.background);
+                customChoice.one('.swatches li:nth-child(4)').setStyle('backgroundColor', space.block.low.background);
+        } else { // render all schemes and update their preview swatches
+*/            var schemeChoices = Y.all('.scheme-radios .pick');
+            for (i = 0; i < SCHEME_NAMES.length; i+=1) {
+                space = new Y.ColorSpace({
+                    scheme: SCHEME_NAMES[i]
+                }).render(KEY_COLOR.block.highest.background);
+                schemeChoices.item(i).one('.swatches li:nth-child(1)').setStyle('backgroundColor', space.block.highest.background);
+                schemeChoices.item(i).one('.swatches li:nth-child(2)').setStyle('backgroundColor', space.block.high.background);
+                schemeChoices.item(i).one('.swatches li:nth-child(3)').setStyle('backgroundColor', space.block.normal.background);
+                schemeChoices.item(i).one('.swatches li:nth-child(4)').setStyle('backgroundColor', space.block.low.background);
+            }
+//        }    
     }
 
     function updateCSS() {
@@ -118,7 +136,6 @@ function (Y) {
         SKIN.options.container = PAGE_BG_COLOR;
         SKIN.options.scheme = SCHEME_NAME;
         updateCSS();
-        updateSchemePreviews();
         Y.one('.page-background').setStyle('backgroundColor', PAGE_BG_COLOR);
     }
 
@@ -388,10 +405,41 @@ function (Y) {
 
     // listener for scheme changing radios
     Y.one('.scheme-radios').delegate('click', function(){
+
+        //    SKIN._space._adjust.high
+        //  Y.ColorSpace.schemes.custom
+
         var radios = Y.all('.scheme-radios input');
         SCHEME_NAME = this.get('id');
+        if (SCHEME_NAME === 'custom') {
+            Y.all('.bucket-scheme').removeClass('bucket-scheme-hidden');
+        } else {
+            Y.all('.bucket-scheme').addClass('bucket-scheme-hidden');
+        }
         handleSchemeChangePageColor(SCHEME_NAME); // change page background-color if needed
         updateColors();
+
+//        if (SCHEME_NAME !== 'custom') {
+            // set values of custom scheme from selected scheme _adjust
+            Y.ColorSpace.schemes.custom.background.h = SKIN._space._adjustBG.h;
+            Y.ColorSpace.schemes.custom.background.s = SKIN._space._adjustBG.s;
+            Y.ColorSpace.schemes.custom.background.l = SKIN._space._adjustBG.l;
+
+            Y.ColorSpace.schemes.custom.high.h = SKIN._space._adjust.high.h;
+            Y.ColorSpace.schemes.custom.high.s = SKIN._space._adjust.high.s;
+            Y.ColorSpace.schemes.custom.high.l = SKIN._space._adjust.high.l;
+
+            Y.ColorSpace.schemes.custom.normal.h = SKIN._space._adjust.normal.h;
+            Y.ColorSpace.schemes.custom.normal.s = SKIN._space._adjust.normal.s;
+            Y.ColorSpace.schemes.custom.normal.l = SKIN._space._adjust.normal.l;
+
+            Y.ColorSpace.schemes.custom.low.h = SKIN._space._adjust.low.h;
+            Y.ColorSpace.schemes.custom.low.s = SKIN._space._adjust.low.s;
+            Y.ColorSpace.schemes.custom.low.l = SKIN._space._adjust.low.l;
+
+            updateSchemePreviews(true); // updates only 'custom' scheme preview swatches to match selected scheme
+//        }
+
         radios.set('checked', false);
         this.set('checked', true);
     }, 'input');
@@ -495,6 +543,11 @@ function (Y) {
             bucketHex,
             hsl;
 
+        overlaySchemer.hide(); 
+        if (Y.one('.bucket-selected')) {
+            Y.one('.bucket-selected').removeClass('bucket-selected');
+        }
+        e.target.addClass('bucket-selected');
 
         // For case of multiple buckets to click on
         // we need to update the color picker display
@@ -535,32 +588,42 @@ function (Y) {
     };
 
     ////////////////////  scheme creator overlay  /////////////////////////////
-    var schemeAdjust = {h:0, s:0, l:0}, // the adjust object for ONLY currently adjusted main block color
-        blockIndex,
-        schemeOverlayIsReady = false;
+    var schemeOverlayIsReady = false,
+        blockAdjust = {h: '', s: '', l: ''}, // the adjust object of the correct block in the SKIN._space
+        schemeBlockDOM; // the DOM object of the correct block. Used for updating the swatch on the scheme adjust overlay
 
-//        xy = [40, 40];
 
     // set the scheme color swatch in the schemeOverlay
     // Update the scheme with the new scheme color adjustment object values
     var handleSchemeValueChange = function() {
-        var schemeOutputStr = '';
+        var schemeOutputStr = '',
+            adjustBlocks = [
+                SKIN._space._adjust.high,
+                SKIN._space._adjust.normal,
+                SKIN._space._adjust.low,
+                SKIN._space._adjustBG 
+//                SKIN._space._adjust.page
+
+            ];
         if (schemeOverlayIsReady) { // if this is NOT the initial control instance valueChanges, there should be a block index
-            // put new adjust into the right place in the global blocks object
-            blocks[blockIndex].adjust = {
-                h: schemeAdjust.h,
-                s: schemeAdjust.s,
-                l: schemeAdjust.l
-            };
+
+            // update the color space based on the new block adjust values
+            SKIN.initColorSpace();
+
             updateColors();
-            Y.one('.schemer-swatch').setStyle('backgroundColor', blocks[blockIndex].block.background);
+
+            // update the swatch bkg color
+            Y.one('.schemer-swatch').setStyle('backgroundColor', schemeBlockDOM.getStyle('backgroundColor'));
+
+            // update the output textarea content
             schemeOutputStr = ''+
-            'Y.colorspace.schemes.' + schemeName + ' = {\n' +
-            '    high:       {h: ' + blocks[0].adjust.h + ', s: ' + blocks[0].adjust.s + ', l: ' + blocks[0].adjust.l + '},\n'+
-            '    normal:     {h: ' + blocks[1].adjust.h + ', s: ' + blocks[1].adjust.s + ', l: ' + blocks[1].adjust.l + '},\n'+
-            '    low:        {h: ' + blocks[2].adjust.h + ', s: ' + blocks[2].adjust.s + ', l: ' + blocks[2].adjust.l + '},\n'+ 
-            '    background: {h: ' + blocks[4].adjust.h + ', s: ' + blocks[4].adjust.s + ', l: ' + blocks[4].adjust.l + '},\n'+ 
-            '    page:       {h: ' + blocks[3].adjust.h + ', s: ' + blocks[3].adjust.s + ', l: ' + blocks[3].adjust.l + '},\n'+ 
+            'Y.colorspace.schemes.' + SCHEME_NAME + ' = {\n' +
+                                    
+            '    high:       {h: ' + adjustBlocks[0].h + ', s: ' + adjustBlocks[0].s + ', l: ' + adjustBlocks[0].l + '},\n'+
+            '    normal:     {h: ' + adjustBlocks[1].h + ', s: ' + adjustBlocks[1].s + ', l: ' + adjustBlocks[1].l + '},\n'+
+            '    low:        {h: ' + adjustBlocks[2].h + ', s: ' + adjustBlocks[2].s + ', l: ' + adjustBlocks[2].l + '},\n'+ 
+            '    background: {h: ' + adjustBlocks[3].h + ', s: ' + adjustBlocks[3].s + ', l: ' + adjustBlocks[3].l + '},\n'+ 
+//            '    page:       {h: ' + adjustBlocks[3].h + ', s: ' + adjustBlocks[3].s + ', l: ' + adjustBlocks[3].l + '},\n'+ 
             '};';
 
             Y.one('#textarea-scheme').setHTML(schemeOutputStr);
@@ -593,7 +656,7 @@ function (Y) {
             strings:{label:'Hue:', resetStr: 'Reset', tooltipHandle: 'Drag to set'},
             after : {
                 valueChange: function (e) {
-                    schemeAdjust.h = e.newVal;
+                    blockAdjust.h = e.newVal;
                     handleSchemeValueChange();
                 }
             }
@@ -610,7 +673,7 @@ function (Y) {
             after : {
                 valueChange: function (e) {
                     Y.one('.sat-output').setHTML(e.newVal);
-                    schemeAdjust.s = e.newVal;
+                    blockAdjust.s = e.newVal;
                     handleSchemeValueChange();
                 }
             }
@@ -628,7 +691,7 @@ function (Y) {
             after : {
                 valueChange: function (e) {
                     Y.one('.lit-output').setHTML(e.newVal);
-                    schemeAdjust.l = e.newVal;
+                    blockAdjust.l = e.newVal;
                     handleSchemeValueChange();
                 }
             }
@@ -641,37 +704,42 @@ function (Y) {
         var relX = (e.clientX + Y.one('document').get('scrollLeft')),
             relY = (e.clientY + Y.one('document').get('scrollTop')),
             bucketHex,
-            hsl;
+        //    hsl,
+            space = SKIN.colorspace,
+            block = SKIN.colorspace.block;
 
             overlayPicker.hide();
-            if (Y.one('.bucket-scheme-selected')) {
-                Y.one('.bucket-scheme-selected').removeClass('bucket-scheme-selected');
+            if (Y.one('.bucket-selected')) {
+                Y.one('.bucket-selected').removeClass('bucket-selected');
             }
-            e.target.addClass('bucket-scheme-selected');
+            e.target.addClass('bucket-selected');
+
+        schemeBlockDOM = e.target.ancestor('.block'); // Used for getting color for swatch in overlay
 
         // For case of multiple buckets to click on
         // we need to update the color picker display
         // on picker show
         // also set the var objBucket, which is the DOM obj to receive the new color
         if (e.currentTarget.hasClass('bucket-high')){
-            blockIndex = 0;
-            bucketHex = space.block.high.background;
+            blockAdjust = SKIN._space._adjust.high;
+            bucketHex = block.high.background;
         }else if (e.currentTarget.hasClass('bucket-normal')){
-            blockIndex = 1;
-            bucketHex = space.block.normal.background;
+            blockAdjust = SKIN._space._adjust.normal;
+            bucketHex = block.normal.background;
         }else if (e.currentTarget.hasClass('bucket-low')){
-            blockIndex = 2;
-            bucketHex = space.block.low.background;
-        }else if (e.currentTarget.hasClass('bucket-page')){
-            blockIndex = 3;
-            bucketHex = space.block.low.background;
+            blockAdjust = SKIN._space._adjust.low;
+            bucketHex = block.low.background;
         }else if (e.currentTarget.hasClass('bucket-lowest')){
-            blockIndex = 4;
+            blockAdjust = SKIN._space._adjustBG;
             bucketHex = space.background;
+            schemeBlockDOM = Y.one('.color-space .background'); // special case for lowest because of nesting in a parent div with other blocks, need to pick up the bkg color of the parent div
+        }else if (e.currentTarget.hasClass('bucket-page')){
+            blockAdjust = SKIN._space._adjust.container;      // todo fix me this should be the page not container
+            bucketHex = block.low.background;
         }
         overlaySchemer.show();
         // set UI to match color of bucket value clicked on
-        hsl = Y.Color.toArray(Y.Color.toHSL(bucketHex));
+//        hsl = Y.Color.toArray(Y.Color.toHSL(bucketHex));
         Y.one('.schemer-key').setStyle('backgroundColor', space.block.highest.background);
         Y.one('.schemer-swatch').setStyle('backgroundColor', bucketHex);
 
@@ -681,14 +749,10 @@ function (Y) {
 
         // set dial and sliders with current H, S, L of the main color that is the
         // parent of the color icon clicked on.
-        dialSchemeHue.set('value', blocks[blockIndex].adjust.h);
-        sliderSchemeSat.set('value', blocks[blockIndex].adjust.s);
-        sliderSchemeLit.set('value', blocks[blockIndex].adjust.l);
-        schemeAdjust = {
-            h:blocks[blockIndex].adjust.h,
-            s:blocks[blockIndex].adjust.s,
-            l:blocks[blockIndex].adjust.l
-        };
+
+        dialSchemeHue.set('value', blockAdjust.h);
+        sliderSchemeSat.set('value', blockAdjust.s);
+        sliderSchemeLit.set('value', blockAdjust.l);
         schemeOverlayIsReady = true;
         overlaySchemer.move([(relX + 50), (relY - 10)]);
 
@@ -696,7 +760,7 @@ function (Y) {
     Y.one('#schemer-outer .close').on('click', function(e){
         overlaySchemer.hide();
         // remove the selected class from scheme icons
-        Y.one('.bucket-scheme-selected').removeClass('bucket-scheme-selected');
+        Y.one('.bucket-selected').removeClass('bucket-selected');
     });
 
 
@@ -709,13 +773,12 @@ function (Y) {
     Y.one('#hs').on('click', handlePicker);
     Y.one('#sliderL').on('click', handleLight);
     Y.one('.picker-input').on('blur', handlePickerInputBlur);
-    Y.one('.close').on('click', function(e){
+    Y.one('#picker-outer .close').on('click', function(e){
         overlayPicker.hide();
+        Y.one('.bucket-selected').removeClass('bucket-selected');
     });
 
 
-// for testing only
-//    setTimeout(handleTwisty, 1000);
 
     Y.one('.inp-skin-name').on('blur', function(e) {
         var body = Y.one('body');
@@ -731,7 +794,7 @@ function (Y) {
         updateColors();
     });
 
-    Y.all('.bucket').on('click', showPicker);
+    Y.all('.bucket-picker').on('click', showPicker);
     Y.one('.page-background').setStyle('backgroundColor', PAGE_BG_COLOR);
 
 
@@ -752,7 +815,15 @@ function (Y) {
     });
     Y.one('#tabview-controls a').prepend('<img src="assets/images/picker_icon.png" width="14" height="14"/>');
 
-
+    Y.one('.tab-schemes').on('click', function(){
+        overlayPicker.hide();
+        overlaySchemer.hide();
+        updateSchemePreviews();
+        if (Y.one('.bucket-selected')) {
+            Y.one('.bucket-selected').removeClass('bucket-selected');
+        }
+    
+    })
 
 
 });
