@@ -12,8 +12,8 @@ Y.Skin.renderers.table = function (skin) {
         headBorder:     space.border.low,
         cellBackground: space.background,
         cellText:       space.text.normal,
-        cellEvenBackground: space.border.low,
-        cellEvenText:   space.hover.text.normal,
+        cellOddBackground: space.border.low,
+        cellOddText:   space.hover.text.normal,
 
         headSortedBackground:   space.block.high.background,
         headSortedGradient:     space.block.high.gradient,
@@ -21,8 +21,8 @@ Y.Skin.renderers.table = function (skin) {
         headSortedHoverBackground:   space.block.high.background,
         headSortedHoverText:         space.block.high.text.normal,
 
-        cellSortedEvenBackground:   space.block.low.border.low,
-        cellSortedOddBackground:   space.block.low.background,
+        cellSortedEvenBackground:   space.block.low.background,
+        cellSortedOddBackground:   space.block.low.border.low,
         cellSortedEvenText:         space.block.low.hover.text.normal,
 
         border:        space.border.low,

@@ -451,11 +451,11 @@ striping:
    odd  - #edf5ff (light blue)
 */
 {{prefix}}{{skinName}} {{prefix}}datatable-even {{prefix}}datatable-cell {
-    background-color: {{cellEvenBackground}};
-    color: {{cellEvenText}};
 }
 {{prefix}}{{skinName}} {{prefix}}datatable-odd  {{prefix}}datatable-cell  {
     /*background-color: #edf5ff;*/
+    background-color: {{cellOddBackground}};
+    color: {{cellOddText}};
 }
 /************************  sortable ***************/
 {{prefix}}{{skinName}} {{prefix}}datatable-sortable-column {
@@ -1746,10 +1746,10 @@ striping:
    odd  - #edf5ff (light blue)
 */
 {{prefix}}{{skinName}} {{prefix}}table-even td {
-    background-color: {{cellEvenBackground}};
-    color: {{cellEvenText}};
 }
 {{prefix}}{{skinName}} {{prefix}}table-odd  td  {
+    background-color: {{cellOddBackground}};
+    color: {{cellEvenText}};
 }
 </script>
 <!-- ///////////////////////////////////////////////////////////////////////////////////////////////  -->
@@ -2560,11 +2560,11 @@ striping:
                 </tr>
                 <tr class=""><td>cell 5</td><td>cell 6</td>
                 </tr>
-                <tr class="yui3-table-even"><td>cell 7 even</td><td>cell 8 even</td>
+                <tr class="yui3-table-odd"><td>cell 7 odd</td><td>cell 8 odd</td>
                 </tr>
                 <tr class=""><td>cell 9</td><td>cell 10</td>
                 </tr>
-                <tr class="yui3-table-even"><td>cell 11 even</td><td>cell 12 even</td>
+                <tr class="yui3-table-odd"><td>cell 11 odd</td><td>cell 12 odd</td>
                 </tr>
             </tbody>
         </table>
