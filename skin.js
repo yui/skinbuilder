@@ -29,6 +29,7 @@ Skin.prototype = {
 
     defaultPrefix: '.yui3-',
     defaultSkinPrefix: 'skin-',
+    defaultBorderRadius: 10,
 
     init: function(options) {
         options = Y.merge(options);
@@ -39,6 +40,10 @@ Skin.prototype = {
 
         if (!('skinPrefix' in options)) {
             options.skinPrefix = this.defaultSkinPrefix;
+        }
+
+        if (!('defaultBorderRadius' in options)) {
+            options.defaultBorderRadius = this.defaultBorderRadius;
         }
 
         this.options = options;
@@ -65,7 +70,7 @@ Skin.prototype = {
 
     radius: function(factor) {
         // TODO: Add a defaultRadius.
-        var radius = this.options.radius || 0;
+        var radius = this.options.radius || this.options.defaultBorderRadius;
         return Math.round(radius * factor) + 'px';
     },
 

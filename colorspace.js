@@ -160,16 +160,23 @@ Y.ColorSpace.prototype = {
             newAdjust = adjust,
             newLit = (parseInt(sourceLit, 10) + adjust);
 
+        // case of adjust > 0
         // if over by big enough amount, then reverse to negative
         if (newLit > (100 + overBy)) {
-            newAdjust = -adjust; // the newAdjust will flip the sign of the requested adjust (flip to a darker color)
-        } else if (newLit > 100) { // let it stay at max
-            newAdjust = adjust; // Y.Color will cap at max
+            if (sourceLit > 50) {
+                // the newAdjust will flip the sign of the  
+                // requested adjust (flip to a darker color)
+                newAdjust = -adjust;                 
+            } 
         }
+
+        // case of adjust < 0
         if (newLit < 0 - overBy) {
-            newAdjust = -adjust;  // the newAdjust will flip the sign of the requested adjust (flip to a lighter color)
-        } else if (newLit < 0) {
-            newAdjust = adjust;
+            if (sourceLit < 50) {
+                // the newAdjust will flip the sign of the 
+                // requested adjust (flip to a lighter color)
+                newAdjust = -adjust;  
+            }
         }
         return newAdjust;
     },

@@ -25,7 +25,8 @@ body {
 #tabview-controls .yui3-tabview-panel{
     background-color: transparent;
     min-height: 166px;
-    border-bottom-width: 5px !important;
+    padding: 0 0.5em;
+    box-shadow: 3px 3px 14px rgba(0, 0, 0, 0.2);    
 }
 #tabview-controls{
     margin: 0 1em;
