@@ -26,7 +26,7 @@ body {
     background-color: transparent;
     min-height: 166px;
     padding: 0 0.5em;
-    box-shadow: 3px 3px 14px rgba(0, 0, 0, 0.2);    
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);    
 }
 #tabview-controls{
     margin: 0 1em;
@@ -162,6 +162,7 @@ h1 {
 }
 /************* Scheme choosing radios *************/
 .scheme-radios {
+    position: relative;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -188,15 +189,20 @@ h1 {
 .scheme-radios .swatches li:first-child {
     width: 30px;
 }
+
+.scheme-radios .custom {
+    position: absolute;
+    top: 0;
+    left: 20em;
+}
+
 .rule .label, .block .label-block {
     display: none;
 }
 .rule, .gradient {
 
 }
-.scheme-radios .block {
-    display:block;
-}
+
 .block .text-normal,
 .block .block-highest-text-normal,
 .block .block-high-text-normal,

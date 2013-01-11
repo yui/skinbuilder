@@ -61,6 +61,14 @@ function (Y) {
         SCHEME_NAME = 'monochrome', // default schemeName
         SCHEME_NAMES = Y.Object.keys(Y.ColorSpace.schemes),
 
+        SCHEME_CUSTOM = {  
+            high: {h:0, s:-30, l:60},
+            normal: {h:0, s:-30, l:75},
+            low: {h:0, s:-30,  l:80},
+            background: {h:0, s:-30,  l:90}
+        },
+
+
         STYLESHEET = document.documentElement.appendChild(document.createElement('style')),
 
         SKIN = new Y.Skin({
@@ -86,29 +94,27 @@ function (Y) {
     @param {Boolean} custom   true = only render new scheme 'custom' and only update it's preview swatches 
                               false or undefined = render all schemes and update all preview swatches
     **/
-    function updateSchemePreviews(custom) {
+    function updateSchemePreviews() {
         var i,
-            space;
+            space,
+            schemeChoices = Y.all('.scheme-radios .pick');
 
-/*        if (custom === true) { // render only the custom scheme and update it's preview swatches
-            var customChoice = Y.one('.scheme-radios .custom');
-            space = new Y.ColorSpace({scheme: 'custom'}).render(KEY_COLOR.block.highest.background);
-                customChoice.one('.swatches li:nth-child(1)').setStyle('backgroundColor', space.block.highest.background);
-                customChoice.one('.swatches li:nth-child(2)').setStyle('backgroundColor', space.block.high.background);
-                customChoice.one('.swatches li:nth-child(3)').setStyle('backgroundColor', space.block.normal.background);
-                customChoice.one('.swatches li:nth-child(4)').setStyle('backgroundColor', space.block.low.background);
-        } else { // render all schemes and update their preview swatches
-*/            var schemeChoices = Y.all('.scheme-radios .pick');
-            for (i = 0; i < SCHEME_NAMES.length; i+=1) {
-                space = new Y.ColorSpace({
-                    scheme: SCHEME_NAMES[i]
-                }).render(KEY_COLOR.block.highest.background);
-                schemeChoices.item(i).one('.swatches li:nth-child(1)').setStyle('backgroundColor', space.block.highest.background);
-                schemeChoices.item(i).one('.swatches li:nth-child(2)').setStyle('backgroundColor', space.block.high.background);
-                schemeChoices.item(i).one('.swatches li:nth-child(3)').setStyle('backgroundColor', space.block.normal.background);
-                schemeChoices.item(i).one('.swatches li:nth-child(4)').setStyle('backgroundColor', space.block.low.background);
-            }
-//        }    
+        for (i = 0; i < SCHEME_NAMES.length; i+=1) {
+            space = new Y.ColorSpace({
+                scheme: SCHEME_NAMES[i]
+            }).render(KEY_COLOR.block.highest.background);
+            schemeChoices.item(i).one('.swatches li:nth-child(1)').setStyle('backgroundColor', space.block.highest.background);
+            schemeChoices.item(i).one('.swatches li:nth-child(2)').setStyle('backgroundColor', space.block.high.background);
+            schemeChoices.item(i).one('.swatches li:nth-child(3)').setStyle('backgroundColor', space.block.normal.background);
+            schemeChoices.item(i).one('.swatches li:nth-child(4)').setStyle('backgroundColor', space.block.low.background);
+        }
+        // custom scheme isn't in the SCHEME_NAMES [], so need to do separately
+        // No need to create a new Y.ColorSpace, since Custom should always 
+        // track the current scheme (even when custom scheme is the current)
+        schemeChoices.item(i).one('.swatches li:nth-child(1)').setStyle('backgroundColor', SKIN.colorspace.block.highest.background);
+        schemeChoices.item(i).one('.swatches li:nth-child(2)').setStyle('backgroundColor', SKIN.colorspace.block.high.background);
+        schemeChoices.item(i).one('.swatches li:nth-child(3)').setStyle('backgroundColor', SKIN.colorspace.block.normal.background);
+        schemeChoices.item(i).one('.swatches li:nth-child(4)').setStyle('backgroundColor', SKIN.colorspace.block.low.background);
     }
 
     function updateCSS() {
@@ -134,7 +140,11 @@ function (Y) {
     // substitutes the new colors into the CSS
     function updateColors() {
         SKIN.options.container = PAGE_BG_COLOR;
-        SKIN.options.scheme = SCHEME_NAME;
+        if (SCHEME_NAME === 'custom') {
+            SKIN.options.scheme = SCHEME_CUSTOM;
+        } else {
+            SKIN.options.scheme = SCHEME_NAME;           
+        }
         updateCSS();
         Y.one('.page-background').setStyle('backgroundColor', PAGE_BG_COLOR);
     }
@@ -421,23 +431,23 @@ function (Y) {
 
 //        if (SCHEME_NAME !== 'custom') {
             // set values of custom scheme from selected scheme _adjust
-            Y.ColorSpace.schemes.custom.background.h = SKIN._space._adjustBG.h;
-            Y.ColorSpace.schemes.custom.background.s = SKIN._space._adjustBG.s;
-            Y.ColorSpace.schemes.custom.background.l = SKIN._space._adjustBG.l;
+            SCHEME_CUSTOM.background.h = SKIN._space._adjustBG.h;
+            SCHEME_CUSTOM.background.s = SKIN._space._adjustBG.s;
+            SCHEME_CUSTOM.background.l = SKIN._space._adjustBG.l;
 
-            Y.ColorSpace.schemes.custom.high.h = SKIN._space._adjust.high.h;
-            Y.ColorSpace.schemes.custom.high.s = SKIN._space._adjust.high.s;
-            Y.ColorSpace.schemes.custom.high.l = SKIN._space._adjust.high.l;
+            SCHEME_CUSTOM.high.h = SKIN._space._adjust.high.h;
+            SCHEME_CUSTOM.high.s = SKIN._space._adjust.high.s;
+            SCHEME_CUSTOM.high.l = SKIN._space._adjust.high.l;
 
-            Y.ColorSpace.schemes.custom.normal.h = SKIN._space._adjust.normal.h;
-            Y.ColorSpace.schemes.custom.normal.s = SKIN._space._adjust.normal.s;
-            Y.ColorSpace.schemes.custom.normal.l = SKIN._space._adjust.normal.l;
+            SCHEME_CUSTOM.normal.h = SKIN._space._adjust.normal.h;
+            SCHEME_CUSTOM.normal.s = SKIN._space._adjust.normal.s;
+            SCHEME_CUSTOM.normal.l = SKIN._space._adjust.normal.l;
 
-            Y.ColorSpace.schemes.custom.low.h = SKIN._space._adjust.low.h;
-            Y.ColorSpace.schemes.custom.low.s = SKIN._space._adjust.low.s;
-            Y.ColorSpace.schemes.custom.low.l = SKIN._space._adjust.low.l;
+            SCHEME_CUSTOM.low.h = SKIN._space._adjust.low.h;
+            SCHEME_CUSTOM.low.s = SKIN._space._adjust.low.s;
+            SCHEME_CUSTOM.low.l = SKIN._space._adjust.low.l;
 
-            updateSchemePreviews(true); // updates only 'custom' scheme preview swatches to match selected scheme
+            updateSchemePreviews(); // updates only 'custom' scheme preview swatches to match selected scheme
 //        }
 
         radios.set('checked', false);
@@ -596,8 +606,8 @@ function (Y) {
     // set the scheme color swatch in the schemeOverlay
     // Update the scheme with the new scheme color adjustment object values
     var handleSchemeValueChange = function() {
-        var schemeOutputStr = '',
-            adjustBlocks = [
+        var schemeOutputStr = '';
+/*            adjustBlocks = [
                 SKIN._space._adjust.high,
                 SKIN._space._adjust.normal,
                 SKIN._space._adjust.low,
@@ -605,10 +615,14 @@ function (Y) {
 //                SKIN._space._adjust.page
 
             ];
+*/
         if (schemeOverlayIsReady) { // if this is NOT the initial control instance valueChanges, there should be a block index
 
             // update the color space based on the new block adjust values
             SKIN.initColorSpace();
+
+            // doesn't seem to work.
+            //SKIN.options.scheme = SCHEME_CUSTOM; // MATT REVIEW: the local my scheme object. instead of skin.initcolorspace().
 
             updateColors();
 
@@ -619,10 +633,10 @@ function (Y) {
             schemeOutputStr = ''+
             'Y.colorspace.schemes.' + SCHEME_NAME + ' = {\n' +
                                     
-            '    high:       {h: ' + adjustBlocks[0].h + ', s: ' + adjustBlocks[0].s + ', l: ' + adjustBlocks[0].l + '},\n'+
-            '    normal:     {h: ' + adjustBlocks[1].h + ', s: ' + adjustBlocks[1].s + ', l: ' + adjustBlocks[1].l + '},\n'+
-            '    low:        {h: ' + adjustBlocks[2].h + ', s: ' + adjustBlocks[2].s + ', l: ' + adjustBlocks[2].l + '},\n'+ 
-            '    background: {h: ' + adjustBlocks[3].h + ', s: ' + adjustBlocks[3].s + ', l: ' + adjustBlocks[3].l + '},\n'+ 
+            '    high:       {h: ' + SCHEME_CUSTOM.high.h + ', s: ' + SCHEME_CUSTOM.high.s + ', l: ' + SCHEME_CUSTOM.high.l + '},\n'+
+            '    normal:     {h: ' + SCHEME_CUSTOM.normal.h + ', s: ' + SCHEME_CUSTOM.normal.s + ', l: ' + SCHEME_CUSTOM.normal.l + '},\n'+
+            '    low:        {h: ' + SCHEME_CUSTOM.low.h + ', s: ' + SCHEME_CUSTOM.low.s + ', l: ' + SCHEME_CUSTOM.low.l + '},\n'+ 
+            '    background: {h: ' + SCHEME_CUSTOM.background.h + ', s: ' + SCHEME_CUSTOM.background.s + ', l: ' + SCHEME_CUSTOM.background.l + '},\n'+ 
 //            '    page:       {h: ' + adjustBlocks[3].h + ', s: ' + adjustBlocks[3].s + ', l: ' + adjustBlocks[3].l + '},\n'+ 
             '};';
 
@@ -704,7 +718,6 @@ function (Y) {
         var relX = (e.clientX + Y.one('document').get('scrollLeft')),
             relY = (e.clientY + Y.one('document').get('scrollTop')),
             bucketHex,
-        //    hsl,
             space = SKIN.colorspace,
             block = SKIN.colorspace.block;
 
@@ -717,29 +730,25 @@ function (Y) {
         schemeBlockDOM = e.target.ancestor('.block'); // Used for getting color for swatch in overlay
 
         // For case of multiple buckets to click on
-        // we need to update the color picker display
-        // on picker show
+        // we need to update the color picker display on picker show
         // also set the var objBucket, which is the DOM obj to receive the new color
         if (e.currentTarget.hasClass('bucket-high')){
-            blockAdjust = SKIN._space._adjust.high;
+            blockAdjust = SCHEME_CUSTOM.high;
             bucketHex = block.high.background;
         }else if (e.currentTarget.hasClass('bucket-normal')){
-            blockAdjust = SKIN._space._adjust.normal;
+            blockAdjust = SCHEME_CUSTOM.normal;
             bucketHex = block.normal.background;
         }else if (e.currentTarget.hasClass('bucket-low')){
-            blockAdjust = SKIN._space._adjust.low;
+            blockAdjust = SCHEME_CUSTOM.low;
             bucketHex = block.low.background;
         }else if (e.currentTarget.hasClass('bucket-lowest')){
-            blockAdjust = SKIN._space._adjustBG;
+            blockAdjust = SCHEME_CUSTOM.background;
             bucketHex = space.background;
             schemeBlockDOM = Y.one('.color-space .background'); // special case for lowest because of nesting in a parent div with other blocks, need to pick up the bkg color of the parent div
-        }else if (e.currentTarget.hasClass('bucket-page')){
-            blockAdjust = SKIN._space._adjust.container;      // todo fix me this should be the page not container
-            bucketHex = block.low.background;
         }
         overlaySchemer.show();
+
         // set UI to match color of bucket value clicked on
-//        hsl = Y.Color.toArray(Y.Color.toHSL(bucketHex));
         Y.one('.schemer-key').setStyle('backgroundColor', space.block.highest.background);
         Y.one('.schemer-swatch').setStyle('backgroundColor', bucketHex);
 

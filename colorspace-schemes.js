@@ -36,11 +36,4 @@ YUI.add('colorspace-schemes', function(Y) {
         low: {h: 0, s: -30,  l: -60}
     };
 
-    Y.ColorSpace.schemes.custom = {
-        background: {h:0, s:-30,  l:90},
-        high: {h:0, s:-30, l:60},
-        normal: {h:0, s:-30, l:75},
-        low: {h:0, s:-30,  l:80}
-    };
-
 }, '@VERSION@', {'requires': ['colorspace']});
