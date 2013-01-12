@@ -30,6 +30,7 @@ Skin.prototype = {
     defaultPrefix: '.yui3-',
     defaultSkinPrefix: 'skin-',
     defaultBorderRadius: 10,
+    defaultTextContrast: 1,
 
     init: function(options) {
         options = Y.merge(options);
@@ -44,6 +45,10 @@ Skin.prototype = {
 
         if (!('defaultBorderRadius' in options)) {
             options.defaultBorderRadius = this.defaultBorderRadius;
+        }
+
+        if (!('defaultTextContrast' in options)) {
+            options.defaultTextContrast = this.defaultTextContrast;
         }
 
         this.options = options;

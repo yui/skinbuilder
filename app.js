@@ -362,6 +362,40 @@ function (Y) {
     // end slider for radius ///////////////////////////
 
 
+
+
+    // slider for text contrast changing in the UI ///////////////////////////////////
+
+    var sliderTextContrast = new Y.Slider({
+        axis  : 'x',
+        length: '150px',
+        min   : 5,
+        max   : 30,
+        value : SKIN._space.options.textContrast * 10,
+        minorStep: 1,
+        after : {
+            valueChange: function (e) {
+                //report.setHTML(e.newVal);
+
+                SKIN._space.options.textContrast = e.target.get('value') / 10; // works
+
+                // Matt?
+                //SKIN.options.textContrast = e.target.get('value') / 10; // doesn't work
+                SKIN.initColorSpace();
+                updateColors();
+            }
+        }
+    });
+
+    sliderTextContrast.render('#slider-text-contrast');
+    Y.one('.reset-text-contrast').on('click', function() {
+        sliderTextContrast.set('value', SKIN.options.defaultTextContrast * 10);
+    });
+    // end slider for text contrast ///////////////////////////
+
+
+
+
     // slider for padding changing in the UI ///////////////////////////////////
     var paddingDefaultValue = 50,
         sliderPadding = new Y.Slider({
@@ -621,6 +655,9 @@ function (Y) {
             // update the color space based on the new block adjust values
             SKIN.initColorSpace();
 
+            // doesn't work
+            //SKIN.render(KEY_COLOR.block.highest.background);
+
             // doesn't seem to work.
             //SKIN.options.scheme = SCHEME_CUSTOM; // MATT REVIEW: the local my scheme object. instead of skin.initcolorspace().
 
@@ -832,7 +869,5 @@ function (Y) {
             Y.one('.bucket-selected').removeClass('bucket-selected');
         }
     
-    })
-
-
+    });
 });

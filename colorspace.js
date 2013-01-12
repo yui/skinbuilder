@@ -8,7 +8,8 @@ Y.ColorSpace.schemes = {};
 
 Y.ColorSpace.prototype = {
     defaults: {
-        container: '#fff'
+        container: '#fff',
+        textContrast: 1    
     },
 
     constructor: Y.ColorSpace,
@@ -20,9 +21,9 @@ Y.ColorSpace.prototype = {
     adjustColors: function(b) {
         var k = b.background; // the source color, *from* which we adjust to get the new foreground color
         b.text = {
-            low: this.adjustColor(k, {h:0, s:0, l:20}, 'flip'),
-            normal: this.adjustColor(k, {h:0, s:0, l:45}, 'flip'),
-            high: this.adjustColor(k, {h:0, s:0, l:55}, 'flip')
+            low: this.adjustColor(k, {h:0, s:0, l:20 * this.options.textContrast}, 'flip'),
+            normal: this.adjustColor(k, {h:0, s:0, l:45 * this.options.textContrast}, 'flip'),
+            high: this.adjustColor(k, {h:0, s:0, l:55 * this.options.textContrast}, 'flip')
         };
 
         b.rule = {
