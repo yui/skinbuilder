@@ -70,7 +70,7 @@ Skin.prototype = {
             colorspace.options.scheme = this.options.scheme;
         }
 
-        this.colorspace = colorspace.render(this.options.keycolor);
+        this.colorspace = colorspace.render(this.options.keycolor, this.options.container); //Note to Matt
     },
 
     radius: function(factor) {
@@ -134,7 +134,8 @@ Skin.prototype = {
         if (typeof renderer === 'function') {
             // Reinitialize ColorSpace if options have changed.
             if (options.keycolor !== space.options.keycolor ||
-                options.scheme !== space.options.scheme) {
+                options.scheme !== space.options.scheme ||
+                options.container !== space.options.container) {
 
                 this.initColorSpace();
             }

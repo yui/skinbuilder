@@ -376,11 +376,11 @@ function (Y) {
         after : {
             valueChange: function (e) {
                 //report.setHTML(e.newVal);
-
-                SKIN._space.options.textContrast = e.target.get('value') / 10; // works
-
+                var newVal = e.target.get('value');
+                SKIN._space.options.textContrast = newVal / 10; // works
+                Y.one('.slider-markup-text-contrast label').setHTML('Text contrast: ' + newVal);
                 // Matt?
-                //SKIN.options.textContrast = e.target.get('value') / 10; // doesn't work
+                // SKIN.options.textContrast = e.target.get('value') / 10; // doesn't work
                 SKIN.initColorSpace();
                 updateColors();
             }
@@ -539,6 +539,7 @@ function (Y) {
             // change either the key color or the page background color
             if (objBucket.hasClass('page-background')) {
                 PAGE_BG_COLOR = hex;
+                SKIN.options.container = hex;
             } else if (objBucket.hasClass('bucket-highest')) {
                 KEY_COLOR.block.highest.background = hex;
                 SKIN.options.keycolor = hex;

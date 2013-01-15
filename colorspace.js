@@ -210,17 +210,24 @@ Y.ColorSpace.prototype = {
         this._adjustBG = scheme.background;
     },
 
-    render: function(color) {
+    render: function(color, containerColor) {
         var block,
             colorspace;
 
         this.options.keycolor = color;
 
+        this.options.container = containerColor;
+
+
         this._initScheme();
 
         colorspace = {
             background: this.adjustColor(color, this._adjustBG, 'percent'),
-            block: {}
+            block: {
+                container: {
+                    background: containerColor
+                }
+            }
         };
 
         this.adjustColors(colorspace);
