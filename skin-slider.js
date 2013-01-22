@@ -12,6 +12,7 @@ Y.Skin.renderers.slider = function (skin) {
           thumbBorderLight:     space.block.normal.border.low,
           thumbBorderDark:      space.block.normal.rule.low,
           thumbRadius:          '50% 50% 3px 3px',
+          thumbRadiusY:         '50% 3px 3px 50%',
           railBackground:       space.background,
           railBorderDark:       space.block.low.rule.low,
           railBorderLight:      space.border.low

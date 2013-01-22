@@ -412,11 +412,6 @@ function (Y) {
                 updateColors();
                 overlay.move([anchorOverlay.getX(),  anchorOverlay.getY()]);
                 panel.move([anchorPanel.getX(),  anchorPanel.getY()]);
-
-                setTimeout(function(){
-                    sliderPaddingHorizThumb.setStyle('top', '0px');
-                }, 50);
-
             }
         }
     });
@@ -445,11 +440,6 @@ function (Y) {
                 updateColors();
                 overlay.move([anchorOverlay.getX(),  anchorOverlay.getY()]);
                 panel.move([anchorPanel.getX(),  anchorPanel.getY()]);
-
-                setTimeout(function(){
-                    sliderPaddingVertThumb.setStyle('left', '0px');
-                }, 50);
-
             }
         }
     });
