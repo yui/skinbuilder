@@ -282,7 +282,6 @@ function (Y) {
         width: 200
     });
     overlay.render();
-    // var menuSplitNode = Y.one('#node-menunav-split');
     var anchorOverlay = Y.one('#anchorOverlay');
 
     // Panel instance ////////////////////////////////////////////////////////
@@ -411,14 +410,19 @@ function (Y) {
                 //report.setHTML(e.newVal);
                 SKIN.options.padding = e.newVal / 50;
                 updateColors();
-                overlay.move([menuSplitNode.getX(),  menuSplitNode.get('region').bottom + 50] );
-                panel.move([overlayNode.getX(),  overlayNode.get('region').bottom + 50] );
+                overlay.move([anchorOverlay.getX(),  anchorOverlay.getY()]);
+                panel.move([anchorPanel.getX(),  anchorPanel.getY()]);
+
+                setTimeout(function(){
+                    sliderPaddingThumb.setStyle('top', '0px');
+                }, 50);
 
             }
         }
     });
 
     sliderPadding.render('#slider-padding');
+    var sliderPaddingThumb = Y.one('#slider-padding .yui3-slider-thumb');
     Y.one('.reset-padding').on('click', function() {
         sliderPadding.set('value', paddingDefaultValue);
     });
