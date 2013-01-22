@@ -66,6 +66,12 @@ body {
 #tab-controls {
     padding-left: 10px;
 }
+#tab-controls .yui3-u {
+    margin-right: 25px;
+}
+#slider-padding-vert {
+    margin-top: 8px;
+}
 #tab-code .contents {
     padding: 0.3em;
 }

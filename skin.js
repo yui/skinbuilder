@@ -81,7 +81,8 @@ Skin.prototype = {
 
     _computePadding: function(factor, val) {
         if (typeof val === 'undefined') {
-            val = '10px'; // TODO: Break out into default map.
+//            val = '10px'; // TODO: Break out into default map.
+            val = 1; // TODO: Break out into default map.
         }
 
         unit = Skin._reUnit.exec(val) || 'em';
@@ -103,16 +104,16 @@ Skin.prototype = {
         // TODO: Fix logic for padding shorthand. If no value is given, a
         // a default is needed.
         if (typeof top !== 'undefined') {
-            str += this._computePadding(top, options.padding);
+            str += this._computePadding(top, options.paddingVert);
         }
         if (typeof right !== 'undefined') {
-            str += ' ' + this._computePadding(right, options.padding);
+            str += ' ' + this._computePadding(right, options.paddingHoriz);
         }
         if (typeof bottom !== 'undefined') {
-            str += ' ' + this._computePadding(bottom, options.padding);
+            str += ' ' + this._computePadding(bottom, options.paddingVert);
         }
         if (typeof left !== 'undefined') {
-            str += ' ' + this._computePadding(left, options.padding);
+            str += ' ' + this._computePadding(left, options.paddingHoriz);
         }
         return str;
     },

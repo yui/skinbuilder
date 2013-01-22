@@ -395,38 +395,71 @@ function (Y) {
 
 
 
-    // slider for padding changing in the UI ///////////////////////////////////
-    var paddingDefaultValue = 50,
-        sliderPadding = new Y.Slider({
+    // slider for changing Horizontal padding in the UI ///////////////////////////////////
+    var paddingHorizDefaultValue = 50,
+        sliderPaddingHoriz = new Y.Slider({
         axis  : 'x',
         length: '200px',
         min   : 0,
         max   : 200,
-        value : paddingDefaultValue,
+        value : paddingHorizDefaultValue,
 //        minorStep: 0.1,
         after : {
             valueChange: function (e) {
                 //Y.log(e.newVal / 50);
                 //report.setHTML(e.newVal);
-                SKIN.options.padding = e.newVal / 50;
+                SKIN.options.paddingHoriz = e.newVal / 50;
                 updateColors();
                 overlay.move([anchorOverlay.getX(),  anchorOverlay.getY()]);
                 panel.move([anchorPanel.getX(),  anchorPanel.getY()]);
 
                 setTimeout(function(){
-                    sliderPaddingThumb.setStyle('top', '0px');
+                    sliderPaddingHorizThumb.setStyle('top', '0px');
                 }, 50);
 
             }
         }
     });
 
-    sliderPadding.render('#slider-padding');
-    var sliderPaddingThumb = Y.one('#slider-padding .yui3-slider-thumb');
-    Y.one('.reset-padding').on('click', function() {
-        sliderPadding.set('value', paddingDefaultValue);
+    sliderPaddingHoriz.render('#slider-padding-horiz');
+    var sliderPaddingHorizThumb = Y.one('#slider-padding-horiz .yui3-slider-thumb');
+    Y.one('.reset-padding-horiz').on('click', function() {
+        sliderPaddingHoriz.set('value', paddingHorizDefaultValue);
     });
-    // end slider for padding ///////////////////////////
+    // end slider for Horizontal padding///////////////////////////
+
+    // slider for changing Vertical padding in the UI ///////////////////////////////////
+    var paddingVertDefaultValue = 50,
+        sliderPaddingVert = new Y.Slider({
+        axis  : 'y',
+        length: '65px',
+        min   : 200,
+        max   : 0,
+        value : paddingVertDefaultValue,
+//        minorStep: 0.1,
+        after : {
+            valueChange: function (e) {
+                //Y.log(e.newVal / 50);
+                //report.setHTML(e.newVal);
+                SKIN.options.paddingVert = (e.newVal / 50);
+                updateColors();
+                overlay.move([anchorOverlay.getX(),  anchorOverlay.getY()]);
+                panel.move([anchorPanel.getX(),  anchorPanel.getY()]);
+
+                setTimeout(function(){
+                    sliderPaddingVertThumb.setStyle('left', '0px');
+                }, 50);
+
+            }
+        }
+    });
+
+    sliderPaddingVert.render('#slider-padding-vert');
+    var sliderPaddingVertThumb = Y.one('#slider-padding-vert .yui3-slider-thumb');
+    Y.one('.reset-padding-vert').on('click', function() {
+        sliderPaddingVert.set('value', paddingVertDefaultValue);
+    });
+    // end slider for Vertical padding ///////////////////////////
 
 
     //////////////////////////////////////////////////////////////////////////
