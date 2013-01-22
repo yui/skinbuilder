@@ -1762,10 +1762,16 @@ striping:
 /*************** Begin styles for the UI display of the color space in this tool *************/
 /* Not needed for a skin */
 
-.page-head {
+.header {
     color: {{blockPageTextHigh}};
     background-color: {{blockPageBorderLow}};
     border-bottom: solid 1px {{blockPageRuleLow}};
+}
+.header .menu a {
+    color: {{blockPageTextNormal}}
+}
+.header .menu a:hover {
+    color: {{blockPageHoverTextHigh}}
 }
 
 #tab-schemes,
@@ -2231,8 +2237,19 @@ striping:
 </head>
 
 <body class="yui3-skin-mine">   <!--yui3-skin-sam-->
-<div class="page-head">
-    <div class="logo"></div> Skinner Demo
+<div class="header yui3-g">
+    <div class="yui3-u-1-3">
+        <div class="logo"></div>
+        <h1 class="yui3-u">Skin Builder</h1>
+    </div>
+
+    <div class="menu yui3-u-2-3">
+        <ul class="yui3-g">
+            <li class="yui3-u"><a alt="Documentation" href="">Documentation</a></li>
+            <li class="yui3-u"><a alt="Example" href="">Example</a></li>
+            <li class="yui3-u"><a alt="File an issue" href="">File an issue</a></li>
+        </ul>
+    </div>
 </div>
 <div id="tabview-controls">
     <ul>
