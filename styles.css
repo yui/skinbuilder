@@ -29,7 +29,7 @@ body {
     box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);    
 }
 #tabview-controls{
-    margin: 0 1em;
+    margin: 0 20px;
 }
 #tabview-controls a img {
     vertical-align: top;
@@ -48,7 +48,7 @@ body {
 }
 h1 {
     font-size: 145%;
-    margin: 1em 0 0.3em 1em;
+    margin: 1em 0 0.3em 20px;
 }
 .color-space .label-block, .color-space .rule, .color-space .label-grad, .color-space .label-master {
     font-family: arial;
@@ -437,9 +437,9 @@ h1 {
 .page-head {
     background-color: rgba(100, 100, 100, 0.2);
     color: rgba(100, 100, 100, 0.5);
-    font-size: 200%;
+    font-size: 22.17px;
     margin-bottom: 0.3em;
-    padding: 0.3em 0.5em;
+    padding: 0.45em 18px;
 }
 
 .markup {

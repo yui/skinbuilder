@@ -4,6 +4,9 @@
 <meta charset="utf-8">
 <title>Skinner Demo</title>
 
+<!-- table border problem 
+<link rel="stylesheet" href="http://yui.yahooapis.com/3.8.0/build/cssbase/cssbase-min.css">
+-->
 <link rel="stylesheet" href="http://yui.yahooapis.com/3.8.0/build/cssgrids/grids-min.css">
 <link rel="stylesheet" href="styles.css">
 
@@ -1600,7 +1603,7 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
     width: 12px;
     border: solid 1px {{thumbBorderLight}};
     border-color: {{thumbBorderLight}} {{thumbBorderDark}} {{thumbBorderDark}} {{thumbBorderLight}};
-    border-radius: 50% 50% {{thumbRadiusBottom}} {{thumbRadiusBottom}};
+    border-radius: {{thumbRadius}};
     margin-top: 5px;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15), -1px -1px 3px rgba(0, 0, 0, 0.15) inset;
 }
@@ -1767,6 +1770,7 @@ striping:
 
 #tab-schemes,
 #tab-controls,
+.slider-markup-text-contrast,
 .preview-label {
     color: {{blockPageTextNormal}};
 }
