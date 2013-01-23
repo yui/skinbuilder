@@ -78,10 +78,11 @@ body {
 .color-space {
     position: relative;
 }
-.flow>li{
+#widget-container>li{
     display: inline-block;
     vertical-align: top;
     margin: 0.5em;
+    min-width: 300px;
 }
 h1 {
     font-size: 145%;
@@ -495,7 +496,11 @@ h1 {
 }
 
 #scrollview-content-horiz li {
-    display:inline-block;
+    display: inline-block;
+    padding: 3em 0;
+    text-align: center;
+    width: 64px;
+    border-bottom-style: none;
 }
 
 /* For IE 6/7 - needs inline block hack (and the background color mentioned above) */

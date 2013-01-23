@@ -214,32 +214,34 @@ function (Y) {
         caption: "Table with simple column sorting"
     }).render("#datatable");
 
-    // Scrollview instance ///////////////////////////////////////////////////
-    var scrollView = new Y.ScrollView({
-        id: "scrollview",
-        srcNode: '#scrollview-content',
-        height: 200,
-        width: 200,
-        flick: {
-            minDistance:10,
-            minVelocity:0.3,
-            axis: "x"
-        }
-    });
-    scrollView.render();
-
+    // Scrollview instance Horizontal ///////////////////////////////////////////////////
     var scrollViewX = new Y.ScrollView({
         id: "scrollview",
         srcNode: '#scrollview-content-horiz',
-        //height: 100,
-        width: 200,
+        //height: 100, // specifying the height is only allowed on a vertical scrollView
+        width: 300,
         flick: {
-            minDistance:10,
-            minVelocity:0.3,
+            minDistance:2,
+            minVelocity:0.1,
             axis: "x"
         }
     });
     scrollViewX.render();
+
+    // Scrollview instance Vertical ///////////////////////////////////////////////////
+    var scrollView = new Y.ScrollView({
+        id: "scrollview",
+        srcNode: '#scrollview-content',
+        height: 128,
+        //width: 300,  specifying the width is only allowed on a horizontal scrollView
+        flick: {
+            minDistance:5,
+            minVelocity:0.3,
+            axis: "y"
+        }
+    });
+    scrollView.render();
+
 
     // Autocomplete instance ////////////////////////////////////////////////////
     var states = [     'Alabama',     'Alaska',     'Arizona',     'Arkansas',     'California',     'Colorado',     'Connecticut',     'Delaware',     'Florida',     'Georgia',     'Hawaii',     'Idaho',     'Illinois',     'Indiana',     'Iowa',     'Kansas',     'Kentucky',     'Louisiana',     'Maine',     'Maryland',     'Massachusetts',     'Michigan',     'Minnesota',     'Mississippi',     'Missouri',     'Montana',     'Nebraska',     'Nevada',     'New Hampshire',     'New Jersey',     'New Mexico',     'New York',     'North Dakota',     'North Carolina',     'Ohio',     'Oklahoma',     'Oregon',     'Pennsylvania',     'Rhode Island',     'South Carolina',     'South Dakota',     'Tennessee',     'Texas',     'Utah',     'Vermont',     'Virginia',     'Washington',     'West Virginia',     'Wisconsin',     'Wyoming'   ];
@@ -311,7 +313,7 @@ function (Y) {
     var report = Y.one('#slider-report'),
         slider = new Y.Slider({
             //axis  : 'y',
-            length: '150px',
+            length: '280px',
             min   : 10,
             max   : 218,
             value : 136,
