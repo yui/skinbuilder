@@ -2,6 +2,9 @@
 
 Skin Builder is a small web app that generates CSS skins for YUI Widgets. 
 
+##See it in action
+Check out the app [here](http://yui.github.com/skinbuilder/).
+
 ##Issues and Feature Requests
 Please submit all issues and feature requests through Github. It makes it easy to track.
 
