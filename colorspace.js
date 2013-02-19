@@ -9,7 +9,7 @@ Y.ColorSpace.schemes = {};
 Y.ColorSpace.prototype = {
     defaults: {
         container: '#fff',
-        textContrast: 1    
+        textContrast: 1.5    
     },
 
     constructor: Y.ColorSpace,
