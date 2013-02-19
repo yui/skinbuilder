@@ -531,3 +531,11 @@ h1 {
 }
 #node-menunav-split {
 }
+
+/******* allow menus to display on top of panel and overlay *******/
+#actors {
+    z-index: 10;
+}
+#answers-options {
+    z-index: 10;
+}
