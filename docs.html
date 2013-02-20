@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>YUI Skin Builder</title>
+<link rel="stylesheet" type="text/css" href="http://necolas.github.com/normalize.css/1.0.2/normalize.css">
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.9.0pr1/build/cssgrids-responsive/cssgrids-responsive-min.css">
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.8.0/build/cssbutton/cssbutton-min.css">
+<style>
+body {
+    font-family: sans-serif;
+    color: #333;
+}
+
+.header {
+     background: black;
+     min-height: 80px;
+     margin: 0;
+     color:white;
+     padding: 30px 20px;
+ }
+     .header h2 {
+         font-weight:300;
+         color: #666;
+         margin:0;
+     }
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light",
+                 "Helvetica Neue", sans-serif;
+    font-weight: 300;
+}
+.content {
+    padding: 0 30px 2em;
+}
+
+.content h2 {
+    color:#2B474F;
+    margin:50px 0 20px 0;
+    font-weight:bold;
+}
+
+
+.gist {
+    margin-top:25px;
+}
+.gist::before {
+    content: "Code:";
+    margin-bottom: 10px;
+    display: block;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light",
+                 "Helvetica Neue", sans-serif;
+    font-weight: 300;
+}
+
+/*  Specific to this page  */
+#list-control-tabs img, #use-pattern img {
+    float: right;
+    margin: 0 0 1em 0.7em;
+}
+#list-control-tabs li, #use-pattern li, .clear-floats {
+    clear: both;
+}
+#list-control-tabs li, #use-pattern li {
+    margin-bottom: 1em;
+}
+#main-colors {
+    margin: 0 0 0 24px;
+    padding: 0;
+}
+#main-colors li {
+    display: inline-block;
+    *display: block;
+    /* inline block hack for IE */
+    *zoom: 1;
+    width: 84px;
+    font-size: 80%;
+    color: #808080;
+}
+
+</style>
+</head>
+
+<body>
+
+    <div class="header y-u-1">
+
+        <h1 class="yui3-u-1">YUI Skin Builder</h1>
+        <h2 class="yui3-u">This is a tool for creating or modifying YUI3 Widget skins.</h2>
+
+    </div>
+    <div class="content">
+
+        <h2>Overview</h2>
+
+        Use this tool to create or modify skins for YUI Widgets, with real-time previewing.
+        A skin is the visual presentation of something, not its features or function.
+
+        <h2>Main Parts of the Tool</h2>
+        <p>
+        There are three main parts to the Skin Builder UI.
+        <ul>
+            <li>Control Tabs</li>        
+            <li>Widget Preview</li>        
+            <li>Header</li>        
+        </ul>
+        </p>
+        <h3>Control Tabs</h3>
+        Toward the top of YUI Skin Builder is an area with 4 tabs
+        <ul id="list-control-tabs">
+            <li><img src="assets/images/cap_palette.png" width="561" height="109" alt="Color palette withy 6 main color blocks"/><strong>Palette:</strong> This displays 6 main blocks of color. Their background colors make up the foundation of the colors applied by the current skin.</li>
+            <li><img src="assets/images/cap_scheme.png" width="561" height="124" alt="Color scheme radio button choices"/><strong>Scheme:</strong> From this tab, you can select one of several color schemes, or start creating your own custom scheme. Color schemes set different relationships between the colors shown in the palette tab. More explanation about schemes later.</li>
+            <li><img src="assets/images/cap_controls.png" width="561" height="129" alt="Controls tab for padding, radius etc."/><strong>Controls:</strong> In the control tab, you can change the radius, and padding styles in the skin. You can also change the skin name, which marks all the selectors in the CSS code.</li>
+            <li><img src="assets/images/cap_code.png" width="561" height="123" alt="CSS generated code"/><strong>Code:</strong> This tab contains text area controls which display the real-time generated CSS code for your skin as you make modifications.</li>
+        </ul>
+        <h3 class="clear-floats">Widget Preview</h3>
+        At the bottom of Skin Builder is an array of real instances of each of the YUI3 Widgets. Their skin/appearance is continually updated with the latest changes you make in the Control Tabs.<br>
+        <img src="assets/images/cap_preview.png" width="706" height="525" alt="YUI Widgets Preview"/>
+
+        <h3>Header</h3>
+        The header contains 3 links, YUI Logo (goes to the yuilibrary.com), documentation (this page), and file an issue, (GitHub issues link).
+
+        <h2>A Typical Use Pattern</h2>
+        <ol id="use-pattern">
+            <li>During all the following steps, keep an eye on the Widget previews, evaluating the results of your changes.</li>
+            <li>Open the Palette tab.</li>
+            <li><img src="assets/images/cap_page_icon.png" width="324" height="148" alt="Color picker icon for page background"/>Click on the color picker icon on the page/container main color. This is the first rectangle on the left. From the Color Picker that pops up, select a color that matches the background color the widgets will display on. This is commonly the page background, but may be a container object that widgets will appear in. You can also enter the color directly with a hex value if you know it.</li>
+            <li><img src="assets/images/cap_highest_icon.png" width="324" height="148" alt="Color picker icon for highest/master color"/>Click on the color picker icon on the "highest/master" color. This is on the second rectangle from the left. The color you select should match a very dominant color from the app these widgets will appear in. For example if these skinned widgets will go on a site that has green as an high emphasis, attention attracting color, choose that same green from this color picker. You'll notice the other colors in the palette change automatically. The relative colors they become are based on relationships to the "highest/master" color. These relationships are called "schemes".</li>
+            <li>Click the Schemes tab.</li>
+            <li>Try other schemes to see which works best for your site. If you choose a dark background scheme, you may need to select a different "highest/master" color from the palettes tab</li>
+            <li><img src="assets/images/cap_text_contrast.png" width="463" height="151" alt="Text contrast slider control"/>On the palettes tab, you can adjust the contrast of the text to its background using the slider on the right. This adjustment can help maintain readability.</li>
+            <li><img src="assets/images/cap_controls.png" width="561" height="129" alt="Controls tab for padding, radius etc."/>On the control tab make any changes needed to the padding and border-radius styles.</li>
+            <li>Also on the control tab, edit the Skin Name suffix. In the markup of your site or app where widgets are to use this skin, replace the class "yui3-skin-sam" with the matching new class name, such as, "yui3-skin-myskinnamesuffix".</li>
+            <li><img src="assets/images/cap_code.png" width="561" height="123" alt="CSS generated code"/>Click the Code tab. Select the contents of the textarea labeled "CSS for all widgets". Paste this code into the file where ever you want your CSS to be referenced from. If you don't need CSS skin code for all the YUI3 widgets, you can pick out and use only the sections of the CSS you do need.</li>
+        </ol>
+
+        <h2>How Does It Work?</h2>
+        <h3>Key color</h3>
+        This is a user-selected color. Its the color that has the most emphasis in the skin. It will be used as the background color of visually dominant widget elements such as, primary or default buttons, or selected tabs.
+
+        <h3>Main colors</h3>
+        There are 6 Main Colors used in this tool. From left to right, their names are...
+        <ol id="main-colors">
+            <li>Page</li>
+            <li>Highest</li>
+            <li>High</li>
+            <li>Normal</li>
+            <li>Low</li>
+            <li>Lowest</li>
+        </ol><img src="assets/images/cap_palette.png" width="561" height="109" alt="Color palette withy 6 main color blocks"/>
+        <p>
+            Main colors "Highest" through "Lowest" are designed to hold colors of decreasing visual emphasis. The main color "Page" is the background color of the page or container the widgets will be viewed on in the final app or web page. Each of these main colors represents a family of colors that are used to color widgets.
+        </p>
+
+        <h3>Color scheme</h3>
+        A Color Scheme is a data structure that holds information about the relationship of each main color to the Key Color. The Main color "Highest" always has the same value color value as the Key Color.
+        The value of the main color "high" might be calculated like this: Start with the key color, and adjust its hue by 0, its saturation down by 30%, and its lightness up by 20%. The value of the main color "normal" might be calculated like this: Start with the key color, and adjust its hue by 0, its saturation down by 30%,
+        and its lightness up by 30%. Etc.
+        A Color Scheme data structure looks like this...
+        <pre>
+        Y.ColorSpace.schemes.monochrome = {
+            container: {h:0, s:0,   l:0}, // the page or container
+            highest:   {h:0, s:-30, l:60},
+            high:      {h:0, s:-30, l:60},
+            normal:    {h:0, s:-30, l:75},
+            low:       {h:0, s:-30, l:80},
+            lowest:    {h:0, s:-30, l:90}
+        };
+        </pre>
+
+        <h3>Foreground Colors</h3>
+        Each main color has an associated set of named, foreground colors:
+        <ul>
+        <li>Text-high</li>
+        <li>Text-normal</li>
+        <li>Text-low</li>
+        <li>Rule-high</li>
+        <li>Rule-low</li>
+        <li>Border-high</li>
+        <li>Border-low</li>
+        <li>Gradient</li>
+        </ul>
+
+        Each foreground color is calculated from the background color of its parent,
+        Main color.
+        Their names are suggestive of how they may be used to color widget elements.
+        <p>
+            The text colors have special algorithms applied to them to keep them readable given any background color.
+        </p>
+
+        <h3>Hover Colors</h3>
+        Since many widgets have objects that require visual feedback on user interaction, we provide a set of hover colors for the hover state of elements. The hover color is calculated from each of the main colors. It's a child of its parent main color. Each hover color also has a full set of foreground colors.
+
+        <h3>Space/palette</h3>
+        The Space/palette is a nested data structure collection of all the color values available for use in a particular skin. These values include all main colors, hover colors, and foreground colors.
+
+        The space/palette object literal in JSON form, contains nested key-value pairs. The values are colors in hex format that looks like this.
+        <pre>
+        Skin.PALETTE = {
+            block: {
+                highest: {
+                    background: '#3355BA',
+                    gradient: '',
+
+                    border: {
+                        low: '#0B2981',
+                        high: '#6680CC'
+                    },
+
+                    text: {
+                        low: '#708EE6',
+                        normal: '#D9E2FF',
+                        high: '#ffffff'
+                    },
+
+                    rule: {
+                        low: '#223A80',
+                        high: '#4A69C4'
+                    },
+
+                    hover: {     // the hover color and its foreground colors
+                        background: '#1B3A95',
+                        gradient: '',
+
+                        border: {
+                            low: '#041D67',
+                            high: '#6680CC'
+                        },
+
+                        text: {
+                            low: '#5675CF',
+                            normal: '#EFF3FF',
+                            high: '#fff'
+                        },
+
+                        rule: {
+                            low: '#162D6F',
+                            high: '#314D9F'
+                        }
+                    }
+                // next would be the other main colors,
+                // "high", "normal", "low",  "lowest", and "page"
+            }
+        };
+        </pre>
+        <h3>Color Mapping</h3>
+        Each YUI Widget has a color map file which defines variable names and set their value equal to a color, padding, or radius value in the skin palette. 
+        <pre>
+YUI.add('skin-tabview', function (Y) {
+
+Y.Skin.renderers.tabview = function (skin) {
+    var space = skin.colorspace,
+        block = skin.colorspace.block;
+
+    return {
+        paddingTab: skin.padding(0.3, 0.75),
+        paddingTabSelected: skin.padding(0.4, 0.75),
+        paddingPanel: skin.padding(0.25, 0.5),
+        tabRadius: skin.radius(0.4),    // 40% of global radius
+
+        tabBackground: block.high.background,
+        tabGradient: block.high.gradient,
+        tabText: block.high.text.normal,     // Example variable is here
+        tabBorderLow: block.high.border.low,
+        tabBorderHigh: block.high.border.high,
+
+        tabHoverBackground: block.high.hover.background,
+        tabHoverGradient: block.high.hover.gradient,
+        tabHoverText: block.high.hover.text.normal,
+        tabHoverBorderLow: block.high.hover.border.low,
+        tabHoverBorderHigh: block.high.hover.border.high,
+        </pre>
+        For example: The mapping file for the TabView widget is named skin-tabview.js. One of the variables you can see in the snippet above is named "tabText". Its value is equal to (mapped to) the color stored in the skin object "block.high.text.normal". This is the normal text color in the "high" main color that you can see (circled) in the palette of this tool.<img src="assets/images/cap_high_text_normal.png" width="568" height="111" alt="text.normal in 'high' main color is circled"/>
+        <p>
+        YUI Skin Builder has CSS style code templates for each widget. At the bottom of the template snippet below, you can see where the variable "tabText" is used.
+        </p>
+        <pre>
+...
+{{prefix}}{{skinName}} {{prefix}}tab-label {
+    {{tabGradient}};
+    background-color: {{tabBackground}};
+    border-style: solid;
+    border-color: {{tabBorderHigh}} {{tabBorderLow}} {{tabBorderLow}} {{tabBorderHigh}};
+    border-width: 1px 1px 0 1px;
+    cursor:pointer;
+    font-size: 85%;
+    padding: {{paddingTab}};
+    text-decoration:none;
+    border-radius: {{tabRadius}} {{tabRadius}} 0 0;
+    color: {{tabText}};   /****** The variable in the example is here */
+}
+...
+        </pre> 
+        When the CSS templates are processed, the variables are replaced.
+        <pre>
+.yui3-skin-mine .yui3-tab-label {
+    /* ommitting a lot of gradient CSS here for this example */
+    background-color: #b0bcdd;
+    border-style: solid;
+    border-color: #d1d8eb #a6b3d9 #a6b3d9 #d1d8eb;
+    border-width: 1px 1px 0 1px;
+    cursor:pointer;
+    font-size:85%;
+    padding: 0.29em 0.75em; /*0.3em .75em;*/
+    text-decoration:none;
+    border-radius: 4px 4px 0 0;
+    color: #0e1320;    /****** The variable has been replaced */
+}
+        </pre>
+        The YUI Widgets Preview uses this CSS and it's output in the code tab of the YUI Skin Builder for your use.
+
+    </div>
+</body>
+</html>
+
+
