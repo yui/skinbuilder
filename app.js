@@ -350,8 +350,10 @@ function (Y) {
         after : {
             valueChange: function (e) {
                 //report.setHTML(e.newVal);
+                var newVal = e.target.get('value');
                 SKIN.options.radius = e.newVal;
                 updateColors();
+                Y.one('.slider-markup-border-radius label').setHTML('Border-radius: ' + newVal + '%');
             }
         }
     });
@@ -378,7 +380,7 @@ function (Y) {
             valueChange: function (e) {
                 //report.setHTML(e.newVal);
                 var newVal = e.target.get('value');
-                SKIN._space.options.textContrast = newVal / 10; // works
+                SKIN._space.options.textContrast = e.newVal / 10; // works
                 Y.one('.slider-markup-text-contrast label').setHTML('Text contrast: ' + newVal);
                 // Matt?
                 // SKIN.options.textContrast = e.target.get('value') / 10; // doesn't work
@@ -410,10 +412,13 @@ function (Y) {
             valueChange: function (e) {
                 //Y.log(e.newVal / 50);
                 //report.setHTML(e.newVal);
+                var newVal = e.target.get('value');
                 SKIN.options.paddingHoriz = e.newVal / 50;
                 updateColors();
                 overlay.move([anchorOverlay.getX(),  anchorOverlay.getY()]);
                 panel.move([anchorPanel.getX(),  anchorPanel.getY()]);
+                Y.one('.slider-markup-horiz-padding label').setHTML('Horiz. padding: ' + newVal + '%');
+
             }
         }
     });
@@ -438,10 +443,12 @@ function (Y) {
             valueChange: function (e) {
                 //Y.log(e.newVal / 50);
                 //report.setHTML(e.newVal);
+                var newVal = e.target.get('value');
                 SKIN.options.paddingVert = (e.newVal / 50);
                 updateColors();
                 overlay.move([anchorOverlay.getX(),  anchorOverlay.getY()]);
                 panel.move([anchorPanel.getX(),  anchorPanel.getY()]);
+                Y.one('.slider-markup-vert-padding label').setHTML('Vert. padding: ' + newVal + '%');                
             }
         }
     });
