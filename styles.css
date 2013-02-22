@@ -97,10 +97,14 @@ h1 {
 }
 .color-space .background {
     position: relative;
-    padding: 0.5em 0 0.6em 0.6em;
+    padding: 0.5em 0 0.5em 0.5em;
     margin-bottom: 1em !important;
 }
 .color-space ul {
+    margin: 0;
+    padding: 0;
+}
+.color-space > ul {
     list-style: none;
     margin: 0 1em;
     padding: 0;
@@ -427,8 +431,9 @@ h1 {
     display: inline-block;
 }
 .color-space .slider-markup-text-contrast .reset-text-contrast{
-    left: 117px;
+    left: auto;
     top: 0;
+    right: 0;
 }
 #schemer-outer .yui3-slider-rail-cap-left {
     background-color: #D9D9D9;

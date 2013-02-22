@@ -353,7 +353,7 @@ function (Y) {
                 var newVal = e.target.get('value');
                 SKIN.options.radius = e.newVal;
                 updateColors();
-                Y.one('.slider-markup-border-radius label').setHTML('Border-radius: ' + newVal + '%');
+                Y.one('.slider-markup-border-radius label').setHTML('Border-radius: ' + (newVal * 10) + '%');
             }
         }
     });
@@ -371,7 +371,7 @@ function (Y) {
 
     var sliderTextContrast = new Y.Slider({
         axis  : 'x',
-        length: '150px',
+        length: '175px',
         min   : 5,
         max   : 30,
         value : SKIN._space.options.textContrast * 10,
@@ -381,7 +381,7 @@ function (Y) {
                 //report.setHTML(e.newVal);
                 var newVal = e.target.get('value');
                 SKIN._space.options.textContrast = e.newVal / 10; // works
-                Y.one('.slider-markup-text-contrast label').setHTML('Text contrast: ' + newVal);
+                Y.one('.slider-markup-text-contrast label').setHTML('Text contrast: ' + newVal * 10);
                 // Matt?
                 // SKIN.options.textContrast = e.target.get('value') / 10; // doesn't work
                 SKIN.initColorSpace();
@@ -400,8 +400,8 @@ function (Y) {
 
 
     // slider for changing Horizontal padding in the UI ///////////////////////////////////
-    var paddingHorizDefaultValue = 50,
-        sliderPaddingHoriz = new Y.Slider({
+    var paddingHorizDefaultValue = 50;
+    var sliderPaddingHoriz = new Y.Slider({
         axis  : 'x',
         length: '200px',
         min   : 0,
@@ -417,7 +417,7 @@ function (Y) {
                 updateColors();
                 overlay.move([anchorOverlay.getX(),  anchorOverlay.getY()]);
                 panel.move([anchorPanel.getX(),  anchorPanel.getY()]);
-                Y.one('.slider-markup-horiz-padding label').setHTML('Horiz. padding: ' + newVal + '%');
+                Y.one('.slider-markup-horiz-padding label').setHTML('Horiz. padding: ' + (newVal * 2) + '%');
 
             }
         }
@@ -448,7 +448,7 @@ function (Y) {
                 updateColors();
                 overlay.move([anchorOverlay.getX(),  anchorOverlay.getY()]);
                 panel.move([anchorPanel.getX(),  anchorPanel.getY()]);
-                Y.one('.slider-markup-vert-padding label').setHTML('Vert. padding: ' + newVal + '%');                
+                Y.one('.slider-markup-vert-padding label').setHTML('Vert. padding: ' + (newVal * 2) + '%');                
             }
         }
     });
@@ -674,10 +674,30 @@ function (Y) {
         schemeBlockDOM; // the DOM object of the correct block. Used for updating the swatch on the scheme adjust overlay
 
 
+    // update the output textarea content
+    var updateTextAreaSettings = function(){
+        var schemeOutputStr = '',
+            textContrast = '\nText contrast: ' + SKIN._space.options.textContrast * 100 + '%',
+            borderRadius = '\nBorder radius: ' + SKIN.options.radius * 10 + '%',
+            paddingHoriz = '\nHoriz. padding: ' + SKIN.options.paddingHoriz * 100 + '%',
+            paddingVert = '\nVert. padding: ' + SKIN.options.paddingVert * 100 + '%';
+
+        schemeOutputStr = '// Color scheme settings'+
+        '\nY.colorspace.schemes.' + SCHEME_NAME + ' = {\n' +
+                                
+        '    high:       {h: ' + SCHEME_CUSTOM.high.h + ', s: ' + SCHEME_CUSTOM.high.s + ', l: ' + SCHEME_CUSTOM.high.l + '},\n'+
+        '    normal:     {h: ' + SCHEME_CUSTOM.normal.h + ', s: ' + SCHEME_CUSTOM.normal.s + ', l: ' + SCHEME_CUSTOM.normal.l + '},\n'+
+        '    low:        {h: ' + SCHEME_CUSTOM.low.h + ', s: ' + SCHEME_CUSTOM.low.s + ', l: ' + SCHEME_CUSTOM.low.l + '},\n'+ 
+        '    background: {h: ' + SCHEME_CUSTOM.background.h + ', s: ' + SCHEME_CUSTOM.background.s + ', l: ' + SCHEME_CUSTOM.background.l + '}\n'+ 
+//            '    page:       {h: ' + adjustBlocks[3].h + ', s: ' + adjustBlocks[3].s + ', l: ' + adjustBlocks[3].l + '},\n'+ 
+        '};';
+
+        Y.one('#textarea-scheme').setHTML(schemeOutputStr + '\n// Other skin settings' + textContrast + borderRadius + paddingHoriz + paddingVert);
+    }
+
     // set the scheme color swatch in the schemeOverlay
     // Update the scheme with the new scheme color adjustment object values
     var handleSchemeValueChange = function() {
-        var schemeOutputStr = '';
 /*            adjustBlocks = [
                 SKIN._space._adjust.high,
                 SKIN._space._adjust.normal,
@@ -702,21 +722,9 @@ function (Y) {
 
             // update the swatch bkg color
             Y.one('.schemer-swatch').setStyle('backgroundColor', schemeBlockDOM.getStyle('backgroundColor'));
-
-            // update the output textarea content
-            schemeOutputStr = ''+
-            'Y.colorspace.schemes.' + SCHEME_NAME + ' = {\n' +
-                                    
-            '    high:       {h: ' + SCHEME_CUSTOM.high.h + ', s: ' + SCHEME_CUSTOM.high.s + ', l: ' + SCHEME_CUSTOM.high.l + '},\n'+
-            '    normal:     {h: ' + SCHEME_CUSTOM.normal.h + ', s: ' + SCHEME_CUSTOM.normal.s + ', l: ' + SCHEME_CUSTOM.normal.l + '},\n'+
-            '    low:        {h: ' + SCHEME_CUSTOM.low.h + ', s: ' + SCHEME_CUSTOM.low.s + ', l: ' + SCHEME_CUSTOM.low.l + '},\n'+ 
-            '    background: {h: ' + SCHEME_CUSTOM.background.h + ', s: ' + SCHEME_CUSTOM.background.s + ', l: ' + SCHEME_CUSTOM.background.l + '},\n'+ 
-//            '    page:       {h: ' + adjustBlocks[3].h + ', s: ' + adjustBlocks[3].s + ', l: ' + adjustBlocks[3].l + '},\n'+ 
-            '};';
-
-            Y.one('#textarea-scheme').setHTML(schemeOutputStr);
         }
     }
+
 
     var overlaySchemer = new Y.Overlay({
         srcNode:"#schemer-outer",
@@ -905,6 +913,12 @@ function (Y) {
         if (Y.one('.bucket-selected')) {
             Y.one('.bucket-selected').removeClass('bucket-selected');
         }
+    
+    });
+    Y.one('.tab-code').on('click', function(){
+        overlayPicker.hide();
+        overlaySchemer.hide();
+        updateTextAreaSettings();
     
     });
 });
