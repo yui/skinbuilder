@@ -75,7 +75,7 @@ Skin.prototype = {
 
     radius: function(factor) {
         // TODO: Add a defaultRadius.
-        var radius = this.options.radius || this.options.defaultBorderRadius;
+        var radius = (this.options.radius === undefined) ? this.options.defaultBorderRadius : this.options.radius;
         return Math.round(radius * factor) + 'px';
     },
 

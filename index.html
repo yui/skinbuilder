@@ -25,7 +25,7 @@
 }
 
 {{prefix}}{{skinName}} {{prefix}}calendar-grid {
-    padding: 5px;  /* jeff sees no affect */
+    padding: 5px;  /* any affect? */
     border-collapse: collapse;
 }
 
@@ -44,7 +44,7 @@
 {{prefix}}{{skinName}} {{prefix}}calendar-day,
 {{prefix}}{{skinName}} {{prefix}}calendar-prevmonth-day,
 {{prefix}}{{skinName}} {{prefix}}calendar-nextmonth-day {
-    padding: {{dayPadding}};  /*was padding: 5px */
+    padding: {{dayPadding}};
     text-align: center;
 }
 
@@ -105,7 +105,7 @@
   color: {{dayDisabledText}};
   background: {{dayDisabledBackground}};
 }
-/**************** the following from calendarnavigator.css (allways seems to be included in widget)******************/
+/**************** the following from calendarnavigator.css ******************/
 {{prefix}}{{skinName}} {{prefix}}calendarnav-prevmonth, {{prefix}}{{skinName}} {{prefix}}calendarnav-nextmonth {
   color: #000000;  /*falls back to text if image not rendered */
   width: 12px;
@@ -170,7 +170,7 @@
     border-width: 1px 1px 0 1px;
     cursor:pointer;
     font-size:85%;
-    padding: {{paddingTab}}; /*0.3em .75em;*/
+    padding: {{paddingTab}};
     text-decoration:none;
     color: {{tabText}};
     border-radius: {{tabRadius}} {{tabRadius}} 0 0;
@@ -207,14 +207,14 @@
 
 
 {{prefix}}{{skinName}} {{prefix}}tab-selected {{prefix}}tab-label {
-    padding: {{paddingTabSelected}}; /*0.4em 0.75em;*/ /* raise selected tab */
+    padding: {{paddingTabSelected}}; /* raise selected tab */
 }
 
 {{prefix}}{{skinName}} {{prefix}}tabview-panel {
     background-color: {{panelBackground}};
     border: 1px solid {{panelBorder}};
     color: {{panelText}};
-    padding: {{paddingPanel}}; /*0.25em 0.5em;*/ /* content padding */
+    padding: {{paddingPanel}}; /* content padding */
 }
 </script>
 
@@ -254,14 +254,6 @@
     border-color: {{borderHigh}} {{borderLow}} {{borderLow}} {{borderHigh}};
 
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80ffffff', endColorstr='#00ffffff', GradientType=0);
-/*
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(255,255,255, 0.30)), color-stop(40%, rgba(255,255,255, 0.15)), to(transparent));
-    background-image: -webkit-linear-gradient(rgba(255,255,255, 0.30), rgba(255,255,255, 0.15) 40%, transparent);
-    background-image: -moz-linear-gradient(top, rgba(255,255,255, 0.30), rgba(255,255,255, 0.15) 40%, transparent);
-    background-image: -ms-linear-gradient(rgba(255,255,255, 0.30), rgba(255,255,255, 0.15) 40%, transparent);
-    background-image: -o-linear-gradient(rgba(255,255,255, 0.30), rgba(255,255,255, 0.15) 40%, transparent);
-    background-image: linear-gradient(rgba(255,255,255, 0.30), rgba(255,255,255, 0.15) 40%, transparent);
-*/
     background: {{gradient}};
     background-color: {{background}};
 
@@ -283,25 +275,12 @@
 
 {{prefix}}{{skinName}} a{{prefix}}button {
     color: {{text}};
-
-/*
-    color: rgba(0,0,0, 0.80);
-    color: #444;
-*/
     text-decoration:none;
 }
 
 {{prefix}}{{skinName}} {{prefix}}button-hover,
 {{prefix}}{{skinName}} {{prefix}}button:hover {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#26000000', GradientType=0);
-/*
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(transparent), color-stop(40%, rgba(0,0,0, 0.05)), to(rgba(0,0,0, 0.15)));
-    background-image: -webkit-linear-gradient(transparent, rgba(0,0,0, 0.05) 40%, rgba(0,0,0, 0.15));
-    background-image: -moz-linear-gradient(top, transparent, rgba(0,0,0, 0.05) 40%, rgba(0,0,0, 0.15));
-    background-image: -ms-linear-gradient(transparent, rgba(0,0,0, 0.05) 40%, rgba(0,0,0, 0.15));
-    background-image: -o-linear-gradient(transparent, rgba(0,0,0, 0.05) 40%, rgba(0,0,0, 0.15));
-    background-image: linear-gradient(transparent, rgba(0,0,0, 0.05) 40%, rgba(0,0,0, 0.15));
-*/
     background: {{gradient}};
     background-color: {{hoverBackground}};
     color: {{hoverText}};
@@ -312,15 +291,6 @@
     border: inset 1px solid #999;  /*IE 6/7/8*/
     border: none rgba(0, 0, 0, 0);  /*IE9 + everything else*/
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#1A000000', endColorstr='#26000000', GradientType=0);
-/*
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(0,0,0, 0.10)), to(rgba(0,0,0, 0.15)));
-    background-image: -webkit-linear-gradient(rgba(0,0,0, 0.10), rgba(0,0,0, 0.15));
-    background-image: -moz-linear-gradient(top, rgba(0,0,0, 0.10), rgba(0,0,0, 0.15));
-    background-image: -ms-linear-gradient(rgba(0,0,0, 0.10), rgba(0,0,0, 0.15));
-    background-image: -o-linear-gradient(rgba(0,0,0, 0.10), rgba(0,0,0, 0.15));
-    background-image: linear-gradient(rgba(0,0,0, 0.10), rgba(0,0,0, 0.15));
-*/
-
     background: {{selectedGradient}};
     background-color: {{selectedBackground}};
     color: {{selectedText}};
@@ -396,14 +366,13 @@
 
 <script id="datatable-template" type="text/x-handlebars-template">
 /* basic skin styles */
-/* basic skin styles */
 {{prefix}}{{skinName}} {{prefix}}datatable-table {
     margin: 0;
     padding: 0;
     font-family: arial, sans-serif;
     border-collapse: separate;
     border-spacing: 0;
-    /* IE7- don't support border-spacing, but separate is needed for more
+    /* IE7- doesn't support border-spacing, but separate is needed for more
      * reliable dimension calculation for scrollable's header width sync,
      * and it doesn't hurt to have the declaration here.
      */
@@ -428,8 +397,8 @@
     border-width: 0 0 0 1px;
     font-size: inherit;
     margin: 0;
-	overflow: visible; /*to make ths where the title is really long work*/
-    padding: {{cellPadding}}; /*4px 10px 4px 10px;*/ /* cell padding */
+	overflow: visible; /*to make this work where the title is really long */
+    padding: {{cellPadding}};
 }
 {{prefix}}{{skinName}} {{prefix}}datatable-cell:first-child,
 {{prefix}}{{skinName}} {{prefix}}datatable-first-header {
@@ -448,15 +417,9 @@
     white-space: nowrap;
 }
 
-/*
-striping:
-   even - #fff (white)
-   odd  - #edf5ff (light blue)
-*/
 {{prefix}}{{skinName}} {{prefix}}datatable-even {{prefix}}datatable-cell {
 }
 {{prefix}}{{skinName}} {{prefix}}datatable-odd  {{prefix}}datatable-cell  {
-    /*background-color: #edf5ff;*/
     background-color: {{cellOddBackground}};
     color: {{cellOddText}};
 }
@@ -465,7 +428,7 @@ striping:
     cursor: pointer;
 }
 
-/* Jeff: this seems to be just the header of a sorted column */
+/* this seems to be just the header of a sorted column */
 {{prefix}}{{skinName}} {{prefix}}datatable-columns {{prefix}}datatable-sorted,
 {{prefix}}{{skinName}} {{prefix}}datatable-sortable-column:hover {
     background-color: {{headSortedHoverBackground}};
@@ -507,7 +470,7 @@ striping:
     background-color: {{cellSortedOddBackground}};
 }
 
-/* Jeff thinks this should be added */
+/* added */
 {{prefix}}{{skinName}} {{prefix}}datatable-columns {{prefix}}datatable-sorted {
     background-color: {{headSortedBackground}};
 }
@@ -614,7 +577,7 @@ striping:
 
 {{prefix}}{{skinName}} {{prefix}}scrollview-scrollbar-vert-basic {{prefix}}scrollview-child,
 {{prefix}}{{skinName}} {{prefix}}scrollview-scrollbar-horiz-basic {{prefix}}scrollview-child {
-    background-color: #f00;  /* #aaa   can't find this */
+    background-color: #aaa;  /* where does this display? */
     background-image: none;
 }
 /******** scrollview-scrollbars-core.css *******************************/
@@ -753,14 +716,14 @@ striping:
 }
 
 
-/******** Jeff thinks these should be added, but it needs more group discussion ********/
+/******** These are not needed, just added for presentation ********/
 {{prefix}}{{skinName}} {{prefix}}scrollview-content ul {
     list-style: none;
     margin: 0;
     padding: 0;
 }
 {{prefix}}{{skinName}} {{prefix}}scrollview-content li {
-    padding: {{itemPadding}}; /*0.3em 0.5em;*/
+    padding: {{itemPadding}};
     border-bottom: solid 1px {{itemBorderBottom}};
     color: {{text}};
 }
@@ -769,7 +732,7 @@ striping:
     /*border-bottom: solid 1px {{itemHoverBorderBottom}};*/
     color: {{textHover}};
 }
-/******** end of jeff thinks these should be added ********/
+/******** end of just added for presentation ********/
 </script>
 
 <script id="autocomplete-template" type="text/x-handlebars-template">
@@ -797,7 +760,7 @@ striping:
 {{prefix}}aclist-item {
     cursor: pointer;
     list-style: none;
-    padding: {{itemPadding}}; /*2px 5px;*/
+    padding: {{itemPadding}};
 }
 
 {{prefix}}aclist-item-active { outline: #afafaf dotted thin;
@@ -823,10 +786,6 @@ striping:
     color: {{textActive}};
     outline: none;
 }
-
-/*  ****************************************************/
-/*  ****************************************************/
-
 </script>
 
 <script id="dial-template" type="text/x-handlebars-template">
@@ -948,8 +907,7 @@ v\:fill {
     background: none;
     opacity:0;
 }
-/**  *******************************/
-/**  *******************************/
+/********************************/
 
 </script>
 
@@ -1238,7 +1196,7 @@ v\:fill {
 {{prefix}}{{skinName}} {{prefix}}menuitem-content,
 {{prefix}}{{skinName}} {{prefix}}menu {{prefix}}menu {{prefix}}menuitem-content {
 
-    padding: {{itemPadding}}; /*0 1em; */
+    padding: {{itemPadding}};
     color: {{text}};
     text-decoration: none;
     cursor: default;
@@ -1257,7 +1215,7 @@ v\:fill {
 {{prefix}}{{skinName}} {{prefix}}menu-horizontal {{prefix}}menu-label,
 {{prefix}}{{skinName}} {{prefix}}menu-horizontal {{prefix}}menuitem-content {
 
-    padding: {{horizontalLabelPadding}}; /*0 10px;*/
+    padding: {{horizontalLabelPadding}};
     border-style: solid;
     border-color: {{border}};
     border-width: 1px 0;
@@ -1271,7 +1229,6 @@ v\:fill {
 }
 {{prefix}}{{skinName}} {{prefix}}menu-label,
 {{prefix}}{{skinName}} {{prefix}}menu {{prefix}}menu {{prefix}}menu-label {
-    /* Jeff fix me. need icons */
 	background: url(assets/images/vertical-menu-submenu-indicator.png) right center no-repeat;
 }
 
@@ -1292,7 +1249,6 @@ v\:fill {
 	font-style: normal;
 	padding-right: 20px;
     display: block;
-    /* Jeff fix me. need icons */
     background: url(assets/images/horizontal-menu-submenu-indicator.png) right center no-repeat;
 }
 
@@ -1307,12 +1263,12 @@ v\:fill {
     color: {{text}};
     text-decoration: none;
     cursor: default;
-	padding: {{splitButtonNavPadding}}; /*0 5px 0 10px;*/
+	padding: {{splitButtonNavPadding}};
 }
 
 {{prefix}}{{skinName}} {{prefix}}splitbuttonnav {{prefix}}menu-label {{prefix}}menu-toggle {
 
-	padding: {{togglePadding}}; /*jeff added top and bottom padding to match menu-label a*/ /*0;*/	/* Overide padding applied by the preceeding rule. */
+	padding: {{togglePadding}}; /* added top and bottom padding to match menu-label. Overide padding applied by the preceeding rule. */
 	border-left: solid 1px {{splitBorderLeft}};
 	width: 15px;
 	overflow: hidden;
@@ -1354,9 +1310,9 @@ v\:fill {
 {{prefix}}{{skinName}} {{prefix}}menu-horizontal {{prefix}}menuitem-active {{prefix}}menuitem-content,
 {{prefix}}{{skinName}} {{prefix}}menu-horizontal {{prefix}}menu-label-menuvisible {
 
-    border-color: {{itemActiveHorizontalBorder}};                 /* added this varialble after YUI conf for sam skin */
-	background: {{itemActiveHorizontalBackgroundGradient}};       /* added this varialble AND PROPERTY after YUI conf for sam skin */
-	background-color: {{itemActiveHorizontalBackgroundColor}};    /* added this varialble after YUI conf for sam skin */
+    border-color: {{itemActiveHorizontalBorder}};
+	background: {{itemActiveHorizontalBackgroundGradient}};
+	background-color: {{itemActiveHorizontalBackgroundColor}};
     color: {{itemAcitveText}};
 }
 
@@ -1381,7 +1337,6 @@ v\:fill {
 {{prefix}}{{skinName}} {{prefix}}splitbuttonnav {{prefix}}menu-label-menuvisible a {
 
     border-left-width: 1px;
-    /*margin-left: -1px; */
     color: {{itemAcitveText}};
 
 }
@@ -1414,14 +1369,14 @@ v\:fill {
     overflow:hidden !important;
 }
 
-/** jeff added, group discussion needed ***************************************/
+/** added ***************************************/
 {{prefix}}{{skinName}} {{prefix}}overlay-content {{prefix}}widget-hd,
 {{prefix}}{{skinName}} {{prefix}}overlay-content {{prefix}}widget-bd,
 {{prefix}}{{skinName}} {{prefix}}overlay-content {{prefix}}widget-ft {
     background-color: {{background}};
     border: solid 1px {{border}};
     border-bottom: none;
-    padding: {{hdBdFtPadding}}; /*0.3em 0.5em;*/
+    padding: {{hdBdFtPadding}};
     color: {{text}};
 }
 {{prefix}}{{skinName}} {{prefix}}overlay-content {{prefix}}widget-ft {
@@ -1465,7 +1420,7 @@ v\:fill {
     border-radius: {{panelRadius}};
 }
 {{prefix}}{{skinName}} {{prefix}}panel {{prefix}}widget-hd {
-    padding: {{hdPadding}}; /*8px 28px 8px 8px;*/  /* Room for close button. */
+    padding: {{hdPadding}}; /* Room for close button. */
     padding-right: 40px; /* Room for Close button */
     min-height: 13px;           /* For the close button */
     _height: 13px;              /* IE6 */
@@ -1480,14 +1435,14 @@ v\:fill {
     */
 }
 {{prefix}}{{skinName}} {{prefix}}panel {{prefix}}widget-hd {{prefix}}widget-buttons {
-    padding: {{hdButtonPadding}}; /*8px;*/
+    padding: {{hdButtonPadding}};
 }
 {{prefix}}{{skinName}} {{prefix}}panel {{prefix}}widget-bd {
-    padding: {{bdPadding}}; /*10px;*/
+    padding: {{bdPadding}};
 }
 {{prefix}}{{skinName}} {{prefix}}panel {{prefix}}widget-ft {
 	background: {{footBackground}};
-	padding: {{ftPadding}};8px;
+	padding: {{ftPadding}};
     text-align: right;
     border-radius: 0 0 {{panelRadius}} {{panelRadius}};
 }
@@ -1688,7 +1643,7 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
 
 </script>
 
-<!--////////////////////////////  non-widget template (html form elements) /////////////////  -->
+<!--////////////////////////////  non-widget template (html form element) /////////////////  -->
 <!-- This template is for tables -->
 <script id="table-template" type="text/x-handlebars-template">
 
@@ -1698,7 +1653,7 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
     font-family: arial, sans-serif;
     border-collapse: separate;
     border-spacing: 0;
-    /* IE7- don't support border-spacing, but separate is needed for more
+    /* IE7- doesn't support border-spacing, but separate is needed for more
      * reliable dimension calculation for scrollable's header width sync,
      * and it doesn't hurt to have the declaration here.
      */
@@ -1720,7 +1675,6 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
 {{prefix}}{{skinName}} {{prefix}}table td,
 {{prefix}}{{skinName}} {{prefix}}table th {
     border-left: 1px solid {{border}}; /*  inner column border */
-/*    border-width: 0 0 0 1px;*/
     font-size: inherit;
     margin: 0;
 	overflow: visible; /*to make ths where the title is really long work*/
@@ -1738,15 +1692,12 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
 
     font-weight: normal;
     text-align: left;
-/*    text-shadow: 0 1px 1px #fff;  */
     vertical-align: bottom;
     white-space: nowrap;
 }
 
 /*
 striping:
-   even - #fff (white)
-   odd  - #edf5ff (light blue)
 */
 {{prefix}}{{skinName}} {{prefix}}table-even td {
 }
@@ -2308,7 +2259,7 @@ striping:
                     </li>
                 </ul>
                 <div class="markup slider-markup-text-contrast">
-                    <label>Text Contrast: 150</label><a class="reset reset-text-contrast">Reset</a>
+                    <label class="preview-label">Text Contrast: 150</label><a class="reset reset-text-contrast">Reset</a>
                     <div id="slider-text-contrast"></div>
                 </div>
 
@@ -2387,22 +2338,20 @@ striping:
                     <div class="hint">(you'll need to change the class in the body tag to match)</div>
                 </div>
                 <div class="markup slider-markup-border-radius">
-                    <label>Border-radius: 100%</label><a class="reset reset-radius">Reset</a>
+                    <label class="preview-label">Border-radius: 100%</label><a class="reset reset-radius">Reset</a>
                     <div id="slider-radius"></div>
                 </div>
             </div>
             <div class="yui3-u">
-
                 <div class="markup slider-markup-horiz-padding">
-                    <label>Horiz: padding: 100%</label><a class="reset reset-padding-horiz">Reset</a>
+                    <label class="preview-label">Horiz. padding: 100%</label><a class="reset reset-padding-horiz">Reset</a>
                     <div id="slider-padding-horiz"></div>
                 </div>
                 <div class="markup slider-markup-vert-padding">
-                    <label>Vert padding: 100%</label><a class="reset reset-padding-vert">Reset</a>
+                    <label class="preview-label">Vert. padding: 100%</label><a class="reset reset-padding-vert">Reset</a>
                     <div id="slider-padding-vert"></div>
                 </div>
             </div>
-
         </div>
 
 
