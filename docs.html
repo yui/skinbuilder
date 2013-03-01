@@ -56,14 +56,14 @@ h1,h2,h3,h4,h5,h6 {
 /*  Specific to this page  */
 #list-control-tabs img, #use-pattern img {
     float: right;
-    margin: 0 0 1em 0.7em;
+    margin: 0 0 2.5em 0.7em;
 }
 #list-control-tabs li, #use-pattern li, .clear-floats {
     clear: both;
 }
 #list-control-tabs li, #use-pattern li {
-    margin-bottom: 1em;
-}
+/*    margin-top: 1em;
+*/}
 #main-colors {
     margin: 0 0 0 24px;
     padding: 0;
@@ -104,27 +104,34 @@ h1,h2,h3,h4,h5,h6 {
 
         <h2>Main Parts of the Tool</h2>
         <p>
-        There are three main parts to the Skin Builder UI.
+        There are 2 main parts to the Skin Builder UI.
         <ul>
             <li>Control Tabs</li>        
-            <li>Widget Preview</li>        
-            <li>Header</li>        
+            <li>Skin Preview</li>        
         </ul>
         </p>
         <h3>Control Tabs</h3>
-        Toward the top of YUI Skin Builder is an area with 4 tabs
+        Toward the top of YUI Skin Builder is an area with 5 tabs
         <ul id="list-control-tabs">
-            <li><img src="assets/images/cap_palette.png" width="561" height="109" alt="Color palette withy 6 main color blocks"/><strong>Palette:</strong> This displays 6 main blocks of color. Their background colors make up the foundation of the colors applied by the current skin.</li>
-            <li><img src="assets/images/cap_scheme.png" width="561" height="124" alt="Color scheme radio button choices"/><strong>Scheme:</strong> From this tab, you can select one of several color schemes, or start creating your own custom scheme. Color schemes set different relationships between the colors shown in the palette tab. More explanation about schemes later.</li>
-            <li><img src="assets/images/cap_controls.png" width="561" height="129" alt="Controls tab for padding, radius etc."/><strong>Controls:</strong> In the control tab, you can change the radius, and padding styles in the skin. You can also change the skin name, which marks all the selectors in the CSS code.</li>
-            <li><img src="assets/images/cap_code.png" width="561" height="123" alt="CSS generated code"/><strong>Code:</strong> This tab contains text area controls which display the real-time generated CSS code for your skin as you make modifications.</li>
+            <li>
+                <img src="assets/images/cap_items.png" width="561" height="97" alt="Items tab with checkboxes for modules to skin"/><strong>Items:</strong> This contains checkboxes for each of the available widgets and modules that are available for skinning.
+            </li>
+            <li>
+                <img src="assets/images/cap_palette.png" width="561" height="109" alt="Color palette withy 6 main color blocks"/><strong>Colors:</strong> This displays 6 main blocks of color. Their background colors make up the foundation of the colors applied by the current skin.
+            </li>
+            <li>
+                <img src="assets/images/cap_scheme.png" width="561" height="124" alt="Color scheme radio button choices"/><strong>Schemes:</strong> From this tab, you can select one of several color schemes, or start creating your own custom scheme. Color schemes set different relationships between the colors shown in the palette tab. More explanation about schemes later.
+            </li>
+            <li>
+                <img src="assets/images/cap_controls.png" width="561" height="129" alt="Controls tab for padding, radius etc."/><strong>Sizes:</strong> In the control tab, you can change the radius, and padding styles in the skin. You can also change the skin name, which marks all the selectors in the CSS code.
+            </li>
+            <li>
+                <img src="assets/images/cap_code.png" width="561" height="123" alt="CSS generated code"/><strong>Code:</strong> This tab contains text area controls which display the real-time generated CSS code for your skin as you make modifications.
+            </li>
         </ul>
-        <h3 class="clear-floats">Widget Preview</h3>
-        At the bottom of Skin Builder is an array of real instances of each of the YUI 3 Widgets. Their skin/appearance is continually updated with the latest changes you make in the Control Tabs.<br>
+        <h3 class="clear-floats">Skin Preview</h3>
+        At the bottom of Skin Builder is an array of real instances of each of the YUI 3 Widgets selected in the "Items" tab. Their skin/appearance is continually updated with the latest changes you make in the Control Tabs.<br>
         <img src="assets/images/cap_preview.png" width="706" height="525" alt="YUI Widgets Preview"/>
-
-        <h3>Header</h3>
-        The header contains 3 links, YUI Logo (goes to the yuilibrary.com), documentation (this page), and file an issue, (GitHub issues link).
 
         <h2>A Typical Use Pattern</h2>
         <ol id="use-pattern">

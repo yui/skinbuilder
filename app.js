@@ -915,7 +915,7 @@ function (Y) {
         overlay.move([anchorOverlay.getX(),  anchorOverlay.getY()] );
         panel.move([anchorPanel.getX(),  anchorPanel.getY()] );
     });
-    Y.one('#tabview-controls a').prepend('<img src="assets/images/picker_icon.png" width="14" height="14"/>');
+    Y.one('#tabview-controls .tab-color').prepend('<img src="assets/images/picker_icon.png" width="14" height="14"/>');
 
     Y.one('.tab-schemes').on('click', function(){
         overlayPicker.hide();
