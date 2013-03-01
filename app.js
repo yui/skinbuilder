@@ -78,6 +78,7 @@ function (Y) {
             container: PAGE_BG_COLOR
         }),
 
+        TEMPLATES_USED = ['button'],  // output CSS and Preview should show only what user wants to skin.
         TEMPLATES = {};
 
     function hexToHsl(hexInput) {
@@ -120,13 +121,23 @@ function (Y) {
     function updateCSS() {
         var cssOutput = document.getElementById('textarea-style'),
             css = '',
-            cssSpace = '';
+            cssSpace = '',
+            i;
 
         Y.Object.each(TEMPLATES, function(template, name) {
-            if(name === 'space') {
+            if (
+                (name === 'space') || 
+                (name === 'tabview') || 
+                (name === 'dial') ||
+                (name === 'slider')
+            ) { // required for Skin Builder UI
                 cssSpace += SKIN.render(name, template);
-            } else {
-                css += SKIN.render(name, template);                
+            } 
+            for (i = 0; i < TEMPLATES_USED.length; i+=1) {
+                if (name === TEMPLATES_USED[i]) { // if the user chooses to skin these
+                    css += SKIN.render(name, template);
+
+                }
             }
         });
 
@@ -921,4 +932,52 @@ function (Y) {
         updateTextAreaSettings();
     
     });
+
+    // listen for checkboxes that turn on/off which modules to skin
+    Y.one('#tab-modules').delegate('click', function(e){
+        var modStr = e.target.get('id').substring(4),
+            displayMe = (e.target._node.checked) ? 'inline-block' : 'none',
+            i,
+            foundMatch = false;  // found the name of the module in TEMPLATES_USED
+
+        // look in the modules to be used array for the modStr (name of the module)
+        for(i = 0; i < TEMPLATES_USED.length; i+=1){
+            if(modStr === TEMPLATES_USED[i]) {
+                foundMatch = true;
+                break;
+            }
+        }
+
+        
+        Y.one('.sb-preview-' + modStr).setStyle('display', displayMe);
+        if( (displayMe === 'none') && (foundMatch) ) {
+            TEMPLATES_USED.splice(i, 1); // dump module name from array
+        } else if(foundMatch === false) {
+            TEMPLATES_USED.push(modStr); // add module name to array
+        }
+        // changes to what's previewed likely affects the postion of overlay and panel
+        overlay.move([anchorOverlay.getX(),  anchorOverlay.getY()]);
+        panel.move([anchorPanel.getX(),  anchorPanel.getY()]);
+
+        updateCSS();
+
+    }, 'input');
+
+    // initial sync of preview (show/hide) and checkboxes ((un)checked) for each TEMPLATE_USE (checkboxes in "Modules" tab)
+    var initPreviewAndModulesCheckboxes = function (){
+        var i;
+
+        // they have to inline-block in CSS initially or Dial won't render properly.
+        // turn them all 'display' 'none' first
+        Y.all('#widget-container>li').setStyle('display', 'none'); 
+
+        // set the preview <li>'s inline-block only on the modules to be used
+        // set the checkboxes for the used modules to checked
+        for(i = 0; i < TEMPLATES_USED.length; i+=1) {
+            Y.all('#widget-container .sb-preview-' + TEMPLATES_USED[i]).setStyle('display', 'inline-block');
+            Y.one('#tab-modules #mod-' + TEMPLATES_USED[i]).setAttribute('checked');
+        }
+    }
+    initPreviewAndModulesCheckboxes();
+
 });

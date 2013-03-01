@@ -161,4 +161,4 @@ Skin.prototype = {
 
 Y.Skin = Skin;
 
-}, '@VERSION@', {'requires': ['colorspace', 'handlebars']});
+}, '@VERSION@', {'requires': ['colorspace', 'handlebars', 'skin-space']});

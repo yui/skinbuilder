@@ -59,6 +59,10 @@ body {
 #tabview-controls{
     margin: 0 20px;
 }
+#tabview-controls h4 {
+    margin:0;
+    padding:0;
+}
 #tabview-controls a img {
     vertical-align: top;
     margin-right: 0.3em;
@@ -239,6 +243,22 @@ h1 {
     top: 0;
     left: 20em;
 }
+
+/********************   which modules to skin ************/
+#tab-modules ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    
+}
+#tab-modules li {
+    display: inline-block;
+    *display: inline; /* IE inline block hack */
+    *zoom: 1;    
+    width: 10em;
+}
+
+
 
 .rule .label, .block .label-block {
     display: none;
@@ -521,14 +541,14 @@ h1 {
 #anchorOverlay {
     margin-top: 0em;
     width: 200px;
-    height: 4px;
+    height: 89px;
 }
 #overlayContent{
     /*opacity: 0; */
 }
 #anchorPanel {
     margin-top: 0px;
-    height: 4px;
+    height: 218px;
     width: 200px;
 }
 #panelContent p{

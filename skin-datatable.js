@@ -32,5 +32,5 @@ Y.Skin.renderers.datatable = function (skin) {
 };
 
 }, '0.0.1', {
-    requires: ['skin-space']
+    requires: []
 });

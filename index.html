@@ -2194,6 +2194,7 @@ striping:
         <li><a href="#tab-palette">Palette</a></li>
         <li><a class="tab-schemes" href="#tab-schemes">Schemes</a></li>
         <li><a href="#tab-controls">Controls</a></li>
+        <li><a href="#tab-modules">Modules</a></li>
         <li><a class="tab-code" href="#tab-code">Code</a></li>
     </ul>
     <div>
@@ -2328,8 +2329,6 @@ striping:
 
             </ul>
         </div>
-
-
         <div id="tab-controls" class="yui3-g">
             <div class="yui3-u">
                 <div class="skin-name-box">
@@ -2355,11 +2354,35 @@ striping:
         </div>
 
 
+        <div id="tab-modules">
+            <h4 class="preview-label">YUI Widgets</h4>
+            <ul>
+                <li><input id="mod-autocomplete" type="checkbox" /><label for ="mod-autocomplete">autocomplete</label></li>
+                <li><input id="mod-button" type="checkbox" /><label for ="mod-button">button</label></li>
+                <li><input id="mod-calendar" type="checkbox" /><label for ="mod-calendar">calendar</label></li>
+                <li><input id="mod-datatable" type="checkbox" /><label for ="mod-datatable">datatable</label></li>
+                <li><input id="mod-dial" type="checkbox" /><label for ="mod-dial">dial</label></li>
+                <li><input id="mod-nodeMenunav" type="checkbox" /><label for ="mod-nodeMenunav">nodeMenunav</label></li>
+                <li><input id="mod-overlay" type="checkbox" /><label for ="mod-overlay">overlay</label></li>
+                <li><input id="mod-panel" type="checkbox" /><label for ="mod-panel">panel</label></li>
+                <li><input id="mod-scrollview" type="checkbox" /><label for ="mod-scrollview">scrollview</label></li>
+                <li><input id="mod-slider" type="checkbox" /><label for ="mod-slider">slider</label></li>
+                <li><input id="mod-table" type="checkbox" /><label for ="mod-table">table</label></li>
+                <li><input id="mod-tabview" type="checkbox" /><label for ="mod-tabview">tabview</label></li>
+<!--                 <li><input id="mod-xx" type="checkbox" /><label for ="mod-xx">xx</label></li>
+                <li><input id="mod-xx" type="checkbox" /><label for ="mod-xx">xx</label></li>
+                <li><input id="mod-xx" type="checkbox" /><label for ="mod-xx">xx</label></li>
+ -->            
+            </ul>
+        </div>
+
+
+
         <div id="tab-code">
             <div class="yui3-g" id="layout">
                 <div class="yui3-u-1-2" id="out-style">
                     <div class="contents">
-                        <label class="tab-code-textarea-label">CSS for all widgets</label>
+                        <label class="tab-code-textarea-label">CSS for Selected Widgets/Modules</label>
                         <textarea id="textarea-style"></textarea>
                     </div>
                 </div>
@@ -2377,19 +2400,19 @@ striping:
 
 <!-- this UL is the container for all previewed widgets -->
 <ul id="widget-container">
-    <li><div class="widget-preview-label widget-preview-label-button">Button</div>
+    <li class="sb-preview-button"><div class="widget-preview-label widget-preview-label-button">Button</div>
         <button class="checkbox yui3-button yui3-button-selected" id="yui_3_6_0_1_1343853873543_37">Button 3</button>
         <button class="checkbox yui3-button" id="yui_3_6_0_1_1343853873543_37">Button 3</button>
         <p>
         <button class="yui3-button-disabled yui3-button" id="myDisabledButton" disabled="">Disabled</button>
     </li>
-    <li><div class="widget-preview-label">AutoComplete</div>
+    <li class="sb-preview-autocomplete"><div class="widget-preview-label">AutoComplete</div>
         <div id="my-autocomplete">
             <label for="ac-input" class="block-page-text-normal">Enter the name of a US state:</label><br>
             <input id="ac-input" type="text">
         </div>
     </li>
-    <li><div class="widget-preview-label">TabView</div>
+    <li class="sb-preview-tabview"><div class="widget-preview-label">TabView</div>
         <div id="tabview">
             <ul>
                 <li><a href="#foo">foo</a></li>
@@ -2403,10 +2426,10 @@ striping:
             </div>
         </div>
     </li>
-    <li><div class="widget-preview-label">DataTable</div>
+    <li class="sb-preview-datatable"><div class="widget-preview-label">DataTable</div>
         <div id="datatable"></div>
     </li>
-    <li><div class="widget-preview-label">ScrollView Vert.</div>
+    <li class="sb-preview-scrollview"><div class="widget-preview-label">ScrollView Vert.</div>
         <div id="scrollview-content" class="yui3-scrollview-loading">
             <ul>
                 <li>Dog</li>
@@ -2430,10 +2453,10 @@ striping:
             </ul>
         </div>
     </li>
-    <li><div class="widget-preview-label">Dial</div>
+    <li class="sb-preview-dial"><div class="widget-preview-label">Dial</div>
         <div id="dial"></div>
     </li>
-    <li><div class="widget-preview-label">Menu Nav Top</div>
+    <li class="sb-preview-nodeMenunav"><div class="widget-preview-label">Menu Nav Top</div>
         <div id="node-menunav" class="yui3-menu yui3-menu-horizontal"><!-- Bounding box -->
             <div class="yui3-menu-content"><!-- Content box -->
                 <ul>
@@ -2476,7 +2499,7 @@ striping:
             </div>
         </div>
     </li>
-    <li><div class="widget-preview-label">Split Button Nav Top</div>
+    <li class="sb-preview-nodeMenunav"><div class="widget-preview-label">Split Button Nav Top</div>
         <div id="node-menunav-split" class="yui3-menu yui3-menu-horizontal yui3-splitbuttonnav"><!-- Bounding box -->
 
 
@@ -2505,15 +2528,15 @@ striping:
             </div>
         </div>
     </li>
-    <li><div class="widget-preview-label">Slider Horiz.</div>
+    <li class="sb-preview-slider"><div class="widget-preview-label">Slider Horiz.</div>
         <div id="slider-report" class="block-page-text-normal">0</div>
         <div id="slider"></div>
         <!--<div id="slider-y"></div> vertical slider tested OK, then removed -->
     </li>
-    <li><div class="widget-preview-label">Calendar</div>
+    <li class="sb-preview-calendar"><div class="widget-preview-label">Calendar</div>
         <div id="mycalendar"></div>
     </li>
-    <li><div class="widget-preview-label">Panel</div>
+    <li class="sb-preview-panel"><div class="widget-preview-label">Panel</div>
         <div id="anchorPanel"></div>
         <div id="panelContent">
             <div class="yui3-widget-bd">
@@ -2534,7 +2557,7 @@ striping:
             </div>
         </div>
     </li>
-    <li><div class="widget-preview-label">Overlay</div>
+    <li class="sb-preview-overlay"><div class="widget-preview-label">Overlay</div>
         <div id="anchorOverlay"></div>
         <div id="overlayContent">
             <div class="yui3-widget-hd">Overlay Header</div>
@@ -2542,7 +2565,7 @@ striping:
             <div class="yui3-widget-ft">Overlay Footer</div>
         </div>
     </li>
-    <li><div class="widget-preview-label">Table</div>
+    <li class="sb-preview-table"><div class="widget-preview-label">Table</div>
         <!-- begin Form Elements -->
         <table class="yui3-table" border="1">
             <caption class="yui3-table-caption">Caption for this HTML table</caption>
@@ -2569,14 +2592,14 @@ striping:
         </table>
         <!-- end Form Elements -->
     </li>
-    <li><div class="widget-preview-label">ScrollView Horiz.</div>
+    <li class="sb-preview-scrollview"><div class="widget-preview-label">ScrollView Horiz.</div>
         <div id="scrollview-content-horiz" class="yui3-scrollview-loading">
             <ul>
                 <li>Dog</li><li>Cat</li><li>Bird</li><li>Fish</li><li>Snake</li><li>Turtle</li><li>Horse</li><li>Cow</li><li>Chicken</li><li>Alligator</li><li>Seal</li><li>Pelican</li><li>Lizard</li><li>Salmon</li><li>Whale</li><li>Frog</li><li>Eagle</li><li>Pig</li>
             </ul>
         </div>
     </li>
-</ul>
+</ul> <!--   end of container for widget previews    -->
 
 <div id="picker-outer">
     <div class="grip"></div>
