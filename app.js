@@ -78,7 +78,7 @@ function (Y) {
             container: PAGE_BG_COLOR
         }),
 
-        TEMPLATES_USED = ['button'],  // output CSS and Preview should show only what user wants to skin.
+        TEMPLATES_USED = ['autocomplete', 'button', 'calendar', 'datatable', 'dial', 'nodeMenunav', 'overlay', 'panel', 'scrollview', 'slider', 'tabview'],  // output CSS and Preview should show only what user wants to skin.
         TEMPLATES = {};
 
     function hexToHsl(hexInput) {
@@ -949,7 +949,7 @@ function (Y) {
         }
 
         
-        Y.one('.sb-preview-' + modStr).setStyle('display', displayMe);
+        Y.all('.sb-preview-' + modStr).setStyle('display', displayMe);
         if( (displayMe === 'none') && (foundMatch) ) {
             TEMPLATES_USED.splice(i, 1); // dump module name from array
         } else if(foundMatch === false) {
