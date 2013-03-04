@@ -23,13 +23,14 @@ YUI({
         'skin-slider'      : 'skin-slider.js',
         'skin-space'      : 'skin-space.js',
         'skin-tabview'     : 'skin-tabview.js',
+        'skin-form'        : 'skin-form.js',
 
         'skinner': {
             use: [
                 'skin', 'colorspace-schemes', 'skin-autocomplete', 'skin-button',
                 'skin-calendar', 'skin-datatable', 'skin-dial',
                 'skin-node-menunav', 'skin-overlay', 'skin-panel',
-                'skin-scrollview', 'skin-slider', 'skin-tabview', 'skin-table'
+                'skin-scrollview', 'skin-slider', 'skin-tabview', 'skin-table', 'skin-form'
             ]
         }
     }
@@ -78,7 +79,77 @@ function (Y) {
             container: PAGE_BG_COLOR
         }),
 
-        TEMPLATES_USED = ['autocomplete', 'button', 'calendar', 'datatable', 'dial', 'nodeMenunav', 'overlay', 'panel', 'scrollview', 'slider', 'tabview'],  // output CSS and Preview should show only what user wants to skin.
+        // TEMPLATES_USED = [
+
+        //         'autocomplete', 'button', 'calendar', 'datatable', 'dial', 'nodeMenunav', 'overlay', 'panel', 'scrollview', 'slider', 'tabview'
+        //     ],  // output CSS and Preview should show only what user wants to skin.
+            
+        TEMPLATES_USED = [
+                {
+                    name: 'autocomplete', 
+                    display: true,
+                    type: 'widget' 
+                }, 
+                {
+                    name: 'button', 
+                    display: true, 
+                    type: 'widget' 
+                }, 
+                {
+                    name: 'calendar', 
+                    display: true, 
+                    type: 'widget' 
+                }, 
+                {
+                    name: 'datatable', 
+                    display: true, 
+                    type: 'widget' 
+                }, 
+                {
+                    name: 'dial', 
+                    display: true, 
+                    type: 'widget', 
+                    required: true   ///////
+                }, 
+                {
+                    name: 'nodeMenunav', 
+                    display: true, 
+                    type: 'widget' 
+                }, 
+                {
+                    name: 'overlay', 
+                    display: true, 
+                    type: 'widget' 
+                }, 
+                {
+                    name: 'panel', 
+                    display: true, 
+                    type: 'widget' 
+                }, 
+                {
+                    name: 'scrollview', 
+                    display: true, 
+                    type: 'widget' 
+                }, 
+                {
+                    name: 'slider', 
+                    display: true, 
+                    type: 'widget', 
+                    required: true    /////////
+                }, 
+                {
+                    name: 'tabview', 
+                    display: true, 
+                    type: 'widget', 
+                    required: true   //////////
+                },
+                {
+                    name: 'form', 
+                    display: true, 
+                    type: 'yuicss'
+                }
+            ], 
+            
         TEMPLATES = {};
 
     function hexToHsl(hexInput) {
@@ -119,27 +190,30 @@ function (Y) {
     }
 
     function updateCSS() {
-        var cssOutput = document.getElementById('textarea-style'),
+        var cssOutput = document.getElementById('textarea-style'), // place from where user copies CSS code
             css = '',
-            cssSpace = '',
+            cssSpace = '', // any code placed in this var and 'css' var goes to the <style> block that this app uses for UI
             i;
 
         Y.Object.each(TEMPLATES, function(template, name) {
-            if (
-                (name === 'space') || 
-                (name === 'tabview') || 
-                (name === 'dial') ||
-                (name === 'slider')
-            ) { // required for Skin Builder UI
+            if(name === 'space'){
                 cssSpace += SKIN.render(name, template);
-            } 
-            for (i = 0; i < TEMPLATES_USED.length; i+=1) {
-                if (name === TEMPLATES_USED[i]) { // if the user chooses to skin these
-                    css += SKIN.render(name, template);
-
+            } else {
+                for (i = 0; i < TEMPLATES_USED.length; i+=1) {
+                    if (name === TEMPLATES_USED[i].name) {
+                        if((TEMPLATES_USED[i].display) || (TEMPLATES_USED[i].required)){
+                            cssSpace += SKIN.render(name, template);
+                        }
+                        if(TEMPLATES_USED[i].display) {
+                            css += SKIN.render(name, template);
+                        }
+                        break;
+                    }
                 }
             }
+            
         });
+
 
         cssOutput.value = css;
         STYLESHEET.innerHTML = cssSpace + css;
@@ -935,26 +1009,16 @@ function (Y) {
 
     // listen for checkboxes that turn on/off which modules to skin
     Y.one('#tab-modules').delegate('click', function(e){
-        var modStr = e.target.get('id').substring(4),
-            displayMe = (e.target._node.checked) ? 'inline-block' : 'none',
-            i,
-            foundMatch = false;  // found the name of the module in TEMPLATES_USED
+        var modStr = e.target.get('id').substring(4),    // example id="mod-autocomplete"
+            checkList = Y.all('#tab-modules input'),
+            index = checkList.indexOf(e.target),
+            displayMe; 
 
-        // look in the modules to be used array for the modStr (name of the module)
-        for(i = 0; i < TEMPLATES_USED.length; i+=1){
-            if(modStr === TEMPLATES_USED[i]) {
-                foundMatch = true;
-                break;
-            }
-        }
-
+        TEMPLATES_USED[index].display = e.target._node.checked;
+        displayMe = (TEMPLATES_USED[index].display) ? 'inline-block' : 'none'; 
         
         Y.all('.sb-preview-' + modStr).setStyle('display', displayMe);
-        if( (displayMe === 'none') && (foundMatch) ) {
-            TEMPLATES_USED.splice(i, 1); // dump module name from array
-        } else if(foundMatch === false) {
-            TEMPLATES_USED.push(modStr); // add module name to array
-        }
+
         // changes to what's previewed likely affects the postion of overlay and panel
         overlay.move([anchorOverlay.getX(),  anchorOverlay.getY()]);
         panel.move([anchorPanel.getX(),  anchorPanel.getY()]);
@@ -963,19 +1027,62 @@ function (Y) {
 
     }, 'input');
 
+
+    //handle click of showHideAll checkboxes that manage which modules are skinned and displayed
+    Y.one('#tab-modules').delegate('click', function(e){
+        var showMe = (e.target.getHTML() === "Select All"),
+            btnStr = showMe ? 'Remove All' : 'Select All',
+            displayMe = showMe ? 'inline-block' : 'none',
+            i;
+
+        if(e.target.hasClass('btn-widget')){
+            for(i = 0; i < TEMPLATES_USED.length; i+=1) {
+                if(TEMPLATES_USED[i].type === 'widget') {
+                    TEMPLATES_USED[i].display = showMe;
+                    Y.all('.sb-preview-' + TEMPLATES_USED[i].name).setStyle('display', displayMe);
+                }
+            }
+            Y.all('#checkboxes-widget input').set('checked', showMe);                  
+            Y.one('#tab-modules .btn-widget').setHTML(btnStr);
+         } else if (e.target.hasClass('btn-yuicss')) {
+            for(i = 0; i < TEMPLATES_USED.length; i+=1) {
+                if(TEMPLATES_USED[i].type === 'yuicss') {
+                    TEMPLATES_USED[i].display = showMe;                    
+                    Y.all('.sb-preview-' + TEMPLATES_USED[i].name).setStyle('display', displayMe);
+                }
+            }
+            Y.all('#checkboxes-yuicss input').set('checked', showMe);                  
+            Y.one('#tab-modules .btn-yuicss').setHTML(btnStr);
+        }    
+        updateCSS();
+    }, '.show-hide-all');
+
+
     // initial sync of preview (show/hide) and checkboxes ((un)checked) for each TEMPLATE_USE (checkboxes in "Modules" tab)
     var initPreviewAndModulesCheckboxes = function (){
-        var i;
-
+        var widgetUl = Y.one('#checkboxes-widget'),
+            yuiCSSUl = Y.one('#checkboxes-yuicss'),
+            i;
+        for(i = 0; i < TEMPLATES_USED.length; i+=1) {
+            var chk = (TEMPLATES_USED[i].display) ? 'checked' : '';
+            if(TEMPLATES_USED[i].type === "widget") {
+                widgetUl.append('<li><input id="mod-' + TEMPLATES_USED[i].name + '" type="checkbox" ' + chk + ' /><label for ="mod-' + TEMPLATES_USED[i].name + '">' + TEMPLATES_USED[i].name + '</label></li>');
+            } else if (TEMPLATES_USED[i].type === "yuicss"){
+                yuiCSSUl.append('<li><input id="mod-' + TEMPLATES_USED[i].name + '" type="checkbox" ' + chk + ' /><label for ="mod-' + TEMPLATES_USED[i].name + '">' + TEMPLATES_USED[i].name + '</label></li>');
+            }
+        }
         // they have to inline-block in CSS initially or Dial won't render properly.
         // turn them all 'display' 'none' first
-        Y.all('#widget-container>li').setStyle('display', 'none'); 
+        Y.all('#widget-container>li').setStyle('display', 'none');
+//        Y.all('#tab-modules input').setAttribute('checked', false); 
 
-        // set the preview <li>'s inline-block only on the modules to be used
-        // set the checkboxes for the used modules to checked
+        // show only the preview <li>'s of the modules to be used
+        // set the checkboxes for the used modules to 'checked'
         for(i = 0; i < TEMPLATES_USED.length; i+=1) {
-            Y.all('#widget-container .sb-preview-' + TEMPLATES_USED[i]).setStyle('display', 'inline-block');
-            Y.one('#tab-modules #mod-' + TEMPLATES_USED[i]).setAttribute('checked');
+            if(TEMPLATES_USED[i].display){
+                Y.all('#widget-container .sb-preview-' + TEMPLATES_USED[i].name).setStyle('display', 'inline-block');
+  //              Y.one('#tab-modules #mod-' + TEMPLATES_USED[i].name).setAttribute('checked');
+            }
         }
     }
     initPreviewAndModulesCheckboxes();

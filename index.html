@@ -1643,7 +1643,173 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
 
 </script>
 
-<!--////////////////////////////  non-widget template (html form element) /////////////////  -->
+<!--////////////////////////////  YUICSS templates  /////////////////  -->
+
+<script id="form-template" type="text/x-handlebars-template">
+input,
+select {
+  padding: {{inputPadding}};/*9px 9px;*/
+  border: 1px solid #bbb;
+  box-sizing: border-box;
+  display: inline-block;
+  margin-bottom: 5px;
+  border-radius: {{inputRadius}};
+  box-shadow: inset 0 1px 3px #ddd;
+  -webkit-transition: all 150ms ease-out;
+  -webkit-font-smoothing: antialiased;
+  font-size:90%;
+}
+input:focus,
+select:focus {
+  outline: 0;
+  outline: thin dotted \9;
+  /* IE6-9 */
+
+  border-color: #129FEA;
+  box-shadow: 0 0 5px #11AFED;
+
+}
+.yui3-checkbox,
+.yui3-radio {
+  margin-top: 5px;
+}
+input[disabled],
+select[disabled],
+textarea[disabled],
+input[readonly],
+select[readonly],
+textarea[readonly] {
+  cursor: not-allowed;
+  background-color: #ddd;
+}
+input:focus:invalid,
+textarea:focus:invalid,
+select:focus:invalid {
+  color: #b94a48;
+  border: 1px solid #ee5f5b;
+}
+input:focus:invalid:focus,
+textarea:focus:invalid:focus,
+select:focus:invalid:focus {
+  border-color: #e9322d;
+  box-shadow: 0 0 5px #ce1a15;
+}
+select {
+  width: 220px;
+  border: 1px solid #ccc;
+  background-color: white;
+}
+select[multiple] {
+  height: auto;
+}
+label {
+  display: block;
+  padding: 4px 0;
+  margin-bottom: 2.5px;
+  vertical-align: middle;
+  color: #999;
+  font-size:90%;
+}
+fieldset {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+legend {
+  display: block;
+  width: 100%;
+  padding: 10px 0;
+  margin-bottom: 10px;
+  font-size: 125%;
+  line-height: 10px;
+  color: #333;
+  border-bottom: 1px solid #e5e5e5;
+}
+.yui3-form-inline input,
+.yui3-form-horizontal input,
+.yui3-form-inline textarea,
+.yui3-form-horizontal textarea,
+.yui3-form-inline select,
+.yui3-form-horizontal select,
+.yui3-form-inline .yui3-help-inline,
+.yui3-form-horizontal .yui3-help-inline {
+  display: inline-block;
+  *display: inline;
+  /* IE7 inline-block hack */
+
+  *zoom: 1;
+  vertical-align: middle;
+}
+.yui3-form-inline label {
+  display: inline-block;
+}
+.yui3-form-horizontal .yui3-control-group {
+  margin-bottom: 10px;
+}
+.yui3-form-horizontal .yui3-control-group label {
+  text-align: right;
+  float: left;
+  width: 160px;
+  margin: 8px 10px 0 0;
+}
+.yui3-form-horizontal .yui3-controls {
+  margin: 20px 0 0 170px;
+}
+.yui3-input-rounded {
+  border-radius: 20px;
+  padding-left: 10px;
+}
+.yui3-group {
+  margin-bottom: 10px;
+}
+.yui3-group input {
+  display: block;
+  padding: 10px;
+  margin: 0;
+  border-radius: 0;
+  position: relative;
+  top: -1px;
+}
+.yui3-group :focus {
+  z-index: 2;
+}
+.yui3-group :first-child {
+  border-radius: 4px 4px 0 0;
+  top: 1px;
+}
+.yui3-group :last-child {
+  border-radius: 0 0 4px 4px;
+  top: -2px;
+}
+.yui3-input-mini {
+  width: 60px;
+}
+.yui3-input-small {
+  width: 90px;
+}
+.yui3-input-medium {
+  width: 150px;
+}
+.yui3-input-large {
+  width: 210px;
+}
+.yui3-input-xlarge {
+  width: 270px;
+}
+.yui3-input-xxlarge {
+  width: 530px;
+}
+button[type='submit'] {
+  font-size: 90%;
+}
+.yui3-help-inline {
+  display: inline-block;
+  padding-left: 5px;
+  vertical-align: middle;
+}
+</script>
+
+
 <!-- This template is for tables -->
 <script id="table-template" type="text/x-handlebars-template">
 
@@ -1755,9 +1921,14 @@ striping:
     color: {{blockPageTextNormal}};
 }
 
+#tabview-controls-container { /*needed a container to be 100% fixed so the tabview-controls could have left and right margin*/
+    background-color: {{blockPageBackground}};
+}
+
 #tabview-controls .yui3-tabview-panel {
     border: solid 1px;
     border-color: {{blockPageBorderLow}};
+    background-color: {{blockPageBackground}};
 }
 #scrollview-content-horiz li {
 
@@ -2189,214 +2360,285 @@ striping:
         </ul>
     </div>
 </div>
-<div id="tabview-controls">
-    <ul>
-        <li><a href="#tab-modules">Items</a></li>
-        <li><a class="tab-color" href="#tab-palette">Colors</a></li>
-        <li><a class="tab-schemes" href="#tab-schemes">Schemes</a></li>
-        <li><a href="#tab-controls">Sizes</a></li>
-        <li><a class="tab-code" href="#tab-code">Code</a></li>
-    </ul>
-    <div>
-        <div id="tab-modules">
-            <h4 class="preview-label">YUI Widgets</h4>
-            <ul>
-                <li><input id="mod-autocomplete" type="checkbox" /><label for ="mod-autocomplete">autocomplete</label></li>
-                <li><input id="mod-button" type="checkbox" /><label for ="mod-button">button</label></li>
-                <li><input id="mod-calendar" type="checkbox" /><label for ="mod-calendar">calendar</label></li>
-                <li><input id="mod-datatable" type="checkbox" /><label for ="mod-datatable">datatable</label></li>
-                <li><input id="mod-dial" type="checkbox" /><label for ="mod-dial">dial</label></li>
-                <li><input id="mod-nodeMenunav" type="checkbox" /><label for ="mod-nodeMenunav">nodeMenunav</label></li>
-                <li><input id="mod-overlay" type="checkbox" /><label for ="mod-overlay">overlay</label></li>
-                <li><input id="mod-panel" type="checkbox" /><label for ="mod-panel">panel</label></li>
-                <li><input id="mod-scrollview" type="checkbox" /><label for ="mod-scrollview">scrollview</label></li>
-                <li><input id="mod-slider" type="checkbox" /><label for ="mod-slider">slider</label></li>
-                <li><input id="mod-table" type="checkbox" /><label for ="mod-table">table</label></li>
-                <li><input id="mod-tabview" type="checkbox" /><label for ="mod-tabview">tabview</label></li>
-<!--                 <li><input id="mod-xx" type="checkbox" /><label for ="mod-xx">xx</label></li>
-                <li><input id="mod-xx" type="checkbox" /><label for ="mod-xx">xx</label></li>
-                <li><input id="mod-xx" type="checkbox" /><label for ="mod-xx">xx</label></li>
- -->            
-            </ul>
-        </div>
-        <div id="tab-palette">
-            <div class="color-space">
-                <ul>
-                    <li class="block block-page block-page-border" title="Page or Container Colors">
-                        <div class="text block-page-text-low">text.low</div>
-                        <div class="text block-page-text-normal">text.normal</div>
-                        <div class="text block-page-text-high">text.high</div>
-                        <div class="rule block-page-rule-low"></div>
-                        <div class="rule block-page-rule-high"></div>
-                        <div class="bucket bucket-picker bucket-page" title="Click to edit Page/Container Color"></div>
-                    </li>
-                    <li class="block background border">
-                        <ul>
-                            <li class="block block-highest block-highest-border" title="Highest / Master Color">
-                                <div class="text block-highest-text-low">text.low</div>
-                                <div class="text block-highest-text-normal">text.normal</div>
-                                <div class="text block-highest-text-high">text.high</div>
-                                <div class="rule block-highest-rule-low"></div>
-                                <div class="rule block-highest-rule-high"></div>
-                                <div class="bucket bucket-picker bucket-highest" title="Click to edit 'Master' color"></div>
-                                <div class="gradient"></div>
-                            </li>
-                            <li class="block block-high block-high-border" title="High">
-                                <div class="text block-high-text-low">text.low</div>
-                                <div class="text block-high-text-normal">text.normal</div>
-                                <div class="text block-high-text-high">text.high</div>
-                                <div class="rule block-high-rule-low"></div>
-                                <div class="rule block-high-rule-high"></div>
-                                <div class="bucket bucket-scheme bucket-high bucket-scheme-hidden" title="Click to adjust this scheme Color"></div>
-                                <div class="gradient"></div>
-                            </li>
-                            <li class="block block-normal block-normal-border" title="Normal">
-                                <div class="text block-normal-text-low">text.low</div>
-                                <div class="text block-normal-text-normal">text.normal</div>
-                                <div class="text block-normal-text-high">text.high</div>
-                                <div class="rule block-normal-rule-low"></div>
-                                <div class="rule block-normal-rule-high"></div>
-                                <div class="bucket bucket-scheme bucket-normal bucket-scheme-hidden" title="Click to adjust this scheme Color"></div>
-                                <div class="gradient"></div>
-                            </li>
-                            <li class="block block-low block-low-border" title="Low">
-                                <div class="text block-low-text-low">text.low</div>
-                                <div class="text block-low-text-normal">text.normal</div>
-                                <div class="text block-low-text-high">text.high</div>
-                                <div class="rule block-low-rule-low"></div>
-                                <div class="rule block-low-rule-high"></div>
-                                <div class="bucket bucket-scheme bucket-low bucket-scheme-hidden" title="Click to adjust this scheme Color"></div>
-                                <div class="gradient"></div>
-                            </li>
-                            <li class="block" title="Lowest">
-                                <div class="text text-low">text.low</div>
-                                <div class="text text-normal">text.normal</div>
-                                <div class="text text-high">text.high</div>
-                                <div class="rule rule-low"></div>
-                                <div class="rule rule-high"></div>
-                                <div class="bucket bucket-scheme bucket-lowest bucket-scheme-hidden" title="Click to adjust this scheme Color"></div>
-                            </li>
-                        </ul>
-                        <div class="gradient"></div>
-                    </li>
+
+<div id="tabview-controls-container">
+    <div id="tabview-controls">
+        <ul>
+            <li><a href="#tab-modules">Items</a></li>
+            <li><a class="tab-color" href="#tab-palette">Colors</a></li>
+            <li><a class="tab-schemes" href="#tab-schemes">Schemes</a></li>
+            <li><a href="#tab-controls">Sizes</a></li>
+            <li><a class="tab-code" href="#tab-code">Code</a></li>
+        </ul>
+        <div>
+            <div id="tab-modules">
+                <h4 class="preview-label">YUI Widgets<a class="show-hide-all btn-widget">Remove All</a></h4>
+                <ul id="checkboxes-widget">
+<!--                     <li><input id="mod-autocomplete" type="checkbox" /><label for ="mod-autocomplete">autocomplete</label></li>
+                    <li><input id="mod-button" type="checkbox" /><label for ="mod-button">button</label></li>
+                    <li><input id="mod-calendar" type="checkbox" /><label for ="mod-calendar">calendar</label></li>
+                    <li><input id="mod-datatable" type="checkbox" /><label for ="mod-datatable">datatable</label></li>
+                    <li><input id="mod-dial" type="checkbox" /><label for ="mod-dial">dial</label></li>
+                    <li><input id="mod-nodeMenunav" type="checkbox" /><label for ="mod-nodeMenunav">nodeMenunav</label></li>
+                    <li><input id="mod-overlay" type="checkbox" /><label for ="mod-overlay">overlay</label></li>
+                    <li><input id="mod-panel" type="checkbox" /><label for ="mod-panel">panel</label></li>
+                    <li><input id="mod-scrollview" type="checkbox" /><label for ="mod-scrollview">scrollview</label></li>
+                    <li><input id="mod-slider" type="checkbox" /><label for ="mod-slider">slider</label></li>
+                    <li><input id="mod-table" type="checkbox" /><label for ="mod-table">table</label></li>
+                    <li><input id="mod-tabview" type="checkbox" /><label for ="mod-tabview">tabview</label></li>
+ -->
                 </ul>
-                <div class="markup slider-markup-text-contrast">
-                    <label class="preview-label">Text Contrast: 150</label><a class="reset reset-text-contrast">Reset</a>
-                    <div id="slider-text-contrast"></div>
-                </div>
-
-
-            </div> <!-- end of .color-space  -->
-        </div>
-        <div id="tab-schemes">
-            <ul class="scheme-radios">
-                <li class="pick">
-                    <input id="monochrome" type="radio" checked="checked"/>
-                    <label for="monochrome">
-                        <ul class="swatches">
-                            <li></li><li></li><li></li><li></li>
-                        </ul>
-                        Monochrome
-                    </label>
-                </li>
-                <li class="pick">
-                    <input id="color-plus-gray" type="radio"/>
-                    <label for="color-plus-gray">
-                        <ul class="swatches">
-                            <li></li><li></li><li></li><li></li>
-                        </ul>
-                        Color Plus Gray
-                    </label>
-                </li>
-                <li class="pick">
-                    <input id="complementary" type="radio"/>
-                    <label for="complementary">
-                        <ul class="swatches">
-                            <li></li><li></li><li></li><li></li>
-                        </ul>
-                        Complementary
-                    </label>
-                </li>
-                <li class="pick">
-                    <input id="dark-complementary" type="radio"/>
-                    <label for="dark-complementary">
-                        <ul class="swatches swatches-dark">
-                            <li></li><li></li><li></li><li></li>
-                        </ul>
-                        Dark Complementary
-                    </label>
-                </li>
-<!--  this is needed for night simulation. add when ready. Also define in colorspace-schemes.js -->             
-                <li class="pick">
-                    <input id="dark-monochrome" type="radio"/>
-                    <label for="dark-monochrome">
-                        <ul class="swatches swatches-dark">
-                            <li></li><li></li><li></li><li></li>
-                        </ul>
-                        Dark Monochrome
-                    </label>
-                </li>
-<!--needed for custom color schemes-->
-                 <li class="pick custom">
-                    <input id="custom" type="radio"/>
-                    <label for="custom">
-                        <ul class="swatches swatches">
-                            <li></li><li></li><li></li><li></li>
-                        </ul>
-                        Create Custom Scheme
-                    </label>
-                </li>
- 
-
-            </ul>
-        </div>
-        <div id="tab-controls" class="yui3-g">
-            <div class="yui3-u">
-                <div class="skin-name-box">
-                    <label>Skin Name: </label>
-                    <span class="hint">yui3-skin-</span><input class="inp-skin-name" value="mine">
-                    <div class="hint">(you'll need to change the class in the body tag to match)</div>
-                </div>
-                <div class="markup slider-markup-border-radius">
-                    <label class="preview-label">Border-radius: 100%</label><a class="reset reset-radius">Reset</a>
-                    <div id="slider-radius"></div>
-                </div>
+                <h4 class="preview-label">YUICSS<a class="show-hide-all btn-yuicss">Remove All</a></h4>
+                <ul id="checkboxes-yuicss">
+                    <!-- <li><input id="mod-form" type="checkbox" /><label for ="mod-form">form</label></li> -->
+                </ul>
             </div>
-            <div class="yui3-u">
-                <div class="markup slider-markup-horiz-padding">
-                    <label class="preview-label">Horiz. padding: 100%</label><a class="reset reset-padding-horiz">Reset</a>
-                    <div id="slider-padding-horiz"></div>
-                </div>
-                <div class="markup slider-markup-vert-padding">
-                    <label class="preview-label">Vert. padding: 100%</label><a class="reset reset-padding-vert">Reset</a>
-                    <div id="slider-padding-vert"></div>
-                </div>
+            <div id="tab-palette">
+                <div class="color-space">
+                    <ul>
+                        <li class="block block-page block-page-border" title="Page or Container Colors">
+                            <div class="text block-page-text-low">text.low</div>
+                            <div class="text block-page-text-normal">text.normal</div>
+                            <div class="text block-page-text-high">text.high</div>
+                            <div class="rule block-page-rule-low"></div>
+                            <div class="rule block-page-rule-high"></div>
+                            <div class="bucket bucket-picker bucket-page" title="Click to edit Page/Container Color"></div>
+                        </li>
+                        <li class="block background border">
+                            <ul>
+                                <li class="block block-highest block-highest-border" title="Highest / Master Color">
+                                    <div class="text block-highest-text-low">text.low</div>
+                                    <div class="text block-highest-text-normal">text.normal</div>
+                                    <div class="text block-highest-text-high">text.high</div>
+                                    <div class="rule block-highest-rule-low"></div>
+                                    <div class="rule block-highest-rule-high"></div>
+                                    <div class="bucket bucket-picker bucket-highest" title="Click to edit 'Master' color"></div>
+                                    <div class="gradient"></div>
+                                </li>
+                                <li class="block block-high block-high-border" title="High">
+                                    <div class="text block-high-text-low">text.low</div>
+                                    <div class="text block-high-text-normal">text.normal</div>
+                                    <div class="text block-high-text-high">text.high</div>
+                                    <div class="rule block-high-rule-low"></div>
+                                    <div class="rule block-high-rule-high"></div>
+                                    <div class="bucket bucket-scheme bucket-high bucket-scheme-hidden" title="Click to adjust this scheme Color"></div>
+                                    <div class="gradient"></div>
+                                </li>
+                                <li class="block block-normal block-normal-border" title="Normal">
+                                    <div class="text block-normal-text-low">text.low</div>
+                                    <div class="text block-normal-text-normal">text.normal</div>
+                                    <div class="text block-normal-text-high">text.high</div>
+                                    <div class="rule block-normal-rule-low"></div>
+                                    <div class="rule block-normal-rule-high"></div>
+                                    <div class="bucket bucket-scheme bucket-normal bucket-scheme-hidden" title="Click to adjust this scheme Color"></div>
+                                    <div class="gradient"></div>
+                                </li>
+                                <li class="block block-low block-low-border" title="Low">
+                                    <div class="text block-low-text-low">text.low</div>
+                                    <div class="text block-low-text-normal">text.normal</div>
+                                    <div class="text block-low-text-high">text.high</div>
+                                    <div class="rule block-low-rule-low"></div>
+                                    <div class="rule block-low-rule-high"></div>
+                                    <div class="bucket bucket-scheme bucket-low bucket-scheme-hidden" title="Click to adjust this scheme Color"></div>
+                                    <div class="gradient"></div>
+                                </li>
+                                <li class="block" title="Lowest">
+                                    <div class="text text-low">text.low</div>
+                                    <div class="text text-normal">text.normal</div>
+                                    <div class="text text-high">text.high</div>
+                                    <div class="rule rule-low"></div>
+                                    <div class="rule rule-high"></div>
+                                    <div class="bucket bucket-scheme bucket-lowest bucket-scheme-hidden" title="Click to adjust this scheme Color"></div>
+                                </li>
+                            </ul>
+                            <div class="gradient"></div>
+                        </li>
+                    </ul>
+                    <div class="markup slider-markup-text-contrast">
+                        <label class="preview-label">Text Contrast: 150</label><a class="reset reset-text-contrast">Reset</a>
+                        <div id="slider-text-contrast"></div>
+                    </div>
+
+
+                </div> <!-- end of .color-space  -->
             </div>
-        </div>
+            <div id="tab-schemes">
+                <ul class="scheme-radios">
+                    <li class="pick">
+                        <input id="monochrome" type="radio" checked="checked"/>
+                        <label for="monochrome">
+                            <ul class="swatches">
+                                <li></li><li></li><li></li><li></li>
+                            </ul>
+                            Monochrome
+                        </label>
+                    </li>
+                    <li class="pick">
+                        <input id="color-plus-gray" type="radio"/>
+                        <label for="color-plus-gray">
+                            <ul class="swatches">
+                                <li></li><li></li><li></li><li></li>
+                            </ul>
+                            Color Plus Gray
+                        </label>
+                    </li>
+                    <li class="pick">
+                        <input id="complementary" type="radio"/>
+                        <label for="complementary">
+                            <ul class="swatches">
+                                <li></li><li></li><li></li><li></li>
+                            </ul>
+                            Complementary
+                        </label>
+                    </li>
+                    <li class="pick">
+                        <input id="dark-complementary" type="radio"/>
+                        <label for="dark-complementary">
+                            <ul class="swatches swatches-dark">
+                                <li></li><li></li><li></li><li></li>
+                            </ul>
+                            Dark Complementary
+                        </label>
+                    </li>
+    <!--  this is needed for night simulation. add when ready. Also define in colorspace-schemes.js -->             
+                    <li class="pick">
+                        <input id="dark-monochrome" type="radio"/>
+                        <label for="dark-monochrome">
+                            <ul class="swatches swatches-dark">
+                                <li></li><li></li><li></li><li></li>
+                            </ul>
+                            Dark Monochrome
+                        </label>
+                    </li>
+    <!--needed for custom color schemes-->
+                     <li class="pick custom">
+                        <input id="custom" type="radio"/>
+                        <label for="custom">
+                            <ul class="swatches swatches">
+                                <li></li><li></li><li></li><li></li>
+                            </ul>
+                            Create Custom Scheme
+                        </label>
+                    </li>
+     
 
-
-
-
-
-        <div id="tab-code">
-            <div class="yui3-g" id="layout">
-                <div class="yui3-u-1-2" id="out-style">
-                    <div class="contents">
-                        <label class="tab-code-textarea-label">CSS for Selected Widgets/Modules</label>
-                        <textarea id="textarea-style"></textarea>
+                </ul>
+            </div>
+            <div id="tab-controls" class="yui3-g">
+                <div class="yui3-u">
+                    <div class="skin-name-box">
+                        <label>Skin Name: </label>
+                        <span class="hint">yui3-skin-</span><input class="inp-skin-name" value="mine">
+                        <div class="hint">(you'll need to change the class in the body tag to match)</div>
+                    </div>
+                    <div class="markup slider-markup-border-radius">
+                        <label class="preview-label">Border-radius: 100%</label><a class="reset reset-radius">Reset</a>
+                        <div id="slider-radius"></div>
                     </div>
                 </div>
-                <div class="yui3-u-1-2" id="out-scheme">
-                    <div class="contents">
-                        <label class="tab-code-textarea-label">Skin Settings</label>
-                        <textarea id="textarea-scheme"></textarea>
+                <div class="yui3-u">
+                    <div class="markup slider-markup-horiz-padding">
+                        <label class="preview-label">Horiz. padding: 100%</label><a class="reset reset-padding-horiz">Reset</a>
+                        <div id="slider-padding-horiz"></div>
+                    </div>
+                    <div class="markup slider-markup-vert-padding">
+                        <label class="preview-label">Vert. padding: 100%</label><a class="reset reset-padding-vert">Reset</a>
+                        <div id="slider-padding-vert"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab-code">
+                <div class="yui3-g" id="layout">
+                    <div class="yui3-u-1-2" id="out-style">
+                        <div class="contents">
+                            <label class="tab-code-textarea-label">CSS for Selected Widgets/Modules</label>
+                            <textarea id="textarea-style"></textarea>
+                        </div>
+                    </div>
+                    <div class="yui3-u-1-2" id="out-scheme">
+                        <div class="contents">
+                            <label class="tab-code-textarea-label">Skin Settings</label>
+                            <textarea id="textarea-scheme"></textarea>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<h1 class="preview-label">Skin Preview</h1>
+
+    <!--  color picker and scheme adjusting panels markup  -->
+    <div id="picker-outer">
+        <div class="grip"></div>
+        <img class="close" src="assets/images/close.png" width="18" height="18" />
+        <div id="picker">
+        <div id="hs">
+            <img src="assets/images/hue_sat.jpg" width="180" height="180"/>
+            <div id="hs-dot"><div>&#8226;</div></div>
+        </div>
+        <div id="sliderL">
+            <img src="assets/images/lightness.jpg" width="20" height="180">
+            <div id="sliderL-line"></div>
+        </div>
+        <div class="picker-swatch">
+            <input type="text" class="picker-input" value="hello"/>
+        </div>
+        </div>
+    </div>
+
+    <div id="schemer-outer">
+        <div class="grip"></div>
+        <div class="schemer-hint">
+        Define this scheme color by adjusting its differences from the Master color.
+        </div>
+        <div class="yui3-g">
+        <div class="yui3-u-1-12">
+            <div class="content">
+                <div class="schemer-key">
+                    <div class="icon-label"></div>
+                </div>
+            </div>
+        </div>
+        <div class="yui3-u-1-6">
+            <div class="content content-arrow">
+                <div class="arrow-stem"></div><div class="arrow-head"></div>
+            </div>
+        </div>
+        <div class="yui3-u-1-2">
+            <div class="content">
+                <div id="dial-scheme-hue"></div>
+                <div class="slider-markup">
+                    <label>Saturation: </label> <span class="sat-output">4</span>
+                    <div id="slider-scheme-sat"></div>
+                </div>
+                <div class="slider-markup">
+                    <label>Lightness: </label> <span class="lit-output">2</span>
+                    <div id="slider-scheme-lit"></div>
+                </div>
+            </div>
+        </div>
+        <div class="yui3-u-1-6">
+            <div class="content content-arrow">
+                <div class="arrow-stem"></div><div class="arrow-head"></div>
+            </div>
+        </div>
+        <div class="yui3-u-1-12">
+            <div class="content">
+                <div class="schemer-swatch">
+                    <div class="icon-label"></div>
+                </div>
+            </div>
+        </div>
+        </div>            
+
+        <img class="close" src="assets/images/close.png" width="18" height="18" />
+    </div>
+
+
+
+
+</div><!-- end tabview-controls-container for fixed position -->
+<h1 id="skin-preview-header" class="preview-label">Skin Preview</h1>
 
 <!-- this UL is the container for all previewed widgets -->
 <ul id="widget-container">
@@ -2565,6 +2807,61 @@ striping:
             <div class="yui3-widget-ft">Overlay Footer</div>
         </div>
     </li>
+
+<!-- YUI CSS Markup -->
+    <li class="sb-preview-form"><div class="widget-preview-label">Default Form</div>
+        <form>
+        <fieldset>
+        <legend>Legend</legend>
+        <label>First Name</label>
+        <input type="text">
+        <select class='yui3-input-medium'>
+        <option>AL</option>
+        <option>CA</option>
+        </select>
+        <label class="yui3-checkbox">
+        <input type="checkbox"> I've read the terms and conditions
+        </label>
+        <button type="submit" class='yui3-button'>Submit</button>
+        </fieldset>
+        </form>
+    </li>        
+    <li class="sb-preview-form"><div class="widget-preview-label">Horizontal Form</div>
+        <form class="yui3-form-horizontal">
+        <fieldset>
+        <div class="yui3-control-group">
+        <label>Username</label>
+        <input type="text" placeholder="Username">
+        </div>
+         
+        <div class="yui3-control-group">
+        <label>Password</label>
+        <input type="password" placeholder="Password">
+        </div>
+         
+        <div class="yui3-controls">
+        <label class="yui3-checkbox">
+        <input type="checkbox"> Check me out
+        </label>
+        <button type="submit" class="yui3-button">Submit</button>
+        </div>
+        </fieldset>
+        </form>
+    </li>        
+    <li class="sb-preview-form"><div class="widget-preview-label">Grouped Inputs Form</div>
+        <form>
+        <fieldset class='yui3-group'>
+        <input type="text" class='yui3-input-large' placeholder='Username'>
+        <input type="password" class='yui3-input-large' placeholder='Password'>
+        <input type="text" class='yui3-input-large' placeholder='Email'>
+        </fieldset>
+        <fieldset class='yui3-group'>
+        <input type="text" class='yui3-input-large' placeholder='Another Group'>
+        <input type="text" class='yui3-input-large' placeholder='More Stuff'>
+        </fieldset>
+        <button type="submit" class="yui3-button yui3-input-large">Sign in</button>
+        </form>
+    </li>        
     <li class="sb-preview-table"><div class="widget-preview-label">Table</div>
         <!-- begin Form Elements -->
         <table class="yui3-table" border="1">
@@ -2601,71 +2898,7 @@ striping:
     </li>
 </ul> <!--   end of container for widget previews    -->
 
-<div id="picker-outer">
-    <div class="grip"></div>
-    <img class="close" src="assets/images/close.png" width="18" height="18" />
-    <div id="picker">
-    <div id="hs">
-        <img src="assets/images/hue_sat.jpg" width="180" height="180"/>
-        <div id="hs-dot"><div>&#8226;</div></div>
-    </div>
-    <div id="sliderL">
-        <img src="assets/images/lightness.jpg" width="20" height="180">
-        <div id="sliderL-line"></div>
-    </div>
-    <div class="picker-swatch">
-        <input type="text" class="picker-input" value="hello"/>
-    </div>
-    </div>
-</div>
 
-<div id="schemer-outer">
-    <div class="grip"></div>
-    <div class="schemer-hint">
-    Define this scheme color by adjusting its differences from the Master color.
-    </div>
-    <div class="yui3-g">
-    <div class="yui3-u-1-12">
-        <div class="content">
-            <div class="schemer-key">
-                <div class="icon-label"></div>
-            </div>
-        </div>
-    </div>
-    <div class="yui3-u-1-6">
-        <div class="content content-arrow">
-            <div class="arrow-stem"></div><div class="arrow-head"></div>
-        </div>
-    </div>
-    <div class="yui3-u-1-2">
-        <div class="content">
-            <div id="dial-scheme-hue"></div>
-            <div class="slider-markup">
-                <label>Saturation: </label> <span class="sat-output">4</span>
-                <div id="slider-scheme-sat"></div>
-            </div>
-            <div class="slider-markup">
-                <label>Lightness: </label> <span class="lit-output">2</span>
-                <div id="slider-scheme-lit"></div>
-            </div>
-        </div>
-    </div>
-    <div class="yui3-u-1-6">
-        <div class="content content-arrow">
-            <div class="arrow-stem"></div><div class="arrow-head"></div>
-        </div>
-    </div>
-    <div class="yui3-u-1-12">
-        <div class="content">
-            <div class="schemer-swatch">
-                <div class="icon-label"></div>
-            </div>
-        </div>
-    </div>
-    </div>            
-
-    <img class="close" src="assets/images/close.png" width="18" height="18" />
-</div>
 
 <script src="app.js"></script>
 

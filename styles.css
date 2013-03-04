@@ -14,6 +14,10 @@ body {
     font-size: 16px;
     margin-bottom: 0.3em;
     padding: 9px 20px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 20;
 }
 .header h1 {
     font-weight: normal;
@@ -45,9 +49,16 @@ body {
 .header .menu li {
     margin-right: 30px;
 }
+#skin-preview-header {
+    margin-top: 300px
+}
 #widget-container{
     margin: 0 0 1em 1em;
     padding: 0;
+}
+.show-hide-all {
+    font-size: 70%;
+    margin-left: 2em;
 }
 #tabview-controls .yui3-tabview-panel{
     background-color: transparent;
@@ -56,12 +67,28 @@ body {
     box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
     border-radius: 0 0 5px 5px;    
 }
+#tabview-controls-container { /*needed a container to be 100% fixed so the tabview-controls could have left and right margin*/
+    padding-top: 62px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 19;
+}
 #tabview-controls{
     margin: 0 20px;
+}
+#tabview-controls .yui3-tab-label {
+    padding: 0.5em 1.5em;  /* override the widget skin padding */
 }
 #tabview-controls h4 {
     margin:0;
     padding:0;
+}
+#tabview-controls label {
+    display: inline;
+}
+#tabview-controls input {
+    padding: 0.3em;
 }
 #tabview-controls a img {
     vertical-align: top;
