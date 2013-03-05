@@ -5,10 +5,10 @@ Y.Skin.renderers.form = function (skin) {
 
     return {
 
-        inputPadding: skin.padding(0.7, 0.7),
+        inputPadding: skin.padding(0.5, 0.6), //0.5em 0.6em
         inputRadius: skin.radius(0.4),  // 40% of the global radius in space.radius (space.js)
-
-
+        inputBorder: space.block.low.border.low, 
+        inputShadowInset: space.block.low.background,
 
         // ringBackgroundColor:        space.background,
         // ringGradient:               '-moz-linear-gradient(-45deg, rgba(255,255,255, 0.1) 0%, rgba(255,255,255,0) 39%, rgba(0,0,0,0) 40%, rgba(0,0,0, 0.2) 100%)',

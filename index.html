@@ -1644,34 +1644,38 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
 </script>
 
 <!--////////////////////////////  YUICSS templates  /////////////////  -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////////////// -->
 
 <script id="form-template" type="text/x-handlebars-template">
 input,
 select {
-  padding: {{inputPadding}};/*9px 9px;*/
-  border: 1px solid #bbb;
-  box-sizing: border-box;
+  padding: {{inputPadding}};
   display: inline-block;
-  margin-bottom: 5px;
-  border-radius: {{inputRadius}};
-  box-shadow: inset 0 1px 3px #ddd;
-  -webkit-transition: all 150ms ease-out;
+  margin: 0;
+  border: 1px solid {{inputBorder}};
+  font-size: 0.8em;
+  box-shadow: inset 0 1px 3px {{inputShadowInset}};
+  border-radius: 4px;
+  -webkit-transition: 0.3s linear border;
+  -moz-transition: 0.3s linear border;
+  -ms-transition: 0.3s linear border;
+  -o-transition: 0.3s linear border;
+  transition: 0.3s linear border;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
-  font-size:90%;
 }
+
 input:focus,
 select:focus {
   outline: 0;
-  outline: thin dotted \9;
-  /* IE6-9 */
-
+  outline: thin dotted \9; /* IE6-9 */
   border-color: #129FEA;
-  box-shadow: 0 0 5px #11AFED;
-
 }
 .yui3-checkbox,
 .yui3-radio {
-  margin-top: 5px;
+  margin: 0.5em 0;
 }
 input[disabled],
 select[disabled],
@@ -1680,7 +1684,9 @@ input[readonly],
 select[readonly],
 textarea[readonly] {
   cursor: not-allowed;
-  background-color: #ddd;
+  background-color: #eaeded;
+  color: #cad2d3;
+  border-color: transparent;
 }
 input:focus:invalid,
 textarea:focus:invalid,
@@ -1692,7 +1698,6 @@ input:focus:invalid:focus,
 textarea:focus:invalid:focus,
 select:focus:invalid:focus {
   border-color: #e9322d;
-  box-shadow: 0 0 5px #ce1a15;
 }
 select {
   width: 220px;
@@ -1704,8 +1709,7 @@ select[multiple] {
 }
 label {
   display: block;
-  padding: 4px 0;
-  margin-bottom: 2.5px;
+  margin: 0.5em 0 0.3em;
   vertical-align: middle;
   color: #999;
   font-size:90%;
@@ -1718,13 +1722,14 @@ fieldset {
 legend {
   display: block;
   width: 100%;
-  padding: 10px 0;
-  margin-bottom: 10px;
+  padding: 0.3em 0;
+  margin-bottom: 0.7em;
   font-size: 125%;
-  line-height: 10px;
+  line-height: 1.6em;
   color: #333;
   border-bottom: 1px solid #e5e5e5;
 }
+
 .yui3-form-inline input,
 .yui3-form-horizontal input,
 .yui3-form-inline textarea,
@@ -1732,33 +1737,41 @@ legend {
 .yui3-form-inline select,
 .yui3-form-horizontal select,
 .yui3-form-inline .yui3-help-inline,
-.yui3-form-horizontal .yui3-help-inline {
+.yui3-form-inline label,
+.yui3-form-horizontal .yui3-help-inline,
+.yui3-input-prepend .yui3-addon,
+.yui3-input-append .yui3-addon {
   display: inline-block;
-  *display: inline;
-  /* IE7 inline-block hack */
-
+  *display: inline; /* IE7 inline-block hack */
   *zoom: 1;
   vertical-align: middle;
 }
-.yui3-form-inline label {
-  display: inline-block;
+
+.yui3-form-inline .yui3-button {
+  margin-top: -0.2em`;
 }
+
+/* Horizontal Forms */
 .yui3-form-horizontal .yui3-control-group {
-  margin-bottom: 10px;
+  margin-bottom: 1em;
 }
 .yui3-form-horizontal .yui3-control-group label {
   text-align: right;
   float: left;
-  width: 160px;
-  margin: 8px 10px 0 0;
+  width: 10em;
+  margin: 0.4em 1em 0 0;
 }
 .yui3-form-horizontal .yui3-controls {
-  margin: 20px 0 0 170px;
+  margin: 1.5em 0 0 10em;
 }
+
+/* Rounded Inputs */
 .yui3-input-rounded {
   border-radius: 20px;
   padding-left: 10px;
 }
+
+/* Grouped Inputs */
 .yui3-group {
   margin-bottom: 10px;
 }
@@ -1774,13 +1787,15 @@ legend {
   z-index: 2;
 }
 .yui3-group :first-child {
-  border-radius: 4px 4px 0 0;
   top: 1px;
+  border-radius: 4px 4px 0 0;
 }
 .yui3-group :last-child {
-  border-radius: 0 0 4px 4px;
   top: -2px;
+  border-radius: 0 0 4px 4px;
 }
+
+/* Input Sizes */
 .yui3-input-mini {
   width: 60px;
 }
@@ -1802,77 +1817,505 @@ legend {
 button[type='submit'] {
   font-size: 90%;
 }
+
+/* Inline help for forms */
 .yui3-help-inline {
   display: inline-block;
   padding-left: 5px;
   vertical-align: middle;
 }
+
+
+/* Prepended and Appended Inputs */
+.yui3-input-prepend, .yui3-input-append {
+  margin-bottom: 0.5em;
+
+  /* Remove all whitespace between inline-block elements */
+  white-space: nowrap;
+  letter-spacing: -0.31em; /* webkit: collapse white-space between units */
+  *letter-spacing: normal; /* reset IE < 8 */
+  word-spacing: -0.43em; /* IE < 8 && gecko: collapse white-space between units */
+}
+
+/* The addons on prepended and appended inputs */
+
+.yui3-input-prepend .yui3-addon, .yui3-input-append .yui3-addon {
+  padding: 0.3em 0.8em;
+  font-size: 0.8em;
+  text-align: center;
+  border:1px solid #eee;
+  background: #eeeeef;
+
+  /* line-height and height equal the same value to get consistent height in FF/Chrome */
+  height:19px; 
+  line-height:19px;
+
+  /* Reset letter and word spacing to normal so wrapper white-space collapse don't affect this element */
+  letter-spacing: normal;
+  word-spacing: normal;
+  color: #999;
+}
+
+/* For prepended add ons, we only want border radius on the top and bottom left */
+.yui3-input-prepend .yui3-addon {
+  border-radius: 4px 0 0 4px;
+}
+
+/* For inputs that come after a prepended addon, we only want border radius on the top and bottom right. The vertical align:top is for the display:inline-block; on FF. */
+.yui3-input-prepend input {
+  vertical-align: top;
+  border-radius: 0 4px 4px 0;
+}
+
+/* For appended add ons, we only want border radius on the top and bottom right */
+.yui3-input-append .yui3-addon {
+  border-radius: 0 4px 4px 0;
+}
+
+/* For inputs that come before an appended addon, we only want border radius on the top and bottom left. The vertical align:top is for the display:inline-block; on FF. */
+.yui3-input-append input {
+  vertical-align: top;
+  border-radius: 4px 0 0 4px;
+}
+
+/* For addons that are part of a prepended and appended div, we want the first one to have top and bottom left rounded-corners. */
+.yui3-input-prepend.yui3-input-append .yui3-addon:first-child {
+  border-radius: 4px 0 0 4px;
+}
+
+/* For inputs that are part of a prepended and appended div, we dont want any rounded corners since they are surrounded by addons */
+.yui3-input-prepend.yui3-input-append input {
+  border-radius: 0;
+}
+
+/* Prepended and appended buttons should reset their border-radius to 0. Word and letter spacing return to normal because they were collapsed for parent (see above) */
+.yui3-input-prepend .yui3-button, .yui3-input-append .yui3-button {
+  border-radius: 0;
+  word-spacing: normal;
+  letter-spacing: normal;
+}
+
+/* For prepended buttons, we only want border radius on the top and bottom left. The negative margin stops the double-border and box-shadow from leaking */
+.yui3-input-prepend .yui3-button {
+  border-radius: 4px 0 0 4px;
+  margin: 0 -1px 0 0;
+}
+
+/* For appended buttons, we only want border radius on the top and bottom right. The negative margin stops the double-border and box-shadow from leaking */
+.yui3-input-append .yui3-button {
+  margin: 0 0 0 -1px;
+}
+
+/* If we have multiple appended buttons, we only want the rounded border to affect the last one. */
+.yui3-input-append .yui3-button:last-child {
+  border-radius: 0 4px 4px 0;
+}
+
 </script>
 
 
-<!-- This template is for tables -->
 <script id="table-template" type="text/x-handlebars-template">
+/* 
 
-{{prefix}}{{skinName}} {{prefix}}table {
-    margin: 0;
-    padding: 0;
+CSS TABLES 
+Simple CSS for HTML Tables
+
+Part of YUI CSS
+
+Author: Tilo Mitra
+
+*/
+
+
+/* foundational CSS */
+.yui3-table {
+    empty-cells: show;
+}
+
+/* basic skin styles */
+.yui3-table {
     font-family: arial, sans-serif;
     border-collapse: separate;
     border-spacing: 0;
-    /* IE7- doesn't support border-spacing, but separate is needed for more
+    /* IE7- don't support border-spacing, but separate is needed for more
      * reliable dimension calculation for scrollable's header width sync,
      * and it doesn't hurt to have the declaration here.
      */
-    border-collapse: collapse;
-    border: 1px solid {{border}};
+    /**border-collapse: collapse;*/
+    border: 1px solid #cbcbcb;
 }
 
-{{prefix}}{{skinName}} {{prefix}}table-caption {
-    color: {{captionText}};
+.yui3-table caption {
+    color: #000;
     font: italic 85%/1 arial, sans-serif;
-    padding: {{captionPadding}}; /*1em 0;*/
+    padding: 1em 0;
     text-align: center;
 }
-{{prefix}}{{skinName}} {{prefix}}table td {
-    background-color: {{cellBackground}};
-    border-top: 1px solid {{border}}; /*  inner row border */
-    color: {{cellText}};
-}
-{{prefix}}{{skinName}} {{prefix}}table td,
-{{prefix}}{{skinName}} {{prefix}}table th {
-    border-left: 1px solid {{border}}; /*  inner column border */
+
+.yui3-table td,
+.yui3-table th {
+    border-left: 1px solid #cbcbcb;/*  inner column border */
+    border-width: 0 0 0 1px;
     font-size: inherit;
     margin: 0;
-	overflow: visible; /*to make ths where the title is really long work*/
-    padding: {{cellPadding}}; /*4px 10px 4px 10px;*/ /* cell padding */
+    overflow: visible; /*to make ths where the title is really long work*/
+    padding: 6px 12px; /* cell padding */
 }
-{{prefix}}{{skinName}} {{prefix}}table td:first-child,
-{{prefix}}{{skinName}} {{prefix}}table th:first-child {
-    border-left-width: 0px;
+.yui3-table td:first-child,
+.yui3-table th:first-child {
+    border-left-width: 0;
 }
 
-{{prefix}}{{skinName}} {{prefix}}table th {
+.yui3-table thead {
+    /* header gradient 
+    background: #fff url(../../../../assets/skins/sam/sprite.png) repeat-x 0 0;
+
+    background-image:-webkit-linear-gradient(transparent 40%, rgba(0,0,0,0.21));
+    background-image:-moz-linear-gradient(top,transparent 40%,rgba(0,0,0,0.21));
+    background-image:    -ms-linear-gradient(transparent 40%, rgba(0,0,0,0.21));
+    background-image:     -o-linear-gradient(transparent 40%, rgba(0,0,0,0.21));
+    background-image:        linear-gradient(transparent 40%, rgba(0,0,0,0.21));
+    Not using an IE gradient because it doesn't support color stops */
+
     {{headGradient}};
     background-color: {{headBackground}};
     color: {{headText}};
 
     font-weight: normal;
     text-align: left;
+    text-shadow: 0 1px 1px #fff;
     vertical-align: bottom;
     white-space: nowrap;
 }
 
 /*
 striping:
+   even - #fff (white)
+   odd  - #edf5ff (light blue)
 */
-{{prefix}}{{skinName}} {{prefix}}table-even td {
+.yui3-table td {
+    background-color: transparent;
 }
-{{prefix}}{{skinName}} {{prefix}}table-odd  td  {
-    background-color: {{cellOddBackground}};
-    color: {{cellEvenText}};
+.yui3-table-odd td {
+    background-color: #f2f2f2;
 }
+
+
+/* BORDERED TABLES */
+.yui3-table-bordered td {
+    border-bottom:1px solid #cbcbcb;
+}
+.yui3-table-bordered tbody > tr:last-child td,
+.yui3-table-horizontal tbody > tr:last-child td {
+    border-bottom:1px solid #fff;
+}
+
+
+/* HORIZONTAL BORDERED TABLES */
+.yui3-table-horizontal {
+    border-width: 1px 0;
+}
+.yui3-table-horizontal td,
+.yui3-table-horizontal th {
+    border-width: 0 0 1px 0;
+    border-bottom:1px solid #cbcbcb;
+}
+.yui3-table-horizontal tbody > tr:last-child td {
+    border-bottom:1px solid #fff;
+}
+
+
+/* PLAIN HEADERS */
+.yui3-table .yui3-thead-simple {
+    /* header gradient */
+    background: #fff;
+    border-width:0 0 1px 0;
+}
+.yui3-table .yui3-thead-simple th {
+    border-bottom:1px solid #cbcbcb;
+}
+
 </script>
-<!-- ///////////////////////////////////////////////////////////////////////////////////////////////  -->
+
+
+<script id="list-template" type="text/x-handlebars-template">
+/* from YUICSS list-core.css */
+.yui3-menu ul {
+    position: absolute;
+    visibility: hidden;
+}
+
+.yui3-menu.yui3-menu-open {
+    visibility: visible;
+    z-index: 2;
+}
+
+.yui3-menu ul {
+    left: -10000px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    top: -10000px;
+    z-index: 1;
+}
+
+.yui3-menu > ul { position: relative; }
+
+.yui3-menu-open > ul {
+    left: 0;
+    top: 0;
+    visibility: visible;
+}
+
+.yui3-menu li { position: relative; }
+
+.yui3-menu a, .yui3-menu .yui3-menu-heading {
+    display: block;
+    color: inherit;
+    line-height: 1.5;
+    padding: 5px 20px;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.yui3-menu li a { padding: 5px 20px; }
+
+.yui3-menu-can-have-children > .yui3-menu-label:after {
+    content: '\25B8';
+    float: right;
+    font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'DejaVu Sans', sans-serif; /* These specific fonts have the Unicode char we need. */
+    margin-right: -20px;
+    margin-top: -1px;
+}
+
+.yui3-menu-can-have-children > .yui3-menu-label {
+    padding-right:30px;
+}
+
+.yui3-menu-separator {
+    background-color: #dfdfdf;
+    display: block;
+    height: 1px;
+    font-size: 0;
+    margin: 7px 2px;
+    overflow: hidden;
+}
+
+.yui3-menu-hidden { display: none; }
+
+/* FIXED MENU */
+.yui3-menu-fixed {
+    position: fixed;
+    top:0;
+    left:0;
+    width: 100%;
+}
+
+
+/* HORIZONTAL MENU CODE */
+
+/* Initial menus should be inline-block so that they are horizontal */
+.yui3-menu-horizontal li {
+    display: inline-block;
+}
+
+/* Submenus should still be display:block; */
+.yui3-menu-horizontal li li {
+    display: block;
+}
+
+/* Content after should be down arrow */
+.yui3-menu-horizontal > .yui3-menu-children > .yui3-menu-can-have-children > .yui3-menu-label:after {
+    content: "\25BE";
+}
+/*Add extra padding to elements that have the arrow so that the hover looks nice */
+.yui3-menu-horizontal > .yui3-menu-children > .yui3-menu-can-have-children > .yui3-menu-label {
+    padding-right:30px;
+}
+/* end from yuicss/list-core.css *******************************************/
+/* from yuicss list-paginator.css */
+.yui3-paginator {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.yui3-paginator li {
+    display: inline-block;
+    *display: inline;
+    /* IE 7 inline-block hack */
+    *zoom: 1;
+    margin: 0 -0.35em 0 0;    
+}
+.yui3-paginator .yui3-button {
+    border-radius: 0;
+    padding: 0.8em 1.4em;
+    vertical-align: top;
+    height: 1.1em;
+}
+.yui3-paginator .yui3-button:focus {
+    outline-style: none;
+}
+.yui3-paginator .prev, .yui3-paginator .next {
+    color: #C0C1C3;
+    text-shadow: 0px -1px 0px rgba(0,0,0, 0.45);
+}
+.yui3-paginator .prev {
+    border-radius: 2px 0 0 2px;
+}
+.yui3-paginator .next {
+    border-radius: 0 2px 2px 0;
+}
+/* end from YUICSS list-paginator.css ******************************/
+/* from YUICSS list.css *******************************************/
+/* MAIN MENU STYLING */
+
+.yui3-menu ul {
+    background: #ffffff; /* Old browsers */    
+    border-radius: 3px;
+    border: 1px solid #b7b7b7;
+}
+
+/* horizontal menus should not have a border*/
+.yui3-menu.yui3-menu-horizontal > ul {
+    border:none;
+}
+
+.yui3-menu ul.yui3-menu-light {
+    background: -moz-linear-gradient(top, #ffffff 1%, #f2f2f2 54%, #e3e4e6 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#ffffff), color-stop(54%,#f2f2f2), color-stop(100%,#e3e4e6)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #ffffff 1%,#f2f2f2 54%,#e3e4e6 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #ffffff 1%,#f2f2f2 54%,#e3e4e6 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #ffffff 1%,#f2f2f2 54%,#e3e4e6 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #ffffff 1%,#f2f2f2 54%,#e3e4e6 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e3e4e6',GradientType=0 ); /* IE6-9 */
+    box-shadow: 0 2px 2px rgba(0,0,0,0.13);
+    border: 1px solid #b7b7b7;
+}
+
+.yui3-menu ul.yui3-menu-dark {
+    background: #2d2f33; /* Old browsers */
+    background: -moz-linear-gradient(top, #2d2f33 0%, #000000 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#2d2f33), color-stop(100%,#000000)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #2d2f33 0%,#000000 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #2d2f33 0%,#000000 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #2d2f33 0%,#000000 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #2d2f33 0%,#000000 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2d2f33', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+    box-shadow: 0 2px 2px rgba(0,0,0,0.33);
+    border: 1px solid #000;
+}
+
+/* LINK STYLES */
+
+.yui3-menu a {
+    border: 1px solid transparent;
+    border-left: none;
+    border-right: none;
+    text-shadow: 1px 1px 1px #fff;
+
+}
+
+.yui3-menu a,
+.yui3-menu .yui3-menu-can-have-children > li:after {
+    color: #777;
+}
+
+.yui3-menu .yui3-menu-can-have-children > li:hover:after {
+    color: #fff;
+}
+
+
+/* DISABLED STATES */
+
+.yui3-menu li:not(.yui3-menu-disabled) a:hover {
+    background: #46b9e3; /* Old browsers */
+    background: -moz-linear-gradient(top, #46b9e3 0%, #35a9dc 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#46b9e3), color-stop(100%,#35a9dc)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #46b9e3 0%,#35a9dc 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #46b9e3 0%,#35a9dc 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #46b9e3 0%,#35a9dc 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #46b9e3 0%,#35a9dc 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#46b9e3', endColorstr='#35a9dc',GradientType=0 ); /* IE6-9 */
+    border-bottom-color: #5ba6c3;
+    border-top-color: #4dc2ed;
+    color: #fff;
+    text-shadow: 1px 1px 1px #5ba6c3;
+}
+
+.yui3-menu .yui3-menu-disabled > a {
+    background-image: none;
+    border-color: transparent;
+    cursor: default;
+}
+
+.yui3-menu .yui3-menu-disabled > a,
+.yui3-menu .yui3-menu-can-have-children.yui3-menu-disabled > a:after {
+    color: #bfbfbf;
+}
+
+/* HEADINGS */
+.yui3-menu .yui3-menu-heading {
+    color: #565d64;
+    text-transform: uppercase;
+    font-size:90%;
+    margin-top:0.5em;
+}
+
+
+/* ACTIVE MENU ITEM */
+.yui3-menu .yui3-menu-active a {
+    font-weight: bold;
+    color: #000;
+}
+
+/* FIXED MENU */
+.yui3-menu.yui3-menu-fixed > ul {
+    border-radius: 0;
+}
+
+
+
+
+/* DARK MENU STYLES */
+
+.yui3-menu-dark a,
+.yui3-menu-dark .yui3-menu-can-have-children > li:after {
+    color: #bbb;
+}
+
+.yui3-menu-dark a {
+    text-shadow: 1px 1px 1px #000;
+}
+
+.yui3-menu-dark .yui3-menu-separator {
+    background-color: #3B3D42;
+    box-shadow: 0 -1px 1px #010101;
+}
+
+.yui3-menu-dark .yui3-menu-active a, .yui3-menu-dark .yui3-menu-heading {
+    color: #fff;
+}
+/* end from YUICSS list.css ***********************************/
+/* from YUICSS list-responsive.css ****************************/
+/* RESPONSIVE */
+
+@media (max-width: 480px) {
+
+    .yui3-menu-horizontal {
+        width:100%;
+    }
+
+    .yui3-menu-children li {
+        display: block;
+        border-bottom:1px solid block;
+    }
+
+}
+/* end from list-responsive.css ******************/
+
+</script>
+
+<!-- /////// end of YUICSS styles ////////////////////////////////////////////////////////////////////////////////////////  -->
 <!-- this template for UI display of the color space ///////////////////////////////////////////////  -->
 
 <script id="space-template" type="text/x-handlebars-template">
@@ -2374,23 +2817,11 @@ striping:
             <div id="tab-modules">
                 <h4 class="preview-label">YUI Widgets<a class="show-hide-all btn-widget">Remove All</a></h4>
                 <ul id="checkboxes-widget">
-<!--                     <li><input id="mod-autocomplete" type="checkbox" /><label for ="mod-autocomplete">autocomplete</label></li>
-                    <li><input id="mod-button" type="checkbox" /><label for ="mod-button">button</label></li>
-                    <li><input id="mod-calendar" type="checkbox" /><label for ="mod-calendar">calendar</label></li>
-                    <li><input id="mod-datatable" type="checkbox" /><label for ="mod-datatable">datatable</label></li>
-                    <li><input id="mod-dial" type="checkbox" /><label for ="mod-dial">dial</label></li>
-                    <li><input id="mod-nodeMenunav" type="checkbox" /><label for ="mod-nodeMenunav">nodeMenunav</label></li>
-                    <li><input id="mod-overlay" type="checkbox" /><label for ="mod-overlay">overlay</label></li>
-                    <li><input id="mod-panel" type="checkbox" /><label for ="mod-panel">panel</label></li>
-                    <li><input id="mod-scrollview" type="checkbox" /><label for ="mod-scrollview">scrollview</label></li>
-                    <li><input id="mod-slider" type="checkbox" /><label for ="mod-slider">slider</label></li>
-                    <li><input id="mod-table" type="checkbox" /><label for ="mod-table">table</label></li>
-                    <li><input id="mod-tabview" type="checkbox" /><label for ="mod-tabview">tabview</label></li>
- -->
+                    <!-- lis added dynamically at runtime. see app.js initPreviewAndModulesCheckboxes() -->
                 </ul>
                 <h4 class="preview-label">YUICSS<a class="show-hide-all btn-yuicss">Remove All</a></h4>
                 <ul id="checkboxes-yuicss">
-                    <!-- <li><input id="mod-form" type="checkbox" /><label for ="mod-form">form</label></li> -->
+                    <!-- lis added dynamically at runtime. see app.js initPreviewAndModulesCheckboxes() -->
                 </ul>
             </div>
             <div id="tab-palette">
@@ -2695,6 +3126,13 @@ striping:
             </ul>
         </div>
     </li>
+    <!-- <li class="sb-preview-scrollview"><div class="widget-preview-label">ScrollView Horiz.</div>
+        <div id="scrollview-content-horiz" class="yui3-scrollview-loading">
+            <ul>
+                <li>Dog</li><li>Cat</li><li>Bird</li><li>Fish</li><li>Snake</li><li>Turtle</li><li>Horse</li><li>Cow</li><li>Chicken</li><li>Alligator</li><li>Seal</li><li>Pelican</li><li>Lizard</li><li>Salmon</li><li>Whale</li><li>Frog</li><li>Eagle</li><li>Pig</li>
+            </ul>
+        </div>
+    </li> -->
     <li class="sb-preview-dial"><div class="widget-preview-label">Dial</div>
         <div id="dial"></div>
     </li>
@@ -2807,6 +3245,19 @@ striping:
             <div class="yui3-widget-ft">Overlay Footer</div>
         </div>
     </li>
+<!-- End of YUI Widgets Markup //////////////////////////////////////////////////////////-->
+<!-- ////////////////////////////////////////////////////////////////////////////////////-->
+<!-- ////////////////////////////////////////////////////////////////////////////////////-->
+<!-- ////////////////////////////////////////////////////////////////////////////////////-->
+<!-- ////////////////////////////////////////////////////////////////////////////////////-->
+<!-- ////////////////////////////////////////////////////////////////////////////////////-->
+<!-- ////////////////////////////////////////////////////////////////////////////////////-->
+<!-- ////////////////////////////////////////////////////////////////////////////////////-->
+<!-- ////////////////////////////////////////////////////////////////////////////////////-->
+<!-- ////////////////////////////////////////////////////////////////////////////////////-->
+<!-- ////////////////////////////////////////////////////////////////////////////////////-->
+<!-- ////////////////////////////////////////////////////////////////////////////////////-->
+<!-- ////////////////////////////////////////////////////////////////////////////////////-->
 
 <!-- YUI CSS Markup -->
     <li class="sb-preview-form"><div class="widget-preview-label">Default Form</div>
@@ -2815,6 +3266,7 @@ striping:
         <legend>Legend</legend>
         <label>First Name</label>
         <input type="text">
+        <label>State</label>
         <select class='yui3-input-medium'>
         <option>AL</option>
         <option>CA</option>
@@ -2826,6 +3278,17 @@ striping:
         </fieldset>
         </form>
     </li>        
+    <li class="sb-preview-form"><div class="widget-preview-label">Form - Compact Inline</div>
+        <form class="yui3-form-inline">
+        <legend>A compact inline form</legend>
+        <input type="text" class="yui3-input-small" placeholder="Email">
+        <input type="password" class="yui3-input-small" placeholder="Password">
+        <label class="yui3-checkbox">
+        <input type="checkbox"> Remember me
+        </label>
+        <button type="submit" class="yui3-button">Sign in</button>
+        </form>
+    </li>
     <li class="sb-preview-form"><div class="widget-preview-label">Horizontal Form</div>
         <form class="yui3-form-horizontal">
         <fieldset>
@@ -2862,40 +3325,286 @@ striping:
         <button type="submit" class="yui3-button yui3-input-large">Sign in</button>
         </form>
     </li>        
-    <li class="sb-preview-table"><div class="widget-preview-label">Table</div>
-        <!-- begin Form Elements -->
-        <table class="yui3-table" border="1">
-            <caption class="yui3-table-caption">Caption for this HTML table</caption>
-            <tbody>
-                <tr>
-                    <th>head 1
-                    </th>
-                    <th>head 2
-                    </th>
-                </tr>
-                <tr class=""><td>cell 1</td><td>cell 2</td>
-                </tr>
-                <tr class=""><td>cell 3</td><td>cell 4</td>
-                </tr>
-                <tr class=""><td>cell 5</td><td>cell 6</td>
-                </tr>
-                <tr class="yui3-table-odd"><td>cell 7 odd</td><td>cell 8 odd</td>
-                </tr>
-                <tr class=""><td>cell 9</td><td>cell 10</td>
-                </tr>
-                <tr class="yui3-table-odd"><td>cell 11 odd</td><td>cell 12 odd</td>
-                </tr>
-            </tbody>
-        </table>
-        <!-- end Form Elements -->
-    </li>
-    <li class="sb-preview-scrollview"><div class="widget-preview-label">ScrollView Horiz.</div>
-        <div id="scrollview-content-horiz" class="yui3-scrollview-loading">
-            <ul>
-                <li>Dog</li><li>Cat</li><li>Bird</li><li>Fish</li><li>Snake</li><li>Turtle</li><li>Horse</li><li>Cow</li><li>Chicken</li><li>Alligator</li><li>Seal</li><li>Pelican</li><li>Lizard</li><li>Salmon</li><li>Whale</li><li>Frog</li><li>Eagle</li><li>Pig</li>
-            </ul>
+    <li class="sb-preview-form"><div class="widget-preview-label">Form - Prepend and Append</div>
+        <div class="yui3-input-prepend">
+        <span class="yui3-addon">@</span>
+        <input class="yui3-input-medium" type="text" placeholder="Username">
+        </div>
+         
+        <div class="yui3-input-append">
+        <input class="yui3-input-medium" type="text" placeholder="Length of road">
+        <span class="yui3-addon">miles to go</span>
+        </div>
+         
+        <div class="yui3-input-prepend yui3-input-append">
+        <span class="yui3-addon">There are</span>
+        <input class="yui3-input-medium" type="text" placeholder="Length of road">
+        <span class="yui3-addon">miles to go</span>
         </div>
     </li>
+    <li class="sb-preview-form"><div class="widget-preview-label">Form - Prepend and Append Buttons</div>
+        <div class="yui3-input-prepend">
+        <button type="submit" class="yui3-button yui3-input-small">Search</button>
+        <input class="yui3-input-medium" type="text" placeholder="Length of road">
+        </div>
+         
+        <div class="yui3-input-append">
+        <input class="yui3-input-medium" type="text" placeholder="Length of road">
+        <button type="submit" class="yui3-button yui3-input-small notice">Sign in</button>
+        </div>
+         
+        <div class="yui3-input-append">
+        <input class="yui3-input-medium" type="text" placeholder="Length of road">
+        <button type="submit" class="yui3-button yui3-input-small">Search</button>
+        <button type="submit" class="yui3-button yui3-input-small">Reset</button>
+        </div>
+    </li>
+
+    <li class="sb-preview-form"><div class="widget-preview-label">Form - Checkboxes and Radios</div>
+        <label class="yui3-checkbox">
+            <input type="checkbox" value="">
+            Here's option one. 
+        </label>
+        <label class="yui3-radio">
+            <input type="radio" checked="" value="option1" id="optionsRadios1" name="optionsRadios">
+            Here's a radio button. You can choose this one..
+        </label>
+        <label class="yui3-radio">
+            <input type="radio" value="option2" id="optionsRadios2" name="optionsRadios">
+            ..Or this one! 
+        </label>
+    </li>
+
+
+    <li class="sb-preview-table"><div class="widget-preview-label">Table - Default</div>
+        <table class="yui3-table">
+        <thead>
+        <tr>
+        <th>#</th>
+        <th>Make</th>
+        <th>Model</th>
+        <th>Year</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td>1</td>
+        <td>Dodge</td>
+        <td>Ram 1500</td>
+        <td>2010</td>
+        </tr>
+        <tr>
+        <td>2</td>
+        <td>Honda</td>
+        <td>Accord</td>
+        <td>2009</td>
+        </tr>
+        <tr>
+        <td>3</td>
+        <td>Tesla</td>
+        <td>Model S</td>
+        <td>2013</td>
+        </tr>
+        </tbody>
+        </table>
+    </li>
+    <li class="sb-preview-table"><div class="widget-preview-label">Table - Bordered</div>
+        <table class="yui3-table yui3-table-bordered">
+        <thead>
+        <tr>
+        <th>#</th>
+        <th>Make</th>
+        <th>Model</th>
+        <th>Year</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td>1</td>
+        <td>Dodge</td>
+        <td>Ram 1500</td>
+        <td>2010</td>
+        </tr>
+        <tr>
+        <td>2</td>
+        <td>Honda</td>
+        <td>Accord</td>
+        <td>2009</td>
+        </tr>
+        <tr>
+        <td>3</td>
+        <td>Tesla</td>
+        <td>Model S</td>
+        <td>2013</td>
+        </tr>
+        </tbody>
+        </table>
+    </li>
+    <li class="sb-preview-table"><div class="widget-preview-label">Table - Horizontal</div>
+        <table class="yui3-table yui3-table-horizontal">
+        <thead>
+        <tr>
+        <th>#</th>
+        <th>Make</th>
+        <th>Model</th>
+        <th>Year</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td>1</td>
+        <td>Dodge</td>
+        <td>Ram 1500</td>
+        <td>2010</td>
+        </tr>
+        <tr>
+        <td>2</td>
+        <td>Honda</td>
+        <td>Accord</td>
+        <td>2009</td>
+        </tr>
+        <tr>
+        <td>3</td>
+        <td>Tesla</td>
+        <td>Model S</td>
+        <td>2013</td>
+        </tr>
+        </tbody>
+        </table>
+    </li>
+    <li class="sb-preview-table"><div class="widget-preview-label">Table - Striped</div>
+        <table class="yui3-table yui3-table-horizontal">
+        <thead>
+        <tr>
+        <th>#</th>
+        <th>Make</th>
+        <th>Model</th>
+        <th>Year</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class='yui3-table-odd'>
+        <td>1</td>
+        <td>Dodge</td>
+        <td>Ram 1500</td>
+        <td>2010</td>
+        </tr>
+        <tr>
+        <td>2</td>
+        <td>Honda</td>
+        <td>Accord</td>
+        <td>2009</td>
+        </tr>
+        <tr class='yui3-table-odd'>
+        <td>3</td>
+        <td>Tesla</td>
+        <td>Model S</td>
+        <td>2013</td>
+        </tr>
+        </tbody>
+        </table>
+    </li>
+    <li class="sb-preview-table"><div class="widget-preview-label">Table - Simple (Bordered)</div>
+        <table class="yui3-table yui3-table-bordered">
+        <thead class="yui3-thead-simple">
+        <tr>
+        <th>#</th>
+        <th>Make</th>
+        <th>Model</th>
+        <th>Year</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td>1</td>
+        <td>Dodge</td>
+        <td>Ram 1500</td>
+        <td>2010</td>
+        </tr>
+        <tr>
+        <td>2</td>
+        <td>Honda</td>
+        <td>Accord</td>
+        <td>2009</td>
+        </tr>
+        <tr>
+        <td>3</td>
+        <td>Tesla</td>
+        <td>Model S</td>
+        <td>2013</td>
+        </tr>
+        </tbody>
+        </table>
+    </li>
+    <li class="sb-preview-table"><div class="widget-preview-label">table</div>
+    </li>
+    <li class="sb-preview-table"><div class="widget-preview-label">table</div>
+    </li>
+    <li class="sb-preview-table"><div class="widget-preview-label">table</div>
+    </li>
+    <li class="sb-preview-table"><div class="widget-preview-label">table</div>
+    </li>
+
+
+
+    <li class="sb-preview-list"><div class="widget-preview-label">Lists - Horizontal Menu</div>
+        <div class="yui3-menu yui3-menu-open yui3-menu-horizontal">
+        <ul>
+        <li><a href="#">Home</a></li>
+        <li class="yui3-menu-active"><a href="#">Flickr</a></li>
+        <li><a href="#">Messenger</a></li>
+        <li><a href="#">Sports</a></li>
+        <li><a href="#">Finance</a></li>
+        </ul>
+        </div>
+    </li>
+    <li class="sb-preview-list"><div class="widget-preview-label">List - Vertical Menu</div>
+        <div class="yui3-menu yui3-menu-open">
+        <ul>
+        <li class="yui3-menu-heading">Yahoo! Sites</li>
+        <li class="yui3-menu-separator"></li>
+        <li class="yui3-menu-active"><a href="#">Home</a></li>
+        <li><a href="#">Flickr</a></li>
+        <li><a href="#">Messenger</a></li>
+        <li><a href="#">Sports</a></li>
+        <li><a href="#">Finance</a></li>
+        </ul>
+        </div>
+    </li>
+    <li class="sb-preview-list"><div class="widget-preview-label">List - Paginator</div>
+        <ul class="yui3-paginator">
+        <li><a class="yui3-button prev" href="#">&#171;</a></li>
+        <li><a class="yui3-button" href="#">1</a></li>
+        <li><a class="yui3-button yui3-button-active" href="#">2</a></li>
+        <li><a class="yui3-button" href="#">3</a></li>
+        <li><a class="yui3-button" href="#">4</a></li>
+        <li><a class="yui3-button" href="#">5</a></li>
+        <li><a class="yui3-button next">&#187;</a></li>
+        </ul>
+    </li>
+    <li class="sb-preview-list"><div class="widget-preview-label">List</div>
+    </li>
+    <li class="sb-preview-list"><div class="widget-preview-label">List</div>
+    </li>
+    <li class="sb-preview-list"><div class="widget-preview-label">List</div>
+    </li>
+
+<!-- End of YUICSS Markup //////////////////////////////////////////////////////////-->
+<!-- ////////////////////////////////////////////////////////////////////////////////////-->
+<!-- ////////////////////////////////////////////////////////////////////////////////////-->
+<!-- ////////////////////////////////////////////////////////////////////////////////////-->
+<!-- ////////////////////////////////////////////////////////////////////////////////////-->
+<!-- ////////////////////////////////////////////////////////////////////////////////////-->
+<!-- ////////////////////////////////////////////////////////////////////////////////////-->
+<!-- ////////////////////////////////////////////////////////////////////////////////////-->
+<!-- ////////////////////////////////////////////////////////////////////////////////////-->
+<!-- ////////////////////////////////////////////////////////////////////////////////////-->
+<!-- ////////////////////////////////////////////////////////////////////////////////////-->
+<!-- ////////////////////////////////////////////////////////////////////////////////////-->
+<!-- ////////////////////////////////////////////////////////////////////////////////////-->
+
+
+
 </ul> <!--   end of container for widget previews    -->
 
 

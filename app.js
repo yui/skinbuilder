@@ -23,14 +23,19 @@ YUI({
         'skin-slider'      : 'skin-slider.js',
         'skin-space'      : 'skin-space.js',
         'skin-tabview'     : 'skin-tabview.js',
+
+        // begin YUICSS
         'skin-form'        : 'skin-form.js',
+        'skin-table'        : 'skin-table.js',
+        'skin-list'         : 'skin-list.js',
 
         'skinner': {
             use: [
                 'skin', 'colorspace-schemes', 'skin-autocomplete', 'skin-button',
                 'skin-calendar', 'skin-datatable', 'skin-dial',
                 'skin-node-menunav', 'skin-overlay', 'skin-panel',
-                'skin-scrollview', 'skin-slider', 'skin-tabview', 'skin-table', 'skin-form'
+                'skin-scrollview', 'skin-slider', 'skin-tabview', 
+                'skin-form', 'skin-table', 'skin-list'
             ]
         }
     }
@@ -87,66 +92,77 @@ function (Y) {
         TEMPLATES_USED = [
                 {
                     name: 'autocomplete', 
-                    display: true,
+                    display: false,
                     type: 'widget' 
                 }, 
                 {
                     name: 'button', 
-                    display: true, 
+                    display: false, 
                     type: 'widget' 
                 }, 
                 {
                     name: 'calendar', 
-                    display: true, 
+                    display: false, 
                     type: 'widget' 
                 }, 
                 {
                     name: 'datatable', 
-                    display: true, 
+                    display: false, 
                     type: 'widget' 
                 }, 
                 {
                     name: 'dial', 
-                    display: true, 
+                    display: false, 
                     type: 'widget', 
                     required: true   ///////
                 }, 
                 {
                     name: 'nodeMenunav', 
-                    display: true, 
+                    display: false, 
                     type: 'widget' 
                 }, 
                 {
                     name: 'overlay', 
-                    display: true, 
+                    display: false, 
                     type: 'widget' 
                 }, 
                 {
                     name: 'panel', 
-                    display: true, 
+                    display: false, 
                     type: 'widget' 
                 }, 
                 {
                     name: 'scrollview', 
-                    display: true, 
+                    display: false, 
                     type: 'widget' 
                 }, 
                 {
                     name: 'slider', 
-                    display: true, 
+                    display: false, 
                     type: 'widget', 
                     required: true    /////////
                 }, 
                 {
                     name: 'tabview', 
-                    display: true, 
+                    display: false, 
                     type: 'widget', 
                     required: true   //////////
-                },
+                }, ///////////////////////////////////// keep YUICSS modules below this line. 
+                // this is necessary because checkboxes are generated from this array and use the nodelist of checkboxes to find the index back to this array for updating.
                 {
                     name: 'form', 
                     display: true, 
                     type: 'yuicss'
+                },
+                {
+                    name: 'table', 
+                    display: true, 
+                    type: 'yuicss' 
+                },
+                {
+                    name: 'list', 
+                    display: true, 
+                    type: 'yuicss' 
                 }
             ], 
             
@@ -300,18 +316,18 @@ function (Y) {
     }).render("#datatable");
 
     // Scrollview instance Horizontal ///////////////////////////////////////////////////
-    var scrollViewX = new Y.ScrollView({
-        id: "scrollview",
-        srcNode: '#scrollview-content-horiz',
-        //height: 100, // specifying the height is only allowed on a vertical scrollView
-        width: 300,
-        flick: {
-            minDistance:2,
-            minVelocity:0.1,
-            axis: "x"
-        }
-    });
-    scrollViewX.render();
+    // var scrollViewX = new Y.ScrollView({
+    //     id: "scrollview",
+    //     srcNode: '#scrollview-content-horiz',
+    //     //height: 100, // specifying the height is only allowed on a vertical scrollView
+    //     width: 300,
+    //     flick: {
+    //         minDistance:2,
+    //         minVelocity:0.1,
+    //         axis: "x"
+    //     }
+    // });
+    // scrollViewX.render();
 
     // Scrollview instance Vertical ///////////////////////////////////////////////////
     var scrollView = new Y.ScrollView({
@@ -1062,14 +1078,19 @@ function (Y) {
     var initPreviewAndModulesCheckboxes = function (){
         var widgetUl = Y.one('#checkboxes-widget'),
             yuiCSSUl = Y.one('#checkboxes-yuicss'),
+            appendChksTo,
             i;
+
         for(i = 0; i < TEMPLATES_USED.length; i+=1) {
             var chk = (TEMPLATES_USED[i].display) ? 'checked' : '';
+
             if(TEMPLATES_USED[i].type === "widget") {
-                widgetUl.append('<li><input id="mod-' + TEMPLATES_USED[i].name + '" type="checkbox" ' + chk + ' /><label for ="mod-' + TEMPLATES_USED[i].name + '">' + TEMPLATES_USED[i].name + '</label></li>');
-            } else if (TEMPLATES_USED[i].type === "yuicss"){
-                yuiCSSUl.append('<li><input id="mod-' + TEMPLATES_USED[i].name + '" type="checkbox" ' + chk + ' /><label for ="mod-' + TEMPLATES_USED[i].name + '">' + TEMPLATES_USED[i].name + '</label></li>');
+                appendChksTo = widgetUl;
+            } else if (TEMPLATES_USED[i].type === "yuicss") {
+                appendChksTo = yuiCSSUl;
             }
+
+            appendChksTo.append('<li><input id="mod-' + TEMPLATES_USED[i].name + '" type="checkbox" ' + chk + ' /> <label for ="mod-' + TEMPLATES_USED[i].name + '">' + TEMPLATES_USED[i].name + '</label></li>');
         }
         // they have to inline-block in CSS initially or Dial won't render properly.
         // turn them all 'display' 'none' first
