@@ -6,6 +6,7 @@ Y.Skin.renderers.form = function (skin) {
     return {
 
         inputPadding: skin.padding(0.5, 0.6), //0.5em 0.6em
+        addonPadding: skin.padding(0.3, 0.8), //0.3em 0.8em
         inputRadius: skin.radius(0.4),  // 40% of the global radius in space.radius (space.js)
         inputBorder: space.block.low.border.low, 
         inputShadowInset: space.block.low.background,

@@ -207,21 +207,20 @@ function (Y) {
 
     function updateCSS() {
         var cssOutput = document.getElementById('textarea-style'), // place from where user copies CSS code
-            css = '',
-            cssSpace = '', // any code placed in this var and 'css' var goes to the <style> block that this app uses for UI
+            css = '', // any css code placed in this var goes only to the textarea the user copies CSS code
+            cssRequired = '', // any code placed in this var and 'css' var goes to the <style> block that this app uses for UI
             i;
 
         Y.Object.each(TEMPLATES, function(template, name) {
             if(name === 'space'){
-                cssSpace += SKIN.render(name, template);
+                cssRequired += SKIN.render(name, template);
             } else {
                 for (i = 0; i < TEMPLATES_USED.length; i+=1) {
                     if (name === TEMPLATES_USED[i].name) {
-                        if((TEMPLATES_USED[i].display) || (TEMPLATES_USED[i].required)){
-                            cssSpace += SKIN.render(name, template);
-                        }
                         if(TEMPLATES_USED[i].display) {
                             css += SKIN.render(name, template);
+                        } else if(TEMPLATES_USED[i].required){
+                            cssRequired += SKIN.render(name, template);
                         }
                         break;
                     }
@@ -232,7 +231,7 @@ function (Y) {
 
 
         cssOutput.value = css;
-        STYLESHEET.innerHTML = cssSpace + css;
+        STYLESHEET.innerHTML = cssRequired + css;
     }
 
     // this runs the code for the correct scheme

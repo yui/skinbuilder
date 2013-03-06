@@ -145,7 +145,6 @@
 
 
 <script id="tabview-template" type="text/x-handlebars-template">
-/* .yui-navset defaults to .yui-navset-top */
 {{prefix}}{{skinName}} {{prefix}}tabview-list {
     border:solid {{listBorderColor}}; /* color between tab list and content */
     border-width:0 0 5px;
@@ -1840,7 +1839,7 @@ button[type='submit'] {
 /* The addons on prepended and appended inputs */
 
 .yui3-input-prepend .yui3-addon, .yui3-input-append .yui3-addon {
-  padding: 0.3em 0.8em;
+  padding: {{addonPadding}};/*0.3em 0.8em;*/
   font-size: 0.8em;
   text-align: center;
   border:1px solid #eee;
@@ -3536,15 +3535,6 @@ striping:
         </tbody>
         </table>
     </li>
-    <li class="sb-preview-table"><div class="widget-preview-label">table</div>
-    </li>
-    <li class="sb-preview-table"><div class="widget-preview-label">table</div>
-    </li>
-    <li class="sb-preview-table"><div class="widget-preview-label">table</div>
-    </li>
-    <li class="sb-preview-table"><div class="widget-preview-label">table</div>
-    </li>
-
 
 
     <li class="sb-preview-list"><div class="widget-preview-label">Lists - Horizontal Menu</div>
@@ -3582,13 +3572,6 @@ striping:
         <li><a class="yui3-button next">&#187;</a></li>
         </ul>
     </li>
-    <li class="sb-preview-list"><div class="widget-preview-label">List</div>
-    </li>
-    <li class="sb-preview-list"><div class="widget-preview-label">List</div>
-    </li>
-    <li class="sb-preview-list"><div class="widget-preview-label">List</div>
-    </li>
-
 <!-- End of YUICSS Markup //////////////////////////////////////////////////////////-->
 <!-- ////////////////////////////////////////////////////////////////////////////////////-->
 <!-- ////////////////////////////////////////////////////////////////////////////////////-->
