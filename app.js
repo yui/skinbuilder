@@ -190,7 +190,7 @@ function (Y) {
         for (i = 0; i < SCHEME_NAMES.length; i+=1) {
             space = new Y.ColorSpace({
                 scheme: SCHEME_NAMES[i]
-            }).render(KEY_COLOR.block.highest.background);
+            }).render(KEY_COLOR.block.highest.background, SKIN.colorspace.background);
             schemeChoices.item(i).one('.swatches li:nth-child(1)').setStyle('backgroundColor', space.block.highest.background);
             schemeChoices.item(i).one('.swatches li:nth-child(2)').setStyle('backgroundColor', space.block.high.background);
             schemeChoices.item(i).one('.swatches li:nth-child(3)').setStyle('backgroundColor', space.block.normal.background);

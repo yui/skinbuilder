@@ -224,25 +224,38 @@ Y.ColorSpace.prototype = {
         colorspace = {
             background: this.adjustColor(color, this._adjustBG, 'percent'),
             block: {
+                highest: {
+                    background: color
+                },
                 container: {
                     background: containerColor
                 }
             }
         };
 
-        this.adjustColors(colorspace);
-        this.makeHoverBlock(colorspace);
+        // colorspace.background is not a block, so we neeed to set its foreground colors and hover colors (FIXME: colorspace.background should be a block)
+        // adjustColor*S* sets the colors of foreground things like text, rule, border
+        this.adjustColors(colorspace); // this is only creating foreground colors for colorspace.background
+        // creates the main blocks color for HOVER (slightly darker/lighter), then calls adjustColor*S* 
+        this.makeHoverBlock(colorspace); // this is only creating hover bkg and foreground colors for colorspace.background
 
         // generate forground and hover object colors for blocks
         for (block in this._adjust) {
             var adjustBy = this._adjust[block];
-            colorspace.block[block] = {
-                background: this.adjustColor(this._adjust[block].color || color, this._adjust[block], 'percent')
-            };
-
+            if(  (adjustBy.h === 0) && (adjustBy.s === 0) && (adjustBy.l === 0)  ){ // case of "highest (keycolor)" and "container" (page bkg)
+                // do no adjusting, because Y.Color.getSimilarBrightness adjustColor() 
+                // would do some adjustment even with h:0, s:0, l:0. 
+            } else { // only adjust the block's color if it needs adjustment
+                colorspace.block[block] = {
+                    background: this.adjustColor(this._adjust[block].color || color, this._adjust[block], 'percent')
+                };
+            }
+    
             this.adjustColors(colorspace.block[block]);
             this.makeHoverBlock(colorspace.block[block]);
         }
+
+
 
         return colorspace;
     }
