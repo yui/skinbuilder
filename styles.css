@@ -8,6 +8,13 @@ body {
     font-size: 90%;
     color: #444;
 }
+.rotate {   
+    -webkit-transform: rotate(-90deg);/* Safari */
+    -moz-transform: rotate(-90deg);/* Firefox */
+    -ms-transform: rotate(-90deg);/* IE */
+    -o-transform: rotate(-90deg);/* Opera */
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);/* Internet Explorer */
+}
 .header {
     background-color: rgba(100, 100, 100, 0.2);
     color: rgba(100, 100, 100, 0.5);
@@ -50,10 +57,14 @@ body {
     margin-right: 30px;
 }
 #skin-preview-header {
-    margin-top: 300px
+    right: -186px;
+    margin-top: 203px;
+    position: absolute;
+    top: 0;
+    width: 400px;
 }
 #widget-container{
-    margin: 0 0 1em 1em;
+    margin: 286px 0 1em 1em;
     padding: 0;
 }
 .show-hide-all {
@@ -63,7 +74,7 @@ body {
 #tabview-controls .yui3-tabview-panel{
     background-color: transparent;
     min-height: 166px;
-    padding: 0.3em 0.5em;
+    padding: 0.3em 1em;
     box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
     border-radius: 0 0 5px 5px;    
 }
@@ -73,6 +84,31 @@ body {
     top: 0;
     width: 100%;
     z-index: 19;
+}
+#preview-palette {
+    position: absolute;
+    right: 17px;
+    top: 65px;
+    cursor: pointer;
+}
+#preview-palette label {
+    display:inline;
+}
+#preview-palette ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    *display: inline; /* IE inline block hack */
+    *zoom: 1;    
+    vertical-align: middle;
+}
+#preview-palette li {
+    display: inline-block;
+    *display: inline; /* IE inline block hack */
+    *zoom: 1;    
+    width: 40px;
+    height: 10px;
 }
 #tabview-controls{
     margin: 0 20px;
@@ -106,6 +142,12 @@ body {
 #tab-code .contents {
     padding: 0.3em;
 }
+#tab-code .inp-skin-name {
+    width: 5em;
+}
+#tab-code .skin-name-label {
+    margin-left: 2em;
+}
 .color-space {
     position: relative;
 }
@@ -115,6 +157,13 @@ body {
     margin: 0.5em;
     min-width: 300px;
 }
+#tab-palette .contents {
+    margin-right: 2em;
+}
+#tab-palette .contents-middle {
+    width: 268px;
+}
+
 h1 {
     font-size: 145%;
     margin: 1em 0 0.3em 20px;
@@ -126,18 +175,13 @@ h1 {
 .color-space .text {
 /*    font-size: 17px;*/
 }
-.color-space .background {
-    position: relative;
-    padding: 0.5em 0 0.5em 0.5em;
-    margin-bottom: 1em !important;
-}
 .color-space ul {
     margin: 0;
     padding: 0;
 }
 .color-space > ul {
     list-style: none;
-    margin: 0 1em;
+    margin: 0;
     padding: 0;
     display: inline-block;
     vertical-align: top;
@@ -204,13 +248,30 @@ h1 {
     height: 28px;
 /*    box-shadow: 1px 1px 2px rgba(0,0,0,0.2);*/
     cursor: pointer;
-    opacity: 0.3;    
+    /*opacity: 0.3;*/    
 
     transition: opacity 0.2s;
     -moz-transition: opacity 0.2s; /* Firefox 4 */
     -webkit-transition: opacity 0.2s; /* Safari and Chrome */
     -o-transition: opacity 0.2s; /* Opera */
 }
+#tab-palette .bucket {
+    background-image: none;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
+    display: inline-block;
+    height: 32px;
+    line-height: 2.3em;
+    position: relative;
+    right: auto;
+    top: auto;
+    width: 175px;
+}
+#tab-palette .bucket img {
+    vertical-align: middle;
+    margin: -1px 0 0 9px;
+}
+
 .bucket div {
     position: absolute;
     left: 30px;
@@ -231,9 +292,9 @@ h1 {
 .bucket-selected {
     opacity: 1;
 }
-/********* skin name controls ***************/
-.skin-name-box {
-    margin-bottom: 1em;
+.bucket-deselected {
+    opacity: 0.3;
+    alpha(opacity=30);
 }
 /************* Scheme choosing radios *************/
 .scheme-radios {
@@ -318,6 +379,7 @@ h1 {
     box-shadow: 6px 6px 5px rgba(0, 0, 0, 0.15);
     border-radius: 5px;
 }
+#palette-outer .grip,
 .yui3-overlay #picker-outer .grip {
     background: url(assets/images/picker_grip.png);
     position: absolute;
@@ -326,6 +388,9 @@ h1 {
     top: 5px;
     width: 284px;
     cursor: pointer;
+}
+#palette-outer .grip {
+    width: 685px;
 }
 #picker {
     position: relative;
@@ -508,6 +573,18 @@ h1 {
     width: 12px;
 }
 /* end scheme overlay styles */
+/* previw palette styles **********************/
+#palette-outer {
+    border: 1px solid #CCCCCC;
+    background-color: #eee;
+    padding: 1.3em 1em;
+    box-shadow: 6px 6px 5px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+}
+/* END previw palette styles **********************/
+
+
+
 .tab-code-textarea-label {
     display: block;
 }
@@ -521,10 +598,6 @@ h1 {
     background-color: rgba(255,255,255, 0.2);
 
 }
-.skin-name-box .hint {
-    font-size: 80%;
-}
-
 .markup {
     margin: 10px 0;
     position: relative;
@@ -580,6 +653,9 @@ h1 {
 }
 #panelContent p{
     margin: 0;
+}
+#panelContent label{
+    display: block;
 }
 #node-menunav-split {
 }

@@ -2334,7 +2334,7 @@ striping:
 }
 
 #tab-schemes,
-#tab-controls,
+#tab-modules,
 .slider-markup-text-contrast,
 .preview-label {
     color: {{blockPageTextNormal}};
@@ -2372,6 +2372,42 @@ striping:
     border-color: {{blockPageBorderLow}};
     background-color: {{blockPageBackground}};
 }
+#tabview-controls-container label {
+    color: {{blockPageTextNormal}};
+}
+
+#tab-palette .bucket-highest {
+    {{blockHighestGradient}};
+    background-color: {{blockHighestBackground}};
+    color: {{blockHighestTextNormal}};
+    border: solid 1px;
+    border-color: {{blockHighestBorderHigh}} {{blockHighestBorderLow}} {{blockHighestBorderLow}} {{blockHighestBorderHigh}};
+}
+#tab-palette .bucket-highest:hover {
+    {{blockHighestHoverGradient}};
+    background-color: {{blockHighestHoverBackground}};
+    color: {{blockHighestHoverTextNormal}};
+    border: solid 1px;
+    border-color: {{blockHighestHoverBorderHigh}} {{blockHighestHoverBorderLow}} {{blockHighestHoverBorderLow}} {{blockHighestHoverBorderHigh}};
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+}
+#tab-palette .bucket-page {
+    {{blockPageGradient}};
+    background-color: {{blockPageBackground}};
+    color: {{blockPageTextNormal}};
+    border: solid 1px;
+    border-color: {{blockPageBorderHigh}} {{blockPageBorderLow}} {{blockPageBorderLow}} {{blockPageBorderHigh}};
+}
+#tab-palette .bucket-page:hover {
+    {{blockPageHoverGradient}};
+    
+    background-color: {{blockPageHoverBackground}};
+    color: {{blockPageHoverTextNormal}};
+    border: solid 1px;
+    border-color: {{blockPageHoverBorderHigh}} {{blockPageHoverBorderLow}} {{blockPageHoverBorderLow}} {{blockPageHoverBorderHigh}};
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+}
+
 #scrollview-content-horiz li {
 
     border-bottom-style: none;
@@ -2806,91 +2842,51 @@ striping:
 <div id="tabview-controls-container">
     <div id="tabview-controls">
         <ul>
-            <li><a href="#tab-modules">Items</a></li>
-            <li><a class="tab-color" href="#tab-palette">Colors</a></li>
+            <li><a class="tab-color" href="#tab-palette">Style</a></li>
             <li><a class="tab-schemes" href="#tab-schemes">Schemes</a></li>
-            <li><a href="#tab-controls">Sizes</a></li>
+            <li><a href="#tab-modules">Items</a></li>
             <li><a class="tab-code" href="#tab-code">Code</a></li>
         </ul>
         <div>
-            <div id="tab-modules">
-                <h4 class="preview-label">YUI Widgets<a class="show-hide-all btn-widget">Remove All</a></h4>
-                <ul id="checkboxes-widget">
-                    <!-- lis added dynamically at runtime. see app.js initPreviewAndModulesCheckboxes() -->
-                </ul>
-                <h4 class="preview-label">YUICSS<a class="show-hide-all btn-yuicss">Remove All</a></h4>
-                <ul id="checkboxes-yuicss">
-                    <!-- lis added dynamically at runtime. see app.js initPreviewAndModulesCheckboxes() -->
-                </ul>
-            </div>
-            <div id="tab-palette">
-                <div class="color-space">
-                    <ul>
-                        <li class="block block-page block-page-border" title="Page or Container Colors">
-                            <div class="text block-page-text-low">text.low</div>
-                            <div class="text block-page-text-normal">text.normal</div>
-                            <div class="text block-page-text-high">text.high</div>
-                            <div class="rule block-page-rule-low"></div>
-                            <div class="rule block-page-rule-high"></div>
-                            <div class="bucket bucket-picker bucket-page" title="Click to edit Page/Container Color"></div>
-                        </li>
-                        <li class="block background border">
-                            <ul>
-                                <li class="block block-highest block-highest-border" title="Highest / Master Color">
-                                    <div class="text block-highest-text-low">text.low</div>
-                                    <div class="text block-highest-text-normal">text.normal</div>
-                                    <div class="text block-highest-text-high">text.high</div>
-                                    <div class="rule block-highest-rule-low"></div>
-                                    <div class="rule block-highest-rule-high"></div>
-                                    <div class="bucket bucket-picker bucket-highest" title="Click to edit 'Master' color"></div>
-                                    <div class="gradient"></div>
-                                </li>
-                                <li class="block block-high block-high-border" title="High">
-                                    <div class="text block-high-text-low">text.low</div>
-                                    <div class="text block-high-text-normal">text.normal</div>
-                                    <div class="text block-high-text-high">text.high</div>
-                                    <div class="rule block-high-rule-low"></div>
-                                    <div class="rule block-high-rule-high"></div>
-                                    <div class="bucket bucket-scheme bucket-high bucket-scheme-hidden" title="Click to adjust this scheme Color"></div>
-                                    <div class="gradient"></div>
-                                </li>
-                                <li class="block block-normal block-normal-border" title="Normal">
-                                    <div class="text block-normal-text-low">text.low</div>
-                                    <div class="text block-normal-text-normal">text.normal</div>
-                                    <div class="text block-normal-text-high">text.high</div>
-                                    <div class="rule block-normal-rule-low"></div>
-                                    <div class="rule block-normal-rule-high"></div>
-                                    <div class="bucket bucket-scheme bucket-normal bucket-scheme-hidden" title="Click to adjust this scheme Color"></div>
-                                    <div class="gradient"></div>
-                                </li>
-                                <li class="block block-low block-low-border" title="Low">
-                                    <div class="text block-low-text-low">text.low</div>
-                                    <div class="text block-low-text-normal">text.normal</div>
-                                    <div class="text block-low-text-high">text.high</div>
-                                    <div class="rule block-low-rule-low"></div>
-                                    <div class="rule block-low-rule-high"></div>
-                                    <div class="bucket bucket-scheme bucket-low bucket-scheme-hidden" title="Click to adjust this scheme Color"></div>
-                                    <div class="gradient"></div>
-                                </li>
-                                <li class="block" title="Lowest">
-                                    <div class="text text-low">text.low</div>
-                                    <div class="text text-normal">text.normal</div>
-                                    <div class="text text-high">text.high</div>
-                                    <div class="rule rule-low"></div>
-                                    <div class="rule rule-high"></div>
-                                    <div class="bucket bucket-scheme bucket-lowest bucket-scheme-hidden" title="Click to adjust this scheme Color"></div>
-                                </li>
-                            </ul>
-                            <div class="gradient"></div>
-                        </li>
-                    </ul>
-                    <div class="markup slider-markup-text-contrast">
-                        <label class="preview-label">Text Contrast: 150</label><a class="reset reset-text-contrast">Reset</a>
-                        <div id="slider-text-contrast"></div>
+            <div id="tab-palette" class="yui3-g">
+                <div class="yui3-u">
+                    <div class="contents">
+                        <p>
+                        <div class="bucket bucket-picker bucket-highest" title="Click to edit 'Master' color">
+                            <img src="assets/images/picker_icon.png"/>
+                            Edit Master Color...
+                        </div>
+                        </p>
+                        <div class="bucket bucket-picker bucket-page" title="Click to edit Page/Container Color">
+                            <img src="assets/images/picker_icon.png"/>
+                            Edit Page Color...
+                        </div>
                     </div>
-
-
-                </div> <!-- end of .color-space  -->
+                </div>
+                <div class="yui3-u">
+                    <div class="contents contents-middle">
+                        <div class="markup slider-markup-border-radius">
+                            <label class="preview-label">Border-radius: 100%</label><a class="reset reset-radius">Reset</a>
+                            <div id="slider-radius"></div>
+                        </div>
+                        <div class="markup slider-markup-text-contrast">
+                            <label class="preview-label">Text Contrast: 150</label><a class="reset reset-text-contrast">Reset</a>
+                            <div id="slider-text-contrast"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="yui3-u">
+                    <div class="contents">
+                        <div class="markup slider-markup-horiz-padding">
+                            <label class="preview-label">Horiz. padding: 100%</label><a class="reset reset-padding-horiz">Reset</a>
+                            <div id="slider-padding-horiz"></div>
+                        </div>
+                        <div class="markup slider-markup-vert-padding">
+                            <label class="preview-label">Vert. padding: 100%</label><a class="reset reset-padding-vert">Reset</a>
+                            <div id="slider-padding-vert"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div id="tab-schemes">
                 <ul class="scheme-radios">
@@ -2954,35 +2950,22 @@ striping:
 
                 </ul>
             </div>
-            <div id="tab-controls" class="yui3-g">
-                <div class="yui3-u">
-                    <div class="skin-name-box">
-                        <label>Skin Name: </label>
-                        <span class="hint">yui3-skin-</span><input class="inp-skin-name" value="mine">
-                        <div class="hint">(you'll need to change the class in the body tag to match)</div>
-                    </div>
-                    <div class="markup slider-markup-border-radius">
-                        <label class="preview-label">Border-radius: 100%</label><a class="reset reset-radius">Reset</a>
-                        <div id="slider-radius"></div>
-                    </div>
-                </div>
-                <div class="yui3-u">
-                    <div class="markup slider-markup-horiz-padding">
-                        <label class="preview-label">Horiz. padding: 100%</label><a class="reset reset-padding-horiz">Reset</a>
-                        <div id="slider-padding-horiz"></div>
-                    </div>
-                    <div class="markup slider-markup-vert-padding">
-                        <label class="preview-label">Vert. padding: 100%</label><a class="reset reset-padding-vert">Reset</a>
-                        <div id="slider-padding-vert"></div>
-                    </div>
-                </div>
+            <div id="tab-modules">
+                <h4 class="preview-label">YUI Widgets<a class="show-hide-all btn-widget">Remove All</a></h4>
+                <ul id="checkboxes-widget">
+                    <!-- lis added dynamically at runtime. see app.js initPreviewAndModulesCheckboxes() -->
+                </ul>
+                <h4 class="preview-label">YUICSS<a class="show-hide-all btn-yuicss">Remove All</a></h4>
+                <ul id="checkboxes-yuicss">
+                    <!-- lis added dynamically at runtime. see app.js initPreviewAndModulesCheckboxes() -->
+                </ul>
             </div>
-
             <div id="tab-code">
                 <div class="yui3-g" id="layout">
                     <div class="yui3-u-1-2" id="out-style">
                         <div class="contents">
                             <label class="tab-code-textarea-label">CSS for Selected Widgets/Modules</label>
+                            <label class="hint skin-name-label">.yui3-skin-</label><input class="inp-skin-name" value="mine" title="Change the Skin classname. (you'll need to change the class in the body tag to match)"/>
                             <textarea id="textarea-style"></textarea>
                         </div>
                     </div>
@@ -2996,8 +2979,84 @@ striping:
             </div>
         </div>
     </div>
+    <div id="preview-palette">
+        <label>Preview</label>
+        <ul>
+            <li class="block-highest" title="highest"></li>
+            <li class="block-high" title="high"></li>
+            <li class="block-normal" title="normal"></li>
+            <li class="block-low" title="low"></li>
+            <li class="background" title="lowest"></li>
+            <li class="block-page" title="page background"></li>
+        <ul>
+    </div>
 
-    <!--  color picker and scheme adjusting panels markup  -->
+
+    <!--  detail palette preview, color picker, and scheme adjusting panels markup  -->
+    <div id="palette-outer">
+        <div class="grip"></div>
+        <img class="close" src="assets/images/close.png" width="18" height="18" />
+        <label>Detailed preview of the palette of colors used for skinning</label>
+        <div class="color-space">
+            <ul>
+                <li class="block block-highest block-highest-border" title="Highest / Master Color">
+                    <div class="text block-highest-text-low">text.low</div>
+                    <div class="text block-highest-text-normal">text.normal</div>
+                    <div class="text block-highest-text-high">text.high</div>
+                    <div class="rule block-highest-rule-low"></div>
+                    <div class="rule block-highest-rule-high"></div>
+                    <div class="bucket bucket-picker bucket-highest" title="Click to edit 'Master' color"></div>
+                    <div class="gradient"></div>
+                </li>
+                <li class="block block-high block-high-border" title="High">
+                    <div class="text block-high-text-low">text.low</div>
+                    <div class="text block-high-text-normal">text.normal</div>
+                    <div class="text block-high-text-high">text.high</div>
+                    <div class="rule block-high-rule-low"></div>
+                    <div class="rule block-high-rule-high"></div>
+                    <div class="bucket bucket-scheme bucket-high bucket-scheme-hidden" title="Click to adjust this scheme Color"></div>
+                    <div class="gradient"></div>
+                </li>
+                <li class="block block-normal block-normal-border" title="Normal">
+                    <div class="text block-normal-text-low">text.low</div>
+                    <div class="text block-normal-text-normal">text.normal</div>
+                    <div class="text block-normal-text-high">text.high</div>
+                    <div class="rule block-normal-rule-low"></div>
+                    <div class="rule block-normal-rule-high"></div>
+                    <div class="bucket bucket-scheme bucket-normal bucket-scheme-hidden" title="Click to adjust this scheme Color"></div>
+                    <div class="gradient"></div>
+                </li>
+                <li class="block block-low block-low-border" title="Low">
+                    <div class="text block-low-text-low">text.low</div>
+                    <div class="text block-low-text-normal">text.normal</div>
+                    <div class="text block-low-text-high">text.high</div>
+                    <div class="rule block-low-rule-low"></div>
+                    <div class="rule block-low-rule-high"></div>
+                    <div class="bucket bucket-scheme bucket-low bucket-scheme-hidden" title="Click to adjust this scheme Color"></div>
+                    <div class="gradient"></div>
+                </li>
+                <li class="block background" title="Lowest">
+                    <div class="text text-low">text.low</div>
+                    <div class="text text-normal">text.normal</div>
+                    <div class="text text-high">text.high</div>
+                    <div class="rule rule-low"></div>
+                    <div class="rule rule-high"></div>
+                    <div class="bucket bucket-scheme bucket-lowest bucket-scheme-hidden" title="Click to adjust this scheme Color"></div>
+                    <div class="gradient"></div>
+                </li>
+                <li class="block block-page block-page-border" title="Page or Container Colors">
+                    <div class="text block-page-text-low">text.low</div>
+                    <div class="text block-page-text-normal">text.normal</div>
+                    <div class="text block-page-text-high">text.high</div>
+                    <div class="rule block-page-rule-low"></div>
+                    <div class="rule block-page-rule-high"></div>
+                    <div class="bucket bucket-picker bucket-page" title="Click to edit Page/Container Color"></div>
+                </li>
+            </ul>
+
+
+        </div> <!-- end of .color-space  -->
+    </div>
     <div id="picker-outer">
         <div class="grip"></div>
         <img class="close" src="assets/images/close.png" width="18" height="18" />
@@ -3065,10 +3124,10 @@ striping:
     </div>
 
 
+<h3 id="skin-preview-header" class="preview-label rotate">Skin Preview</h3>
 
 
 </div><!-- end tabview-controls-container for fixed position -->
-<h1 id="skin-preview-header" class="preview-label">Skin Preview</h1>
 
 <!-- this UL is the container for all previewed widgets -->
 <ul id="widget-container">
@@ -3220,18 +3279,12 @@ striping:
         <div id="panelContent">
             <div class="yui3-widget-bd">
                 <form>
-                        <p>
-                            <label for="id">ID</label>
-                            <input type="text" name="id" id="productId" placeholder="">
-                        </p>
-                        <p>
-                            <label for="name">Name</label>
-                            <input type="text" name="name" id="name" value="" placeholder="">
-                        </p>
-                        <p>
-                            <label for="password">Price</label>
-                            <input type="text" name="price" id="price" value="" placeholder="$">
-                        </p>
+                    <label for="productId">ID</label>
+                    <input type="text" name="id" id="productId" placeholder="">
+                    <label for="name">Name</label>
+                    <input type="text" name="name" id="name" value="" placeholder="">
+                    <label for="price">Price</label>
+                    <input type="text" name="price" id="price" value="" placeholder="$">
                 </form>
             </div>
         </div>

@@ -92,59 +92,59 @@ function (Y) {
         TEMPLATES_USED = [
                 {
                     name: 'autocomplete', 
-                    display: false,
+                    display: true,
                     type: 'widget' 
                 }, 
                 {
                     name: 'button', 
-                    display: false, 
+                    display: true, 
                     type: 'widget' 
                 }, 
                 {
                     name: 'calendar', 
-                    display: false, 
+                    display: true, 
                     type: 'widget' 
                 }, 
                 {
                     name: 'datatable', 
-                    display: false, 
+                    display: true, 
                     type: 'widget' 
                 }, 
                 {
                     name: 'dial', 
-                    display: false, 
+                    display: true, 
                     type: 'widget', 
                     required: true   ///////
                 }, 
                 {
                     name: 'nodeMenunav', 
-                    display: false, 
+                    display: true, 
                     type: 'widget' 
                 }, 
                 {
                     name: 'overlay', 
-                    display: false, 
+                    display: true, 
                     type: 'widget' 
                 }, 
                 {
                     name: 'panel', 
-                    display: false, 
+                    display: true, 
                     type: 'widget' 
                 }, 
                 {
                     name: 'scrollview', 
-                    display: false, 
+                    display: true, 
                     type: 'widget' 
                 }, 
                 {
                     name: 'slider', 
-                    display: false, 
+                    display: true, 
                     type: 'widget', 
                     required: true    /////////
                 }, 
                 {
                     name: 'tabview', 
-                    display: false, 
+                    display: true, 
                     type: 'widget', 
                     required: true   //////////
                 }, ///////////////////////////////////// keep YUICSS modules below this line. 
@@ -593,6 +593,7 @@ function (Y) {
         SCHEME_NAME = this.get('id');
         if (SCHEME_NAME === 'custom') {
             Y.all('.bucket-scheme').removeClass('bucket-scheme-hidden');
+            overlayPalette.show();
         } else {
             Y.all('.bucket-scheme').addClass('bucket-scheme-hidden');
         }
@@ -725,10 +726,11 @@ function (Y) {
             hsl;
 
         overlaySchemer.hide(); 
-        if (Y.one('.bucket-selected')) {
-            Y.one('.bucket-selected').removeClass('bucket-selected');
-        }
-        e.target.addClass('bucket-selected');
+        // if (Y.one('.bucket-selected')) {
+        //     Y.one('.bucket-selected').removeClass('bucket-selected');
+        // }
+        Y.all('.bucket').addClass('bucket-deselected');
+        e.target.removeClass('bucket-deselected');
 
         // For case of multiple buckets to click on
         // we need to update the color picker display
@@ -951,7 +953,7 @@ function (Y) {
     Y.one('#schemer-outer .close').on('click', function(e){
         overlaySchemer.hide();
         // remove the selected class from scheme icons
-        Y.one('.bucket-selected').removeClass('bucket-selected');
+        Y.all('.bucket-deselected').removeClass('bucket-deselected');
     });
 
 
@@ -959,19 +961,50 @@ function (Y) {
 
     ////////////////////  END scheme creator overlay  /////////////////////////////
 
+    ////////////////////  Begin Preview Palette Details (overlay) instance //////////////////////////
+    var overlayPalette = new Y.Overlay({
+        srcNode:"#palette-outer",
+        // width:"13em",
+        // height:"10em",
+        xy: [180, 86]
+    });
+    overlayPalette.render();
+    overlayPalette.hide();
     
+    var ddPaletteOverlay = new Y.DD.Drag({
+        node: '#palette-outer'
+    });
+        // set the picker outer box ready for drag by grip
+    var paletteOuter = Y.one('#palette-outer');
+    paletteOuter.plug(Y.Plugin.Drag);
+
+    //Now you can only drag it from the .grip at the top of the blue box
+    paletteOuter.dd.addHandle('#palette-outer .grip');
+
+    Y.one('#palette-outer .close').on('click', function(e){
+        overlayPalette.hide();
+        // remove the selected class from scheme icons
+        Y.all('.bucket-deselected').removeClass('bucket-deselected');
+    });
+    Y.one('#preview-palette').on('click', function(){
+        overlaySchemer.hide();
+        overlayPicker.hide();
+        overlayPalette.show();
+    });
+
+    ////////////////////  END Preview Palette Details (overlay) instance ////////////////////////////
 
     Y.one('#hs').on('click', handlePicker);
     Y.one('#sliderL').on('click', handleLight);
     Y.one('.picker-input').on('blur', handlePickerInputBlur);
     Y.one('#picker-outer .close').on('click', function(e){
         overlayPicker.hide();
-        Y.one('.bucket-selected').removeClass('bucket-selected');
+        Y.all('.bucket-deselected').removeClass('bucket-deselected');
     });
 
 
 
-    Y.one('.inp-skin-name').on('blur', function(e) {
+    Y.one('.inp-skin-name').on('keyup', function(e) {
         var body = Y.one('body');
         // sets the skin name and class prefix that will be replaced in all the
         // stylesheet templates
@@ -1004,16 +1037,13 @@ function (Y) {
         overlay.move([anchorOverlay.getX(),  anchorOverlay.getY()] );
         panel.move([anchorPanel.getX(),  anchorPanel.getY()] );
     });
-    Y.one('#tabview-controls .tab-color').prepend('<img src="assets/images/picker_icon.png" width="14" height="14"/>');
+    // Y.one('#tabview-controls .tab-color').prepend('<img src="assets/images/picker_icon.png" width="14" height="14"/>');
 
     Y.one('.tab-schemes').on('click', function(){
         overlayPicker.hide();
         overlaySchemer.hide();
         updateSchemePreviews();
-        if (Y.one('.bucket-selected')) {
-            Y.one('.bucket-selected').removeClass('bucket-selected');
-        }
-    
+        Y.all('.bucket-deselected').removeClass('bucket-deselected');    
     });
     Y.one('.tab-code').on('click', function(){
         overlayPicker.hide();

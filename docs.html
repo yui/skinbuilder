@@ -56,14 +56,14 @@ h1,h2,h3,h4,h5,h6 {
 /*  Specific to this page  */
 #list-control-tabs img, #use-pattern img {
     float: right;
-    margin: 0 0 2.5em 0.7em;
+    margin: 0 0 1em 0.7em;
 }
 #list-control-tabs li, #use-pattern li, .clear-floats {
     clear: both;
 }
 #list-control-tabs li, #use-pattern li {
-/*    margin-top: 1em;
-*/}
+    margin-bottom: 1em;
+}
 #main-colors {
     margin: 0 0 0 24px;
     padding: 0;
@@ -114,19 +114,20 @@ h1,h2,h3,h4,h5,h6 {
         Toward the top of YUI Skin Builder is an area with 5 tabs
         <ul id="list-control-tabs">
             <li>
-                <img src="assets/images/cap_items.png" width="561" height="97" alt="Items tab with checkboxes for modules to skin"/><strong>Items:</strong> This contains checkboxes for each of the available widgets and modules that are available for skinning.
+                <img src="assets/images/cap_style.png" width="561" height="117" alt="Controls for changing colors, padding, radius, etc."/>
+                <strong>Style:</strong> This displays buttos for changing the key colors of the skin. You can change the border-radius, padding, and text contrast styles in the skin.
             </li>
             <li>
-                <img src="assets/images/cap_palette.png" width="561" height="109" alt="Color palette withy 6 main color blocks"/><strong>Colors:</strong> This displays 6 main blocks of color. Their background colors make up the foundation of the colors applied by the current skin.
+                <img src="assets/images/cap_scheme.png" width="561" height="124" alt="Color scheme radio button choices"/>
+                <strong>Schemes:</strong> From this tab, you can select one of several color schemes, or start creating your own custom scheme. Color schemes set different relationships between the colors shown in the palette tab. More explanation about schemes later.
             </li>
             <li>
-                <img src="assets/images/cap_scheme.png" width="561" height="124" alt="Color scheme radio button choices"/><strong>Schemes:</strong> From this tab, you can select one of several color schemes, or start creating your own custom scheme. Color schemes set different relationships between the colors shown in the palette tab. More explanation about schemes later.
+                <img src="assets/images/cap_items.png" width="561" height="97" alt="Items tab with checkboxes for modules to skin"/>
+                <strong>Items:</strong> This contains checkboxes for each of the available widgets and modules that are available for skinning.
             </li>
             <li>
-                <img src="assets/images/cap_controls.png" width="561" height="129" alt="Controls tab for padding, radius etc."/><strong>Sizes:</strong> In the control tab, you can change the radius, and padding styles in the skin. You can also change the skin name, which marks all the selectors in the CSS code.
-            </li>
-            <li>
-                <img src="assets/images/cap_code.png" width="561" height="123" alt="CSS generated code"/><strong>Code:</strong> This tab contains text area controls which display the real-time generated CSS code for your skin as you make modifications.
+                <img src="assets/images/cap_code.png" width="561" height="133" alt="CSS generated code"/>
+                <strong>Code:</strong> This tab contains text area controls which display the real-time generated CSS code for your skin as you make modifications. You can also change the skin name, which marks all the selectors in the CSS code.
             </li>
         </ul>
         <h3 class="clear-floats">Skin Preview</h3>
@@ -136,15 +137,19 @@ h1,h2,h3,h4,h5,h6 {
         <h2>A Typical Use Pattern</h2>
         <ol id="use-pattern">
             <li>During all the following steps, keep an eye on the Widget previews, evaluating the results of your changes.</li>
-            <li>Open the Palette tab.</li>
-            <li><img src="assets/images/cap_page_icon.png" width="324" height="148" alt="Color picker icon for page background"/>Click on the color picker icon on the page/container main color. This is the first rectangle on the left. From the Color Picker that pops up, select a color that matches the background color the widgets will display on. This is commonly the page background, but may be a container object that widgets will appear in. You can also enter the color directly with a hex value if you know it.</li>
-            <li><img src="assets/images/cap_highest_icon.png" width="324" height="148" alt="Color picker icon for highest/master color"/>Click on the color picker icon on the "highest/master" color. This is on the second rectangle from the left. The color you select should match a very dominant color from the app these widgets will appear in. For example if these skinned widgets will go on a site that has green as an high emphasis, attention attracting color, choose that same green from this color picker. You'll notice the other colors in the palette change automatically. The relative colors they become are based on relationships to the "highest/master" color. These relationships are called "schemes".</li>
-            <li>Click the Schemes tab.</li>
-            <li>Try other schemes to see which works best for your site. If you choose a dark background scheme, you may need to select a different "highest/master" color from the palettes tab</li>
-            <li><img src="assets/images/cap_text_contrast.png" width="463" height="151" alt="Text contrast slider control"/>On the palettes tab, you can adjust the contrast of the text to its background using the slider on the right. This adjustment can help maintain readability.</li>
-            <li><img src="assets/images/cap_controls.png" width="561" height="129" alt="Controls tab for padding, radius etc."/>On the control tab make any changes needed to the padding and border-radius styles.</li>
-            <li>Also on the control tab, edit the Skin Name suffix. In the markup of your site or app where widgets are to use this skin, replace the class "yui3-skin-sam" with the matching new class name, such as, "yui3-skin-myskinnamesuffix".</li>
-            <li><img src="assets/images/cap_code.png" width="561" height="123" alt="CSS generated code"/>Click the Code tab. Select the contents of the textarea labeled "CSS for all widgets". Paste this code into the file where ever you want your CSS to be referenced from. If you don't need CSS skin code for all the YUI 3 widgets, you can pick out and use only the sections of the CSS you do need.</li>
+            <li>Open the Style tab.</li>
+            <li><img src="assets/images/cap_master_color_button.png" width="434" height="198" alt="Edit Master Color... button and color picker"/>Click Edit Master Color... button. The color you select should match a very dominant color from the app these widgets will appear in. For example if these skinned widgets will go on a site that has green as a high emphasis, attention attracting color, choose that same green from this color picker. You'll notice the other colors in the palette change automatically. They change to relative colors based on relationships to the "highest/master" color. These relationships are called "schemes".</li>
+
+            <li><img src="assets/images/cap_page_color_button.png" width="434" height="198" alt="Edit Page Color... button and color picker"/>Click the Edit Page Color... button (if your page background color isn't white). From the Color Picker that pops up, select a color that matches the background color the widgets will display on. This is commonly the page background, but may be a container object that widgets will appear in. You can also enter the color directly with a hex value if you know it.</li>
+
+            <li><img src="assets/images/cap_sliders.png" width="452" height="122" alt="sliders for text padding, border-radius, and contrast"/>Make any changes needed to the padding and border-radius styles. You can adjust the contrast of the text to its background. This adjustment can help maintain readability.</li>
+                 
+            <li><img src="assets/images/cap_scheme.png" width="561" height="124" alt="Color scheme radio button choices"/>Click the Schemes tab. Try other schemes to see which works best for your site. If you choose a dark background scheme, you may need to select a different "highest/master" color from the palettes tab</li>
+            
+            
+            <li><img src="assets/images/cap_code.png" width="561" height="123" alt="CSS generated code"/>Edit the Skin Name suffix. In the markup of your site or app where widgets are to use this skin, replace the class "yui3-skin-sam" with the matching new class name, such as, "yui3-skin-myskinnamesuffix".</li>
+            
+            <li>Select the contents of the textarea labeled "CSS for all widgets". Paste this code into the file where ever you want your CSS to be referenced from. If you don't need CSS skin code for all the YUI 3 widgets, you can pick out and use only the sections of the CSS you do need.</li>
         </ol>
 
 
