@@ -2375,7 +2375,28 @@ striping:
 #tabview-controls-container label {
     color: {{blockPageTextNormal}};
 }
-
+#tab-modules #checkboxes-widget { /* group bottom border on checkboxes for modules/widgets */
+    border-bottom: solid 1px {{blockPageRuleLow}};
+}
+#feedback-box {
+    position: absolute;
+    left: 50px;
+    top: 30px;
+    border: solid 1px {{blockPageTextLow}};
+    background-color: {{blockPageBorderLow}};
+    padding: {{feedbackPadding}};
+    border-radius: {{feedbackRadius}};
+}
+#feedback-box div {
+    background-color: {{blockPageBackground}};
+    color: {{blockPageTextNormal}};
+}
+.feedback-column {
+    position: relative;
+    width: 161px;
+    height: 77px;
+}
+/*  Buttons for key color and page color editing */
 #tab-palette .bucket-highest {
     {{blockHighestGradient}};
     background-color: {{blockHighestBackground}};
@@ -2824,8 +2845,11 @@ striping:
 </script>
 </head>
 
-<body class="yui3-skin-mine">   <!--yui3-skin-sam-->
-    <div id="log" class="yui3-skin-sam"></div>
+<body class="yui3-skin-mine ">   <!--yui3-skin-sam-->
+<div class="spinner"></div>
+<div class="yui3-loading"> <!-- Mega container div to hide contents of page until done loading -->  
+
+<div id="log" class="yui3-skin-sam"></div><!-- console log for functional testing feedback -->
 <div class="header yui3-g">
     <div class="yui3-u-1-3">
         <div class="logo"></div>
@@ -2848,6 +2872,7 @@ striping:
             <li><a href="#tab-modules">Items</a></li>
             <li><a class="tab-code" href="#tab-code">Code</a></li>
         </ul>
+        <h3 id="skin-preview-header" class="preview-label rotate">Skin Preview</h3>
         <div>
             <div id="tab-palette" class="yui3-g">
                 <div class="yui3-u">
@@ -2888,7 +2913,21 @@ striping:
                         </div>
                     </div>
                 </div>
+                <div class="yui3-u">
+                    <div class="contents feedback-column">
+                        <div id="feedback-box">
+                            <div>Sample</div>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+
+
+
+
+
+
             <div id="tab-schemes">
                 <ul class="scheme-radios">
                     <li class="pick">
@@ -2966,7 +3005,7 @@ striping:
                     <div class="yui3-u-1-2" id="out-style">
                         <div class="contents">
                             <label class="tab-code-textarea-label">CSS for Selected Widgets/Modules</label>
-                            <label class="hint skin-name-label">.yui3-skin-</label><input class="inp-skin-name" value="mine" title="Change the Skin classname. (you'll need to change the class in the body tag to match)"/>
+                            <label class="hint skin-name-label" title="Change the Skin classname. (you'll need to change the class in the body tag to match)">.yui3-skin-</label><input class="inp-skin-name" value="mine" title="Change the Skin classname. (you'll need to change the class in the body tag to match)"/>
                             <textarea id="textarea-style"></textarea>
                         </div>
                     </div>
@@ -2978,18 +3017,27 @@ striping:
                     </div>
                 </div>
             </div>
+
+
+
+
+
+
+
+
+
         </div>
     </div>
     <div id="preview-palette">
-        <label>Preview</label>
-        <ul>
+        <label>Preview color palette details</label>
+        <!-- <ul>
             <li class="block-highest" title="highest"></li>
             <li class="block-high" title="high"></li>
             <li class="block-normal" title="normal"></li>
             <li class="block-low" title="low"></li>
             <li class="background" title="lowest"></li>
             <li class="block-page" title="page background"></li>
-        <ul>
+        <ul> -->
     </div>
 
 
@@ -3125,7 +3173,6 @@ striping:
     </div>
 
 
-<h3 id="skin-preview-header" class="preview-label rotate">Skin Preview</h3>
 
 
 </div><!-- end tabview-controls-container for fixed position -->
@@ -3195,7 +3242,7 @@ striping:
     <li class="sb-preview-dial"><div class="widget-preview-label">Dial</div>
         <div id="dial"></div>
     </li>
-    <li class="sb-preview-nodeMenunav"><div class="widget-preview-label">Menu Nav Top</div>
+    <li class="sb-preview-nodeMenunav"><div class="widget-preview-label">Menu Nav Top (Deprecated)</div>
         <div id="node-menunav" class="yui3-menu yui3-menu-horizontal"><!-- Bounding box -->
             <div class="yui3-menu-content"><!-- Content box -->
                 <ul>
@@ -3238,7 +3285,7 @@ striping:
             </div>
         </div>
     </li>
-    <li class="sb-preview-nodeMenunav"><div class="widget-preview-label">Split Button Nav Top</div>
+    <li class="sb-preview-nodeMenunav"><div class="widget-preview-label">Split Button Nav Top (Deprecated)</div>
         <div id="node-menunav-split" class="yui3-menu yui3-menu-horizontal yui3-splitbuttonnav"><!-- Bounding box -->
 
 
@@ -3632,6 +3679,7 @@ striping:
 </ul> <!--   end of container for widget previews    -->
 
 
+</div> <!-- Close Mega container div to hide contents of page until done loading -->  
 
 <script src="app.js"></script>
 

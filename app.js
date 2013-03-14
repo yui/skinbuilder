@@ -92,7 +92,8 @@ function (Y) {
             
         TEMPLATES_USED = [
                 {
-                    name: 'autocomplete', 
+                    name: 'autocomplete',
+                    //displayName: 'AutoComplete', 
                     display: true,
                     type: 'widget' 
                 }, 
@@ -1133,10 +1134,13 @@ function (Y) {
         var widgetUl = Y.one('#checkboxes-widget'),
             yuiCSSUl = Y.one('#checkboxes-yuicss'),
             appendChksTo,
+            displayName,
             i;
 
         for(i = 0; i < TEMPLATES_USED.length; i+=1) {
             var chk = (TEMPLATES_USED[i].display) ? 'checked' : '';
+
+            displayName = Y.one('#widget-container .sb-preview-' + TEMPLATES_USED[i].name + ' .widget-preview-label').getContent();
 
             if(TEMPLATES_USED[i].type === "widget") {
                 appendChksTo = widgetUl;
@@ -1144,7 +1148,7 @@ function (Y) {
                 appendChksTo = yuiCSSUl;
             }
 
-            appendChksTo.append('<li><input id="mod-' + TEMPLATES_USED[i].name + '" type="checkbox" ' + chk + ' /> <label for ="mod-' + TEMPLATES_USED[i].name + '">' + TEMPLATES_USED[i].name + '</label></li>');
+            appendChksTo.append('<li><input id="mod-' + TEMPLATES_USED[i].name + '" type="checkbox" ' + chk + ' /> <label for ="mod-' + TEMPLATES_USED[i].name + '">' + displayName + '</label></li>');
         }
         // they have to inline-block in CSS initially or Dial won't render properly.
         // turn them all 'display' 'none' first
@@ -1329,9 +1333,6 @@ function (Y) {
         Y.Test.Runner.run();
     } // end of if the query string has ?test
 
-
-
-
-
+    Y.one('.yui3-loading').removeClass('yui3-loading'); // let body be visible
 
 });

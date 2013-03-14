@@ -1,6 +1,17 @@
 
 
 /*****************  this is only to layout abstract color space and Tool UI ****************/
+.yui3-loading {
+    visibility: hidden;
+}
+.spinner {
+    position: absolute;
+    background: url(assets/images/spinner.gif);
+    width: 60px;
+    height: 60px;
+    left: 48%;
+    top: 20%;
+}
 body {
     margin: 0;
     width: 100%;
@@ -24,7 +35,7 @@ body {
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 20;
+    z-index: 6;
 }
 .header h1 {
     font-weight: normal;
@@ -57,11 +68,14 @@ body {
     margin-right: 30px;
 }
 #skin-preview-header {
-    right: -186px;
-    margin-top: 203px;
     position: absolute;
-    top: 0;
     width: 400px;
+    font-size: 336%;
+    text-align: right;
+    bottom: -295px;
+    right: -183px;
+    opacity: 0.1;
+    filter: alpha(opacity=10);
 }
 #widget-container{
     margin: 286px 0 1em 1em;
@@ -79,20 +93,24 @@ body {
     border-radius: 0 0 5px 5px;    
 }
 #tabview-controls-container { /*needed a container to be 100% fixed so the tabview-controls could have left and right margin*/
-    padding-top: 62px;
+    padding-top: 4px;
     position: fixed;
-    top: 0;
+    top: 57px;
     width: 100%;
-    z-index: 19;
+    z-index: 10;
 }
 #preview-palette {
     position: absolute;
-    right: 17px;
-    top: 65px;
+    right: 19px;
+    top: 8px;
     cursor: pointer;
 }
 #preview-palette label {
     display:inline;
+    cursor: pointer;
+}
+#preview-palette label:hover {
+    text-decoration: underline;
 }
 #preview-palette ul {
     list-style: none;
@@ -109,9 +127,14 @@ body {
     *zoom: 1;    
     width: 40px;
     height: 10px;
+    border: none;
+}
+#preview-palette li:hover {
+    background-color: inherit;
 }
 #tabview-controls{
     margin: 0 20px;
+    position: relative;
 }
 #tabview-controls .yui3-tab-label {
     padding: 0.5em 1.5em;  /* override the widget skin padding */
@@ -343,7 +366,7 @@ h1 {
     display: inline-block;
     *display: inline; /* IE inline block hack */
     *zoom: 1;    
-    width: 10em;
+    width: 13em;
 }
 
 

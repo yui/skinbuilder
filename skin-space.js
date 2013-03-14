@@ -10,6 +10,10 @@ Y.Skin.renderers.space = function(skin) {
     var space = skin.colorspace;
     
     return {
+
+        feedbackRadius: skin.radius(0.4), // Same as button
+        feedbackPadding: skin.padding(0.4, 1, 0.45), // Same as button
+
         background: space.background,
         gradient: space.gradient,
         borderLow: space.border.low,
