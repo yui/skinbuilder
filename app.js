@@ -5,6 +5,7 @@
 // - Y.Appify?
 
 YUI({
+    logInclude: { TestRunner: true },
     filter: 'raw',
     modules: {
         'skin'       : 'skin.js',
@@ -45,7 +46,7 @@ YUI({
     'autocomplete-filters', 'autocomplete-highlighters', 'scrollview',
     'datatable-sort', 'dd-drag', 'dd-constrain', 'calendar', 'button-plugin',
     'tabview', 'datatype-date', 'button-group', 'cssbutton',
-    'node-event-delegate', 'overlay', 'color',
+    'node-event-delegate', 'overlay', 'color', 'test', 'test-console',
 function (Y) {
 
     var PAGE_BG_COLOR = '#fff',
@@ -761,12 +762,36 @@ function (Y) {
 
     };
     var handlePickerInputBlur = function(e) {
-        var hsl = hexToHsl(Y.Escape.html(e.currentTarget.get('value')));
+        var hex = Y.Escape.html(e.currentTarget.get('value')),
+            hsl = hexToHsl(hex);
 
         pickerH = hsl[0];
         pickerS = hsl[1];
         pickerL = hsl[2];
-        pickerUpdateColors(objBucket);
+//        pickerUpdateColors(objBucket);   this goes through hexToHsl and gets bug #2533176
+
+        ////////  try to work around bug ticket #2533176 Y.Color
+
+        /*    var hsl = Y.Color.fromArray([pickerH, pickerS, pickerL], Y.Color.TYPES.HSL),
+            hex = Y.Color.toHex(hsl);
+        */
+            // depending on which bucket was clicked
+            // change either the key color or the page background color
+            if (objBucket.hasClass('page-background')) {
+                PAGE_BG_COLOR = hex;
+                SKIN.options.container = hex;
+            } else if (objBucket.hasClass('bucket-highest')) {
+                KEY_COLOR.block.highest.background = hex;
+                SKIN.options.keycolor = hex;
+            }
+
+            // Using async to keep UI snappy.
+            Y.config.win.setTimeout(updateColors, 20);
+
+            Y.one('.picker-swatch').setStyles({'backgroundColor': hex});
+            Y.one('.picker-swatch .picker-input').set('value', hex);
+
+
 
     };
 
@@ -1136,5 +1161,177 @@ function (Y) {
         }
     }
     initPreviewAndModulesCheckboxes();
+
+    ////////////////// functional & unit test //////////////////////
+
+    // run tests only if the URL contains ?test
+    
+    if (document.URL.indexOf('?test') > -1 ) {
+
+        var getCSSProperty = function(obj, cssProp) {
+             return obj.getComputedStyle(cssProp);
+        },
+
+        getPropertyHex = function(obj, cssProp) {
+            return Y.Color.toHex(obj.getComputedStyle(cssProp));
+        },
+
+        getGradient = function(obj) {
+            var str = obj.getComputedStyle('backgroundImage');
+            return str.substring(str.indexOf('rgba('), (str.indexOf('rgba(') + 20));
+        };
+
+
+        var suite = new Y.Test.Suite("Test Key and Page");
+
+
+        suite.add(new Y.Test.Case({
+
+                name: "Test keycolor change",
+
+                //---------------------------------------------
+                // Setup and tear down
+                //---------------------------------------------
+
+                setUp : function () {
+                    // set the key color
+                    KEY_COLOR.block.highest.background = '#cc0000';
+                    
+                    // fake an event for opening the color picker
+                    var e = {
+                        clientY: 100, 
+                        clientX: 100,
+                        target: Y.one('.bucket-highest'),
+                        currentTarget: Y.one('.bucket-highest') 
+                    };
+                    showPicker(e);
+                    Y.one('.picker-input').focus();
+                    Y.one('.yui3-console-filter').focus(); //triggers the blur of the picker-input
+                },
+
+                tearDown : function () {
+                },
+
+                //---------------------------------------------
+                // Tests
+                //---------------------------------------------
+
+                testColors_from_KEY_COLOR_change: function () {
+
+
+                    var test = this;
+                    var foo = function(e) {
+                        setTimeout(function() { //dely this assert for ie
+                            test.resume(function() {
+                                Y.Assert.areEqual(KEY_COLOR.block.highest.background, SKIN.colorspace.block.highest.background, 'KEY_COLOR.block.highest.background !== SKIN.colorspace.block.highest.background');
+                                Y.Assert.areEqual('#f7d4d4', getPropertyHex(Y.one('.block-low'), 'backgroundColor'), 'wrong low.text.low hex');
+                                Y.Assert.areEqual('#e57171', getPropertyHex(Y.one('.block-low-text-low'), 'color'), 'wrong low.text.low hex');
+                                Y.Assert.areEqual('#5a1111', getPropertyHex(Y.one('.block-low-text-normal'), 'color'), 'wrong low.text.normal hex');
+                                Y.Assert.areEqual('#1a0505', getPropertyHex(Y.one('.block-low-text-high'), 'color'), 'wrong low.text.high hex');
+                                
+                                Y.Assert.areEqual('#f2baba', getPropertyHex(Y.one('.block-low-rule-low'), 'borderTopColor'), 'wrong low.rule.low hex');
+                                Y.Assert.areEqual('#fdf6f6', getPropertyHex(Y.one('.block-low-rule-high'), 'borderTopColor'), 'wrong low.rule.high hex');
+
+                                Y.Assert.areEqual('#fdf6f6', getPropertyHex(Y.one('.block-low'), 'borderTopColor'), 'wrong block.low borderTopColor hex');
+                                Y.Assert.areEqual('#f5c7c7', getPropertyHex(Y.one('.block-low'), 'borderBottomColor'), 'wrong block.low borderBottomColor hex');
+                            });
+                        }, 2300);
+                    }
+                    foo();
+                    test.wait(3000);
+                },
+                test_radius: function () {
+                    Y.Assert.areEqual('4px', getCSSProperty(Y.one('.yui3-tab-label'), 'borderTopLeftRadius'), 'wrong border radius');
+                },
+                test_padding: function () {
+                    Y.Assert.areEqual('6.11667px', getCSSProperty(Y.one('.yui3-tab-label'), 'paddingTop'), 'wrong padding top');
+                    Y.Assert.areEqual('6.11667px', getCSSProperty(Y.one('.yui3-tab-label'), 'paddingBottom'), 'wrong padding bottom');
+                    Y.Assert.areEqual('18.35px', getCSSProperty(Y.one('.yui3-tab-label'), 'paddingLeft'), 'wrong padding left');
+                    Y.Assert.areEqual('18.35px', getCSSProperty(Y.one('.yui3-tab-label'), 'paddingRight'), 'wrong padding right');
+                },
+                test_gradient: function () {
+                    Y.Assert.areEqual('rgba(254, 251, 251, ', getGradient(Y.one('.block-low .gradient')), 'wrong gradient');
+                }
+            
+        }));
+        suite.add(new Y.Test.Case({
+
+                name: "Test page/container change",
+
+                //---------------------------------------------
+                // Setup and tear down
+                //---------------------------------------------
+
+                setUp : function () {
+                    // set the page/container color
+                    PAGE_BG_COLOR = "#aabbcc";
+
+                    // fake an event for opening the color picker
+                    var e = {
+                        clientY: 100, 
+                        clientX: 100,
+                        target: Y.one('.bucket-page'),
+                        currentTarget: Y.one('.bucket-page') 
+                    };
+                    showPicker(e);
+                    Y.one('.picker-input').focus();
+                    Y.one('.yui3-console-filter').focus(); //triggers the blur of the picker-input
+                },
+
+                tearDown : function () {
+                },
+
+                //---------------------------------------------
+                // Tests
+                //---------------------------------------------
+
+
+                test_colors_from_page_color_change: function () {
+                    var test = this;
+                    var foo = function(e) {
+                        setTimeout(function() { //dely this assert for ie
+                            test.resume(function() {                  
+                                Y.Assert.areEqual(PAGE_BG_COLOR, SKIN.colorspace.block.container.background, 'fails: PAGE_BG_COLOR !== ...container.background');
+                                Y.Assert.areEqual('#aabbcc', SKIN.colorspace.block.container.background, 'wrong .page.background from block hex. see ticket #2533176 Y.Color');
+                                Y.Assert.areEqual('#aabbcc', getPropertyHex(Y.one('.block-page'), 'backgroundColor'), 'wrong .page.background from obj hex. see ticket #2533176 Y.Color');
+                                Y.Assert.areEqual('#fcfcfd', getPropertyHex(Y.one('.block-page-text-low'), 'color'), 'wrong .page.text.low hex');
+                                Y.Assert.areEqual('#06080a', getPropertyHex(Y.one('.block-page-text-normal'), 'color'), 'wrong .page.text.normal hex');
+                                Y.Assert.areEqual('#020303', getPropertyHex(Y.one('.block-page-text-high'), 'color'), 'wrong .page.text.high hex');
+                                
+                                Y.Assert.areEqual('#869eb6', getPropertyHex(Y.one('.block-page-rule-low'), 'borderTopColor'), 'wrong .page.rule.low hex');
+                                Y.Assert.areEqual('#c2cfdb', getPropertyHex(Y.one('.block-page-rule-high'), 'borderTopColor'), 'wrong .page.rule.high hex');
+
+                                Y.Assert.areEqual('#c2cfdb', getPropertyHex(Y.one('.block-page'), 'borderTopColor'), 'wrong page borderTopColor hex');
+                                Y.Assert.areEqual('#99adc2', getPropertyHex(Y.one('.block-page'), 'borderBottomColor'), 'wrong page borderBottomColor hex');
+                            });
+                        }, 2300);
+                    }
+                    foo();
+                    test.wait(3000);
+                }
+        }));
+
+        //tests go here
+
+        //initialize the console
+        (new Y.Test.Console({
+            newestOnTop: false
+        })).render('#log');
+
+
+
+
+        //add the test cases and suites
+        Y.Test.Runner.add(suite);
+        //Y.Test.Runner.add(oTestSuite);
+
+        //run all tests
+        Y.Test.Runner.run();
+    } // end of if the query string has ?test
+
+
+
+
+
 
 });

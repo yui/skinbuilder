@@ -667,3 +667,16 @@ h1 {
 #answers-options {
     z-index: 10;
 }
+/****** test-console style ******/
+.yui3-testconsole {
+    background-color: #F7F4EE;
+    position: fixed;
+    top: 2px;
+    right: 2px;
+    z-index: 21;
+    box-shadow: 0 0 22px rgba(0,0,0, 0.4);    
+}
+.yui3-testconsole .yui3-console-filter-label {
+    display: inline;
+    margin-right: 2em;
+}
