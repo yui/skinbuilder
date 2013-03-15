@@ -1173,7 +1173,12 @@ function (Y) {
     if (document.URL.indexOf('?test') > -1 ) {
 
         var getCSSProperty = function(obj, cssProp) {
-             return obj.getComputedStyle(cssProp);
+            var result = obj.getComputedStyle(cssProp);
+            if( (cssProp.indexOf('padding') > -1) ||
+                (cssProp.toLowerCase().indexOf('radius') > -1)  ) {
+                result = Math.round(parseInt(result, 10));
+            }
+             return result;
         },
 
         getPropertyHex = function(obj, cssProp) {
@@ -1245,13 +1250,13 @@ function (Y) {
                     test.wait(3000);
                 },
                 test_radius: function () {
-                    Y.Assert.areEqual('4px', getCSSProperty(Y.one('.yui3-tab-label'), 'borderTopLeftRadius'), 'wrong border radius');
+                    Y.Assert.areEqual('4', getCSSProperty(Y.one('.yui3-tab-label'), 'borderTopLeftRadius'), 'wrong border radius');
                 },
                 test_padding: function () {
-                    Y.Assert.areEqual('6.11667px', getCSSProperty(Y.one('.yui3-tab-label'), 'paddingTop'), 'wrong padding top');
-                    Y.Assert.areEqual('6.11667px', getCSSProperty(Y.one('.yui3-tab-label'), 'paddingBottom'), 'wrong padding bottom');
-                    Y.Assert.areEqual('18.35px', getCSSProperty(Y.one('.yui3-tab-label'), 'paddingLeft'), 'wrong padding left');
-                    Y.Assert.areEqual('18.35px', getCSSProperty(Y.one('.yui3-tab-label'), 'paddingRight'), 'wrong padding right');
+                    Y.Assert.areEqual('6', getCSSProperty(Y.one('.yui3-tab-label'), 'paddingTop'), 'wrong padding top');
+                    Y.Assert.areEqual('6', getCSSProperty(Y.one('.yui3-tab-label'), 'paddingBottom'), 'wrong padding bottom');
+                    Y.Assert.areEqual('18', getCSSProperty(Y.one('.yui3-tab-label'), 'paddingLeft'), 'wrong padding left');
+                    Y.Assert.areEqual('18', getCSSProperty(Y.one('.yui3-tab-label'), 'paddingRight'), 'wrong padding right');
                 },
                 test_gradient: function () {
                     Y.Assert.areEqual('rgba(254, 251, 251, ', getGradient(Y.one('.block-low .gradient')), 'wrong gradient');
