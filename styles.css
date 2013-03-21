@@ -29,64 +29,55 @@ body {
 
 #headerMenu {
     z-index: 6;
+    background-color: #111111;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    font-family: "proxima-nova",sans-serif;
 }
-#headerMenu .yui3-menu-heading-main-ui {
-    text-transform: uppercase;/**/
+#headerMenu .heading-main-ui {
+    text-transform: uppercase;
+    cursor: default;
+}
+#headerMenu .heading-main-ui:hover {
+    background-color: inherit;
+}
+#headerMenu ul {
+    list-style: none;
+    margin:0;
+    padding: 0;
+}
+#headerMenu li {
+    display: inline-block;
+    *display: block;
+    *zoom: 1;
+    color: #fff;
+}
+#headerMenu li a{
+    display: inline-block;
+    *display: block;
+    *zoom: 1;
+    color: #fff;
+    text-decoration: none;
+    padding: 9px 20px;
+}
+#headerMenu li a:hover{
+    background-color: #222222;
 }
 
 #headerMenu .tag-line {
     color: #6F6F6F;
     margin-right: 3em;
+    cursor: default;
 }
 #headerMenu .tag-line:hover {
     background-color: inherit;
 }
-/*
-.header {
-    background-color: rgba(100, 100, 100, 0.2);
-    color: rgba(100, 100, 100, 0.5);
-    font-size: 16px;
-    margin-bottom: 0.3em;
-    padding: 9px 20px;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 6;
-}
-.header h1 {
-    font-weight: normal;
-    margin: 5px 0 5px 10px;
-}
-.header .menu ul {
-    margin-right: 7em;
-}
-.header .menu a {
-    text-decoration: none;
-}
-.header .logo {
-    display: inline-block;
-    width: 80px;
-    height: 36px;
-    background: url(assets/images/yui_logo_sprite.png);
-    vertical-align: middle;
-}
-.header .logo:hover {
-    background-position: 0 -36px;
-}
-.header .menu {
-    color: #467FB8;
-    font-size: 0.75em;
-    font-weight: bold;
-    text-align: right;
-    text-transform: uppercase;
-}
-.header .menu li {
-    margin-right: 30px;
-}
-*/
-
 
 #skin-preview-header {
+    font-family: "omnes-pro",sans-serif;
+    font-weight: 100;
     position: absolute;
     width: 400px;
     font-size: 336%;
