@@ -9,7 +9,7 @@
 -->
 <link rel="stylesheet" href="http://yui.yahooapis.com/3.8.0/build/cssgrids/grids-min.css">
 <link rel="stylesheet" href="styles.css">
-
+<link rel="stylesheet" href="https://rawgithub.com/tilomitra/yuicss-common/master/ui.css">
 <script src="http://yui.yahooapis.com/3.8.0/build/yui/yui-min.js"></script>
 
 
@@ -2320,7 +2320,7 @@ striping:
 <script id="space-template" type="text/x-handlebars-template">
 /*************** Begin styles for the UI display of the color space in this tool *************/
 /* Not needed for a skin */
-
+/*
 .header {
     color: {{blockPageTextHigh}};
     background-color: {{blockPageBorderLow}};
@@ -2332,6 +2332,8 @@ striping:
 .header .menu a:hover {
     color: {{blockPageHoverTextHigh}}
 }
+*/
+
 
 #tab-schemes,
 #tab-modules,
@@ -2846,22 +2848,18 @@ striping:
 </head>
 
 <body class="yui3-skin-mine ">   <!--yui3-skin-sam-->
-<div class="spinner"></div>
+<div id="spinner"></div>
 <div class="yui3-loading"> <!-- Mega container div to hide contents of page until done loading -->  
 
 <div id="log" class="yui3-skin-sam"></div><!-- console log for functional testing feedback -->
-<div class="header yui3-g">
-    <div class="yui3-u-1-3">
-        <div class="logo"></div>
-        <h1 class="yui3-u">Skin Builder</h1>
-    </div>
 
-    <div class="menu yui3-u-2-3">
-        <ul class="yui3-g">
-            <li class="yui3-u"><a alt="Documentation" href="docs.html">Documentation</a></li>
-            <li class="yui3-u"><a alt="File an issue" href="https://github.com/yui/skinbuilder/issues">File an issue</a></li>
-        </ul>
-    </div>
+<div id="headerMenu" class="yui3-menu yui3-menu-open yui3-menu-horizontal yui3-menu-fixed">
+    <ul>
+        <li><a class="yui3-menu-heading-main-ui">YUI Skin Builder</a></li>
+        <li><a class="tag-line">An App for Generating Custom Skin CSS</a></li>
+        <li><a href="docs.html">Documentation</a></li>
+        <li><a href="https://github.com/yui/skinbuilder/issues">File an issue</a></li>
+    </ul>
 </div>
 
 <div id="tabview-controls-container">

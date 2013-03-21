@@ -727,6 +727,7 @@ function (Y) {
             bucketHex,
             hsl;
 
+        Y.one('#spinner').remove();
         overlaySchemer.hide(); 
         // if (Y.one('.bucket-selected')) {
         //     Y.one('.bucket-selected').removeClass('bucket-selected');
