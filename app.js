@@ -726,8 +726,6 @@ function (Y) {
             relY = (e.clientY + Y.one('document').get('scrollTop')),
             bucketHex,
             hsl;
-
-        Y.one('#spinner').remove();
         overlaySchemer.hide(); 
         // if (Y.one('.bucket-selected')) {
         //     Y.one('.bucket-selected').removeClass('bucket-selected');
@@ -761,6 +759,13 @@ function (Y) {
 
         overlayPicker.show();
         overlayPicker.move([(relX + 40), (relY + 10)]);
+
+var a = Y.WidgetPositionAlign; // Local variable
+        overlayPicker.set("align", {
+    node: e.target,
+    points: [a.TL, a.TR]
+});
+
 
     };
     var handlePickerInputBlur = function(e) {

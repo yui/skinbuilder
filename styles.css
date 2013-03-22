@@ -1,16 +1,30 @@
 
 
 /*****************  this is only to layout abstract color space and Tool UI ****************/
-.yui3-loading {
+.yui3-loading .mega{
     visibility: hidden;
+    opacity: 0;
+}
+.mega {
+    opacity: 1;
+    transition: opacity 1.5s;
+}
+.splash {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    display: none;
+}
+.yui3-loading .splash {
+    display: block;
 }
 #spinner {
-    position: absolute;
+    margin: 25px auto 0;
     background: url(assets/images/spinner.gif);
     width: 60px;
     height: 60px;
-    left: 48%;
-    top: 121px;
 }
 body {
     margin: 0;
@@ -37,8 +51,11 @@ body {
     font-family: "proxima-nova",sans-serif;
 }
 #headerMenu .heading-main-ui {
-    text-transform: uppercase;
     cursor: default;
+    padding: 0 20px;
+    margin: 6px 0 0;
+    font-size: 154%;
+    vertical-align: top;
 }
 #headerMenu .heading-main-ui:hover {
     background-color: inherit;
@@ -50,6 +67,7 @@ body {
 }
 #headerMenu li {
     display: inline-block;
+    vertical-align: top;
     *display: block;
     *zoom: 1;
     color: #fff;
