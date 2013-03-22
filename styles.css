@@ -11,7 +11,7 @@
 }
 .splash {
     position: absolute;
-    top: 0;
+    top: 100px;
     left: 0;
     width: 100%;
     text-align: center;
@@ -19,6 +19,21 @@
 }
 .yui3-loading .splash {
     display: block;
+}
+.hero h1, .hero h2 {
+    font-family: "omnes-pro",sans-serif;
+}
+.hero h1 {
+    color: #9EADD6;
+    font-size: 800%;
+    font-weight: 100;
+    margin: 0;
+    padding: 0;
+}.hero h2 {
+    color: #666666;
+    font-size: 260%;
+    font-weight: 100;
+    margin: 0.02em 0 0.8em;
 }
 #spinner {
     margin: 25px auto 0;
