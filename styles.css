@@ -725,7 +725,21 @@ h1 {
 }
 #node-menunav-split {
 }
-
+/******* widget preview of yui3-menu-fixed *******/
+.sb-preview-list .yui3-menu-fixed {
+    top: 400px;
+    left: 0;
+    z-index: 1000;
+    display: none;
+}
+.sb-preview-list .yui3-menu-fixed ul {
+    top: 0;
+    left: 0;
+    visibility: visible;
+}
+.yui3-form-aligned fieldset .yui3-control-group label {
+    width: 8em;
+}
 /******* allow menus to display on top of panel and overlay *******/
 #actors {
     z-index: 10;

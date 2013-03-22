@@ -94,59 +94,59 @@ function (Y) {
                 {
                     name: 'autocomplete',
                     //displayName: 'AutoComplete', 
-                    display: true,
+                    display: false,
                     type: 'widget' 
                 }, 
                 {
                     name: 'button', 
-                    display: true, 
+                    display: false, 
                     type: 'widget' 
                 }, 
                 {
                     name: 'calendar', 
-                    display: true, 
+                    display: false, 
                     type: 'widget' 
                 }, 
                 {
                     name: 'datatable', 
-                    display: true, 
+                    display: false, 
                     type: 'widget' 
                 }, 
                 {
                     name: 'dial', 
-                    display: true, 
+                    display: false, 
                     type: 'widget', 
                     required: true   ///////
                 }, 
                 {
                     name: 'nodeMenunav', 
-                    display: true, 
+                    display: false, 
                     type: 'widget' 
                 }, 
                 {
                     name: 'overlay', 
-                    display: true, 
+                    display: false, 
                     type: 'widget' 
                 }, 
                 {
                     name: 'panel', 
-                    display: true, 
+                    display: false, 
                     type: 'widget' 
                 }, 
                 {
                     name: 'scrollview', 
-                    display: true, 
+                    display: false, 
                     type: 'widget' 
                 }, 
                 {
                     name: 'slider', 
-                    display: true, 
+                    display: false, 
                     type: 'widget', 
                     required: true    /////////
                 }, 
                 {
                     name: 'tabview', 
-                    display: true, 
+                    display: false, 
                     type: 'widget', 
                     required: true   //////////
                 }, ///////////////////////////////////// keep YUICSS modules below this line. 
@@ -1172,6 +1172,18 @@ var a = Y.WidgetPositionAlign; // Local variable
     }
     initPreviewAndModulesCheckboxes();
 
+    // show/hide the YUI CSS fixed-menu
+    // Y.one('#btn-toggle-fixed-menu').on('click', function(e) {
+    //     var fixedMenu = Y.one('.sb-preview-list .yui3-menu-fixed');
+    //     if(fixedMenu.getStyle('display') === 'none') {
+    //         //fixedMenu.show();
+    //         fixedMenu.setStyle('display', 'block');
+    //         fixedMenu.setXY([e.target._node.offsetLeft, (e.target._node.offsetTop + 40)]);
+    //     } else {
+    //         //fixedMenu.hide();
+    //         fixedMenu.setStyle('display', 'none');
+    //     }
+    // })
     ////////////////// functional & unit test //////////////////////
 
     // run tests only if the URL contains ?test
