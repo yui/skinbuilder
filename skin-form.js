@@ -8,9 +8,15 @@ Y.Skin.renderers.form = function (skin) {
         inputPadding: skin.padding(0.5, 0.6), //0.5em 0.6em
         addonPadding: skin.padding(0.3, 0.8), //0.3em 0.8em
         inputRadius: skin.radius(0.4),  // 40% of the global radius in space.radius (space.js)
-        inputBorder: space.block.low.border.low, 
-        inputShadowInset: space.block.low.background,
-
+        inputRadiusRounded: skin.radius(3),  // 40% of the global radius in space.radius (space.js)
+        inputBorder: space.block.container.rule.low, 
+        inputBorderFocus: space.block.highest.background, 
+        inputShadowInset: space.block.container.border.low,
+        label: space.block.container.text.normal,
+        legendText: space.block.container.text.high,
+        legendRule: space.block.container.border.low,
+        disabledBackground : space.block.container.background,
+        disabledText: space.block.container.text.low,
         // ringBackgroundColor:        space.background,
         // ringGradient:               '-moz-linear-gradient(-45deg, rgba(255,255,255, 0.1) 0%, rgba(255,255,255,0) 39%, rgba(0,0,0,0) 40%, rgba(0,0,0, 0.2) 100%)',
         // centerButtonBackgroundColor:    space.block.normal.background,

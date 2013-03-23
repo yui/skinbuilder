@@ -1828,12 +1828,12 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
 =========================================================*/
 .yui3-form input,
 .yui3-form select {
-  padding: 0.5em 0.6em;
+  padding: {{inputPadding}};
   display: inline-block;
-  border: 1px solid #ccc;
+  border: 1px solid {{inputBorder}};
   font-size: 0.8em;
-  box-shadow: inset 0 1px 3px #ddd;
-  border-radius: 4px;
+  box-shadow: inset 0 1px 3px {{inputBorder}};
+  border-radius: {{inputRadius}};
   -webkit-transition: 0.3s linear border;
   -moz-transition: 0.3s linear border;
   -ms-transition: 0.3s linear border;
@@ -1849,7 +1849,7 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
 .yui3-form select:focus {
   outline: 0;
   outline: thin dotted \9; /* IE6-9 */
-  border-color: #129FEA;
+  border-color: #129FEA; /* highest bkg {{inputBorderFocus}};*/
 }
 .yui3-form .yui3-checkbox,
 .yui3-form .yui3-radio {
@@ -1863,9 +1863,10 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
 .yui3-form select[readonly],
 .yui3-form textarea[readonly] {
   cursor: not-allowed;
-  background-color: #eaeded;
-  color: #cad2d3;
-  border-color: transparent;
+  box-shadow: inset 0 1px 10px {{inputShadowInset}};
+  background-color: #fff;
+  color: {{disabledText}};
+  border-color: {{inputBorder}};
 }
 .yui3-form input:focus:invalid,
 .yui3-form textarea:focus:invalid,
@@ -1880,7 +1881,7 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
 }
 .yui3-form select {
   width: 220px;
-  border: 1px solid #ccc;
+  border: 1px solid {{inputBorder}};
   background-color: white;
 }
 .yui3-form select[multiple] {
@@ -1888,7 +1889,7 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
 }
 .yui3-form label {
   margin: 0.5em 0 0.2em;
-  color: #999;
+  color: {{label}};
   font-size:90%;
 }
 .yui3-form fieldset {
@@ -1902,8 +1903,8 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
   padding: 0.3em 0;
   margin-bottom: 0.3em;
   font-size: 125%;
-  color: #333;
-  border-bottom: 1px solid #e5e5e5;
+  color: {{legendText}};
+  border-bottom: 1px solid {{legendRule}};
 }
 
 .yui3-form.yui3-form-stacked input[type='text'], 
@@ -1939,8 +1940,8 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
 
 /* Rounded Inputs */
 .yui3-form .yui3-input-rounded {
-  border-radius: 20px;
-  padding-left:1em;
+  border-radius: {{inputRadiusRounded}};
+  padding-left: 1em;
 }
 
 /* Grouped Inputs */
@@ -3392,15 +3393,15 @@ odd - #edf5ff (light blue)
         <form class="yui3-form">
         <label class="yui3-checkbox">
         <input type="checkbox" value="">
-        Here's option one. 
+        Checkbox option 
         </label>
         <label class="yui3-radio">
         <input type="radio" checked="" value="option1" id="optionsRadios1" name="optionsRadios">
-        Here's a radio button. You can choose this one..
+        Radio button choice
         </label>
         <label class="yui3-radio">
         <input type="radio" value="option2" id="optionsRadios2" name="optionsRadios">
-        ..Or this one! 
+        Radio other choice 
         </label>
         </form>
     </li>
@@ -3412,7 +3413,7 @@ odd - #edf5ff (light blue)
         <input type="text" placeholder="Email">
         <input type="password" placeholder="Password">
         <label>
-        <input type="checkbox"> Remember me
+        <input type="checkbox"> Opt in
         </label>
         <button class="yui3-button" type="submit">Sign in</button>
         </fieldset>
@@ -3475,18 +3476,24 @@ odd - #edf5ff (light blue)
         </fieldset>
         </form>        
     </li>
-    <li class="sb-preview-form"><div class="widget-preview-label">Grouped Inputs Form</div>
+    <li class="sb-preview-form"><div class="widget-preview-label">Form - Grouped Inputs</div>
         <form class="yui3-form">
         <fieldset class="yui3-group">
-        <input type="text" placeholder="Username" class="yui3-input-1-3">
-        <input type="text" placeholder="Password" class="yui3-input-1-3">
-        <input type="text" placeholder="Email" class="yui3-input-1-3">
+        <input type="text" placeholder="Username" class="yui3-input-1-2">
+        <input type="text" placeholder="Password" class="yui3-input-1-2">
+        <input type="text" placeholder="Email" class="yui3-input-1-2">
         </fieldset>
         <fieldset class="yui3-group">
-        <input type="text" placeholder="Another Group" class="yui3-input-1-3">
-        <input type="text" placeholder="More Stuff" class="yui3-input-1-3">
-        <button class="yui3-button yui3-input-1-3" type="submit">Sign in</button>
+        <input type="text" placeholder="Another Group" class="yui3-input-1-2">
+        <input type="text" placeholder="More Stuff" class="yui3-input-1-2">
+        <button class="yui3-button yui3-input-1-2" type="submit">Sign in</button>
         </fieldset>
+        </form>
+    </li>        
+    <li class="sb-preview-form"><div class="widget-preview-label">Rounded Form</div>
+        <form class="yui3-form">
+        <input type="text" class="yui3-input-rounded">
+        <button class="yui3-button" type="submit">Search</button>
         </form>
     </li>        
 <!--    

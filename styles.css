@@ -740,6 +740,9 @@ h1 {
 .yui3-form-aligned fieldset .yui3-control-group label {
     width: 8em;
 }
+.yui3-form-aligned fieldset .yui3-controls {
+    margin-left: 8.2em;
+}
 /******* allow menus to display on top of panel and overlay *******/
 #actors {
     z-index: 10;
