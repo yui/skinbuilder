@@ -1660,7 +1660,7 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
  * Corrects margin displayed oddly in IE 6/7.
  */
 
-.yui3-form {
+{{prefix}}{{skinName}} {{prefix}}form {
     margin: 0;
 }
 
@@ -1668,7 +1668,7 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
  * Define consistent border, margin, and padding.
  
 
-.yui3-form fieldset {
+{{prefix}}{{skinName}} {{prefix}}form fieldset {
     border: 1px solid #c0c0c0;
     margin: 0 2px;
     padding: 0.35em 0.625em 0.75em;
@@ -1680,7 +1680,7 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
  * 3. Corrects alignment displayed oddly in IE 6/7.
  */
 
-.yui3-form legend {
+{{prefix}}{{skinName}} {{prefix}}form legend {
     border: 0; /* 1 */
     padding: 0;
     white-space: normal; /* 2 */
@@ -1694,10 +1694,10 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
  * 3. Improves appearance and consistency in all browsers.
  */
 
-.yui3-form button,
-.yui3-form input,
-.yui3-form select,
-.yui3-form textarea {
+{{prefix}}{{skinName}} {{prefix}}form button,
+{{prefix}}{{skinName}} {{prefix}}form input,
+{{prefix}}{{skinName}} {{prefix}}form select,
+{{prefix}}{{skinName}} {{prefix}}form textarea {
     font-size: 100%; /* 1 */
     margin: 0; /* 2 */
     vertical-align: baseline; /* 3 */
@@ -1709,8 +1709,8 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
  * the UA stylesheet.
  */
 
-.yui3-form button,
-.yui3-form input {
+{{prefix}}{{skinName}} {{prefix}}form button,
+{{prefix}}{{skinName}} {{prefix}}form input {
     line-height: normal;
 }
 
@@ -1724,10 +1724,10 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
  *    Known issue: inner spacing remains in IE 6.
  */
 
-.yui3-form button,
-.yui3-form input[type="button"], /* 1 */
-.yui3-form input[type="reset"],
-.yui3-form input[type="submit"] {
+{{prefix}}{{skinName}} {{prefix}}form button,
+{{prefix}}{{skinName}} {{prefix}}form input[type="button"], /* 1 */
+{{prefix}}{{skinName}} {{prefix}}form input[type="reset"],
+{{prefix}}{{skinName}} {{prefix}}form input[type="submit"] {
     -webkit-appearance: button; /* 2 */
     cursor: pointer; /* 3 */
     *overflow: visible;  /* 4 */
@@ -1737,8 +1737,8 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
  * Re-set default cursor for disabled elements.
  */
 
-.yui3-form button[disabled],
-.yui3-form input[disabled] {
+{{prefix}}{{skinName}} {{prefix}}form button[disabled],
+{{prefix}}{{skinName}} {{prefix}}form input[disabled] {
     cursor: default;
 }
 
@@ -1749,8 +1749,8 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
  *    Known issue: excess padding remains in IE 6.
  */
 
-.yui3-form input[type="checkbox"],
-.yui3-form input[type="radio"] {
+{{prefix}}{{skinName}} {{prefix}}form input[type="checkbox"],
+{{prefix}}{{skinName}} {{prefix}}form input[type="radio"] {
     box-sizing: border-box; /* 1 */
     padding: 0; /* 2 */
     *height: 13px; /* 3 */
@@ -1763,7 +1763,7 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
  *    (include `-moz` to future-proof).
  */
 
-.yui3-form input[type="search"] {
+{{prefix}}{{skinName}} {{prefix}}form input[type="search"] {
     -webkit-appearance: textfield; /* 1 */
     -moz-box-sizing: content-box;
     -webkit-box-sizing: content-box; /* 2 */
@@ -1775,8 +1775,8 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
  * on OS X.
  */
 
-.yui3-form input[type="search"]::-webkit-search-cancel-button,
-.yui3-form input[type="search"]::-webkit-search-decoration {
+{{prefix}}{{skinName}} {{prefix}}form input[type="search"]::-webkit-search-cancel-button,
+{{prefix}}{{skinName}} {{prefix}}form input[type="search"]::-webkit-search-decoration {
     -webkit-appearance: none;
 }
 
@@ -1784,8 +1784,8 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
  * Removes inner padding and border in Firefox 3+.
  */
 
-.yui3-form button::-moz-focus-inner,
-.yui3-form input::-moz-focus-inner {
+{{prefix}}{{skinName}} {{prefix}}form button::-moz-focus-inner,
+{{prefix}}{{skinName}} {{prefix}}form input::-moz-focus-inner {
     border: 0;
     padding: 0;
 }
@@ -1795,7 +1795,7 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
  * 2. Improves readability and alignment in all browsers.
  */
 
-.yui3-form textarea {
+{{prefix}}{{skinName}} {{prefix}}form textarea {
     overflow: auto; /* 1 */
     vertical-align: top; /* 2 */
 }
@@ -1803,25 +1803,25 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
 
 =========================================================*/
 @media only screen and (max-width : 480px) {
-    .yui3-form button[type='submit'] {
+    {{prefix}}{{skinName}} {{prefix}}form button[type='submit'] {
     margin: 0.7em 0 0;
     }
 
-    .yui3-form input[type='text'], .yui3-form button, .yui3-form label {
+    {{prefix}}{{skinName}} {{prefix}}form input[type='text'], {{prefix}}{{skinName}} {{prefix}}form button, {{prefix}}{{skinName}} {{prefix}}form label {
     margin-bottom: 0.3em;
     display: block;
     }
 
-    .yui3-form-aligned .yui3-control-group label {
+    {{prefix}}{{skinName}} {{prefix}}form-aligned {{prefix}}control-group label {
     margin-bottom: 0.3em;
     text-align: left;
     }
 
-    .yui3-form-aligned .yui3-controls {
+    {{prefix}}{{skinName}} {{prefix}}form-aligned {{prefix}}controls {
     margin: 1.5em 0 0 0;
     }
 
-    .yui3-form .yui3-help-inline {
+    {{prefix}}{{skinName}} {{prefix}}form {{prefix}}help-inline {
     display: block;
     font-size: 80%;
     padding: 0.2em 0 0.8em; /* increased bottom padding to make it group with its related input element */
@@ -1831,8 +1831,8 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
 /* ===============  forms.css ================
 
 =========================================================*/
-.yui3-form input,
-.yui3-form select {
+{{prefix}}{{skinName}} {{prefix}}form input,
+{{prefix}}{{skinName}} {{prefix}}form select {
   padding: {{inputPadding}};
   display: inline-block;
   border: 1px solid {{inputBorder}};
@@ -1850,59 +1850,59 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
   -webkit-font-smoothing: antialiased;
 }
 
-.yui3-form input:focus,
-.yui3-form select:focus {
+{{prefix}}{{skinName}} {{prefix}}form input:focus,
+{{prefix}}{{skinName}} {{prefix}}form select:focus {
   outline: 0;
   outline: thin dotted \9; /* IE6-9 */
   border-color: #129FEA; /* highest bkg {{inputBorderFocus}};*/
 }
-.yui3-form .yui3-checkbox,
-.yui3-form .yui3-radio {
+{{prefix}}{{skinName}} {{prefix}}form {{prefix}}checkbox,
+{{prefix}}{{skinName}} {{prefix}}form {{prefix}}radio {
   margin: 0.5em 0;
   display: block;
 }
-.yui3-form input[disabled],
-.yui3-form select[disabled],
-.yui3-form textarea[disabled],
-.yui3-form input[readonly],
-.yui3-form select[readonly],
-.yui3-form textarea[readonly] {
+{{prefix}}{{skinName}} {{prefix}}form input[disabled],
+{{prefix}}{{skinName}} {{prefix}}form select[disabled],
+{{prefix}}{{skinName}} {{prefix}}form textarea[disabled],
+{{prefix}}{{skinName}} {{prefix}}form input[readonly],
+{{prefix}}{{skinName}} {{prefix}}form select[readonly],
+{{prefix}}{{skinName}} {{prefix}}form textarea[readonly] {
   cursor: not-allowed;
   box-shadow: inset 0 1px 10px {{inputShadowInset}};
   background-color: #fff;
   color: {{disabledText}};
   border-color: {{inputBorder}};
 }
-.yui3-form input:focus:invalid,
-.yui3-form textarea:focus:invalid,
-.yui3-form select:focus:invalid {
+{{prefix}}{{skinName}} {{prefix}}form input:focus:invalid,
+{{prefix}}{{skinName}} {{prefix}}form textarea:focus:invalid,
+{{prefix}}{{skinName}} {{prefix}}form select:focus:invalid {
   color: #b94a48;
   border: 1px solid #ee5f5b;
 }
-.yui3-form input:focus:invalid:focus,
-.yui3-form textarea:focus:invalid:focus,
-.yui3-form select:focus:invalid:focus {
+{{prefix}}{{skinName}} {{prefix}}form input:focus:invalid:focus,
+{{prefix}}{{skinName}} {{prefix}}form textarea:focus:invalid:focus,
+{{prefix}}{{skinName}} {{prefix}}form select:focus:invalid:focus {
   border-color: #e9322d;
 }
-.yui3-form select {
+{{prefix}}{{skinName}} {{prefix}}form select {
   width: 220px;/* question: how was this determined? */
   border: 1px solid {{inputBorder}};
   background-color: white;
 }
-.yui3-form select[multiple] {
+{{prefix}}{{skinName}} {{prefix}}form select[multiple] {
   height: auto;
 }
-.yui3-form label {
+{{prefix}}{{skinName}} {{prefix}}form label {
   margin: 0.5em 0 0.2em;
   color: {{label}};
   font-size:90%;
 }
-.yui3-form fieldset {
+{{prefix}}{{skinName}} {{prefix}}form fieldset {
   margin: 0;
   padding: 0.35em 0 0.75em;
   border: 0;
 }
-.yui3-form legend {
+{{prefix}}{{skinName}} {{prefix}}form legend {
   display: block;
   width: 100%;
   padding: 0.3em 0;
@@ -1912,16 +1912,16 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
   border-bottom: 1px solid {{legendRule}};
 }
 
-.yui3-form.yui3-form-stacked input[type='text'], 
-.yui3-form.yui3-form-stacked select, 
-.yui3-form.yui3-form-stacked label {
+{{prefix}}{{skinName}} {{prefix}}form{{prefix}}form-stacked input[type='text'], 
+{{prefix}}{{skinName}} {{prefix}}form{{prefix}}form-stacked select, 
+{{prefix}}{{skinName}} {{prefix}}form{{prefix}}form-stacked label {
   display: block;
 }
 
-.yui3-form-aligned input,
-.yui3-form-aligned textarea,
-.yui3-form-aligned select,
-.yui3-form-aligned .yui3-help-inline {
+{{prefix}}{{skinName}} {{prefix}}form-aligned input,
+{{prefix}}{{skinName}} {{prefix}}form-aligned textarea,
+{{prefix}}{{skinName}} {{prefix}}form-aligned select,
+{{prefix}}{{skinName}} {{prefix}}form-aligned {{prefix}}help-inline {
   display: inline-block;
   *display: inline; /* IE7 inline-block hack */
   *zoom: 1;
@@ -1929,31 +1929,31 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
 }
 
 /* aligned Forms */
-.yui3-form-aligned .yui3-control-group {
+{{prefix}}{{skinName}} {{prefix}}form-aligned {{prefix}}control-group {
   margin-bottom: 0.5em;
 }
-.yui3-form-aligned .yui3-control-group label {
+{{prefix}}{{skinName}} {{prefix}}form-aligned {{prefix}}control-group label {
   text-align: right;
   display: inline-block;
   vertical-align: middle;
   width: 10em;
   margin: 0 1em 0 0;
 }
-.yui3-form-aligned .yui3-controls {
+{{prefix}}{{skinName}} {{prefix}}form-aligned {{prefix}}controls {
   margin: 1.5em 0 0 10em;
 }
 
 /* Rounded Inputs */
-.yui3-form .yui3-input-rounded {
+{{prefix}}{{skinName}} {{prefix}}form {{prefix}}input-rounded {
   border-radius: {{inputRadiusRounded}};
   padding-left: 1em;
 }
 
 /* Grouped Inputs */
-.yui3-form .yui3-group fieldset {
+{{prefix}}{{skinName}} {{prefix}}form {{prefix}}group fieldset {
   margin-bottom: 10px;
 }
-.yui3-form .yui3-group input {
+{{prefix}}{{skinName}} {{prefix}}form {{prefix}}group input {
   display: block;
   padding: {{inputGroupedPadding}};
   margin: 0;
@@ -1961,39 +1961,39 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
   position: relative;
   top: -1px;
 }
-.yui3-form .yui3-group input:focus {
+{{prefix}}{{skinName}} {{prefix}}form {{prefix}}group input:focus {
   z-index: 2;
 }
-.yui3-form .yui3-group input:first-child {
+{{prefix}}{{skinName}} {{prefix}}form {{prefix}}group input:first-child {
   top: 1px;
   border-radius: {{inputGroupFirstRadius}};
 }
-.yui3-form .yui3-group input:last-child {
+{{prefix}}{{skinName}} {{prefix}}form {{prefix}}group input:last-child {
   top: -2px;
   border-radius: {{inputGroupLastRadius}};
 }
-.yui3-form .yui3-group button {
+{{prefix}}{{skinName}} {{prefix}}form {{prefix}}group button {
   margin: 0.35em 0;
 }
 
-.yui3-form .yui3-input-1 {
+{{prefix}}{{skinName}} {{prefix}}form {{prefix}}input-1 {
   width: 100%;
 }
-.yui3-form .yui3-input-2-3 {
+{{prefix}}{{skinName}} {{prefix}}form {{prefix}}input-2-3 {
   width: 66%;
 }
-.yui3-form .yui3-input-1-2 {
+{{prefix}}{{skinName}} {{prefix}}form {{prefix}}input-1-2 {
   width: 50%;
 }
-.yui3-form .yui3-input-1-3 {
+{{prefix}}{{skinName}} {{prefix}}form {{prefix}}input-1-3 {
   width: 33%;
 }
-.yui3-form .yui3-input-1-4 {
+{{prefix}}{{skinName}} {{prefix}}form {{prefix}}input-1-4 {
   width: 25%;
 }
 
 /* Inline help for forms */
-.yui3-form .yui3-help-inline {
+{{prefix}}{{skinName}} {{prefix}}form {{prefix}}help-inline {
   display: inline-block;
   padding-left: 0.3em;
   color: #666;
@@ -2004,12 +2004,12 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
 
 <script id="table-template" type="text/x-handlebars-template">
 /* foundational CSS */
-.yui3-table {
+{{prefix}}{{skinName}} {{prefix}}table {
     empty-cells: show;
 }
 
 /* basic skin styles */
-.yui3-table {
+{{prefix}}{{skinName}} {{prefix}}table {
     font-family: arial, sans-serif;
     border-collapse: separate;
     border-spacing: 0;
@@ -2021,15 +2021,15 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
     border: 1px solid {{border}};
 }
 
-.yui3-table caption {
+{{prefix}}{{skinName}} {{prefix}}table caption {
     color: {{captionText}};
     font: italic 85%/1 arial, sans-serif;
     padding: 1em 0;
     text-align: center;
 }
 
-.yui3-table td,
-.yui3-table th {
+{{prefix}}{{skinName}} {{prefix}}table td,
+{{prefix}}{{skinName}} {{prefix}}table th {
     border-left: 1px solid {{border}};/* inner column border */
     border-width: 0 0 0 1px;
     font-size: inherit;
@@ -2038,12 +2038,12 @@ overflow: visible; /*to make ths where the title is really long work*/
     padding: 6px 12px; /* cell padding */
     font-weight: normal;
 }
-.yui3-table td:first-child,
-.yui3-table th:first-child {
+{{prefix}}{{skinName}} {{prefix}}table td:first-child,
+{{prefix}}{{skinName}} {{prefix}}table th:first-child {
     border-left-width: 0;
 }
 
-.yui3-table thead {
+{{prefix}}{{skinName}} {{prefix}}table thead {
     {{headGradient}};
     background-color: {{headBackground}};
 
@@ -2069,49 +2069,49 @@ striping:
 even - #fff (white)
 odd - #edf5ff (light blue)
 */
-.yui3-table td {
+{{prefix}}{{skinName}} {{prefix}}table td {
     background-color: {{cellBackground}};
     color: {{cellText}};
 }
-.yui3-table-odd td {
+{{prefix}}{{skinName}} {{prefix}}table-odd td {
     background-color: {{cellOddBackground}};
     color: {{cellOddText}};
 }
 
 
 /* BORDERED TABLES */
-.yui3-table-bordered td {
+{{prefix}}{{skinName}} {{prefix}}table-bordered td {
     border-bottom:1px solid {{border}};
 }
-.yui3-table-bordered tbody > tr:last-child td,
-.yui3-table-horizontal tbody > tr:last-child td {
+{{prefix}}{{skinName}} {{prefix}}table-bordered tbody > tr:last-child td,
+{{prefix}}{{skinName}} {{prefix}}table-horizontal tbody > tr:last-child td {
     /*border-bottom:1px solid #fff;*/
     border-bottom-width: 0;
 }
 
 
 /* HORIZONTAL BORDERED TABLES */
-.yui3-table-horizontal {
+{{prefix}}{{skinName}} {{prefix}}table-horizontal {
     border-width: 1px 0;
 }
-.yui3-table-horizontal td,
-.yui3-table-horizontal th {
+{{prefix}}{{skinName}} {{prefix}}table-horizontal td,
+{{prefix}}{{skinName}} {{prefix}}table-horizontal th {
     border-width: 0 0 1px 0;
     border-bottom:1px solid {{border}};
 }
-.yui3-table-horizontal tbody > tr:last-child td {
+{{prefix}}{{skinName}} {{prefix}}table-horizontal tbody > tr:last-child td {
     /*border-bottom:1px solid #fff;*/
     border-bottom-width: 0;
 }
 
 
 /* PLAIN HEADERS */
-.yui3-table .yui3-thead-simple {
+{{prefix}}{{skinName}} {{prefix}}table {{prefix}}thead-simple {
     /* header gradient */
     background: {{headBackground}};
     border-width:0 0 1px 0;
 }
-.yui3-table .yui3-thead-simple th {
+{{prefix}}{{skinName}} {{prefix}}table {{prefix}}thead-simple th {
     border-bottom:1px solid {{border}};
 }
 
@@ -2122,18 +2122,18 @@ odd - #edf5ff (light blue)
 
 <script id="list-template" type="text/x-handlebars-template">
 /* from YUICSS list-core.css */
-.yui3-menu ul {
+{{prefix}}{{skinName}} {{prefix}}menu ul {
     position: absolute;
     visibility: hidden;
 }
 
-.yui3-menu.yui3-menu-open {
+{{prefix}}{{skinName}} {{prefix}}menu{{prefix}}menu-open {
     visibility: visible;
     z-index: 2;
     width: 100%;
 }
 
-.yui3-menu ul {
+{{prefix}}{{skinName}} {{prefix}}menu ul {
     left: -10000px;
     list-style: none;
     margin: 0;
@@ -2142,17 +2142,17 @@ odd - #edf5ff (light blue)
     z-index: 1;
 }
 
-.yui3-menu > ul { position: relative; }
+{{prefix}}{{skinName}} {{prefix}}menu > ul { position: relative; }
 
-.yui3-menu-open > ul {
+{{prefix}}{{skinName}} {{prefix}}menu-open > ul {
     left: 0;
     top: 0;
     visibility: visible;
 }
 
-.yui3-menu li { position: relative; }
+{{prefix}}{{skinName}} {{prefix}}menu li { position: relative; }
 
-.yui3-menu a, .yui3-menu .yui3-menu-heading {
+{{prefix}}{{skinName}} {{prefix}}menu a, {{prefix}}{{skinName}} {{prefix}}menu {{prefix}}menu-heading {
     display: block;
     color: inherit;
     line-height: 1.5em;
@@ -2161,23 +2161,23 @@ odd - #edf5ff (light blue)
     white-space: nowrap;
 }
 
-.yui3-menu.yui3-menu-horizontal > .yui3-menu-heading {
+{{prefix}}{{skinName}} {{prefix}}menu{{prefix}}menu-horizontal > {{prefix}}menu-heading {
     display: inline-block;
     margin: 0;
     zoom: 1;
     *display: inline;
     vertical-align: middle;
 }
-.yui3-menu.yui3-menu-horizontal > ul {
+{{prefix}}{{skinName}} {{prefix}}menu{{prefix}}menu-horizontal > ul {
     display: inline-block;
     zoom: 1;
     *display: inline;
     vertical-align: middle;
 }
 
-.yui3-menu li a { {{menuItemPadding}}; }
+{{prefix}}{{skinName}} {{prefix}}menu li a { {{menuItemPadding}}; }
 
-.yui3-menu-can-have-children > .yui3-menu-label:after {
+{{prefix}}{{skinName}} {{prefix}}menu-can-have-children > {{prefix}}menu-label:after {
     content: '\25B8';
     float: right;
     font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'DejaVu Sans', sans-serif; /* These specific fonts have the Unicode char we need. */
@@ -2185,11 +2185,11 @@ odd - #edf5ff (light blue)
     margin-top: -1px;
 }
 
-.yui3-menu-can-have-children > .yui3-menu-label {
+{{prefix}}{{skinName}} {{prefix}}menu-can-have-children > {{prefix}}menu-label {
     padding-right:30px;
 }
 
-.yui3-menu-separator {
+{{prefix}}{{skinName}} {{prefix}}menu-separator {
     background-color: {{separator}};
     display: block;
     height: 1px;
@@ -2198,10 +2198,10 @@ odd - #edf5ff (light blue)
     overflow: hidden;
 }
 
-.yui3-menu-hidden { display: none; }
+{{prefix}}{{skinName}} {{prefix}}menu-hidden { display: none; }
 
 /* FIXED MENU */
-.yui3-menu-fixed {
+{{prefix}}{{skinName}} {{prefix}}menu-fixed {
     position: fixed;
     top:0;
     left:0;
@@ -2212,7 +2212,7 @@ odd - #edf5ff (light blue)
 /* HORIZONTAL MENU CODE */
 
 /* Initial menus should be inline-block so that they are horizontal */
-.yui3-menu-horizontal li {
+{{prefix}}{{skinName}} {{prefix}}menu-horizontal li {
     display: inline-block;
     zoom: 1;
     *display: inline;
@@ -2220,63 +2220,63 @@ odd - #edf5ff (light blue)
 }
 
 /* Submenus should still be display:block; */
-.yui3-menu-horizontal li li {
+{{prefix}}{{skinName}} {{prefix}}menu-horizontal li li {
     display: block;
 }
 
 /* Content after should be down arrow */
-.yui3-menu-horizontal > .yui3-menu-children > .yui3-menu-can-have-children > .yui3-menu-label:after {
+{{prefix}}{{skinName}} {{prefix}}menu-horizontal > {{prefix}}menu-children > {{prefix}}menu-can-have-children > {{prefix}}menu-label:after {
     content: "\25BE";
 }
 /*Add extra padding to elements that have the arrow so that the hover looks nice */
-.yui3-menu-horizontal > .yui3-menu-children > .yui3-menu-can-have-children > .yui3-menu-label {
+{{prefix}}{{skinName}} {{prefix}}menu-horizontal > {{prefix}}menu-children > {{prefix}}menu-can-have-children > {{prefix}}menu-label {
     padding-right:30px;
 }/* end from yuicss/list-core.css *******************************************/
 /* from yuicss list-paginator.css */
-.yui3-paginator {
+{{prefix}}{{skinName}} {{prefix}}paginator {
     list-style: none;
     margin: 0;
     padding: 0;
 }
-.yui3-paginator li {
+{{prefix}}{{skinName}} {{prefix}}paginator li {
     display: inline-block;
     *display: inline;
     /* IE 7 inline-block hack */
     *zoom: 1;
     margin: 0 -0.35em 0 0;
 }
-.yui3-paginator .yui3-button {
+{{prefix}}{{skinName}} {{prefix}}paginator {{prefix}}button {
     border-radius: 0;
     padding: 0.8em 1.4em;
     vertical-align: top;
     height: 1.1em;
 }
-.yui3-paginator .yui3-button:focus {
+{{prefix}}{{skinName}} {{prefix}}paginator {{prefix}}button:focus {
     outline-style: none;
 }
-.yui3-paginator .prev, .yui3-paginator .next {
+{{prefix}}{{skinName}} {{prefix}}paginator .prev, {{prefix}}{{skinName}} {{prefix}}paginator .next {
     /*color: #C0C1C3; allow yui3-button to color text*/
     /*text-shadow: 0px -1px 0px rgba(0,0,0, 0.45); text-shadow is not predictable in Skin Builder */
 }
-.yui3-paginator .prev {
+{{prefix}}{{skinName}} {{prefix}}paginator .prev {
     border-radius: {{paginatorRadiusPrev}};
 }
-.yui3-paginator .next {
+{{prefix}}{{skinName}} {{prefix}}paginator .next {
     border-radius: {{paginatorRadiusNext}};
 }
 /* end from YUICSS list-paginator.css ******************************/
 /* from YUICSS list.css *******************************************/
 /* MAIN MENU STYLING */
 
-.yui3-menu.yui3-menu-open,
-.yui3-menu.yui3-menu-horizontal li .yui3-menu-children {
+{{prefix}}{{skinName}} {{prefix}}menu{{prefix}}menu-open,
+{{prefix}}{{skinName}} {{prefix}}menu{{prefix}}menu-horizontal li {{prefix}}menu-children {
     background: {{menuBackground}}; /* Old browsers */
     border-radius: {{borderRadius}};
     border: 1px solid {{menuBorder}};
 }
 
 /* remove borders for horizontal menus */
-.yui3-menu.yui3-menu-horizontal {
+{{prefix}}{{skinName}} {{prefix}}menu{{prefix}}menu-horizontal {
     border: none;
 }
 
@@ -2284,50 +2284,50 @@ odd - #edf5ff (light blue)
 
 /* LINK STYLES */
 
-.yui3-menu a {
+{{prefix}}{{skinName}} {{prefix}}menu a {
     border: 1px solid transparent;
     border-left: none;
     border-right: none;
 
 }
 
-.yui3-menu a,
-.yui3-menu .yui3-menu-can-have-children > li:after {
+{{prefix}}{{skinName}} {{prefix}}menu a,
+{{prefix}}{{skinName}} {{prefix}}menu {{prefix}}menu-can-have-children > li:after {
     color: {{menuText}};
 }
 
-.yui3-menu .yui3-menu-can-have-children > li:hover:after {
+{{prefix}}{{skinName}} {{prefix}}menu {{prefix}}menu-can-have-children > li:hover:after {
     color: {{menuHoverText}};
 }
 
 
 
 /* HOVER STATES */
-.yui3-menu li a:hover {
+{{prefix}}{{skinName}} {{prefix}}menu li a:hover {
     background: {{menuHoverBackground}};
     color: {{menuHoverText}};
 
 }
 
 /* DISABLED STATES */
-.yui3-menu li.yui3-menu-disabled a:hover {
+{{prefix}}{{skinName}} {{prefix}}menu li{{prefix}}menu-disabled a:hover {
     background: {{menuBackground}};
     color: {{menuTextDisabled}};
 }
 
-.yui3-menu .yui3-menu-disabled > a {
+{{prefix}}{{skinName}} {{prefix}}menu {{prefix}}menu-disabled > a {
     background-image: none;
     border-color: transparent;
     cursor: default;
 }
 
-.yui3-menu .yui3-menu-disabled > a,
-.yui3-menu .yui3-menu-can-have-children.yui3-menu-disabled > a:after {
+{{prefix}}{{skinName}} {{prefix}}menu {{prefix}}menu-disabled > a,
+{{prefix}}{{skinName}} {{prefix}}menu {{prefix}}menu-can-have-children{{prefix}}menu-disabled > a:after {
     color: {{menuTextDisabled}};
 }
 
 /* HEADINGS */
-.yui3-menu .yui3-menu-heading {
+{{prefix}}{{skinName}} {{prefix}}menu {{prefix}}menu-heading {
     color: {{headingText}};
     text-transform: uppercase;
     font-size:90%;
@@ -2336,14 +2336,14 @@ odd - #edf5ff (light blue)
 
 
 /* SELECTED MENU ITEM */
-.yui3-menu .yui3-menu-selected a {
+{{prefix}}{{skinName}} {{prefix}}menu {{prefix}}menu-selected a {
     font-weight: bold;
     background-color: {{menuSelectedBackground}};
     color: {{menuSelectedText}};
 }
 
 /* FIXED MENU */
-.yui3-menu.yui3-menu-open.yui3-menu-fixed {
+{{prefix}}{{skinName}} {{prefix}}menu{{prefix}}menu-open{{prefix}}menu-fixed {
     border-radius: 0;
     border: none;
     border-bottom: 1px solid {{fixedMenuBorderBottom}};
@@ -2354,11 +2354,11 @@ odd - #edf5ff (light blue)
 
 @media (max-width: 480px) {
 
-    .yui3-menu-horizontal {
+    {{prefix}}{{skinName}} {{prefix}}menu-horizontal {
         width:100%;
     }
 
-    .yui3-menu-children li {
+    {{prefix}}{{skinName}} {{prefix}}menu-children li {
         display: block;
         border-bottom:1px solid block;
     }

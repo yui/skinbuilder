@@ -409,7 +409,7 @@ h1 {
     display: inline-block;
     *display: inline; /* IE inline block hack */
     *zoom: 1;    
-    width: 13em;
+    width: 17em;
 }
 
 
@@ -737,10 +737,10 @@ h1 {
     left: 0;
     visibility: visible;
 }
-.yui3-form-aligned fieldset .yui3-control-group label {
+.sb-preview-form .yui3-form-aligned fieldset .yui3-control-group label {
     width: 8em;
 }
-.yui3-form-aligned fieldset .yui3-controls {
+.sb-preview-form .yui3-form-aligned fieldset .yui3-controls {
     margin-left: 8.2em;
 }
 /******* allow menus to display on top of panel and overlay *******/
