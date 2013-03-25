@@ -73,10 +73,46 @@ Skin.prototype = {
         this.colorspace = colorspace.render(this.options.keycolor, this.options.container); //Note to Matt
     },
 
-    radius: function(factor) {
+
+    _computeRadius: function(factor, val) {
+        if (typeof val === 'undefined') {
+            val = 10; // TODO: Break out into default map.
+        }
+
+        unit = Skin._reUnit.exec(val) || 'px';
+        val = parseFloat(val);
+
+        if (typeof factor === 'undefined') {
+            factor = 0.4;
+        }
+
+        val = Math.round((factor * val) * 100 ) / 100;
+        return  val + unit;
+    },
+
+
+    radius: function(topLeft, topRight, bottomRight, bottomLeft) {
         // TODO: Add a defaultRadius.
-        var radius = (this.options.radius === undefined) ? this.options.defaultBorderRadius : this.options.radius;
-        return Math.round(radius * factor) + 'px';
+
+        var str = '',
+            options = this.options,
+            unit;
+
+        // TODO: Fix logic for padding shorthand. If no value is given, a
+        // a default is needed.
+        if (typeof topLeft !== 'undefined') {
+            str += this._computeRadius(topLeft, options.radius);
+        }
+        if (typeof topRight !== 'undefined') {
+            str += ' ' + this._computeRadius(topRight, options.radius);
+        }
+        if (typeof bottomRight !== 'undefined') {
+            str += ' ' + this._computeRadius(bottomRight, options.radius);
+        }
+        if (typeof bottomLeft !== 'undefined') {
+            str += ' ' + this._computeRadius(bottomLeft, options.radius);
+        }
+        return str;
     },
 
     _computePadding: function(factor, val) {

@@ -6,33 +6,23 @@ Y.Skin.renderers.list = function (skin) {
     
 
 
-/*
-        captionPadding: skin.padding(1, 0),
-        cellPadding: skin.padding(0.3, 0.6),   // 4px 10px 4px 10px;
-
-        headGradient:   space.block.normal.gradient,
-        headBackground: space.block.normal.background,
-        headText:       space.block.normal.text.normal,
-        headBorder:     space.border.low,
-        cellBackground: space.background,
-        cellText:       space.text.normal,
-        cellOddBackground: space.border.low,
-        cellOddText:   space.hover.text.normal,
-
-        headSortedBackground:   space.block.high.background,
-        headSortedGradient:     space.block.high.gradient,
-        headSortedText:         space.block.high.text.normal,
-        headSortedHoverBackground:   space.block.high.background,
-        headSortedHoverText:         space.block.high.text.normal,
-
-        cellSortedEvenBackground:   space.block.low.background,
-        cellSortedOddBackground:   space.block.low.border.low,
-        cellSortedEvenText:         space.block.low.hover.text.normal,
-
-        border:        space.border.low,
-        captionText:    space.block.container.text.low
-*/
-
+        menuItemPadding: skin.padding(0.35, 1.4),
+        borderRadius: skin.radius(0.3),
+        headingText: space.text.high,
+        separator: space.block.container.rule.low,
+        menuBackground: space.background,
+        menuText: space.text.normal,
+        menuTextDisabled: space.text.low,
+        menuBorder: space.border.low,
+        menuHoverBackground: space.hover.background, 
+        menuHoverText: space.hover.text.normal,
+        menuBorder: space.border.low,
+        menuSelectedBackground: space.block.highest.background,
+        menuSelectedText: space.block.highest.text.normal,
+        fixedMenuBorderBottom: space.border.low,
+        // paginator
+        paginatorRadiusPrev: skin.radius(0.4, 0, 0, 0.4),
+        paginatorRadiusNext: skin.radius(0, 0.4, 0.4, 0)
     };
 };
 

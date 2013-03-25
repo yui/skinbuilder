@@ -276,6 +276,11 @@
     text-decoration:none;
 }
 
+{{prefix}}{{skinName}} a{{prefix}}button-selected {
+    color: {{selectedText}};
+    text-decoration:none;
+}
+
 {{prefix}}{{skinName}} {{prefix}}button-hover,
 {{prefix}}{{skinName}} {{prefix}}button:hover {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#26000000', GradientType=0);
@@ -1661,14 +1666,14 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
 
 /*
  * Define consistent border, margin, and padding.
- */
+ 
 
 .yui3-form fieldset {
     border: 1px solid #c0c0c0;
     margin: 0 2px;
     padding: 0.35em 0.625em 0.75em;
 }
-
+*/
 /*
  * 1. Corrects color not being inherited in IE 6/7/8/9.
  * 2. Corrects text not wrapping in Firefox 3.
@@ -1880,7 +1885,7 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
   border-color: #e9322d;
 }
 .yui3-form select {
-  width: 220px;
+  width: 220px;/* question: how was this determined? */
   border: 1px solid {{inputBorder}};
   background-color: white;
 }
@@ -1950,7 +1955,7 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
 }
 .yui3-form .yui3-group input {
   display: block;
-  padding: 10px;
+  padding: {{inputGroupedPadding}};
   margin: 0;
   border-radius: 0;
   position: relative;
@@ -1961,11 +1966,11 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
 }
 .yui3-form .yui3-group input:first-child {
   top: 1px;
-  border-radius: 4px 4px 0 0;
+  border-radius: {{inputGroupFirstRadius}};
 }
 .yui3-form .yui3-group input:last-child {
   top: -2px;
-  border-radius: 0 0 4px 4px;
+  border-radius: {{inputGroupLastRadius}};
 }
 .yui3-form .yui3-group button {
   margin: 0.35em 0;
@@ -2013,11 +2018,11 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
 * and it doesn't hurt to have the declaration here.
 */
     /**border-collapse: collapse;*/
-    border: 1px solid #cbcbcb;
+    border: 1px solid {{border}};
 }
 
 .yui3-table caption {
-    color: #000;
+    color: {{captionText}};
     font: italic 85%/1 arial, sans-serif;
     padding: 1em 0;
     text-align: center;
@@ -2025,12 +2030,13 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
 
 .yui3-table td,
 .yui3-table th {
-    border-left: 1px solid #cbcbcb;/* inner column border */
+    border-left: 1px solid {{border}};/* inner column border */
     border-width: 0 0 0 1px;
     font-size: inherit;
     margin: 0;
 overflow: visible; /*to make ths where the title is really long work*/
     padding: 6px 12px; /* cell padding */
+    font-weight: normal;
 }
 .yui3-table td:first-child,
 .yui3-table th:first-child {
@@ -2038,20 +2044,22 @@ overflow: visible; /*to make ths where the title is really long work*/
 }
 
 .yui3-table thead {
-    /* header gradient */
+    {{headGradient}};
+    background-color: {{headBackground}};
+
+    /* header gradient 
     background: #fff url(../../../../assets/skins/sam/sprite.png) repeat-x 0 0;
 
     background-image:-webkit-linear-gradient(transparent 40%, rgba(0,0,0,0.21));
     background-image:-moz-linear-gradient(top,transparent 40%,rgba(0,0,0,0.21));
     background-image: -ms-linear-gradient(transparent 40%, rgba(0,0,0,0.21));
     background-image: -o-linear-gradient(transparent 40%, rgba(0,0,0,0.21));
-    background-image: linear-gradient(transparent 40%, rgba(0,0,0,0.21));
+    background-image: linear-gradient(transparent 40%, rgba(0,0,0,0.21));*/
     /* Not using an IE gradient because it doesn't support color stops */
 
-    color: #000;
-    font-weight: normal;
+    color: {{headText}};
     text-align: left;
-    text-shadow: 0 1px 1px #fff;
+    text-shadow: 0 1px 1px {{headTextShadow}};
     vertical-align: bottom;
     white-space: nowrap;
 }
@@ -2062,20 +2070,23 @@ even - #fff (white)
 odd - #edf5ff (light blue)
 */
 .yui3-table td {
-    background-color: transparent;
+    background-color: {{cellBackground}};
+    color: {{cellText}};
 }
 .yui3-table-odd td {
-    background-color: #f2f2f2;
+    background-color: {{cellOddBackground}};
+    color: {{cellOddText}};
 }
 
 
 /* BORDERED TABLES */
 .yui3-table-bordered td {
-    border-bottom:1px solid #cbcbcb;
+    border-bottom:1px solid {{border}};
 }
 .yui3-table-bordered tbody > tr:last-child td,
 .yui3-table-horizontal tbody > tr:last-child td {
-    border-bottom:1px solid #fff;
+    /*border-bottom:1px solid #fff;*/
+    border-bottom-width: 0;
 }
 
 
@@ -2086,21 +2097,22 @@ odd - #edf5ff (light blue)
 .yui3-table-horizontal td,
 .yui3-table-horizontal th {
     border-width: 0 0 1px 0;
-    border-bottom:1px solid #cbcbcb;
+    border-bottom:1px solid {{border}};
 }
 .yui3-table-horizontal tbody > tr:last-child td {
-    border-bottom:1px solid #fff;
+    /*border-bottom:1px solid #fff;*/
+    border-bottom-width: 0;
 }
 
 
 /* PLAIN HEADERS */
 .yui3-table .yui3-thead-simple {
     /* header gradient */
-    background: #fff;
+    background: {{headBackground}};
     border-width:0 0 1px 0;
 }
 .yui3-table .yui3-thead-simple th {
-    border-bottom:1px solid #cbcbcb;
+    border-bottom:1px solid {{border}};
 }
 
 
@@ -2144,7 +2156,7 @@ odd - #edf5ff (light blue)
     display: block;
     color: inherit;
     line-height: 1.5em;
-    padding: 5px 20px;
+    padding: {{menuItemPadding}};
     text-decoration: none;
     white-space: nowrap;
 }
@@ -2163,7 +2175,7 @@ odd - #edf5ff (light blue)
     vertical-align: middle;
 }
 
-.yui3-menu li a { padding: 5px 20px; }
+.yui3-menu li a { {{menuItemPadding}}; }
 
 .yui3-menu-can-have-children > .yui3-menu-label:after {
     content: '\25B8';
@@ -2178,7 +2190,7 @@ odd - #edf5ff (light blue)
 }
 
 .yui3-menu-separator {
-    background-color: #dfdfdf;
+    background-color: {{separator}};
     display: block;
     height: 1px;
     font-size: 0;
@@ -2243,14 +2255,14 @@ odd - #edf5ff (light blue)
     outline-style: none;
 }
 .yui3-paginator .prev, .yui3-paginator .next {
-    color: #C0C1C3;
-    text-shadow: 0px -1px 0px rgba(0,0,0, 0.45);
+    /*color: #C0C1C3; allow yui3-button to color text*/
+    /*text-shadow: 0px -1px 0px rgba(0,0,0, 0.45); text-shadow is not predictable in Skin Builder */
 }
 .yui3-paginator .prev {
-    border-radius: 2px 0 0 2px;
+    border-radius: {{paginatorRadiusPrev}};
 }
 .yui3-paginator .next {
-    border-radius: 0 2px 2px 0;
+    border-radius: {{paginatorRadiusNext}};
 }
 /* end from YUICSS list-paginator.css ******************************/
 /* from YUICSS list.css *******************************************/
@@ -2258,9 +2270,9 @@ odd - #edf5ff (light blue)
 
 .yui3-menu.yui3-menu-open,
 .yui3-menu.yui3-menu-horizontal li .yui3-menu-children {
-    background: #ffffff; /* Old browsers */
-    border-radius: 3px;
-    border: 1px solid #b7b7b7;
+    background: {{menuBackground}}; /* Old browsers */
+    border-radius: {{borderRadius}};
+    border: 1px solid {{menuBorder}};
 }
 
 /* remove borders for horizontal menus */
@@ -2281,26 +2293,26 @@ odd - #edf5ff (light blue)
 
 .yui3-menu a,
 .yui3-menu .yui3-menu-can-have-children > li:after {
-    color: #777;
+    color: {{menuText}};
 }
 
 .yui3-menu .yui3-menu-can-have-children > li:hover:after {
-    color: #fff;
+    color: {{menuHoverText}};
 }
 
 
 
 /* HOVER STATES */
 .yui3-menu li a:hover {
-    background: #46b9e3;
-    color: #fff;
+    background: {{menuHoverBackground}};
+    color: {{menuHoverText}};
 
 }
 
 /* DISABLED STATES */
 .yui3-menu li.yui3-menu-disabled a:hover {
-    background: #fff;
-    color: #bfbfbf;
+    background: {{menuBackground}};
+    color: {{menuTextDisabled}};
 }
 
 .yui3-menu .yui3-menu-disabled > a {
@@ -2311,29 +2323,30 @@ odd - #edf5ff (light blue)
 
 .yui3-menu .yui3-menu-disabled > a,
 .yui3-menu .yui3-menu-can-have-children.yui3-menu-disabled > a:after {
-    color: #bfbfbf;
+    color: {{menuTextDisabled}};
 }
 
 /* HEADINGS */
 .yui3-menu .yui3-menu-heading {
-    color: #565d64;
+    color: {{headingText}};
     text-transform: uppercase;
     font-size:90%;
     margin-top:0.5em;
 }
 
 
-/* ACTIVE MENU ITEM */
-.yui3-menu .yui3-menu-active a {
+/* SELECTED MENU ITEM */
+.yui3-menu .yui3-menu-selected a {
     font-weight: bold;
-    color: #000;
+    background-color: {{menuSelectedBackground}};
+    color: {{menuSelectedText}};
 }
 
 /* FIXED MENU */
 .yui3-menu.yui3-menu-open.yui3-menu-fixed {
     border-radius: 0;
     border: none;
-    border-bottom: 1px solid #b7b7b7;
+    border-bottom: 1px solid {{fixedMenuBorderBottom}};
 }
 /* end from YUICSS list.css ***********************************/
 /* from YUICSS list-responsive.css ****************************/
@@ -3486,8 +3499,8 @@ odd - #edf5ff (light blue)
         <fieldset class="yui3-group">
         <input type="text" placeholder="Another Group" class="yui3-input-1-2">
         <input type="text" placeholder="More Stuff" class="yui3-input-1-2">
-        <button class="yui3-button yui3-input-1-2" type="submit">Sign in</button>
         </fieldset>
+        <button class="yui3-button yui3-input-1-2" type="submit">Sign in</button>
         </form>
     </li>        
     <li class="sb-preview-form"><div class="widget-preview-label">Rounded Form</div>
@@ -3675,7 +3688,7 @@ odd - #edf5ff (light blue)
             <a href="#" class="yui3-menu-heading">Site Title</a>
             <ul>
                 <li><a href="#">Home</a></li>
-                <li class="yui3-menu-active"><a href="#">Flickr</a></li>
+                <li class="yui3-menu-selected"><a href="#">Flickr</a></li>
                 <li class="yui3-menu-disabled"><a href="#">Disabled</a></li>
             </ul>
         </div>
@@ -3685,7 +3698,7 @@ odd - #edf5ff (light blue)
         <ul>
         <li class="yui3-menu-heading">Yahoo! Sites</li>
         <li class="yui3-menu-separator"></li>
-        <li class="yui3-menu-active"><a href="#">Home</a></li>
+        <li class="yui3-menu-selected"><a href="#">Home</a></li>
         <li><a href="#">Flickr</a></li>
         <li><a href="#">Messenger</a></li>
         <li><a href="#">Sports</a></li>
@@ -3698,7 +3711,7 @@ odd - #edf5ff (light blue)
         <a id="btn-toggle-fixed-menu" class="yui3-button">Show / Hide A Fixed Menu</a>
         <div class="yui3-menu yui3-menu-horizontal yui3-menu-fixed">
         <ul class="yui3-menu-dark">
-        <li class="yui3-menu-active"><a href="#">Home</a></li>
+        <li class="yui3-menu-selected"><a href="#">Home</a></li>
         <li><a href="#">Github</a></li>
         <li><a href="#">Gallery</a></li>
         <li><a href="#">YUI</a></li>
@@ -3710,7 +3723,7 @@ odd - #edf5ff (light blue)
         <ul class="yui3-paginator">
         <li><a class="yui3-button prev" href="#">&#171;</a></li>
         <li><a class="yui3-button" href="#">1</a></li>
-        <li><a class="yui3-button yui3-button-active" href="#">2</a></li>
+        <li><a class="yui3-button yui3-button-selected" href="#">2</a></li>
         <li><a class="yui3-button" href="#">3</a></li>
         <li><a class="yui3-button" href="#">4</a></li>
         <li><a class="yui3-button next">&#187;</a></li>
