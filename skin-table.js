@@ -14,8 +14,6 @@ Y.Skin.renderers.table = function (skin) {
         cellText:       space.text.normal,
         cellOddBackground: space.border.low,
         cellOddText:   space.hover.text.normal,
-
-
         border:        space.border.low,
         captionText:    space.block.container.text.low
     };

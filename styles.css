@@ -45,7 +45,6 @@ body {
     margin: 0;
     width: 100%;
     font-family: arial;
-    font-size: 90%;
     color: #444;
 }
 .rotate {   
@@ -178,6 +177,7 @@ body {
 #tabview-controls{
     margin: 0 20px;
     position: relative;
+    font-size: 90%;
 }
 #tabview-controls .yui3-tab-label {
     padding: 0.5em 1.5em;  /* override the widget skin padding */
@@ -222,6 +222,9 @@ body {
     vertical-align: top;
     margin: 0.5em;
     min-width: 300px;
+}
+#widget-container>.double-wide {
+    min-width: 620px;
 }
 #tab-palette .contents {
     margin-right: 2em;
@@ -749,6 +752,9 @@ h1 {
 }
 #answers-options {
     z-index: 10;
+}
+.sb-preview-list a {
+    cursor: pointer;
 }
 /****** test-console style ******/
 .yui3-testconsole {

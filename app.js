@@ -305,9 +305,9 @@ function (Y) {
         {key:"Contact", label:"Sortable", sortable:true}
     ],
     data = [
-        {Company:"Cabs", Phone:"415-555-1234", Contact:"Smith, S."},
-        {Company:"Acme", Phone:"650-555-4444", Contact:"Jones, J."},
-        {Company:"Washers", Phone:"408-555-5678", Contact:"Ward, R."}
+        {Company:"Cabs", Phone:"455-1234", Contact:"Smith, S."},
+        {Company:"Acme", Phone:"650-4444", Contact:"Jones, J."},
+        {Company:"Washers", Phone:"405-5678", Contact:"Ward, R."}
     ],
     table = new Y.DataTable({
         columns: cols,
@@ -1171,6 +1171,8 @@ var a = Y.WidgetPositionAlign; // Local variable
         }
     }
     initPreviewAndModulesCheckboxes();
+
+
 
     // show/hide the YUI CSS fixed-menu
     // Y.one('#btn-toggle-fixed-menu').on('click', function(e) {
