@@ -1650,14 +1650,18 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
 <!-- ////////////////////////////////////////////////////////////////////////////////////////////// -->
 
 <script id="form-template" type="text/x-handlebars-template">
-/* YUI 3.9.0 (build 5827) Copyright 2013 Yahoo! Inc. http://yuilibrary.com/license/ */
-/* This CSS contains core form styles adopted from Normalize.css. */
-/*! Copyright (c) Nicolas Gallagher and Jonathan Neal */ 
+/*! Copyright 2013 Yahoo! Inc. http://yuilibrary.com/license/ */
+/* This page lists core form styles adopted from Normalize.css. */
+/*! Copyright (c) Nicolas Gallagher and Jonathan Neal */
+
 /*! normalize.css v1.1.0 | MIT License | git.io/normalize */
-/* ==========================================================================
-   Forms - forms-core.css
-   ========================================================================
-   */
+
+/* This page has Normalize.css form-specific style rules applied to a .yui3-form context */
+
+/* ==========
+Forms Core
+=========*/
+
 
 /*
  * Corrects margin displayed oddly in IE 6/7.
@@ -1810,23 +1814,29 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
     }
 
     {{prefix}}{{skinName}} {{prefix}}form input[type='text'], {{prefix}}{{skinName}} {{prefix}}form button, {{prefix}}{{skinName}} {{prefix}}form label {
-    margin-bottom: 0.3em;
-    display: block;
+        margin-bottom: 0.3em;
+        display: block;
+    }
+    
+    .yui3-group input[type='text'] {
+        margin-bottom: 0;
     }
 
     {{prefix}}{{skinName}} {{prefix}}form-aligned {{prefix}}control-group label {
-    margin-bottom: 0.3em;
-    text-align: left;
+        margin-bottom: 0.3em;
+        text-align: left;
+        display: block;
+        width: 100%;
     }
 
     {{prefix}}{{skinName}} {{prefix}}form-aligned {{prefix}}controls {
-    margin: 1.5em 0 0 0;
+        margin: 1.5em 0 0 0;
     }
 
     {{prefix}}{{skinName}} {{prefix}}form {{prefix}}help-inline {
-    display: block;
-    font-size: 80%;
-    padding: 0.2em 0 0.8em; /* increased bottom padding to make it group with its related input element */
+        display: block;
+        font-size: 80%;
+        padding: 0.2em 0 0.8em; /* increased bottom padding to make it group with its related input element */
     }
 }
 
@@ -1887,7 +1897,6 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
   border-color: #e9322d;
 }
 {{prefix}}{{skinName}} {{prefix}}form select {
-  width: 220px;/* question: how was this determined? */
   border: 1px solid {{inputBorder}};
   background-color: white;
 }
