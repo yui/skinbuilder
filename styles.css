@@ -232,6 +232,9 @@ body {
 #tab-palette .contents-middle {
     width: 268px;
 }
+#tab-palette .contents-right {
+    width: 227px;
+}
 
 h1 {
     font-size: 145%;
