@@ -2008,19 +2008,10 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
 <script id="table-template" type="text/x-handlebars-template">
 /* foundational CSS */
 {{prefix}}{{skinName}} {{prefix}}table {
-    empty-cells: show;
-}
-
-/* basic skin styles */
-{{prefix}}{{skinName}} {{prefix}}table {
-    font-family: arial, sans-serif;
+    /* Remove spacing between table cells (from Normalize.css) */
     border-collapse: separate;
     border-spacing: 0;
-    /* IE7- don't support border-spacing, but separate is needed for more
-* reliable dimension calculation for scrollable's header width sync,
-* and it doesn't hurt to have the declaration here.
-*/
-    /**border-collapse: collapse;*/
+    empty-cells: show;
     border: 1px solid {{border}};
 }
 
@@ -2040,6 +2031,7 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
     overflow: visible; /*to make ths where the title is really long work*/
     padding: {{cellPadding}}; /* cell padding */
 }
+
 {{prefix}}{{skinName}} {{prefix}}table td:first-child,
 {{prefix}}{{skinName}} {{prefix}}table th:first-child {
     border-left-width: 0;
@@ -2067,45 +2059,24 @@ odd - #edf5ff (light blue)
     color: {{cellOddText}};
 }
 
-
 /* BORDERED TABLES */
 {{prefix}}{{skinName}} {{prefix}}table-bordered td {
     border-bottom:1px solid {{border}};
 }
 {{prefix}}{{skinName}} {{prefix}}table-bordered tbody > tr:last-child td,
 {{prefix}}{{skinName}} {{prefix}}table-horizontal tbody > tr:last-child td {
-    /*border-bottom:1px solid #fff;*/
     border-bottom-width: 0;
 }
 
-
 /* HORIZONTAL BORDERED TABLES */
-{{prefix}}{{skinName}} {{prefix}}table-horizontal {
-    border-width: 1px 0;
-}
 {{prefix}}{{skinName}} {{prefix}}table-horizontal td,
 {{prefix}}{{skinName}} {{prefix}}table-horizontal th {
     border-width: 0 0 1px 0;
     border-bottom:1px solid {{border}};
 }
 {{prefix}}{{skinName}} {{prefix}}table-horizontal tbody > tr:last-child td {
-    /*border-bottom:1px solid #fff;*/
     border-bottom-width: 0;
 }
-
-
-/* PLAIN HEADERS */
-{{prefix}}{{skinName}} {{prefix}}table {{prefix}}thead-simple {
-    /* header gradient */
-    background: {{headBackground}};
-    border-width:0 0 1px 0;
-}
-{{prefix}}{{skinName}} {{prefix}}table {{prefix}}thead-simple th {
-    border-bottom:1px solid {{border}};
-}
-
-
-
 </script>
 
 
