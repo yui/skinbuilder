@@ -494,7 +494,7 @@ function (Y) {
 
     sliderTextContrast.render('#slider-text-contrast');
     Y.one('.reset-text-contrast').on('click', function() {
-        sliderTextContrast.set('value', SKIN.options.defaultTextContrast * 10);
+        sliderTextContrast.set('value', SKIN.options.defaultTextContrast * 15);
     });
     // end slider for text contrast ///////////////////////////
 
