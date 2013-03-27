@@ -99,7 +99,7 @@ function (Y) {
                 }, 
                 {
                     name: 'button', 
-                    display: false, 
+                    display: true, 
                     type: 'widget' 
                 }, 
                 {
@@ -153,12 +153,12 @@ function (Y) {
                 // this is necessary because checkboxes are generated from this array and use the nodelist of checkboxes to find the index back to this array for updating.
                 {
                     name: 'form', 
-                    display: false, 
+                    display: true, 
                     type: 'yuicss'
                 },
                 {
                     name: 'table', 
-                    display: false, 
+                    display: true, 
                     type: 'yuicss' 
                 },
                 {
