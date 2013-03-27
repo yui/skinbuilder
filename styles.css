@@ -127,6 +127,9 @@ body {
     font-size: 70%;
     margin-left: 2em;
 }
+#checkboxes-yuicss-group {
+    margin-left: -5000px;
+}
 #tabview-controls .yui3-tabview-panel{
     background-color: transparent;
     min-height: 166px;

@@ -94,7 +94,7 @@ function (Y) {
                 {
                     name: 'autocomplete',
                     //displayName: 'AutoComplete', 
-                    display: false,
+                    display: true,
                     type: 'widget' 
                 }, 
                 {
@@ -104,66 +104,66 @@ function (Y) {
                 }, 
                 {
                     name: 'calendar', 
-                    display: false, 
+                    display: true, 
                     type: 'widget' 
                 }, 
                 {
                     name: 'datatable', 
-                    display: false, 
+                    display: true, 
                     type: 'widget' 
                 }, 
                 {
                     name: 'dial', 
-                    display: false, 
+                    display: true, 
                     type: 'widget', 
                     required: true   ///////
                 }, 
                 {
                     name: 'nodeMenunav', 
-                    display: false, 
+                    display: true, 
                     type: 'widget' 
                 }, 
                 {
                     name: 'overlay', 
-                    display: false, 
+                    display: true, 
                     type: 'widget' 
                 }, 
                 {
                     name: 'panel', 
-                    display: false, 
+                    display: true, 
                     type: 'widget' 
                 }, 
                 {
                     name: 'scrollview', 
-                    display: false, 
+                    display: true, 
                     type: 'widget' 
                 }, 
                 {
                     name: 'slider', 
-                    display: false, 
+                    display: true, 
                     type: 'widget', 
                     required: true    /////////
                 }, 
                 {
                     name: 'tabview', 
-                    display: false, 
+                    display: true, 
                     type: 'widget', 
                     required: true   //////////
                 }, ///////////////////////////////////// keep YUICSS modules below this line. 
                 // this is necessary because checkboxes are generated from this array and use the nodelist of checkboxes to find the index back to this array for updating.
                 {
                     name: 'form', 
-                    display: true, 
+                    display: false, 
                     type: 'yuicss'
                 },
                 {
                     name: 'table', 
-                    display: true, 
+                    display: false, 
                     type: 'yuicss' 
                 },
                 {
                     name: 'list', 
-                    display: true, 
+                    display: false, 
                     type: 'yuicss' 
                 }
             ], 
