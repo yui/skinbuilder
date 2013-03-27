@@ -644,18 +644,20 @@ function (Y) {
 
     var ddPicker = new Y.DD.Drag({
         node: '#picker-outer'
+    }).plug(Y.Plugin.DDConstrained, {
+        constrain: 'view'
     });
 
     var hsDot = new Y.DD.Drag({
         node: '#hs-dot'
     }).plug(Y.Plugin.DDConstrained, {
-        constrain2node: '#hs'
+        constrain: '#hs'
     });
 
     var lightHandle = new Y.DD.Drag({
         node: '#sliderL-line'
     }).plug(Y.Plugin.DDConstrained, {
-        constrain2node: '#sliderL'
+        constrain: '#sliderL'
     });
 
         // set the picker outer box ready for drag by grip
@@ -761,7 +763,7 @@ function (Y) {
         pickerL = hsl[2];
 
         overlayPicker.show();
-        overlayPicker.move([(relX + 40), (relY + 10)]);
+//        overlayPicker.move([(relX + 40), (relY + 10)]);
 
 var a = Y.WidgetPositionAlign; // Local variable
         overlayPicker.set("align", {
@@ -876,6 +878,8 @@ var a = Y.WidgetPositionAlign; // Local variable
 
     var ddSchemer = new Y.DD.Drag({
         node: '#schemer-outer'
+    }).plug(Y.Plugin.DDConstrained, {
+        constrain: 'view'
     });
 
 
@@ -1008,6 +1012,8 @@ var a = Y.WidgetPositionAlign; // Local variable
     
     var ddPaletteOverlay = new Y.DD.Drag({
         node: '#palette-outer'
+    }).plug(Y.Plugin.DDConstrained, {
+        constrain: 'view'
     });
         // set the picker outer box ready for drag by grip
     var paletteOuter = Y.one('#palette-outer');
