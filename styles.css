@@ -233,7 +233,7 @@ body {
     width: 268px;
 }
 #tab-palette .contents-right {
-    width: 227px;
+    width: 137px;
 }
 
 h1 {
@@ -611,9 +611,6 @@ h1 {
     top: 17px;
     left: 112px;
 }
-.slider-markup-text-contrast {
-    display: inline-block;
-}
 .color-space .slider-markup-text-contrast .reset-text-contrast{
     left: auto;
     top: 0;
@@ -679,6 +676,9 @@ h1 {
     top: 20px;
     left: 215px;
     cursor: pointer;
+}
+.markup .reset-padding-vert {
+    left: 92px;
 }
 .markup .reset:hover {
     text-decoration: underline;

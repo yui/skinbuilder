@@ -2390,7 +2390,7 @@ odd - #edf5ff (light blue)
 }
 #feedback-box {
     position: absolute;
-    left: 20px;
+    left: 0;
     top: 30px;
     border: solid 1px {{blockPageTextLow}};
     background-color: {{blockPageBorderLow}};
@@ -2403,7 +2403,7 @@ odd - #edf5ff (light blue)
 }
 .feedback-column {
     position: relative;
-    width: 161px;
+    width: 75px;
     height: 77px;
 }
 /*  Buttons for key color and page color editing */
@@ -2901,6 +2901,10 @@ odd - #edf5ff (light blue)
                 </div>
                 <div class="yui3-u">
                     <div class="contents contents-middle">
+                        <div class="markup slider-markup-horiz-padding">
+                            <label class="preview-label">Horiz. padding: 100%</label><a class="reset reset-padding-horiz">Reset</a>
+                            <div id="slider-padding-horiz"></div>
+                        </div>
                         <div class="markup slider-markup-border-radius">
                             <label class="preview-label">Border-radius: 100%</label><a class="reset reset-radius">Reset</a>
                             <div id="slider-radius"></div>
@@ -2913,10 +2917,6 @@ odd - #edf5ff (light blue)
                 </div>
                 <div class="yui3-u">
                     <div class="contents contents-right">
-                        <div class="markup slider-markup-horiz-padding">
-                            <label class="preview-label">Horiz. padding: 100%</label><a class="reset reset-padding-horiz">Reset</a>
-                            <div id="slider-padding-horiz"></div>
-                        </div>
                         <div class="markup slider-markup-vert-padding">
                             <label class="preview-label">Vert. padding: 100%</label><a class="reset reset-padding-vert">Reset</a>
                             <div id="slider-padding-vert"></div>

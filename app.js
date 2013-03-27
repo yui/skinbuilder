@@ -473,7 +473,7 @@ function (Y) {
 
     var sliderTextContrast = new Y.Slider({
         axis  : 'x',
-        length: '175px',
+        length: '200px',
         min   : 5,
         max   : 30,
         value : SKIN._space.options.textContrast * 10,
@@ -536,7 +536,7 @@ function (Y) {
     var paddingVertDefaultValue = 50,
         sliderPaddingVert = new Y.Slider({
         axis  : 'y',
-        length: '65px',
+        length: '112px',
         min   : 200,
         max   : 0,
         value : paddingVertDefaultValue,
