@@ -114,8 +114,8 @@ h1,h2,h3,h4,h5,h6 {
         Toward the top of YUI Skin Builder is an area with 5 tabs
         <ul id="list-control-tabs">
             <li>
-                <img src="assets/images/cap_style.png" width="561" height="117" alt="Controls for changing colors, padding, radius, etc."/>
-                <strong>Style:</strong> This displays buttos for changing the key colors of the skin. You can change the border-radius, padding, and text contrast styles in the skin.
+                <img src="assets/images/cap_style.png" width="561" height="115" alt="Controls for changing colors, padding, radius, etc."/>
+                <strong>Style:</strong> This displays buttons for changing the key colors of the skin. You can change the border-radius, padding, and text contrast styles in the skin.
             </li>
             <li>
                 <img src="assets/images/cap_scheme.png" width="561" height="124" alt="Color scheme radio button choices"/>
@@ -127,7 +127,7 @@ h1,h2,h3,h4,h5,h6 {
             </li>
             <li>
                 <img src="assets/images/cap_code.png" width="561" height="133" alt="CSS generated code"/>
-                <strong>Code:</strong> This tab contains text area controls which display the real-time generated CSS code for your skin as you make modifications. You can also change the skin name, which marks all the selectors in the CSS code.
+                <strong>Code:</strong> This tab contains text area controls that display the real-time generated CSS code for your skin as you make modifications. You can also change the skin name, which marks all the selectors in the CSS code.
             </li>
         </ul>
         <h3 class="clear-floats">Skin Preview</h3>
@@ -142,14 +142,14 @@ h1,h2,h3,h4,h5,h6 {
 
             <li><img src="assets/images/cap_page_color_button.png" width="434" height="198" alt="Edit Page Color... button and color picker"/>Click the Edit Page Color... button (if your page background color isn't white). From the Color Picker that pops up, select a color that matches the background color the widgets will display on. This is commonly the page background, but may be a container object that widgets will appear in. You can also enter the color directly with a hex value if you know it.</li>
 
-            <li><img src="assets/images/cap_sliders.png" width="452" height="122" alt="sliders for text padding, border-radius, and contrast"/>Make any changes needed to the padding and border-radius styles. You can adjust the contrast of the text to its background. This adjustment can help maintain readability.</li>
+            <li><img src="assets/images/cap_sliders.png" width="452" height="125" alt="sliders for text padding, border-radius, and contrast"/>Make any changes needed to the padding and border-radius styles. You can adjust the contrast between the text and its background. This adjustment can help maintain readability.</li>
                  
             <li><img src="assets/images/cap_scheme.png" width="561" height="124" alt="Color scheme radio button choices"/>Click the Schemes tab. Try other schemes to see which works best for your site. If you choose a dark background scheme, you may need to select a different "highest/master" color from the palettes tab</li>
             
             
             <li><img src="assets/images/cap_code.png" width="561" height="123" alt="CSS generated code"/>Edit the Skin Name suffix. In the markup of your site or app where widgets are to use this skin, replace the class "yui3-skin-sam" with the matching new class name, such as, "yui3-skin-myskinnamesuffix".</li>
             
-            <li>Select the contents of the textarea labeled "CSS for all widgets". Paste this code into the file where ever you want your CSS to be referenced from. If you don't need CSS skin code for all the YUI 3 widgets, you can pick out and use only the sections of the CSS you do need.</li>
+            <li>Select the contents of the textarea labeled "CSS for all widgets". Paste this code into the file wherever you want your CSS to be referenced from. If you don't need CSS skin code for all the YUI 3 widgets, you can pick out and use only the sections of the CSS you do need.</li>
         </ol>
 
 
@@ -173,7 +173,7 @@ h1,h2,h3,h4,h5,h6 {
 
         <h2>How Does It Work?</h2>
         <h3>Key color</h3>
-        This is a user-selected color. Its the color that has the most emphasis in the skin. It will be used as the background color of visually dominant widget elements such as, primary or default buttons, or selected tabs. In the Palette, it is presented as the background color of the "highest"
+        This is a user-selected color. It's the color that has the most emphasis in the skin. It will be used as the background color of visually dominant widget elements such as, primary or default buttons, or selected tabs. In the Palette, it is presented as the background color of the "highest"
 
         <h3>Main colors</h3>
         There are 6 Main Colors used in this tool. From left to right, their names are...
@@ -281,7 +281,7 @@ h1,h2,h3,h4,h5,h6 {
         };
         </pre>
         <h3>Color Mapping</h3>
-        Each YUI Widget has a color map file which defines variable names and set their value equal to a color, padding, or radius value in the skin palette. 
+        Each YUI Widget has a color map file, which defines variable names and set their value equal to a color, padding, or radius value in the skin palette. 
         <pre>
 YUI.add('skin-tabview', function (Y) {
 
@@ -331,7 +331,7 @@ Y.Skin.renderers.tabview = function (skin) {
         When the CSS templates are processed, the variables are replaced.
         <pre>
 .yui3-skin-mine .yui3-tab-label {
-    /* ommitting a lot of gradient CSS here for this example */
+    /* omitting a lot of gradient CSS here for this example */
     background-color: #b0bcdd;
     border-style: solid;
     border-color: #d1d8eb #a6b3d9 #a6b3d9 #d1d8eb;
