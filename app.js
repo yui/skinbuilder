@@ -441,8 +441,9 @@ function (Y) {
 
     // slider for radius changing in the UI ///////////////////////////////////
 
-    var radiusDefaultValue = 10,
-        sliderRadius = new Y.Slider({
+    var radiusDefaultValue = 10;
+    SKIN.options.radius = radiusDefaultValue;
+    var sliderRadius = new Y.Slider({
         axis  : 'x',
         length: '200px',
         min   : 0,
@@ -503,6 +504,7 @@ function (Y) {
 
     // slider for changing Horizontal padding in the UI ///////////////////////////////////
     var paddingHorizDefaultValue = 50;
+    SKIN.options.paddingHoriz = paddingHorizDefaultValue / 50;
     var sliderPaddingHoriz = new Y.Slider({
         axis  : 'x',
         length: '200px',
@@ -533,8 +535,9 @@ function (Y) {
     // end slider for Horizontal padding///////////////////////////
 
     // slider for changing Vertical padding in the UI ///////////////////////////////////
-    var paddingVertDefaultValue = 50,
-        sliderPaddingVert = new Y.Slider({
+    var paddingVertDefaultValue = 50;
+    SKIN.options.paddingVert = paddingVertDefaultValue / 50;
+    var sliderPaddingVert = new Y.Slider({
         axis  : 'y',
         length: '112px',
         min   : 200,
@@ -826,7 +829,7 @@ var a = Y.WidgetPositionAlign; // Local variable
 //            '    page:       {h: ' + adjustBlocks[3].h + ', s: ' + adjustBlocks[3].s + ', l: ' + adjustBlocks[3].l + '},\n'+ 
         '};';
 
-        Y.one('#textarea-scheme').setHTML(schemeOutputStr + '\n// Other skin settings' + textContrast + borderRadius + paddingHoriz + paddingVert);
+        Y.one('#textarea-scheme').setHTML(schemeOutputStr + '\n// Other skin settings:' + textContrast + borderRadius + paddingHoriz + paddingVert);
     }
 
     // set the scheme color swatch in the schemeOverlay
@@ -1147,7 +1150,10 @@ var a = Y.WidgetPositionAlign; // Local variable
             var chk = (TEMPLATES_USED[i].display) ? 'checked' : '';
 
             displayName = Y.one('#widget-container .sb-preview-' + TEMPLATES_USED[i].name + ' .widget-preview-label').getContent();
-
+            // if the name coming from the first instance of the module's markup contains a '-' such as 'Forms - Radios and Checkboxes'
+            if (displayName.indexOf('-') > -1) {
+                displayName = displayName.substring(0, displayName.indexOf('-'));
+            }
             if(TEMPLATES_USED[i].type === "widget") {
                 appendChksTo = widgetUl;
             } else if (TEMPLATES_USED[i].type === "yuicss") {

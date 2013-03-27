@@ -183,14 +183,14 @@ body {
     padding: 0.5em 1.5em;  /* override the widget skin padding */
 }
 #tabview-controls h4 {
-    margin:0;
+    margin: 0.3em 0 0;
     padding:0;
 }
 #tabview-controls label {
     display: inline;
 }
 #tabview-controls input {
-    padding: 0.3em;
+    padding: 0;
 }
 #tabview-controls a img {
     vertical-align: top;
@@ -527,7 +527,9 @@ h1 {
 }
 .picker-input {
     margin: 56px 0 0 -17px;
-    width: 57px;}
+    width: 57px;
+    font-size: 80%;
+}
 .close {
     position: absolute;
     top: 5px;
@@ -668,7 +670,7 @@ h1 {
 
 }
 .markup {
-    margin: 10px 0;
+    margin: 8px 0;
     position: relative;
 }
 .markup .reset {

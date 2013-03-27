@@ -3001,6 +3001,7 @@ odd - #edf5ff (light blue)
                 </ul>
             </div>
             <div id="tab-modules">
+                Select which Widgets or Modules to skin and preview
                 <h4 class="preview-label">YUI Widgets<a class="show-hide-all btn-widget">Remove All</a></h4>
                 <ul id="checkboxes-widget">
                     <!-- lis added dynamically at runtime. see app.js initPreviewAndModulesCheckboxes() -->
@@ -3014,14 +3015,14 @@ odd - #edf5ff (light blue)
                 <div class="yui3-g" id="layout">
                     <div class="yui3-u-1-2" id="out-style">
                         <div class="contents">
-                            <label class="tab-code-textarea-label">CSS for Selected Widgets/Modules</label>
+                            <label class="tab-code-textarea-label">Copy CSS for selected Widgets/Modules</label>
                             <label class="hint skin-name-label" title="Change the Skin classname. (you'll need to change the class in the body tag to match)">.yui3-skin-</label><input class="inp-skin-name" value="mine" title="Change the Skin classname. (you'll need to change the class in the body tag to match)"/>
                             <textarea id="textarea-style"></textarea>
                         </div>
                     </div>
                     <div class="yui3-u-1-2" id="out-scheme">
                         <div class="contents">
-                            <label class="tab-code-textarea-label">Skin Settings</label>
+                            <label class="tab-code-textarea-label">Current skin settings (just for reference)</label>
                             <textarea id="textarea-scheme"></textarea>
                         </div>
                     </div>
@@ -3142,8 +3143,8 @@ odd - #edf5ff (light blue)
         <div class="yui3-g">
         <div class="yui3-u-1-12">
             <div class="content">
-                <div class="schemer-key">
-                    <div class="icon-label"></div>
+                <div class="schemer-key" title="The master color">
+                    <!-- <div class="icon-label"></div> -->
                 </div>
             </div>
         </div>
@@ -3172,8 +3173,8 @@ odd - #edf5ff (light blue)
         </div>
         <div class="yui3-u-1-12">
             <div class="content">
-                <div class="schemer-swatch">
-                    <div class="icon-label"></div>
+                <div class="schemer-swatch" title="This scheme color">
+                    <!-- <div class="icon-label"></div> -->
                 </div>
             </div>
         </div>
