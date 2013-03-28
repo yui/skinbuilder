@@ -2352,6 +2352,10 @@ odd - #edf5ff (light blue)
     color: {{blockPageTextLow}};
 }
 
+.help {
+    background-color: {{blockPageTextLow}};
+    color: {{blockPageBackground}};
+}
 .widget-preview-label {
     border: solid 1px {{blockPageBorderLow}};
     border-style: solid none none none;
@@ -2897,6 +2901,8 @@ odd - #edf5ff (light blue)
                             <img src="assets/images/picker_icon.png"/>
                             Edit Page Color...
                         </div>
+                        <p><div class="help wpR help-color-buttons">?</div></p>
+
                     </div>
                 </div>
                 <div class="yui3-u">
@@ -2929,6 +2935,7 @@ odd - #edf5ff (light blue)
                             <div>Sample</div>
                         </div>
                     </div>
+                    <div class="help help-style">?</div>
                 </div>
             </div>
 
@@ -2996,12 +3003,15 @@ odd - #edf5ff (light blue)
                             Create Custom Scheme
                         </label>
                     </li>
-     
-
+                    <li>
+                        <div class="help help-schemes">?</div>
+                    </li>
                 </ul>
+
             </div>
             <div id="tab-modules">
                 Select which Widgets or Modules to skin and preview
+                <div class="help help-items">?</div>
                 <h4 class="preview-label">YUI Widgets<a class="show-hide-all btn-widget">Remove All</a></h4>
                 <ul id="checkboxes-widget">
                     <!-- lis added dynamically at runtime. see app.js initPreviewAndModulesCheckboxes() -->
@@ -3018,24 +3028,20 @@ odd - #edf5ff (light blue)
                     <div class="yui3-u-1-2" id="out-style">
                         <div class="contents">
                             <label class="tab-code-textarea-label">Copy CSS for selected Widgets/Modules</label>
+                            <div class="help help-code">?</div>
                             <label class="hint skin-name-label" title="Change the Skin classname. (you'll need to change the class in the body tag to match)">.yui3-skin-</label><input class="inp-skin-name" value="mine" title="Change the Skin classname. (you'll need to change the class in the body tag to match)"/>
                             <textarea id="textarea-style"></textarea>
                         </div>
                     </div>
                     <div class="yui3-u-1-2" id="out-scheme">
                         <div class="contents">
-                            <label class="tab-code-textarea-label">Current skin settings (just for reference)</label>
+                            <label class="tab-code-textarea-label">Current skin settings </label>
+                            <div class="help help-settings">?</div>
                             <textarea id="textarea-scheme"></textarea>
                         </div>
                     </div>
                 </div>
             </div>
-
-
-
-
-
-
 
 
 
@@ -3059,6 +3065,7 @@ odd - #edf5ff (light blue)
         <div class="grip"></div>
         <img class="close" src="assets/images/close.png" width="18" height="18" />
         <label>Detailed preview of the palette of colors used for skinning</label>
+        <div class="help help-detailed-preview">?</div>
         <div class="color-space">
             <ul>
                 <li class="block block-highest block-highest-border" title="Highest / Master Color">
@@ -3184,7 +3191,12 @@ odd - #edf5ff (light blue)
 
         <img class="close" src="assets/images/close.png" width="18" height="18" />
     </div>
-
+    <div id="help-panel">
+        <img class="close" src="assets/images/close.png" width="18" height="18" />
+        <div class="bd">
+            help panel l;ksad eoiwr jsfoie jeofiwj eo
+        </div>
+    </div>
 
 
 

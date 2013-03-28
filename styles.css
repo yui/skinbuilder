@@ -656,8 +656,40 @@ h1 {
     border-radius: 5px;
 }
 /* END previw palette styles **********************/
-
-
+.help {
+    width: 1.2em;
+    height: 1.2em;
+    line-height: 1.25em;
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    background-color: #aabbcc;
+    color: #fff;
+    border-radius: 11px;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+}
+#help-panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 1px solid #CCCCCC;
+    background-color: #eee;
+    padding: 1.3em 1em;
+    box-shadow: 6px 6px 5px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+    font-size: 90%;
+    margin: 0 6px;
+}
+.help-schemes {
+    left: 590px;
+    position: absolute;
+    top: 5px;
+}
+.help-code, .help-settings, .help-items {
+    margin-left: 0.5em;
+}
 
 .tab-code-textarea-label {
     display: block;
