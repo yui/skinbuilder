@@ -690,7 +690,9 @@ h1 {
 .help-code, .help-settings, .help-items, .help-detailed-preview {
     margin-left: 0.5em;
 }
-
+.help-style {
+    margin-left: -54px;
+}
 .tab-code-textarea-label {
     display: block;
 }
