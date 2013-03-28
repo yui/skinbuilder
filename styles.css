@@ -128,7 +128,7 @@ body {
     margin-left: 2em;
 }
 #checkboxes-yuicss-group {
-    margin-left: -5000px;
+    /*margin-left: -5000px;*/
 }
 #tabview-controls .yui3-tabview-panel{
     background-color: transparent;
