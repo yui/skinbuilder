@@ -687,7 +687,7 @@ h1 {
     position: absolute;
     top: 5px;
 }
-.help-code, .help-settings, .help-items {
+.help-code, .help-settings, .help-items, .help-detailed-preview {
     margin-left: 0.5em;
 }
 
