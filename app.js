@@ -46,7 +46,7 @@ YUI({
     'autocomplete-filters', 'autocomplete-highlighters', 'scrollview',
     'datatable-sort', 'dd-drag', 'dd-constrain', 'calendar', 'button-plugin',
     'tabview', 'datatype-date', 'button-group', 'cssbutton',
-    'node-event-delegate', 'overlay', 'color', 'test', 'test-console',
+    'node-event-delegate', 'overlay', 'color', 'test', 'test-console', 'event-outside',
 function (Y) {
 
     var PAGE_BG_COLOR = '#fff',
@@ -1092,6 +1092,7 @@ var a = Y.WidgetPositionAlign; // Local variable
         });
 
     });
+    helpPanelOuter.on('clickoutside', function(){helpPanel.hide()});
 
     ////////////////////  END Help (overlay) instance ////////////////////////////
 
