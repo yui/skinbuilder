@@ -46,7 +46,7 @@ YUI({
     'autocomplete-filters', 'autocomplete-highlighters', 'scrollview',
     'datatable-sort', 'dd-drag', 'dd-constrain', 'calendar', 'button-plugin',
     'tabview', 'datatype-date', 'button-group', 'cssbutton',
-    'node-event-delegate', 'overlay', 'color', 'test', 'test-console', 'event-outside',
+    'node-event-delegate', 'overlay', 'color', 'test', 'test-console', 'event-outside', 'json-parse', 'json-stringify',
 function (Y) {
 
     var PAGE_BG_COLOR = '#fff',
@@ -85,10 +85,6 @@ function (Y) {
             container: PAGE_BG_COLOR
         }),
 
-        // TEMPLATES_USED = [
-
-        //         'autocomplete', 'button', 'calendar', 'datatable', 'dial', 'nodeMenunav', 'overlay', 'panel', 'scrollview', 'slider', 'tabview'
-        //     ],  // output CSS and Preview should show only what user wants to skin.
             
         TEMPLATES_USED = [
                 {
@@ -140,7 +136,7 @@ function (Y) {
                 }, 
                 {
                     name: 'slider', 
-                    display: true, 
+                    display: false, 
                     type: 'widget', 
                     required: true    /////////
                 }, 
@@ -169,6 +165,11 @@ function (Y) {
             ], 
             
         TEMPLATES = {};
+
+
+
+
+
 
     function hexToHsl(hexInput) {
         var hslStr = Y.Color.toHSL(hexInput),
@@ -753,7 +754,10 @@ function (Y) {
 
         // set UI to match color of bucket value clicked on
         hsl = Y.Color.toArray(Y.Color.toHSL(bucketHex));
-        Y.one('#hs-dot').setStyles({'left': hsl[0] / 2, 'top': (hsl[1] / 100) * 180});
+        overlayPicker.show();
+        //Y.one('#hs-dot').setStyles({'left': hsl[0] / 2, 'top': (hsl[1] / 100) * 180});
+        Y.one('#hs-dot').setStyles({'left': hsl[0] / 2, 'top': (180 - ((hsl[1] / 100) * 180))});
+        
         Y.one('#sliderL-line').setStyle('top', 180 - ((hsl[2] / 100) * 180));
         Y.one('.picker-swatch').setStyle('backgroundColor', bucketHex);
         // set all of the values that are used in pickerUpdateColors()
@@ -762,7 +766,6 @@ function (Y) {
         pickerS = hsl[1];
         pickerL = hsl[2];
 
-        overlayPicker.show();
 //        overlayPicker.move([(relX + 40), (relY + 10)]);
 
 var a = Y.WidgetPositionAlign; // Local variable
@@ -815,23 +818,23 @@ var a = Y.WidgetPositionAlign; // Local variable
 
     // update the output textarea content
     var updateTextAreaSettings = function(){
-        var schemeOutputStr = '',
-            textContrast = '\nText contrast: ' + SKIN._space.options.textContrast * 100 + '%',
-            borderRadius = '\nBorder radius: ' + SKIN.options.radius * 10 + '%',
-            paddingHoriz = '\nHoriz. padding: ' + SKIN.options.paddingHoriz * 100 + '%',
-            paddingVert = '\nVert. padding: ' + SKIN.options.paddingVert * 100 + '%';
+//         var schemeOutputStr = '',
+//             textContrast = '\nText contrast: ' + SKIN._space.options.textContrast * 100 + '%',
+//             borderRadius = '\nBorder radius: ' + SKIN.options.radius * 10 + '%',
+//             paddingHoriz = '\nHoriz. padding: ' + SKIN.options.paddingHoriz * 100 + '%',
+//             paddingVert = '\nVert. padding: ' + SKIN.options.paddingVert * 100 + '%';
 
-        schemeOutputStr = '// Color scheme settings'+
-        '\nY.colorspace.schemes.' + SCHEME_NAME + ' = {\n' +
+//         schemeOutputStr = '// Color scheme settings'+
+//         '\nY.colorspace.schemes.' + SCHEME_NAME + ' = {\n' +
                                 
-        '    high:       {h: ' + SCHEME_CUSTOM.high.h + ', s: ' + SCHEME_CUSTOM.high.s + ', l: ' + SCHEME_CUSTOM.high.l + '},\n'+
-        '    normal:     {h: ' + SCHEME_CUSTOM.normal.h + ', s: ' + SCHEME_CUSTOM.normal.s + ', l: ' + SCHEME_CUSTOM.normal.l + '},\n'+
-        '    low:        {h: ' + SCHEME_CUSTOM.low.h + ', s: ' + SCHEME_CUSTOM.low.s + ', l: ' + SCHEME_CUSTOM.low.l + '},\n'+ 
-        '    background: {h: ' + SCHEME_CUSTOM.background.h + ', s: ' + SCHEME_CUSTOM.background.s + ', l: ' + SCHEME_CUSTOM.background.l + '}\n'+ 
-//            '    page:       {h: ' + adjustBlocks[3].h + ', s: ' + adjustBlocks[3].s + ', l: ' + adjustBlocks[3].l + '},\n'+ 
-        '};';
+//         '    high:       {h: ' + SCHEME_CUSTOM.high.h + ', s: ' + SCHEME_CUSTOM.high.s + ', l: ' + SCHEME_CUSTOM.high.l + '},\n'+
+//         '    normal:     {h: ' + SCHEME_CUSTOM.normal.h + ', s: ' + SCHEME_CUSTOM.normal.s + ', l: ' + SCHEME_CUSTOM.normal.l + '},\n'+
+//         '    low:        {h: ' + SCHEME_CUSTOM.low.h + ', s: ' + SCHEME_CUSTOM.low.s + ', l: ' + SCHEME_CUSTOM.low.l + '},\n'+ 
+//         '    background: {h: ' + SCHEME_CUSTOM.background.h + ', s: ' + SCHEME_CUSTOM.background.s + ', l: ' + SCHEME_CUSTOM.background.l + '}\n'+ 
+// //            '    page:       {h: ' + adjustBlocks[3].h + ', s: ' + adjustBlocks[3].s + ', l: ' + adjustBlocks[3].l + '},\n'+ 
+//         '};';
 
-        Y.one('#textarea-scheme').setHTML(schemeOutputStr + '\n// Other skin settings:' + textContrast + borderRadius + paddingHoriz + paddingVert);
+//         Y.one('#textarea-scheme').setHTML(schemeOutputStr + '\n// Other skin settings:' + textContrast + borderRadius + paddingHoriz + paddingVert);
     }
 
     // set the scheme color swatch in the schemeOverlay
@@ -1105,8 +1108,7 @@ var a = Y.WidgetPositionAlign; // Local variable
     });
 
 
-
-    Y.one('.inp-skin-name').on('keyup', function(e) {
+    var updateBodySkinClass = function() {
         var body = Y.one('body');
         // sets the skin name and class prefix that will be replaced in all the
         // stylesheet templates
@@ -1117,7 +1119,10 @@ var a = Y.WidgetPositionAlign; // Local variable
         // Then we need to do refresh[component]Skin() function calls
         // Which are found in updateColors();
         // This will send the skin name into the Widget Maps -> Stylesheet Templates -> CSS
-        updateColors();
+        updateColors();        
+    }
+    Y.one('.inp-skin-name').on('keyup', function(e) {
+        updateBodySkinClass();
     });
 
     Y.all('.bucket-picker').on('click', showPicker);
@@ -1150,7 +1155,7 @@ var a = Y.WidgetPositionAlign; // Local variable
     Y.one('.tab-code').on('click', function(){
         overlayPicker.hide();
         overlaySchemer.hide();
-        updateTextAreaSettings();
+        //updateTextAreaSettings();
     
     });
 
@@ -1432,5 +1437,65 @@ var a = Y.WidgetPositionAlign; // Local variable
     } // end of if the query string has ?test
 
     Y.one('.yui3-loading').removeClass('yui3-loading'); // let body be visible
+////////////////// query string skin def ////////////////////////
+
+    //?skin={"high":{"h":90,"s":-30,"l":60},"normal":{"h":0,"s":-30,"l":75},"low":{"h":0,"s":-30,"l":80},"background":{"h":0,"s":-30,"l":90},"name":"myDark","master":"#ff8833","page":"#ffff88"}
+    //?skin={"high":{"h":90,"s":-30,"l":60},"normal":{"h":0,"s":-30,"l":75},"low":{"h":0,"s":-30,"l":80},"background":{"h":0,"s":-30,"l":90},"meta":["myDark","#ff8833","#ffff88",1.50,1.60,20,0.8]}
+
+    if (document.URL.indexOf('?skin={') > -1 ) {
+        var query = document.URL;
+
+        jsonString = unescape(query.substring(query.indexOf('skin=') + 5));
+        
+        // JSON.parse throws a SyntaxError when passed invalid JSON
+        try {
+            var querySkin = Y.JSON.parse(jsonString);
+        }
+        catch (e) {
+            alert("Invalid product data");
+        }
+
+        SCHEME_CUSTOM.high = querySkin.high;  
+        SCHEME_CUSTOM.normal = querySkin.normal;  
+        SCHEME_CUSTOM.low = querySkin.low;  
+        SCHEME_CUSTOM.background = querySkin.background;
+
+        SKIN.options.name = querySkin.meta[0]; //name;  
+        KEY_COLOR.block.highest.background = querySkin.meta[1]; //.master;     "meta":["myDark","#ff8833M","P#ffff88",1.10,1.20,1.30,1.40]}
+        SKIN.options.keycolor = querySkin.meta[1]; //.master;
+        KEY_COLOR.background = querySkin.meta[2]; //.page;
+        PAGE_BG_COLOR = querySkin.meta[2]; //.page;
+        SKIN.options.paddingHoriz = querySkin.meta[3];
+        SKIN.options.paddingVert = querySkin.meta[4];
+        SKIN.options.radius = querySkin.meta[5];
+        SKIN._space.options.textContrast = querySkin.meta[6]; 
+        //SKIN.options.container = querySkin.page;
+
+        Y.one('.inp-skin-name').set('value', querySkin.meta[0]);
+        updateBodySkinClass();
+    }
+
+    // listener for get URL button /////////////
+    Y.one('#btn-get-url').on('click', function() {
+        var foo = Y.merge(SCHEME_CUSTOM);
+
+        foo.meta = [
+            SKIN.options.name,
+            SKIN.options.keycolor,
+            SKIN.options.container,
+            SKIN.options.paddingHoriz,
+            SKIN.options.paddingVert,
+            SKIN.options.radius,
+            SKIN._space.options.textContrast
+        ];
+        var jsonStr = Y.JSON.stringify(foo);
+        var qStr = "?skin=" + jsonStr;
+        var theBaseURL = document.URL.substring(0, (document.URL.indexOf('.html') + 5));
+        var theURL = theBaseURL + qStr;
+        //"background":{"h":0,"s":-30,"l":90},"name":"myDark","master":"#ff8833","page":"#ffff88"
+        Y.one('#textarea-scheme').setHTML(theURL);
+    })
+////////////////  end query string stuff //////////////
+
 
 });
