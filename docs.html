@@ -67,7 +67,7 @@ h1,h2,h3,h4,h5,h6 {
     padding: 0.5em 0 0;
 }
 #main-colors {
-    margin: 0 0 0 24px;
+    margin: 0;
     padding: 0;
 }
 #main-colors li {
@@ -75,9 +75,10 @@ h1,h2,h3,h4,h5,h6 {
     *display: block;
     /* inline block hack for IE */
     *zoom: 1;
-    width: 84px;
+    width: 91px;
     font-size: 80%;
     color: #808080;
+    text-align: center;
 }
 .separator {
     border-top: solid 1px #ccc;
@@ -128,8 +129,9 @@ h1,h2,h3,h4,h5,h6 {
                 <strong>Items:</strong> This contains checkboxes for each of the available widgets and modules that are available for skinning.
             </li>
             <li>
-                <img src="assets/images/cap_code.png" width="561" height="133" alt="CSS generated code"/>
+                <img src="assets/images/cap_code.png" width="561" height="268" alt="CSS generated code"/>
                 <strong>Code:</strong> This tab contains text area controls that display the real-time generated CSS code for your skin as you make modifications. You can also change the skin name, which marks all the selectors in the CSS code.
+                <p>The Code tab also includes a Get URL button which captures all the current skin settings into a URL. You can save it somewhere or bookmark it to get back to where you left off. You can also share it with others.</p>
             </li>
         </ul>
         <h3 class="clear-floats">Skin Preview</h3>
@@ -149,9 +151,12 @@ h1,h2,h3,h4,h5,h6 {
             <li><img src="assets/images/cap_scheme.png" width="561" height="124" alt="Color scheme radio button choices"/>Click the Schemes tab. Try other schemes to see which works best for your site. If you choose a dark background scheme, you may need to select a different "highest/master" color from the palettes tab</li>
             
             
-            <li><img src="assets/images/cap_code.png" width="561" height="123" alt="CSS generated code"/>Edit the Skin Name suffix. In the markup of your site or app where widgets are to use this skin, replace the class "yui3-skin-sam" with the matching new class name, such as, "yui3-skin-myskinnamesuffix".</li>
+            <li><img src="assets/images/cap_code.png" width="561" height="268" alt="CSS generated code"/>Edit the Skin Name suffix. In the markup of your site or app where widgets are to use this skin, replace the class "yui3-skin-sam" with the matching new class name, such as, "yui3-skin-myskinnamesuffix".</li>
             
             <li>Select the contents of the textarea labeled "CSS for all widgets". Paste this code into the file wherever you want your CSS to be referenced from. If you don't need CSS skin code for all the YUI 3 widgets, you can pick out and use only the sections of the CSS you do need.</li>
+
+            <li>
+                Click the Get URL button shown in step 7. Save this URL somewhere so you can make future edits starting where you left off. Share it with others.
         </ol>
 
 
@@ -174,19 +179,20 @@ h1,h2,h3,h4,h5,h6 {
 
 
         <h2>How Does It Work?</h2>
+        Successfully applying colors to objects (skinning) is a process of applying the colors that will give the objects their correct visual emphasis for their function relative to other objects. Skin Builder provides a palette of colors arranged by emphasis, and then logically maps those colors onto the backgrounds, borders, and text of each part of YUI widgets and components according to their function. It then allows you to manipulate the color palette in several ways that provide infinite variety of colors while giving instant preview feedback. 
         <h3>Key color</h3>
         This is a user-selected color. It's the color that has the most emphasis in the skin. It will be used as the background color of visually dominant widget elements such as, primary or default buttons, or selected tabs. In the Palette, it is presented as the background color of the "highest"
 
         <h3>Main colors</h3>
         There are 6 Main Colors used in this tool. From left to right, their names are...
         <ol id="main-colors">
-            <li>Page</li>
             <li>Highest</li>
             <li>High</li>
             <li>Normal</li>
             <li>Low</li>
             <li>Lowest</li>
-        </ol><img src="assets/images/cap_palette.png" width="561" height="109" alt="Color palette withy 6 main color blocks"/>
+            <li>Page</li>
+        </ol><img src="assets/images/cap_palette.png" width="586" height="93" alt="Color palette withy 6 main color blocks"/>
         <p>
             Main colors "Highest" through "Lowest" are designed to hold colors of decreasing visual emphasis. The main color "Page" is the background color of the page or container the widgets will be viewed on in the final app or web page. Each of these main colors represents a family of colors that are used to color widgets.
         </p>
@@ -309,7 +315,7 @@ Y.Skin.renderers.tabview = function (skin) {
         tabHoverBorderLow: block.high.hover.border.low,
         tabHoverBorderHigh: block.high.hover.border.high,
         </pre>
-        For example: The mapping file for the TabView widget is named skin-tabview.js. One of the variables you can see in the snippet above is named "tabText". Its value is equal to (mapped to) the color stored in the skin object "block.high.text.normal". This is the normal text color in the "high" main color that you can see (circled) in the palette of this tool.<img src="assets/images/cap_high_text_normal.png" width="568" height="111" alt="text.normal in 'high' main color is circled"/>
+        For example: The mapping file for the TabView widget is named skin-tabview.js. One of the variables you can see in the snippet above is named "tabText". Its value is equal to (mapped to) the color stored in the skin object "block.high.text.normal". This is the normal text color in the "high" main color that you can see (circled) in the palette of this tool.<img src="assets/images/cap_high_text_normal.png" width="586" height="93" alt="text.normal in 'high' main color is circled"/>
         <p>
         YUI Skin Builder has CSS style code templates for each widget. At the bottom of the template snippet below, you can see where the variable "tabText" is used.
         </p>

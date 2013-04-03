@@ -1068,7 +1068,7 @@ var a = Y.WidgetPositionAlign; // Local variable
     'detailed-preview': 'This displays all the colors used in the current skin. Both :hover and normal colors. Clicking on the small color specrum icons allow you to modify the colors.',
     'items': 'Choose which modules or widgets you\'ll be using. We\'ll only generate CSS skin code for those. You can copy that code from the Code tab.',
     'code': 'You can change the name of your skin in the input labeled ".yui-skin-". Then copy the CSS from this textarea for use in your page/app.',
-    'settings': 'These are all the current settings of your skin. Make note of them before you leave if you want to pick up where you left off.'
+    'settings': 'This URL will capture all your current skin settings. You can save it somewhere and/or share it.'
     };
 
 
@@ -1465,11 +1465,13 @@ var a = Y.WidgetPositionAlign; // Local variable
         SKIN.options.keycolor = querySkin.meta[1]; //.master;
         KEY_COLOR.background = querySkin.meta[2]; //.page;
         PAGE_BG_COLOR = querySkin.meta[2]; //.page;
-        SKIN.options.paddingHoriz = querySkin.meta[3];
-        SKIN.options.paddingVert = querySkin.meta[4];
-        SKIN.options.radius = querySkin.meta[5];
-        SKIN._space.options.textContrast = querySkin.meta[6]; 
-        //SKIN.options.container = querySkin.page;
+
+        // Set value on sliders directly, then they update the options such as 
+        // SKIN.options.paddingHoriz by the sliders valueChange function
+        sliderPaddingHoriz.set('value', querySkin.meta[3] * 50);
+        sliderPaddingVert.set('value', querySkin.meta[4] * 50);
+        sliderRadius.set('value', querySkin.meta[5]);
+        sliderTextContrast.set('value', querySkin.meta[6] * 10); 
 
         Y.one('.inp-skin-name').set('value', querySkin.meta[0]);
         updateBodySkinClass();
@@ -1477,9 +1479,10 @@ var a = Y.WidgetPositionAlign; // Local variable
 
     // listener for get URL button /////////////
     Y.one('#btn-get-url').on('click', function() {
-        var foo = Y.merge(SCHEME_CUSTOM);
+        var skinData = Y.merge(SCHEME_CUSTOM),
+            textArea = Y.one('#textarea-scheme');
 
-        foo.meta = [
+        skinData.meta = [
             SKIN.options.name,
             SKIN.options.keycolor,
             SKIN.options.container,
@@ -1488,12 +1491,14 @@ var a = Y.WidgetPositionAlign; // Local variable
             SKIN.options.radius,
             SKIN._space.options.textContrast
         ];
-        var jsonStr = Y.JSON.stringify(foo);
+        var jsonStr = Y.JSON.stringify(skinData);
         var qStr = "?skin=" + jsonStr;
         var theBaseURL = document.URL.substring(0, (document.URL.indexOf('.html') + 5));
         var theURL = theBaseURL + qStr;
-        //"background":{"h":0,"s":-30,"l":90},"name":"myDark","master":"#ff8833","page":"#ffff88"
-        Y.one('#textarea-scheme').setHTML(theURL);
+
+        textArea.setHTML(theURL);
+        textArea.focus();
+        textArea.select();
     })
 ////////////////  end query string stuff //////////////
 
