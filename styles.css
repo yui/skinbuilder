@@ -219,8 +219,8 @@ body {
 }
 #tab-code #btn-get-url {
     border-radius: 4px;
-    margin-bottom: 0.2em;
-    padding: 0 0.9em;
+    margin: 21px 0.5em 0.5em 0;
+    padding: 0.5em 0.9em 0.4em;
 }
 .color-space {
     position: relative;
@@ -711,8 +711,10 @@ h1 {
     background-color: rgba(255,255,255, 0.2);
 
 }
-#textarea-scheme {
-    height: 126px;
+#tabview-controls #inp-url-link {
+    height: inherit;
+    padding: 0.3em;
+    width: 98%;
 }
 .markup {
     margin: 8px 0;

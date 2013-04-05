@@ -16,7 +16,6 @@ YUI({
         'skin-calendar'    : 'skin-calendar.js',
         'skin-datatable'   : 'skin-datatable.js',
         'skin-dial'        : 'skin-dial.js',
-        'skin-table'        : 'skin-table.js',
         'skin-node-menunav': 'skin-node-menunav.js',
         'skin-overlay'     : 'skin-overlay.js',
         'skin-panel'       : 'skin-panel.js',
@@ -46,7 +45,8 @@ YUI({
     'autocomplete-filters', 'autocomplete-highlighters', 'scrollview',
     'datatable-sort', 'dd-drag', 'dd-constrain', 'calendar', 'button-plugin',
     'tabview', 'datatype-date', 'button-group', 'cssbutton',
-    'node-event-delegate', 'overlay', 'color', 'test', 'test-console', 'event-outside', 'json-parse', 'json-stringify',
+    'node-event-delegate', 'overlay', 'color', 'test', 'test-console', 'event-outside',
+    'json-parse', 'json-stringify', 'querystring', 'datatype-number',
 function (Y) {
 
     var PAGE_BG_COLOR = '#fff',
@@ -136,7 +136,7 @@ function (Y) {
                 }, 
                 {
                     name: 'slider', 
-                    display: false, 
+                    display: true, 
                     type: 'widget', 
                     required: true    /////////
                 }, 
@@ -1155,7 +1155,7 @@ var a = Y.WidgetPositionAlign; // Local variable
     Y.one('.tab-code').on('click', function(){
         overlayPicker.hide();
         overlaySchemer.hide();
-        //updateTextAreaSettings();
+        Y.one('#inp-url-link').setStyle('display', 'none');
     
     });
 
@@ -1437,68 +1437,134 @@ var a = Y.WidgetPositionAlign; // Local variable
     } // end of if the query string has ?test
 
     Y.one('.yui3-loading').removeClass('yui3-loading'); // let body be visible
+
 ////////////////// query string skin def ////////////////////////
 
-    //?skin={"high":{"h":90,"s":-30,"l":60},"normal":{"h":0,"s":-30,"l":75},"low":{"h":0,"s":-30,"l":80},"background":{"h":0,"s":-30,"l":90},"name":"myDark","master":"#ff8833","page":"#ffff88"}
-    //?skin={"high":{"h":90,"s":-30,"l":60},"normal":{"h":0,"s":-30,"l":75},"low":{"h":0,"s":-30,"l":80},"background":{"h":0,"s":-30,"l":90},"meta":["myDark","#ff8833","#ffff88",1.50,1.60,20,0.8]}
-
     if (document.URL.indexOf('?skin={') > -1 ) {
-        var query = document.URL;
+    }
+        ////////// read a query string and set all things ///////////
+        // using Y.QueryString
+    if (document.URL.indexOf('.html?') > -1 ) {
+        var theURL = document.URL,
+            theQuery = theURL.substring(theURL.indexOf('.html?') + 6),
+            qData,
+            dataIsValid = true,
+            validationMsg;
+            
+        qData = Y.QueryString.parse(theQuery);
 
-        jsonString = unescape(query.substring(query.indexOf('skin=') + 5));
-        
-        // JSON.parse throws a SyntaxError when passed invalid JSON
-        try {
-            var querySkin = Y.JSON.parse(jsonString);
+        for (var myprop in qData){
+            qData[myprop] = qData[myprop].split(',');    
         }
-        catch (e) {
-            alert("Invalid product data");
+
+        // data validation for query string contents
+            if(Y.Lang.isString(qData['opt'][0]) === "false") {
+                validationMsg = " the skin name is not a string.";
+                dataIsValid = false;
+            }else if((qData['opt'][1].substring(0,1) !== "#") || (qData['opt'][1].length !== 7)) {
+                validationMsg = " the Master color is not formatted as a hex value.";
+                dataIsValid = false;
+            }else if((qData['opt'][2].substring(0,1) !== "#") || (qData['opt'][2].length !== 7)) {
+                validationMsg = " the background color is not formatted as a hex value.";
+                dataIsValid = false;
+            }else{
+                var i,k;
+                for (i = 3; i < qData['opt'].length; i+=1){
+                    qData['opt'][i] = Y.Number.parse(qData['opt'][i]);
+                    if(Y.Lang.isNumber(qData['opt'][i]) === false){
+                        validationMsg = " one of the slider values is not a number.";
+                        dataIsValid = false;
+                        break;
+                    }
+                }
+                
+                var myValid = function(k){
+                    if(dataIsValid){
+                        for (i = 0; i < qData[k].length; i+=1){
+                            qData[k][i] = Y.Number.parse(qData[k][i]);
+                            if(Y.Lang.isNumber(qData[k][i]) === false){
+                                validationMsg = " a hue, sat, or lit value is not a number.";
+                                dataIsValid = false;
+                                break;
+                            }
+                            if(qData[k][i] <= -101){
+                                validationMsg = " a hue, sat, or lit value is < -100.";
+                                dataIsValid = false;
+                                break;
+                            }
+                            if(qData[k][i] >= 101){
+                                validationMsg = " a hue, sat, or lit value is > 100.";
+                                dataIsValid = false;
+                                break;
+                            }
+                        }
+                    }
+                }
+                myValid('h');
+                myValid('n');
+                myValid('l');
+                myValid('b');
+            }
+            if(dataIsValid === false) {
+                alert("There is a problem with the querystring in the URL: " + validationMsg + "\n We'll just use the default skin.");
+            }
+
+        // assign values to constants and options
+        if(dataIsValid) {
+            SCHEME_CUSTOM.high = {h:qData.h[0], s:qData.h[1], l:qData.h[2]}; //querySkin.high;  
+            SCHEME_CUSTOM.normal = {h:qData.n[0], s:qData.n[1], l:qData.n[2]}; //querySkin.normal;  
+            SCHEME_CUSTOM.low = {h:qData.l[0], s:qData.l[1], l:qData.l[2]}; //querySkin.low;  
+            SCHEME_CUSTOM.background = {h:qData.b[0], s:qData.b[1], l:qData.b[2]}; //querySkin.background;
+
+            SKIN.options.name = qData.opt[0]; //querySkin.meta[0]; //name;  
+            KEY_COLOR.block.highest.background = qData.opt[1]; //querySkin.meta[1]; //.master;     "meta":["myDark","#ff8833M","P#ffff88",1.10,1.20,1.30,1.40]}
+            SKIN.options.keycolor = qData.opt[1]; //querySkin.meta[1]; //.master;
+            KEY_COLOR.background = qData.opt[2]; //querySkin.meta[2]; //.page;
+            PAGE_BG_COLOR = qData.opt[2]; //querySkin.meta[2]; //.page;
+
+            // Set value on sliders directly, then they update the options such as 
+            // SKIN.options.paddingHoriz by the sliders valueChange function
+            sliderPaddingHoriz.set('value', qData.opt[3] * 50);
+            sliderPaddingVert.set('value', qData.opt[4] * 50);
+            sliderRadius.set('value', qData.opt[5]);
+            sliderTextContrast.set('value', qData.opt[6] * 10); 
+
+            Y.one('.inp-skin-name').set('value', qData.opt[0]);
+            updateBodySkinClass();
         }
-
-        SCHEME_CUSTOM.high = querySkin.high;  
-        SCHEME_CUSTOM.normal = querySkin.normal;  
-        SCHEME_CUSTOM.low = querySkin.low;  
-        SCHEME_CUSTOM.background = querySkin.background;
-
-        SKIN.options.name = querySkin.meta[0]; //name;  
-        KEY_COLOR.block.highest.background = querySkin.meta[1]; //.master;     "meta":["myDark","#ff8833M","P#ffff88",1.10,1.20,1.30,1.40]}
-        SKIN.options.keycolor = querySkin.meta[1]; //.master;
-        KEY_COLOR.background = querySkin.meta[2]; //.page;
-        PAGE_BG_COLOR = querySkin.meta[2]; //.page;
-
-        // Set value on sliders directly, then they update the options such as 
-        // SKIN.options.paddingHoriz by the sliders valueChange function
-        sliderPaddingHoriz.set('value', querySkin.meta[3] * 50);
-        sliderPaddingVert.set('value', querySkin.meta[4] * 50);
-        sliderRadius.set('value', querySkin.meta[5]);
-        sliderTextContrast.set('value', querySkin.meta[6] * 10); 
-
-        Y.one('.inp-skin-name').set('value', querySkin.meta[0]);
-        updateBodySkinClass();
     }
 
     // listener for get URL button /////////////
     Y.one('#btn-get-url').on('click', function() {
-        var skinData = Y.merge(SCHEME_CUSTOM),
-            textArea = Y.one('#textarea-scheme');
+        // create URL with querystring for skin definition
+        var myprop, 
+            strUnesc,
+            theBaseURL = document.URL.substring(0, (document.URL.indexOf('.html') + 5)),
+            linkInput = Y.one('#inp-url-link'),
+            sData = {
+                opt:[
+                    SKIN.options.name,
+                    SKIN.options.keycolor,
+                    SKIN.options.container,
+                    SKIN.options.paddingHoriz,
+                    SKIN.options.paddingVert,
+                    SKIN.options.radius,
+                    SKIN._space.options.textContrast
+                ].toString(),
+                h:[SCHEME_CUSTOM.high.h, SCHEME_CUSTOM.high.s, SCHEME_CUSTOM.high.l].toString(),
+                n:[SCHEME_CUSTOM.normal.h, SCHEME_CUSTOM.normal.s, SCHEME_CUSTOM.normal.l].toString(),
+                l:[SCHEME_CUSTOM.low.h, SCHEME_CUSTOM.low.s, SCHEME_CUSTOM.low.l].toString(),
+                b:[SCHEME_CUSTOM.background.h, SCHEME_CUSTOM.background.s, SCHEME_CUSTOM.background.l].toString()
+            };
 
-        skinData.meta = [
-            SKIN.options.name,
-            SKIN.options.keycolor,
-            SKIN.options.container,
-            SKIN.options.paddingHoriz,
-            SKIN.options.paddingVert,
-            SKIN.options.radius,
-            SKIN._space.options.textContrast
-        ];
-        var jsonStr = Y.JSON.stringify(skinData);
-        var qStr = "?skin=" + jsonStr;
-        var theBaseURL = document.URL.substring(0, (document.URL.indexOf('.html') + 5));
-        var theURL = theBaseURL + qStr;
+        strUnesc = Y.QueryString.unescape(Y.QueryString.stringify(sData));
 
-        textArea.setHTML(theURL);
-        textArea.focus();
-        textArea.select();
+        linkInput.setStyle('display', 'block');
+        linkInput.set('value', theBaseURL + '?' + strUnesc);
+        linkInput.focus();
+        linkInput.select();
+
+
     })
 ////////////////  end query string stuff //////////////
 
