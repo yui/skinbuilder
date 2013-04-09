@@ -49,7 +49,7 @@ YUI({
     'json-parse', 'json-stringify', 'querystring', 'datatype-number',
 function (Y) {
 
-    var PAGE_BG_COLOR = '#fff',
+    var PAGE_BG_COLOR = '#ffffff',
         KEY_COLOR = { 
             page: PAGE_BG_COLOR,
             background: '#ffffff',
@@ -1440,11 +1440,9 @@ var a = Y.WidgetPositionAlign; // Local variable
 
 ////////////////// query string skin def ////////////////////////
 
-    if (document.URL.indexOf('?skin={') > -1 ) {
-    }
         ////////// read a query string and set all things ///////////
         // using Y.QueryString
-    if (document.URL.indexOf('.html?') > -1 ) {
+    if (document.URL.indexOf('?opt=') > -1 ) {
         var theURL = document.URL,
             theQuery = theURL.substring(theURL.indexOf('.html?') + 6),
             qData,
@@ -1458,56 +1456,70 @@ var a = Y.WidgetPositionAlign; // Local variable
         }
 
         // data validation for query string contents
-            if(Y.Lang.isString(qData['opt'][0]) === "false") {
-                validationMsg = " the skin name is not a string.";
-                dataIsValid = false;
-            }else if((qData['opt'][1].substring(0,1) !== "#") || (qData['opt'][1].length !== 7)) {
-                validationMsg = " the Master color is not formatted as a hex value.";
-                dataIsValid = false;
-            }else if((qData['opt'][2].substring(0,1) !== "#") || (qData['opt'][2].length !== 7)) {
-                validationMsg = " the background color is not formatted as a hex value.";
-                dataIsValid = false;
-            }else{
-                var i,k;
-                for (i = 3; i < qData['opt'].length; i+=1){
-                    qData['opt'][i] = Y.Number.parse(qData['opt'][i]);
-                    if(Y.Lang.isNumber(qData['opt'][i]) === false){
-                        validationMsg = " one of the slider values is not a number.";
-                        dataIsValid = false;
-                        break;
-                    }
+        if(Y.Lang.isString(qData['opt'][0]) === "false") {
+            validationMsg = " the skin name is not a string.";
+            dataIsValid = false;
+        }else if((qData['opt'][1].substring(0,1) !== "#") || (qData['opt'][1].length !== 7)) {
+            validationMsg = " the Master color is not formatted as a hex value.";
+            dataIsValid = false;
+        }else if((qData['opt'][2].substring(0,1) !== "#") || (qData['opt'][2].length !== 7)) {
+            validationMsg = " the background color is not formatted as a hex value.";
+            dataIsValid = false;
+        }else{
+            var i,k;
+            for (i = 3; i < qData['opt'].length; i+=1){
+                qData['opt'][i] = Y.Number.parse(qData['opt'][i]);
+                if(Y.Lang.isNumber(qData['opt'][i]) === false){
+                    validationMsg = " one of the slider values is not a number.";
+                    dataIsValid = false;
+                    break;
                 }
-                
-                var myValid = function(k){
-                    if(dataIsValid){
-                        for (i = 0; i < qData[k].length; i+=1){
-                            qData[k][i] = Y.Number.parse(qData[k][i]);
-                            if(Y.Lang.isNumber(qData[k][i]) === false){
-                                validationMsg = " a hue, sat, or lit value is not a number.";
+            }
+            
+            var myValid = function(k){
+                if(dataIsValid){
+                    for (i = 0; i < qData[k].length; i+=1){
+                        qData[k][i] = Y.Number.parse(qData[k][i]);
+                        if(Y.Lang.isNumber(qData[k][i]) === false){
+                            validationMsg = " a hue, sat, or lit value is not a number.";
+                            dataIsValid = false;
+                            break;
+                        }
+                        if(i === 0) {
+                            if(qData[k][i] < -360){
+                                validationMsg = " a hue value is < -360.";
                                 dataIsValid = false;
                                 break;
                             }
-                            if(qData[k][i] <= -101){
-                                validationMsg = " a hue, sat, or lit value is < -100.";
+                            if(qData[k][i] > 360){
+                                validationMsg = " a hue value is > 360.";
                                 dataIsValid = false;
                                 break;
                             }
-                            if(qData[k][i] >= 101){
-                                validationMsg = " a hue, sat, or lit value is > 100.";
+
+                        } else {
+                            if(qData[k][i] < -100){
+                                validationMsg = " a sat, or lit value is < -100.";
+                                dataIsValid = false;
+                                break;
+                            }
+                            if(qData[k][i] > 100){
+                                validationMsg = " a sat, or lit value is > 100.";
                                 dataIsValid = false;
                                 break;
                             }
                         }
                     }
                 }
-                myValid('h');
-                myValid('n');
-                myValid('l');
-                myValid('b');
             }
-            if(dataIsValid === false) {
-                alert("There is a problem with the querystring in the URL: " + validationMsg + "\n We'll just use the default skin.");
-            }
+            myValid('h');
+            myValid('n');
+            myValid('l');
+            myValid('b');
+        }
+        if(dataIsValid === false) {
+            alert("There is a problem with the querystring in the URL: " + validationMsg + "\n We'll just use the default skin.");
+        }
 
         // assign values to constants and options
         if(dataIsValid) {
@@ -1530,6 +1542,9 @@ var a = Y.WidgetPositionAlign; // Local variable
             sliderTextContrast.set('value', qData.opt[6] * 10); 
 
             Y.one('.inp-skin-name').set('value', qData.opt[0]);
+            SCHEME_NAME = 'custom';
+            Y.all('.scheme-radios input').set('checked', '');
+            Y.one('.scheme-radios #custom').set('checked', "checked");
             updateBodySkinClass();
         }
     }
