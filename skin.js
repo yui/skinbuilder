@@ -86,7 +86,7 @@ Skin.prototype = {
             factor = 0.4;
         }
 
-        val = Math.round((factor * val) * 100 ) / 100;
+        val = Math.round(((factor * val) * 100 ) / 100);
         return  val + unit;
     },
 
