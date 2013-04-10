@@ -1554,7 +1554,7 @@ var a = Y.WidgetPositionAlign; // Local variable
         // create URL with querystring for skin definition
         var myprop, 
             strUnesc,
-            theBaseURL = document.URL.substring(0, (document.URL.indexOf('.html') + 5)),
+            theBaseURL,
             linkInput = Y.one('#inp-url-link'),
             sData = {
                 opt:[
@@ -1571,7 +1571,11 @@ var a = Y.WidgetPositionAlign; // Local variable
                 l:[SCHEME_CUSTOM.low.h, SCHEME_CUSTOM.low.s, SCHEME_CUSTOM.low.l].toString(),
                 b:[SCHEME_CUSTOM.background.h, SCHEME_CUSTOM.background.s, SCHEME_CUSTOM.background.l].toString()
             };
-
+        if (document.URL.indexOf('.html') === -1){
+            theBaseURL = document.URL;
+        } else {
+            theBaseURL = document.URL.substring(0, (document.URL.indexOf('.html') + 5));
+        }
         strUnesc = Y.QueryString.unescape(Y.QueryString.stringify(sData));
 
         linkInput.setStyle('display', 'block');
