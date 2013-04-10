@@ -1572,7 +1572,7 @@ var a = Y.WidgetPositionAlign; // Local variable
                 b:[SCHEME_CUSTOM.background.h, SCHEME_CUSTOM.background.s, SCHEME_CUSTOM.background.l].toString()
             };
         if (document.URL.indexOf('.html') === -1){
-            theBaseURL = document.URL;
+            theBaseURL = document.URL + 'index.html';
         } else {
             theBaseURL = document.URL.substring(0, (document.URL.indexOf('.html') + 5));
         }
