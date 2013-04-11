@@ -1136,15 +1136,15 @@ var a = Y.WidgetPositionAlign; // Local variable
         e.target.removeClass('show-hover');
     });
 
-
-    overlay.move([anchorOverlay.getX(),  anchorOverlay.getY()] );
-    panel.move([anchorPanel.getX(),  anchorPanel.getY()] );
-    
-    Y.on("windowresize", function(){
+    var moveAbsolutePosPreviews = function(){
         overlay.move([anchorOverlay.getX(),  anchorOverlay.getY()] );
         panel.move([anchorPanel.getX(),  anchorPanel.getY()] );
+    }
+    setTimeout(moveAbsolutePosPreviews, 10);
+    
+    Y.on("windowresize", function(){
+        moveAbsolutePosPreviews();
     });
-    // Y.one('#tabview-controls .tab-color').prepend('<img src="assets/images/picker_icon.png" width="14" height="14"/>');
 
     Y.one('.tab-schemes').on('click', function(){
         overlayPicker.hide();
