@@ -7,7 +7,7 @@ YUI.add('skin', function(Y, NAME) {
 
 function Skin() {
     this.init.apply(this, arguments);
-};
+}
 
 Skin.renderers = {};
 
@@ -59,7 +59,7 @@ Skin.prototype = {
         var colorspace = this._space;
         if (!colorspace) {
             colorspace = new Y.ColorSpace({
-                scheme: this.options.scheme,
+                scheme: this.options.scheme
             });
 
             this._space = colorspace;
@@ -75,6 +75,8 @@ Skin.prototype = {
 
 
     _computeRadius: function(factor, val) {
+        var unit;
+
         if (typeof val === 'undefined') {
             val = 10; // TODO: Break out into default map.
         }
@@ -95,8 +97,7 @@ Skin.prototype = {
         // TODO: Add a defaultRadius.
 
         var str = '',
-            options = this.options,
-            unit;
+            options = this.options;
 
         // TODO: Fix logic for padding shorthand. If no value is given, a
         // a default is needed.
@@ -116,6 +117,8 @@ Skin.prototype = {
     },
 
     _computePadding: function(factor, val) {
+        var unit;
+
         if (typeof val === 'undefined') {
 //            val = '10px'; // TODO: Break out into default map.
             val = 1; // TODO: Break out into default map.
@@ -134,8 +137,7 @@ Skin.prototype = {
 
     padding: function(top, right, bottom, left) {
         var str = '',
-            options = this.options,
-            unit;
+            options = this.options;
 
         // TODO: Fix logic for padding shorthand. If no value is given, a
         // a default is needed.

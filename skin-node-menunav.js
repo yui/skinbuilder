@@ -21,8 +21,8 @@ Y.Skin.renderers.nodeMenunav = function (skin) {
         horizontalBackground: space.background,
 
         itemActiveHorizontalBorder: space.border.low,
-    	itemActiveHorizontalBackgroundGradient: space.block.low.hover.gradient,
-    	itemActiveHorizontalBackgroundColor:    space.block.low.hover.background,
+        itemActiveHorizontalBackgroundGradient: space.block.low.hover.gradient,
+        itemActiveHorizontalBackgroundColor:    space.block.low.hover.background,
 
         itemActiveBackground:   space.hover.background,
         itemAcitveText:         space.hover.text.high

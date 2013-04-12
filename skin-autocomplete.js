@@ -10,7 +10,6 @@ Y.Skin.renderers.autocomplete = function (skin) {
         border:             space.border.low,
         text:               space.text.normal,
 
-
         itemHoverBackground:    space.hover.background,
         textHover:              space.hover.text.normal,
         itemActiveBackground:   space.block.high.background,

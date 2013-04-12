@@ -13,7 +13,6 @@ Y.Skin.renderers.list = function (skin) {
         menuBackground: space.background,
         menuText: space.text.normal,
         menuTextDisabled: space.text.low,
-        menuBorder: space.border.low,
         menuHoverBackground: space.hover.background, 
         menuHoverText: space.hover.text.normal,
         menuBorder: space.border.low,

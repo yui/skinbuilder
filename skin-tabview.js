@@ -39,7 +39,7 @@ Y.Skin.renderers.tabview = function (skin) {
         panelBackground: space.background,
         panelBorder: space.border.low,
         panelText: space.text.normal
-    }
+    };
 };
 
 }, '0.0.1', {

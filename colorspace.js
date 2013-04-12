@@ -104,15 +104,15 @@ Y.ColorSpace.prototype = {
      *      percent: orig value 0.8, adjust by 0.4 means go 0.4 percent of the distance
      *          from 0.8 to 1 results in  0.88 (0.2 * 0.4 = 0.08 + 0.8)
      */
-    adjustColor: function(hexInput, adjust, type) {
+    adjustColor: function(hexInput, adjustIn, type) {
         var hsl = Y.Color.toArray(Y.Color.toHSL(hexInput)),
-            adjust = Y.merge(adjust), // Clone to avoid mutating original.
+            adjust = Y.merge(adjustIn), // Clone to avoid mutating original.
             hex,
             grayProxy,
             grayProxyLightness,
             adjustType = 'cap';   // default
 
-        if (typeof(type) != 'undefined') {
+        if (typeof(type) !== 'undefined') {
             adjustType = type;
         }
 
@@ -241,18 +241,21 @@ Y.ColorSpace.prototype = {
 
         // generate forground and hover object colors for blocks
         for (block in this._adjust) {
-            var adjustBy = this._adjust[block];
-            if(  (adjustBy.h === 0) && (adjustBy.s === 0) && (adjustBy.l === 0)  ){ // case of "highest (keycolor)" and "container" (page bkg)
+            if (this._adjust.hasOwnProperty(block)) {
+                var adjustBy = this._adjust[block];
+
+                // case of "highest (keycolor)" and "container" (page bkg)
                 // do no adjusting, because Y.Color.getSimilarBrightness adjustColor() 
-                // would do some adjustment even with h:0, s:0, l:0. 
-            } else { // only adjust the block's color if it needs adjustment
-                colorspace.block[block] = {
-                    background: this.adjustColor(this._adjust[block].color || color, this._adjust[block], 'percent')
-                };
+                // would do some adjustment even with h:0, s:0, l:0.
+                // Only do some adjusting if an adjustBy.* is non-zero 
+                if(  (adjustBy.h !== 0) || (adjustBy.s !== 0) || (adjustBy.l !== 0)  ){
+                    colorspace.block[block] = {
+                        background: this.adjustColor(this._adjust[block].color || color, this._adjust[block], 'percent')
+                    };
+                }
+                this.adjustColors(colorspace.block[block]);
+                this.makeHoverBlock(colorspace.block[block]);
             }
-    
-            this.adjustColors(colorspace.block[block]);
-            this.makeHoverBlock(colorspace.block[block]);
         }
 
 

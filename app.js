@@ -1,8 +1,6 @@
 // TODO:
-// - Remove Color Palette CSS from textarea output.
 // - Break out sample widgets into separate module.
 // - Convert input handling and Picker to OO-style.
-// - Y.Appify?
 
 YUI({
     logInclude: { TestRunner: true },
@@ -232,7 +230,6 @@ function (Y) {
             
         });
 
-
         cssOutput.value = css;
         STYLESHEET.innerHTML = cssRequired + css;
     }
@@ -277,7 +274,9 @@ function (Y) {
 //          width:'600px',
           showPrevMonth: true,
           showNextMonth: true,
-          date: new Date(1982,11,1)}).render();
+          date: new Date(1982,11,1)
+        });
+    calendar.render();
     // make a day selected for display
     var days = Y.all('.yui3-calendar-day');
     days.item(12).addClass('yui3-calendar-day-selected');
@@ -315,7 +314,8 @@ function (Y) {
         data   : data,
         summary: "Contacts list",
         caption: "Table with simple column sorting"
-    }).render("#datatable");
+    });
+    table.render("#datatable");
 
     // Scrollview instance Horizontal ///////////////////////////////////////////////////
     // var scrollViewX = new Y.ScrollView({
@@ -406,7 +406,7 @@ function (Y) {
         section: Y.WidgetStdMod.FOOTER,
         action : function (e) {
             e.preventDefault();
-            addItem();
+            //addItem();
         }
     });
     // var overlayNode = Y.one('#overlayContent');
@@ -434,7 +434,7 @@ function (Y) {
 
     // tabview for holding controls in left grid column //////////////////////////////////
     var tabviewControls = new Y.TabView({
-        srcNode: '#tabview-controls',
+        srcNode: '#tabview-controls'
         //width: '285px'
     });
 
@@ -529,7 +529,7 @@ function (Y) {
     });
 
     sliderPaddingHoriz.render('#slider-padding-horiz');
-    var sliderPaddingHorizThumb = Y.one('#slider-padding-horiz .yui3-slider-thumb');
+
     Y.one('.reset-padding-horiz').on('click', function() {
         sliderPaddingHoriz.set('value', paddingHorizDefaultValue);
     });
@@ -560,7 +560,7 @@ function (Y) {
     });
 
     sliderPaddingVert.render('#slider-padding-vert');
-    var sliderPaddingVertThumb = Y.one('#slider-padding-vert .yui3-slider-thumb');
+
     Y.one('.reset-padding-vert').on('click', function() {
         sliderPaddingVert.set('value', paddingVertDefaultValue);
     });
@@ -634,7 +634,7 @@ function (Y) {
 
 
     ///////////////////////////  Color Picker instance and handlers  /////////////////////////////////
-    var xy = [40, 40];
+
     var overlayPicker = new Y.Overlay({
         srcNode:"#picker-outer",
         // width:"13em",
@@ -697,7 +697,7 @@ function (Y) {
             Y.one('.picker-swatch .picker-input').set('value', hex);
         };
 
-    var handlePickerTextInput = function(e) {
+    var handlePickerTextInput = function() {
         var hex = Y.one('.picker-input').get('value');
         if (objBucket.hasClass('page-background')) {
             PAGE_BG_COLOR = hex;
@@ -728,9 +728,7 @@ function (Y) {
         pickerUpdateColors(objBucket);
     };
     var showPicker = function(e) {
-        var relX = (e.clientX + Y.one('document').get('scrollLeft')),
-            relY = (e.clientY + Y.one('document').get('scrollTop')),
-            bucketHex,
+        var bucketHex,
             hsl;
         overlaySchemer.hide(); 
         // if (Y.one('.bucket-selected')) {
@@ -755,7 +753,6 @@ function (Y) {
         // set UI to match color of bucket value clicked on
         hsl = Y.Color.toArray(Y.Color.toHSL(bucketHex));
         overlayPicker.show();
-        //Y.one('#hs-dot').setStyles({'left': hsl[0] / 2, 'top': (hsl[1] / 100) * 180});
         Y.one('#hs-dot').setStyles({'left': hsl[0] / 2, 'top': (180 - ((hsl[1] / 100) * 180))});
         
         Y.one('#sliderL-line').setStyle('top', 180 - ((hsl[2] / 100) * 180));
@@ -766,13 +763,11 @@ function (Y) {
         pickerS = hsl[1];
         pickerL = hsl[2];
 
-//        overlayPicker.move([(relX + 40), (relY + 10)]);
-
-var a = Y.WidgetPositionAlign; // Local variable
-        overlayPicker.set("align", {
-    node: e.target,
-    points: [a.TL, a.TR]
-});
+        var a = Y.WidgetPositionAlign; // Local variable
+                overlayPicker.set("align", {
+            node: e.target,
+            points: [a.TL, a.TR]
+        });
 
 
     };
@@ -815,28 +810,6 @@ var a = Y.WidgetPositionAlign; // Local variable
         blockAdjust = {h: '', s: '', l: ''}, // the adjust object of the correct block in the SKIN._space
         schemeBlockDOM; // the DOM object of the correct block. Used for updating the swatch on the scheme adjust overlay
 
-
-    // update the output textarea content
-    var updateTextAreaSettings = function(){
-//         var schemeOutputStr = '',
-//             textContrast = '\nText contrast: ' + SKIN._space.options.textContrast * 100 + '%',
-//             borderRadius = '\nBorder radius: ' + SKIN.options.radius * 10 + '%',
-//             paddingHoriz = '\nHoriz. padding: ' + SKIN.options.paddingHoriz * 100 + '%',
-//             paddingVert = '\nVert. padding: ' + SKIN.options.paddingVert * 100 + '%';
-
-//         schemeOutputStr = '// Color scheme settings'+
-//         '\nY.colorspace.schemes.' + SCHEME_NAME + ' = {\n' +
-                                
-//         '    high:       {h: ' + SCHEME_CUSTOM.high.h + ', s: ' + SCHEME_CUSTOM.high.s + ', l: ' + SCHEME_CUSTOM.high.l + '},\n'+
-//         '    normal:     {h: ' + SCHEME_CUSTOM.normal.h + ', s: ' + SCHEME_CUSTOM.normal.s + ', l: ' + SCHEME_CUSTOM.normal.l + '},\n'+
-//         '    low:        {h: ' + SCHEME_CUSTOM.low.h + ', s: ' + SCHEME_CUSTOM.low.s + ', l: ' + SCHEME_CUSTOM.low.l + '},\n'+ 
-//         '    background: {h: ' + SCHEME_CUSTOM.background.h + ', s: ' + SCHEME_CUSTOM.background.s + ', l: ' + SCHEME_CUSTOM.background.l + '}\n'+ 
-// //            '    page:       {h: ' + adjustBlocks[3].h + ', s: ' + adjustBlocks[3].s + ', l: ' + adjustBlocks[3].l + '},\n'+ 
-//         '};';
-
-//         Y.one('#textarea-scheme').setHTML(schemeOutputStr + '\n// Other skin settings:' + textContrast + borderRadius + paddingHoriz + paddingVert);
-    }
-
     // set the scheme color swatch in the schemeOverlay
     // Update the scheme with the new scheme color adjustment object values
     var handleSchemeValueChange = function() {
@@ -865,11 +838,11 @@ var a = Y.WidgetPositionAlign; // Local variable
             // update the swatch bkg color
             Y.one('.schemer-swatch').setStyle('backgroundColor', schemeBlockDOM.getStyle('backgroundColor'));
         }
-    }
+    };
 
 
     var overlaySchemer = new Y.Overlay({
-        srcNode:"#schemer-outer",
+        srcNode:"#schemer-outer"
 //         width: "600px",
 //         height:"300px",
 //           xy: 
@@ -992,7 +965,7 @@ var a = Y.WidgetPositionAlign; // Local variable
         overlaySchemer.move([(relX + 50), (relY - 10)]);
 
     };
-    Y.one('#schemer-outer .close').on('click', function(e){
+    Y.one('#schemer-outer .close').on('click', function(){
         overlaySchemer.hide();
         // remove the selected class from scheme icons
         Y.all('.bucket-deselected').removeClass('bucket-deselected');
@@ -1025,7 +998,7 @@ var a = Y.WidgetPositionAlign; // Local variable
     //Now you can only drag it from the .grip at the top of the blue box
     paletteOuter.dd.addHandle('#palette-outer .grip');
 
-    Y.one('#palette-outer .close').on('click', function(e){
+    Y.one('#palette-outer .close').on('click', function(){
         overlayPalette.hide();
         // remove the selected class from scheme icons
         Y.all('.bucket-deselected').removeClass('bucket-deselected');
@@ -1055,7 +1028,7 @@ var a = Y.WidgetPositionAlign; // Local variable
         constrain: 'view'
     });
 
-    Y.one('#help-panel .close').on('click', function(e){
+    Y.one('#help-panel .close').on('click', function(){
         helpPanel.hide();
     });
 
@@ -1083,7 +1056,7 @@ var a = Y.WidgetPositionAlign; // Local variable
         if(e.target.hasClass('wpR')) { // wpR is a class given meaning "widget position right" of the "?"
             position = [a.TL, a.TR];
         }
-        nameKey = e.target.get('className')
+        nameKey = e.target.get('className');
         nameKey = nameKey.substring(nameKey.indexOf('-') + 1);
         currentHelpStr = helpContent[nameKey];
         helpPanelOuter.one('.bd').setHTML(currentHelpStr);
@@ -1095,14 +1068,14 @@ var a = Y.WidgetPositionAlign; // Local variable
         });
 
     });
-    helpPanelOuter.on('clickoutside', function(){helpPanel.hide()});
+    helpPanelOuter.on('clickoutside', function() {helpPanel.hide();});
 
     ////////////////////  END Help (overlay) instance ////////////////////////////
 
     Y.one('#hs').on('click', handlePicker);
     Y.one('#sliderL').on('click', handleLight);
     Y.one('.picker-input').on('blur', handlePickerInputBlur);
-    Y.one('#picker-outer .close').on('click', function(e){
+    Y.one('#picker-outer .close').on('click', function(){
         overlayPicker.hide();
         Y.all('.bucket-deselected').removeClass('bucket-deselected');
     });
@@ -1120,8 +1093,8 @@ var a = Y.WidgetPositionAlign; // Local variable
         // Which are found in updateColors();
         // This will send the skin name into the Widget Maps -> Stylesheet Templates -> CSS
         updateColors();        
-    }
-    Y.one('.inp-skin-name').on('keyup', function(e) {
+    };
+    Y.one('.inp-skin-name').on('keyup', function() {
         updateBodySkinClass();
     });
 
@@ -1139,7 +1112,7 @@ var a = Y.WidgetPositionAlign; // Local variable
     var moveAbsolutePosPreviews = function(){
         overlay.move([anchorOverlay.getX(),  anchorOverlay.getY()] );
         panel.move([anchorPanel.getX(),  anchorPanel.getY()] );
-    }
+    };
     setTimeout(moveAbsolutePosPreviews, 10);
     
     Y.on("windowresize", function(){
@@ -1247,7 +1220,7 @@ var a = Y.WidgetPositionAlign; // Local variable
   //              Y.one('#tab-modules #mod-' + TEMPLATES_USED[i].name).setAttribute('checked');
             }
         }
-    }
+    };
     initPreviewAndModulesCheckboxes();
 
 
@@ -1327,7 +1300,7 @@ var a = Y.WidgetPositionAlign; // Local variable
 
 
                     var test = this;
-                    var foo = function(e) {
+                    var runLowTests = function() {
                         setTimeout(function() { //dely this assert for ie
                             test.resume(function() {
                                 Y.Assert.areEqual(KEY_COLOR.block.highest.background, SKIN.colorspace.block.highest.background, 'KEY_COLOR.block.highest.background !== SKIN.colorspace.block.highest.background');
@@ -1343,8 +1316,8 @@ var a = Y.WidgetPositionAlign; // Local variable
                                 Y.Assert.areEqual('#f5c7c7', getPropertyHex(Y.one('.block-low'), 'borderBottomColor'), 'wrong block.low borderBottomColor hex');
                             });
                         }, 2300);
-                    }
-                    foo();
+                    };
+                    runLowTests();
                     test.wait(3000);
                 },
                 test_radius: function () {
@@ -1395,7 +1368,7 @@ var a = Y.WidgetPositionAlign; // Local variable
 
                 test_colors_from_page_color_change: function () {
                     var test = this;
-                    var foo = function(e) {
+                    var runBkgColorTests = function() {
                         setTimeout(function() { //dely this assert for ie
                             test.resume(function() {                  
                                 Y.Assert.areEqual(PAGE_BG_COLOR, SKIN.colorspace.block.container.background, 'fails: PAGE_BG_COLOR !== ...container.background');
@@ -1412,8 +1385,8 @@ var a = Y.WidgetPositionAlign; // Local variable
                                 Y.Assert.areEqual('#99adc2', getPropertyHex(Y.one('.block-page'), 'borderBottomColor'), 'wrong page borderBottomColor hex');
                             });
                         }, 2300);
-                    }
-                    foo();
+                    };
+                    runBkgColorTests();
                     test.wait(3000);
                 }
         }));
@@ -1447,29 +1420,32 @@ var a = Y.WidgetPositionAlign; // Local variable
             theQuery = theURL.substring(theURL.indexOf('.html?') + 6),
             qData,
             dataIsValid = true,
-            validationMsg;
+            validationMsg,
+            myProp;
             
         qData = Y.QueryString.parse(theQuery);
 
-        for (var myprop in qData){
-            qData[myprop] = qData[myprop].split(',');    
+        for (myProp in qData) {
+            if (qData.hasOwnProperty(myProp)) {
+                qData[myProp] = qData[myProp].split(',');
+            } 
         }
 
         // data validation for query string contents
-        if(Y.Lang.isString(qData['opt'][0]) === "false") {
+        if(Y.Lang.isString(qData.opt[0]) === "false") {
             validationMsg = " the skin name is not a string.";
             dataIsValid = false;
-        }else if((qData['opt'][1].substring(0,1) !== "#") || (qData['opt'][1].length !== 7)) {
+        }else if((qData.opt[1].substring(0,1) !== "#") || (qData.opt[1].length !== 7)) {
             validationMsg = " the Master color is not formatted as a hex value.";
             dataIsValid = false;
-        }else if((qData['opt'][2].substring(0,1) !== "#") || (qData['opt'][2].length !== 7)) {
+        }else if((qData.opt[2].substring(0,1) !== "#") || (qData.opt[2].length !== 7)) {
             validationMsg = " the background color is not formatted as a hex value.";
             dataIsValid = false;
         }else{
-            var i,k;
-            for (i = 3; i < qData['opt'].length; i+=1){
-                qData['opt'][i] = Y.Number.parse(qData['opt'][i]);
-                if(Y.Lang.isNumber(qData['opt'][i]) === false){
+            var i;
+            for (i = 3; i < qData.opt.length; i+=1){
+                qData.opt[i] = Y.Number.parse(qData.opt[i]);
+                if(Y.Lang.isNumber(qData.opt[i]) === false){
                     validationMsg = " one of the slider values is not a number.";
                     dataIsValid = false;
                     break;
@@ -1511,7 +1487,7 @@ var a = Y.WidgetPositionAlign; // Local variable
                         }
                     }
                 }
-            }
+            };
             myValid('h');
             myValid('n');
             myValid('l');
@@ -1552,8 +1528,7 @@ var a = Y.WidgetPositionAlign; // Local variable
     // listener for get URL button /////////////
     Y.one('#btn-get-url').on('click', function() {
         // create URL with querystring for skin definition
-        var myprop, 
-            strUnesc,
+        var strUnesc,
             theBaseURL,
             linkInput = Y.one('#inp-url-link'),
             sData = {
@@ -1584,7 +1559,7 @@ var a = Y.WidgetPositionAlign; // Local variable
         linkInput.select();
 
 
-    })
+    });
 ////////////////  end query string stuff //////////////
 
 
