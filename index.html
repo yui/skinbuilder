@@ -1569,6 +1569,7 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
 
 {{prefix}}{{skinName}} {{prefix}}slider-x {{prefix}}slider-rail-cap-left {
     background-color: {{railBackground}};
+    font-size: 1px; /* for IE 6 */
     height: 2px;
     left: -4px;
     width: 100%;
@@ -1580,6 +1581,7 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
 }
 {{prefix}}{{skinName}} {{prefix}}slider-x {{prefix}}slider-rail-cap-right {
     background-color: {{railBackground}};
+    font-size: 1px; /* for IE 6 */
     height: 2px;
     right: -4px;
     width: 8px;
@@ -3047,21 +3049,22 @@ odd - #edf5ff (light blue)
 
 
         </div>
-    </div>
-    <div id="preview-palette">
-        <label>Preview color palette details</label>
-        <!-- <ul>
-            <li class="block-highest" title="highest"></li>
-            <li class="block-high" title="high"></li>
-            <li class="block-normal" title="normal"></li>
-            <li class="block-low" title="low"></li>
-            <li class="background" title="lowest"></li>
-            <li class="block-page" title="page background"></li>
-        <ul> -->
+
+        <!--  detail palette preview, color picker, and scheme adjusting panels markup  -->
+        <div id="preview-palette">
+            <label>Preview color palette details</label>
+            <!-- <ul>
+                <li class="block-highest" title="highest"></li>
+                <li class="block-high" title="high"></li>
+                <li class="block-normal" title="normal"></li>
+                <li class="block-low" title="low"></li>
+                <li class="background" title="lowest"></li>
+                <li class="block-page" title="page background"></li>
+            <ul> -->
+        </div>
     </div>
 
 
-    <!--  detail palette preview, color picker, and scheme adjusting panels markup  -->
     <div id="palette-outer">
         <div class="grip"></div>
         <img class="close" src="assets/images/close.png" width="18" height="18" />
@@ -3151,43 +3154,45 @@ odd - #edf5ff (light blue)
         Define this scheme color by adjusting its differences from the Master color.
         </div>
         <div class="yui3-g">
-        <div class="yui3-u-1-12">
-            <div class="content">
-                <div class="schemer-key" title="The master color">
-                    <!-- <div class="icon-label"></div> -->
+            <div class="yui3-u-1-12">
+                <div class="content">
+                    <div class="schemer-key" title="The master color">
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="yui3-u-1-6">
-            <div class="content content-arrow">
-                <div class="arrow-stem"></div><div class="arrow-head"></div>
-            </div>
-        </div>
-        <div class="yui3-u-1-2">
-            <div class="content">
-                <div id="dial-scheme-hue"></div>
-                <div class="slider-markup">
-                    <label>Saturation: </label> <span class="sat-output">4</span>
-                    <div id="slider-scheme-sat"></div>
-                </div>
-                <div class="slider-markup">
-                    <label>Lightness: </label> <span class="lit-output">2</span>
-                    <div id="slider-scheme-lit"></div>
+
+            <div class="yui3-u-1-6">
+                <div class="content content-arrow">
+                    <!-- <div class="arrow-stem"></div> --><div class="arrow-head"></div>
                 </div>
             </div>
-        </div>
-        <div class="yui3-u-1-6">
-            <div class="content content-arrow">
-                <div class="arrow-stem"></div><div class="arrow-head"></div>
-            </div>
-        </div>
-        <div class="yui3-u-1-12">
-            <div class="content">
-                <div class="schemer-swatch" title="This scheme color">
-                    <!-- <div class="icon-label"></div> -->
+            
+            <div class="yui3-u-1-2">
+                <div class="content-controls">
+                    <div id="dial-scheme-hue"></div>
+                    <div class="slider-markup">
+                        <label>Saturation: </label> <span class="sat-output">4</span>
+                        <div id="slider-scheme-sat"></div>
+                    </div>
+                    <div class="slider-markup">
+                        <label>Lightness: </label> <span class="lit-output">2</span>
+                        <div id="slider-scheme-lit"></div>
+                    </div>
                 </div>
             </div>
-        </div>
+            
+            <div class="yui3-u-1-6">
+                <div class="content content-arrow">
+                    <!-- <div class="arrow-stem"></div> --><div class="arrow-head"></div>
+                </div>
+            </div>
+            
+            <div class="yui3-u-1-12">
+                <div class="content">
+                    <div class="schemer-swatch" title="This scheme color">
+                    </div>
+                </div>
+            </div>
         </div>            
 
         <img class="close" src="assets/images/close.png" width="18" height="18" />
@@ -3196,6 +3201,7 @@ odd - #edf5ff (light blue)
         <img class="close" src="assets/images/close.png" width="18" height="18" />
         <div class="bd">
             help panel l;ksad eoiwr jsfoie jeofiwj eo
+        
         </div>
     </div>
 

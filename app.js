@@ -6,7 +6,7 @@ YUI({
     logInclude: { TestRunner: true },
     filter: 'raw',
     modules: {
-        'skin'       : 'skin.js',
+        'skin'             : 'skin.js',
         'colorspace'       : 'colorspace.js',
         'colorspace-schemes'       : 'colorspace-schemes.js',
         'skin-autocomplete': 'skin-autocomplete.js',
@@ -19,13 +19,13 @@ YUI({
         'skin-panel'       : 'skin-panel.js',
         'skin-scrollview'  : 'skin-scrollview.js',
         'skin-slider'      : 'skin-slider.js',
-        'skin-space'      : 'skin-space.js',
+        'skin-space'       : 'skin-space.js',
         'skin-tabview'     : 'skin-tabview.js',
 
         // begin YUICSS
         'skin-form'        : 'skin-form.js',
-        'skin-table'        : 'skin-table.js',
-        'skin-list'         : 'skin-list.js',
+        'skin-table'       : 'skin-table.js',
+        'skin-list'        : 'skin-list.js',
 
         'skinner': {
             use: [
@@ -44,7 +44,7 @@ YUI({
     'datatable-sort', 'dd-drag', 'dd-constrain', 'calendar', 'button-plugin',
     'tabview', 'datatype-date', 'button-group', 'cssbutton',
     'node-event-delegate', 'overlay', 'color', 'test', 'test-console', 'event-outside',
-    'json-parse', 'json-stringify', 'querystring', 'datatype-number',
+    'querystring', 'datatype-number',
 function (Y) {
 
     var PAGE_BG_COLOR = '#ffffff',
@@ -74,7 +74,7 @@ function (Y) {
         },
 
 
-        STYLESHEET = document.documentElement.appendChild(document.createElement('style')),
+        STYLESHEET, // = document.documentElement.appendChild(document.createElement('style')),
 
         SKIN = new Y.Skin({
             name: 'mine',
@@ -231,7 +231,18 @@ function (Y) {
         });
 
         cssOutput.value = css;
-        STYLESHEET.innerHTML = cssRequired + css;
+//        STYLESHEET.innerHTML = cssRequired + css;
+//        STYLESHEET.cssText = cssRequired + css;  // from Matt
+        if(STYLESHEET){
+            Y.one('body').removeChild(STYLESHEET);
+        }
+
+        STYLESHEET = Y.Node.create('<style>' + cssRequired + css + '</style>');
+        Y.one('body').appendChild(STYLESHEET); 
+
+
+
+
     }
 
     // this runs the code for the correct scheme
@@ -301,7 +312,7 @@ function (Y) {
     // Datatable instance ///////////////////////////////////////////////////////
     var cols = [
         {key:"Company", label:"Sortable", sortable:true},
-        {key:"Phone", label:"Not Sortable"},
+        {key:"Phone", label:"No Sort"},
         {key:"Contact", label:"Sortable", sortable:true}
     ],
     data = [
@@ -420,7 +431,6 @@ function (Y) {
             min   : 10,
             max   : 218,
             value : 136,
-        //    minorStep: 3,
             after : {
                 valueChange: function (e) {
                     report.setHTML(e.newVal);
@@ -450,13 +460,11 @@ function (Y) {
         min   : 0,
         max   : 40,
         value : radiusDefaultValue,
-    //    minorStep: 3,
         after : {
             valueChange: function (e) {
-                //report.setHTML(e.newVal);
                 var newVal = e.target.get('value');
-                SKIN.options.radius = e.newVal;
-                updateColors();
+                SKIN.options.radius = newVal;
+                setTimeout(updateColors, 10);
                 Y.one('.slider-markup-border-radius label').setHTML('Border-radius: ' + (newVal * 10) + '%');
             }
         }
@@ -482,14 +490,11 @@ function (Y) {
         minorStep: 1,
         after : {
             valueChange: function (e) {
-                //report.setHTML(e.newVal);
                 var newVal = e.target.get('value');
-                SKIN._space.options.textContrast = e.newVal / 10; // works
+                SKIN._space.options.textContrast = newVal / 10; // works
                 Y.one('.slider-markup-text-contrast label').setHTML('Text contrast: ' + newVal * 10);
-                // Matt?
-                // SKIN.options.textContrast = e.target.get('value') / 10; // doesn't work
                 SKIN.initColorSpace();
-                updateColors();
+                setTimeout(updateColors, 10);
             }
         }
     });
@@ -512,14 +517,11 @@ function (Y) {
         min   : 0,
         max   : 200,
         value : paddingHorizDefaultValue,
-//        minorStep: 0.1,
         after : {
             valueChange: function (e) {
-                //Y.log(e.newVal / 50);
-                //report.setHTML(e.newVal);
                 var newVal = e.target.get('value');
-                SKIN.options.paddingHoriz = e.newVal / 50;
-                updateColors();
+                SKIN.options.paddingHoriz = newVal / 50;
+                setTimeout(updateColors, 10);
                 overlay.move([anchorOverlay.getX(),  anchorOverlay.getY()]);
                 panel.move([anchorPanel.getX(),  anchorPanel.getY()]);
                 Y.one('.slider-markup-horiz-padding label').setHTML('Horiz. padding: ' + (newVal * 2) + '%');
@@ -546,12 +548,13 @@ function (Y) {
         value : paddingVertDefaultValue,
 //        minorStep: 0.1,
         after : {
+
             valueChange: function (e) {
                 //Y.log(e.newVal / 50);
                 //report.setHTML(e.newVal);
                 var newVal = e.target.get('value');
-                SKIN.options.paddingVert = (e.newVal / 50);
-                updateColors();
+                SKIN.options.paddingVert = (newVal / 50);
+                setTimeout(updateColors, 10);
                 overlay.move([anchorOverlay.getX(),  anchorOverlay.getY()]);
                 panel.move([anchorPanel.getX(),  anchorPanel.getY()]);
                 Y.one('.slider-markup-vert-padding label').setHTML('Vert. padding: ' + (newVal * 2) + '%');                
@@ -575,8 +578,6 @@ function (Y) {
      * either white or black
      */
     var handleSchemeChangePageColor = function(schemeName) {
-        //
-        //alert('PAGE_BG_COLOR: ' + PAGE_BG_COLOR);
         var hsl = hexToHsl(PAGE_BG_COLOR);
         if (schemeName.indexOf('dark') > -1) {
             if (hsl[2] > 50) {
@@ -590,13 +591,10 @@ function (Y) {
     };
 
     // listener for scheme changing radios
-    Y.one('.scheme-radios').delegate('click', function(){
-
-        //    SKIN._space._adjust.high
-        //  Y.ColorSpace.schemes.custom
+    var handleSchemeRadioClick = function(e){
 
         var radios = Y.all('.scheme-radios input');
-        SCHEME_NAME = this.get('id');
+        SCHEME_NAME = e.target.get('id');
         if (SCHEME_NAME === 'custom') {
             Y.all('.bucket-scheme').removeClass('bucket-scheme-hidden');
             overlayPalette.show();
@@ -606,30 +604,28 @@ function (Y) {
         handleSchemeChangePageColor(SCHEME_NAME); // change page background-color if needed
         updateColors();
 
-//        if (SCHEME_NAME !== 'custom') {
-            // set values of custom scheme from selected scheme _adjust
-            SCHEME_CUSTOM.background.h = SKIN._space._adjustBG.h;
-            SCHEME_CUSTOM.background.s = SKIN._space._adjustBG.s;
-            SCHEME_CUSTOM.background.l = SKIN._space._adjustBG.l;
+        SCHEME_CUSTOM.background.h = SKIN._space._adjustBG.h;
+        SCHEME_CUSTOM.background.s = SKIN._space._adjustBG.s;
+        SCHEME_CUSTOM.background.l = SKIN._space._adjustBG.l;
 
-            SCHEME_CUSTOM.high.h = SKIN._space._adjust.high.h;
-            SCHEME_CUSTOM.high.s = SKIN._space._adjust.high.s;
-            SCHEME_CUSTOM.high.l = SKIN._space._adjust.high.l;
+        SCHEME_CUSTOM.high.h = SKIN._space._adjust.high.h;
+        SCHEME_CUSTOM.high.s = SKIN._space._adjust.high.s;
+        SCHEME_CUSTOM.high.l = SKIN._space._adjust.high.l;
 
-            SCHEME_CUSTOM.normal.h = SKIN._space._adjust.normal.h;
-            SCHEME_CUSTOM.normal.s = SKIN._space._adjust.normal.s;
-            SCHEME_CUSTOM.normal.l = SKIN._space._adjust.normal.l;
+        SCHEME_CUSTOM.normal.h = SKIN._space._adjust.normal.h;
+        SCHEME_CUSTOM.normal.s = SKIN._space._adjust.normal.s;
+        SCHEME_CUSTOM.normal.l = SKIN._space._adjust.normal.l;
 
-            SCHEME_CUSTOM.low.h = SKIN._space._adjust.low.h;
-            SCHEME_CUSTOM.low.s = SKIN._space._adjust.low.s;
-            SCHEME_CUSTOM.low.l = SKIN._space._adjust.low.l;
+        SCHEME_CUSTOM.low.h = SKIN._space._adjust.low.h;
+        SCHEME_CUSTOM.low.s = SKIN._space._adjust.low.s;
+        SCHEME_CUSTOM.low.l = SKIN._space._adjust.low.l;
 
-            updateSchemePreviews(); // updates only 'custom' scheme preview swatches to match selected scheme
-//        }
+        updateSchemePreviews(); // updates only 'custom' scheme preview swatches to match selected scheme
 
         radios.set('checked', false);
-        this.set('checked', true);
-    }, 'input');
+        e.target.set('checked', true);
+    }
+    Y.one('.scheme-radios').delegate('click', handleSchemeRadioClick, 'input');
 
 
 
@@ -842,10 +838,11 @@ function (Y) {
 
 
     var overlaySchemer = new Y.Overlay({
-        srcNode:"#schemer-outer"
+        srcNode:"#schemer-outer",
 //         width: "600px",
 //         height:"300px",
 //           xy: 
+        zIndex       : 15
 
 //        xy: [-800, 200]
     });
@@ -870,7 +867,7 @@ function (Y) {
             after : {
                 valueChange: function (e) {
                     blockAdjust.h = e.newVal;
-                    handleSchemeValueChange();
+                    setTimeout(handleSchemeValueChange, 100);
                 }
             }
     });
@@ -887,7 +884,7 @@ function (Y) {
                 valueChange: function (e) {
                     Y.one('.sat-output').setHTML(e.newVal);
                     blockAdjust.s = e.newVal;
-                    handleSchemeValueChange();
+                    setTimeout(handleSchemeValueChange, 100);
                 }
             }
     });
@@ -905,7 +902,7 @@ function (Y) {
                 valueChange: function (e) {
                     Y.one('.lit-output').setHTML(e.newVal);
                     blockAdjust.l = e.newVal;
-                    handleSchemeValueChange();
+                    setTimeout(handleSchemeValueChange, 100);
                 }
             }
     });
@@ -1209,15 +1206,13 @@ function (Y) {
         }
         // they have to inline-block in CSS initially or Dial won't render properly.
         // turn them all 'display' 'none' first
-        Y.all('#widget-container>li').setStyle('display', 'none');
-//        Y.all('#tab-modules input').setAttribute('checked', false); 
+        Y.all('#widget-container>li').addClass('widget-container-hide-me');
 
         // show only the preview <li>'s of the modules to be used
         // set the checkboxes for the used modules to 'checked'
         for(i = 0; i < TEMPLATES_USED.length; i+=1) {
             if(TEMPLATES_USED[i].display){
-                Y.all('#widget-container .sb-preview-' + TEMPLATES_USED[i].name).setStyle('display', 'inline-block');
-  //              Y.one('#tab-modules #mod-' + TEMPLATES_USED[i].name).setAttribute('checked');
+                Y.all('#widget-container .sb-preview-' + TEMPLATES_USED[i].name).replaceClass('widget-container-hide-me','widget-container-show-inline');
             }
         }
     };
@@ -1225,18 +1220,6 @@ function (Y) {
 
 
 
-    // show/hide the YUI CSS fixed-menu
-    // Y.one('#btn-toggle-fixed-menu').on('click', function(e) {
-    //     var fixedMenu = Y.one('.sb-preview-list .yui3-menu-fixed');
-    //     if(fixedMenu.getStyle('display') === 'none') {
-    //         //fixedMenu.show();
-    //         fixedMenu.setStyle('display', 'block');
-    //         fixedMenu.setXY([e.target._node.offsetLeft, (e.target._node.offsetTop + 40)]);
-    //     } else {
-    //         //fixedMenu.hide();
-    //         fixedMenu.setStyle('display', 'none');
-    //     }
-    // })
     ////////////////// functional & unit test //////////////////////
 
     // run tests only if the URL contains ?test
@@ -1259,7 +1242,12 @@ function (Y) {
         getGradient = function(obj) {
             var str = obj.getComputedStyle('backgroundImage');
             return str.substring(str.indexOf('rgba('), (str.indexOf('rgba(') + 20));
+        },
+
+        closeEnough = function(expected, actual) { // compensates for rounding that occurs in IE 
+            return (Math.abs(expected - actual) < 2);
         };
+
 
 
         var suite = new Y.Test.Suite("Test Key and Page");
@@ -1268,6 +1256,17 @@ function (Y) {
         suite.add(new Y.Test.Case({
 
                 name: "Test keycolor change",
+
+                //---------------------------------------------
+                // Special instructions
+                //---------------------------------------------
+
+                _should: {
+                    ignore: {
+                        test_radius: (Y.UA.ie > 0) && (Y.UA.ie < 9), //ignore this test where radius are not supported
+                        test_gradient: (Y.UA.ie > 0) && (Y.UA.ie < 10)
+                    }
+                },
 
                 //---------------------------------------------
                 // Setup and tear down
@@ -1315,7 +1314,7 @@ function (Y) {
                                 Y.Assert.areEqual('#fdf6f6', getPropertyHex(Y.one('.block-low'), 'borderTopColor'), 'wrong block.low borderTopColor hex');
                                 Y.Assert.areEqual('#f5c7c7', getPropertyHex(Y.one('.block-low'), 'borderBottomColor'), 'wrong block.low borderBottomColor hex');
                             });
-                        }, 2300);
+                        }, 1000);
                     };
                     runLowTests();
                     test.wait(3000);
@@ -1390,6 +1389,150 @@ function (Y) {
                     test.wait(3000);
                 }
         }));
+        suite.add(new Y.Test.Case({
+
+                name: "Test changing slider values",
+
+                //---------------------------------------------
+                // Special instructions
+                //---------------------------------------------
+
+                _should: {
+                    ignore: {
+                        test_changing_radius_slider: (Y.UA.ie > 0) && (Y.UA.ie < 9) //ignore this test where radius are not supported
+                    }
+                },
+
+                //---------------------------------------------
+                // Setup and tear down
+                //---------------------------------------------
+
+                setUp : function () {
+                        sliderPaddingVert.set('value', 150);
+                        sliderPaddingHoriz.set('value', 150);
+                        sliderTextContrast.set('value', 20);
+                        sliderRadius.set('value', 130);
+                },
+
+                tearDown : function () {
+                },
+
+                //---------------------------------------------
+                // Tests
+                //---------------------------------------------
+
+
+                test_changing_slider_values: function () {
+                    var test = this;
+                    var runSliderValueTests = function() {
+                        setTimeout(function() { //dely this assert for ie
+                            test.resume(function() {                  
+                                Y.Assert.isTrue(closeEnough(14, parseInt(Y.one('.yui3-datatable-cell').getStyle('paddingTop'))), 'padding top on datatable is wrong');
+                                Y.Assert.areEqual(150, sliderPaddingVert.get('value'), 'vert. padding slider is wrong');
+                                Y.Assert.areEqual('rgb(13, 2, 2)', Y.one('.yui3-tabview-panel').getComputedStyle('color'), 'wrong text color in tab panel');
+                            });
+                        }, 1000);
+                    };
+                    runSliderValueTests();
+                    test.wait(3000);
+                },
+
+                test_changing_radius_slider: function () {
+                    var test = this;
+                    var runSliderValueTests = function() {
+                        setTimeout(function() { //dely this assert for ie
+                            test.resume(function() {                  
+                                Y.Assert.areEqual('16px', Y.one('.yui3-tab-label').getStyle('borderTopRightRadius'), 'tab label border-radius not correct');
+                            });
+                        }, 1000);
+                    };
+                    runSliderValueTests();
+                    test.wait(3000);
+                }
+        }));
+
+        suite.add(new Y.Test.Case({
+
+                name: "Test Custom Scheme Change",
+
+                //---------------------------------------------
+                // Setup and tear down
+                //---------------------------------------------
+
+                setUp : function () {
+                    var schemeIconClickEvent = {
+                            clientX: 200,
+                            clientY: 100,
+                            target: Y.one('.bucket-normal'),
+                            currentTarget: Y.one('.bucket-normal')
+                            
+                        },
+                        radioClickEvent = {
+                            target: Y.one('.scheme-radios #custom')
+                        };
+
+                    handleSchemeRadioClick(radioClickEvent);
+                    showSchemer(schemeIconClickEvent);
+                    dialSchemeHue.set('value', 180);
+                    sliderSchemeSat.set('value', 50);
+                    sliderSchemeLit.set('value', -40);
+                    setTimeout(updateColors, 100);
+                },
+
+                tearDown : function () {
+                },
+
+                //---------------------------------------------
+                // Tests
+                //---------------------------------------------
+
+                test_change_scheme_values: function () {
+                    var test = this;
+                    var runBkgColorTests = function() {
+                        setTimeout(function() { //dely this assert for ie
+                            test.resume(function() {                  
+                                Y.Assert.areEqual('#008000', getPropertyHex(Y.one('.block-normal'), 'backgroundColor'), 'wrong .block.normal hex');
+                            });
+                        }, 1000);
+                    };
+                    runBkgColorTests();
+                    test.wait(3000);
+                }
+        }));
+
+        suite.add(new Y.Test.Case({
+
+                name: "Test QueryString",
+
+                //---------------------------------------------
+                // Setup and tear down
+                //---------------------------------------------
+
+                setUp : function () {
+                },
+
+                tearDown : function () {
+                },
+
+                //---------------------------------------------
+                // Tests
+                //---------------------------------------------
+
+
+                test_getting_querystring: function () {
+                    var test = this;
+                    var runQueryValueTests = function() {
+                        var query;
+                        handleCreateQueryString();
+                        query = Y.one('#inp-url-link').get('value');
+                        query = query.substring(query.indexOf('?'));
+
+                        Y.Assert.areEqual('?opt=mine,cc0000,aabbcc,3,3,40,2&h=0,-30,60&n=180,50,-40&l=0,-30,80&b=0,-30,90', query, 'querystring is wrong');
+                    };
+                    runQueryValueTests();
+                }
+        }));
+
 
         //tests go here
 
@@ -1407,7 +1550,7 @@ function (Y) {
 
         //run all tests
         Y.Test.Runner.run();
-    } // end of if the query string has ?test
+    } // end of if the query string has "?test"
 
     Y.one('.yui3-loading').removeClass('yui3-loading'); // let body be visible
 
@@ -1426,6 +1569,8 @@ function (Y) {
         qData = Y.QueryString.parse(theQuery);
 
         for (myProp in qData) {
+    
+
             if (qData.hasOwnProperty(myProp)) {
                 qData[myProp] = qData[myProp].split(',');
             } 
@@ -1435,10 +1580,13 @@ function (Y) {
         if(Y.Lang.isString(qData.opt[0]) === "false") {
             validationMsg = " the skin name is not a string.";
             dataIsValid = false;
-        }else if((qData.opt[1].substring(0,1) !== "#") || (qData.opt[1].length !== 7)) {
+        }else if(qData.opt[1].length !== 6) {
             validationMsg = " the Master color is not formatted as a hex value.";
             dataIsValid = false;
-        }else if((qData.opt[2].substring(0,1) !== "#") || (qData.opt[2].length !== 7)) {
+        }else if(qData.opt[2].length !== 6) {
+
+
+
             validationMsg = " the background color is not formatted as a hex value.";
             dataIsValid = false;
         }else{
@@ -1505,10 +1653,10 @@ function (Y) {
             SCHEME_CUSTOM.background = {h:qData.b[0], s:qData.b[1], l:qData.b[2]}; //querySkin.background;
 
             SKIN.options.name = qData.opt[0]; //querySkin.meta[0]; //name;  
-            KEY_COLOR.block.highest.background = qData.opt[1]; //querySkin.meta[1]; //.master;     "meta":["myDark","#ff8833M","P#ffff88",1.10,1.20,1.30,1.40]}
-            SKIN.options.keycolor = qData.opt[1]; //querySkin.meta[1]; //.master;
-            KEY_COLOR.background = qData.opt[2]; //querySkin.meta[2]; //.page;
-            PAGE_BG_COLOR = qData.opt[2]; //querySkin.meta[2]; //.page;
+            KEY_COLOR.block.highest.background = '#' + qData.opt[1]; //querySkin.meta[1]; //.master;     "meta":["myDark","#ff8833M","P#ffff88",1.10,1.20,1.30,1.40]}
+            SKIN.options.keycolor = '#' + qData.opt[1]; //querySkin.meta[1]; //.master;
+            KEY_COLOR.background = '#' + qData.opt[2]; //querySkin.meta[2]; //.page;
+            PAGE_BG_COLOR = '#' + qData.opt[2]; //querySkin.meta[2]; //.page;
 
             // Set value on sliders directly, then they update the options such as 
             // SKIN.options.paddingHoriz by the sliders valueChange function
@@ -1525,8 +1673,7 @@ function (Y) {
         }
     }
 
-    // listener for get URL button /////////////
-    Y.one('#btn-get-url').on('click', function() {
+    var handleCreateQueryString = function() {
         // create URL with querystring for skin definition
         var strUnesc,
             theBaseURL,
@@ -1534,8 +1681,8 @@ function (Y) {
             sData = {
                 opt:[
                     SKIN.options.name,
-                    SKIN.options.keycolor,
-                    SKIN.options.container,
+                    SKIN.options.keycolor.substring(1),
+                    SKIN.options.container.substring(1),
                     SKIN.options.paddingHoriz,
                     SKIN.options.paddingVert,
                     SKIN.options.radius,
@@ -1559,7 +1706,10 @@ function (Y) {
         linkInput.select();
 
 
-    });
+    };
+
+    // listener for get URL button /////////////
+    Y.one('#btn-get-url').on('click', handleCreateQueryString);
 ////////////////  end query string stuff //////////////
 
 
