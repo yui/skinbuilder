@@ -128,7 +128,7 @@ body {
     margin-left: 2em;
 }
 #checkboxes-yuicss-group {
-    margin-left: -5000px;/**/
+    /*margin-left: -5000px;*/
 }
 #tabview-controls .yui3-tabview-panel{
     background-color: transparent;
@@ -547,7 +547,6 @@ h1 {
     margin-left: 10px;
 }
 .picker-swatch {
-
     position: absolute;
     left: 243px;
     top: 59px;
@@ -555,11 +554,11 @@ h1 {
     height: 50px;
     border: solid 1px #ccc;
     background-color: #BB3E3E;
-    text-indent: 1em;
-    line-height: 44px;
 }
 .picker-input {
-    margin: 56px 0 0 -17px;
+    position: absolute;
+    bottom: -26px;
+    left: 0;
     width: 57px;
     font-size: 80%;
 }

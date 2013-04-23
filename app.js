@@ -147,17 +147,17 @@ function (Y) {
                 // this is necessary because checkboxes are generated from this array and use the nodelist of checkboxes to find the index back to this array for updating.
                 {
                     name: 'form', 
-                    display: false, 
+                    display: true, 
                     type: 'yuicss'
                 },
                 {
                     name: 'table', 
-                    display: false, 
+                    display: true, 
                     type: 'yuicss' 
                 },
                 {
                     name: 'list', 
-                    display: false, 
+                    display: true, 
                     type: 'yuicss' 
                 }
             ], 
@@ -1181,6 +1181,9 @@ function (Y) {
 
 
     // initial sync of preview (show/hide) and checkboxes ((un)checked) for each TEMPLATE_USE (checkboxes in "Modules" tab)
+    // this also generates the name/checkbox pairs in the "Items" tab.
+    // Names for checkboxes get pulled off the getContent() of the first instance of a .widget-preview-label of the templates_used
+    // So to change the name of the checkbox in the "Items" tab, just change the contents-string of the first .widget-preview-label 
     var initPreviewAndModulesCheckboxes = function (){
         var widgetUl = Y.one('#checkboxes-widget'),
             yuiCSSUl = Y.one('#checkboxes-yuicss'),
