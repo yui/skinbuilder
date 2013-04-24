@@ -13,9 +13,11 @@ Please submit all issues and feature requests through Github. It makes it easy t
 - Select a single color, 'container' color that the widgets will sit on in your app
 - Preview all the YUI Widgets real-time while adjusting the skin
 - Select from existing schemes that set different relationships of main colors in the skin
-- Adjust amount radius for widget items that have radius
+- Adjust radius amount for widget items that have radius
 - Adjust horizontal and vertical padding separately
 - Adjust text contrast to the background colors
 - Create your own custom color scheme relationships to the key color
 - Provide a name for your skin that will stamp the class names in the CSS
 - Outputs CSS
+- Get Link that contains query string with all values needed to reproduce current skin
+- Skin Forms, Tables, and Menus from Kimono
