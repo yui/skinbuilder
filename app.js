@@ -519,7 +519,7 @@ function (Y) {
     // Slider instance ///////////////////////////////////////////////////////////
     report = Y.one('#slider-report'),
         slider = new Y.Slider({
-            //axis  : 'y',
+            thumbUrl: 'assets/images/blank_thumb.png',
             length: '280px',
             min   : 10,
             max   : 218,
@@ -548,6 +548,7 @@ function (Y) {
     radiusDefaultValue = 10;
     SKIN.options.radius = radiusDefaultValue;
     sliderRadius = new Y.Slider({
+        thumbUrl: 'assets/images/blank_thumb.png',
         axis  : 'x',
         length: '200px',
         min   : 0,
@@ -575,6 +576,7 @@ function (Y) {
     // slider for text contrast changing in the UI ///////////////////////////////////
 
     sliderTextContrast = new Y.Slider({
+        thumbUrl: 'assets/images/blank_thumb.png',
         axis  : 'x',
         length: '200px',
         min   : 5,
@@ -605,6 +607,7 @@ function (Y) {
     paddingHorizDefaultValue = 50;
     SKIN.options.paddingHoriz = paddingHorizDefaultValue / 50;
     sliderPaddingHoriz = new Y.Slider({
+        thumbUrl: 'assets/images/blank_thumb.png',
         axis  : 'x',
         length: '200px',
         min   : 0,
@@ -634,6 +637,7 @@ function (Y) {
     paddingVertDefaultValue = 50;
     SKIN.options.paddingVert = paddingVertDefaultValue / 50;
     sliderPaddingVert = new Y.Slider({
+        thumbUrl: 'assets/images/blank_thumb.png',
         axis  : 'y',
         length: '112px',
         min   : 200,
@@ -963,6 +967,7 @@ function (Y) {
 
     keySat = 23,
         sliderSchemeSat = new Y.Slider({
+            thumbUrl: 'assets/images/blank_thumb.png',
             axis  : 'x',
             length: '100px',
             min   : -100,
@@ -981,6 +986,7 @@ function (Y) {
 
     keyLit = 13,
         sliderSchemeLit = new Y.Slider({
+            thumbUrl: 'assets/images/blank_thumb.png',
             axis  : 'x',
             length: '100px',
             min   : -100,
