@@ -3,6 +3,8 @@
 // - Convert input handling and Picker to OO-style.
 
 YUI({
+    comboBase: 'https://yui-s.yahooapis.com/combo?',
+    combine: true,
     logInclude: { TestRunner: true },
     filter: 'raw',
     modules: {
