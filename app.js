@@ -1393,17 +1393,26 @@ function (Y) {
                             runLowTests = function() {
                             setTimeout(function() { //dely this assert for ie
                                 test.resume(function() {
-                                    Y.Assert.areEqual(KEY_COLOR.block.highest.background, SKIN.colorspace.block.highest.background, 'KEY_COLOR.block.highest.background !== SKIN.colorspace.block.highest.background');
-                                    Y.Assert.areEqual('#f7d4d4', getPropertyHex(Y.one('.block-low'), 'backgroundColor'), 'wrong low.text.low hex');
-                                    Y.Assert.areEqual('#e57171', getPropertyHex(Y.one('.block-low-text-low'), 'color'), 'wrong low.text.low hex');
-                                    Y.Assert.areEqual('#5a1111', getPropertyHex(Y.one('.block-low-text-normal'), 'color'), 'wrong low.text.normal hex');
-                                    Y.Assert.areEqual('#1a0505', getPropertyHex(Y.one('.block-low-text-high'), 'color'), 'wrong low.text.high hex');
+                                    Y.Assert.areEqual(KEY_COLOR.block.highest.background, SKIN.colorspace.block.highest.background,
+                                        'KEY_COLOR.block.highest.background !== SKIN.colorspace.block.highest.background');
+                                    Y.Assert.areEqual('#f7d4d4', getPropertyHex(Y.one('.block-low'), 'backgroundColor'),
+                                        'wrong low.text.low hex');
+                                    Y.Assert.areEqual('#e57171', getPropertyHex(Y.one('.block-low-text-low'), 'color'),
+                                        'wrong low.text.low hex');
+                                    Y.Assert.areEqual('#5a1111', getPropertyHex(Y.one('.block-low-text-normal'), 'color'),
+                                        'wrong low.text.normal hex');
+                                    Y.Assert.areEqual('#1a0505', getPropertyHex(Y.one('.block-low-text-high'), 'color'),
+                                        'wrong low.text.high hex');
 
-                                    Y.Assert.areEqual('#f2baba', getPropertyHex(Y.one('.block-low-rule-low'), 'borderTopColor'), 'wrong low.rule.low hex');
-                                    Y.Assert.areEqual('#fdf6f6', getPropertyHex(Y.one('.block-low-rule-high'), 'borderTopColor'), 'wrong low.rule.high hex');
+                                    Y.Assert.areEqual('#f2baba', getPropertyHex(Y.one('.block-low-rule-low'), 'borderTopColor'),
+                                        'wrong low.rule.low hex');
+                                    Y.Assert.areEqual('#fdf6f6', getPropertyHex(Y.one('.block-low-rule-high'), 'borderTopColor'),
+                                        'wrong low.rule.high hex');
 
-                                    Y.Assert.areEqual('#fdf6f6', getPropertyHex(Y.one('.block-low'), 'borderTopColor'), 'wrong block.low borderTopColor hex');
-                                    Y.Assert.areEqual('#f5c7c7', getPropertyHex(Y.one('.block-low'), 'borderBottomColor'), 'wrong block.low borderBottomColor hex');
+                                    Y.Assert.areEqual('#fdf6f6', getPropertyHex(Y.one('.block-low'), 'borderTopColor'),
+                                        'wrong block.low borderTopColor hex');
+                                    Y.Assert.areEqual('#f5c7c7', getPropertyHex(Y.one('.block-low'), 'borderBottomColor'),
+                                        'wrong block.low borderBottomColor hex');
                                 });
                             }, 1000);
                         };
@@ -1462,18 +1471,28 @@ function (Y) {
                             runBkgColorTests = function() {
                             setTimeout(function() { //dely this assert for ie
                                 test.resume(function() {
-                                    Y.Assert.areEqual(PAGE_BG_COLOR, SKIN.colorspace.block.container.background, 'fails: PAGE_BG_COLOR !== ...container.background');
-                                    Y.Assert.areEqual('#aabbcc', SKIN.colorspace.block.container.background, 'wrong .page.background from block hex. see ticket #2533176 Y.Color');
-                                    Y.Assert.areEqual('#aabbcc', getPropertyHex(Y.one('.block-page'), 'backgroundColor'), 'wrong .page.background from obj hex. see ticket #2533176 Y.Color');
-                                    Y.Assert.areEqual('#fcfcfd', getPropertyHex(Y.one('.block-page-text-low'), 'color'), 'wrong .page.text.low hex');
-                                    Y.Assert.areEqual('#06080a', getPropertyHex(Y.one('.block-page-text-normal'), 'color'), 'wrong .page.text.normal hex');
-                                    Y.Assert.areEqual('#020303', getPropertyHex(Y.one('.block-page-text-high'), 'color'), 'wrong .page.text.high hex');
+                                    Y.Assert.areEqual(PAGE_BG_COLOR, SKIN.colorspace.block.container.background,
+                                        'fails: PAGE_BG_COLOR !== ...container.background');
+                                    Y.Assert.areEqual('#aabbcc', SKIN.colorspace.block.container.background,
+                                        'wrong .page.background from block hex. see ticket #2533176 Y.Color');
+                                    Y.Assert.areEqual('#aabbcc', getPropertyHex(Y.one('.block-page'), 'backgroundColor'),
+                                        'wrong .page.background from obj hex. see ticket #2533176 Y.Color');
+                                    Y.Assert.areEqual('#fcfcfd', getPropertyHex(Y.one('.block-page-text-low'), 'color'),
+                                        'wrong .page.text.low hex');
+                                    Y.Assert.areEqual('#06080a', getPropertyHex(Y.one('.block-page-text-normal'), 'color'),
+                                        'wrong .page.text.normal hex');
+                                    Y.Assert.areEqual('#020303', getPropertyHex(Y.one('.block-page-text-high'), 'color'),
+                                        'wrong .page.text.high hex');
 
-                                    Y.Assert.areEqual('#869eb6', getPropertyHex(Y.one('.block-page-rule-low'), 'borderTopColor'), 'wrong .page.rule.low hex');
-                                    Y.Assert.areEqual('#c2cfdb', getPropertyHex(Y.one('.block-page-rule-high'), 'borderTopColor'), 'wrong .page.rule.high hex');
+                                    Y.Assert.areEqual('#869eb6', getPropertyHex(Y.one('.block-page-rule-low'), 'borderTopColor'),
+                                        'wrong .page.rule.low hex');
+                                    Y.Assert.areEqual('#c2cfdb', getPropertyHex(Y.one('.block-page-rule-high'), 'borderTopColor'),
+                                        'wrong .page.rule.high hex');
 
-                                    Y.Assert.areEqual('#c2cfdb', getPropertyHex(Y.one('.block-page'), 'borderTopColor'), 'wrong page borderTopColor hex');
-                                    Y.Assert.areEqual('#99adc2', getPropertyHex(Y.one('.block-page'), 'borderBottomColor'), 'wrong page borderBottomColor hex');
+                                    Y.Assert.areEqual('#c2cfdb', getPropertyHex(Y.one('.block-page'), 'borderTopColor'),
+                                        'wrong page borderTopColor hex');
+                                    Y.Assert.areEqual('#99adc2', getPropertyHex(Y.one('.block-page'), 'borderBottomColor'),
+                                        'wrong page borderBottomColor hex');
                                 });
                             }, 2300);
                         };
@@ -1519,9 +1538,11 @@ function (Y) {
                             runSliderValueTests = function() {
                             setTimeout(function() { //dely this assert for ie
                                 test.resume(function() {
-                                    Y.Assert.isTrue(closeEnough(14, parseInt(Y.one('.yui3-datatable-cell').getStyle('paddingTop'))), 'padding top on datatable is wrong');
+                                    Y.Assert.isTrue(closeEnough(14, parseInt(Y.one('.yui3-datatable-cell').getStyle('paddingTop'), 10)),
+                                        'padding top on datatable is wrong');
                                     Y.Assert.areEqual(150, sliderPaddingVert.get('value'), 'vert. padding slider is wrong');
-                                    Y.Assert.areEqual('rgb(13, 2, 2)', Y.one('.yui3-tabview-panel').getComputedStyle('color'), 'wrong text color in tab panel');
+                                    Y.Assert.areEqual('rgb(13, 2, 2)', Y.one('.yui3-tabview-panel').getComputedStyle('color'),
+                                        'wrong text color in tab panel');
                                 });
                             }, 1000);
                         };
@@ -1534,7 +1555,8 @@ function (Y) {
                             runSliderValueTests = function() {
                             setTimeout(function() { //dely this assert for ie
                                 test.resume(function() {
-                                    Y.Assert.areEqual('16px', Y.one('.yui3-tab-label').getStyle('borderTopRightRadius'), 'tab label border-radius not correct');
+                                    Y.Assert.areEqual('16px', Y.one('.yui3-tab-label').getStyle('borderTopRightRadius'),
+                                        'tab label border-radius not correct');
                                 });
                             }, 1000);
                         };
@@ -1583,7 +1605,8 @@ function (Y) {
                             runBkgColorTests = function() {
                             setTimeout(function() { //dely this assert for ie
                                 test.resume(function() {
-                                    Y.Assert.areEqual('#008000', getPropertyHex(Y.one('.block-normal'), 'backgroundColor'), 'wrong .block.normal hex');
+                                    Y.Assert.areEqual('#008000', getPropertyHex(Y.one('.block-normal'), 'backgroundColor'),
+                                        'wrong .block.normal hex');
                                 });
                             }, 1000);
                         };
@@ -1618,7 +1641,8 @@ function (Y) {
                             query = Y.one('#inp-url-link').get('value');
                             query = query.substring(query.indexOf('?'));
 
-                            Y.Assert.areEqual('?opt=mine,cc0000,aabbcc,3,3,40,2&h=0,-30,60&n=180,50,-40&l=0,-30,80&b=0,-30,90', query, 'querystring is wrong');
+                            Y.Assert.areEqual('?opt=mine,cc0000,aabbcc,3,3,40,2&h=0,-30,60&n=180,50,-40&l=0,-30,80&b=0,-30,90', query,
+                                'querystring is wrong');
                         };
                         runQueryValueTests();
                     }
@@ -1750,7 +1774,7 @@ function (Y) {
                 SCHEME_CUSTOM.background = {h:qData.b[0], s:qData.b[1], l:qData.b[2]}; //querySkin.background;
 
                 SKIN.options.name = qData.opt[0]; //querySkin.meta[0]; //name;
-                KEY_COLOR.block.highest.background = '#' + qData.opt[1]; //querySkin.meta[1]; //.master;     "meta":["myDark","#ff8833M","P#ffff88",1.10,1.20,1.30,1.40]}
+                KEY_COLOR.block.highest.background = '#' + qData.opt[1]; //querySkin.meta[1]; //.master;
                 SKIN.options.keycolor = '#' + qData.opt[1]; //querySkin.meta[1]; //.master;
                 KEY_COLOR.background = '#' + qData.opt[2]; //querySkin.meta[2]; //.page;
                 PAGE_BG_COLOR = '#' + qData.opt[2]; //querySkin.meta[2]; //.page;
