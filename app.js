@@ -34,7 +34,7 @@ YUI({
                 'skin', 'colorspace-schemes', 'skin-autocomplete', 'skin-button',
                 'skin-calendar', 'skin-datatable', 'skin-dial',
                 'skin-node-menunav', 'skin-overlay', 'skin-panel',
-                'skin-scrollview', 'skin-slider', 'skin-tabview', 
+                'skin-scrollview', 'skin-slider', 'skin-tabview',
                 'skin-form', 'skin-table', 'skin-list'
             ]
         }
@@ -50,25 +50,25 @@ YUI({
 function (Y) {
 
     var PAGE_BG_COLOR = '#ffffff',
-        KEY_COLOR = { 
+        KEY_COLOR = {
             page: PAGE_BG_COLOR,
             background: '#ffffff',
             block: {
-                low: {},  
-                normal: {},  
+                low: {},
+                normal: {},
                 high: {
                     background: ''
-                },  
+                },
                 highest: {
                     background: '#3355BA'
-                }   
-            }   
+                }
+            }
         },
 
         SCHEME_NAME = 'monochrome', // default schemeName
         SCHEME_NAMES = Y.Object.keys(Y.ColorSpace.schemes),
 
-        SCHEME_CUSTOM = {  
+        SCHEME_CUSTOM = {
             high: {h:0, s:-30, l:60},
             normal: {h:0, s:-30, l:75},
             low: {h:0, s:-30,  l:80},
@@ -85,86 +85,165 @@ function (Y) {
             container: PAGE_BG_COLOR
         }),
 
-            
+
         TEMPLATES_USED = [
                 {
                     name: 'autocomplete',
-                    //displayName: 'AutoComplete', 
                     display: true,
-                    type: 'widget' 
-                }, 
+                    type: 'widget'
+                },
                 {
-                    name: 'button', 
-                    display: true, 
-                    type: 'widget' 
-                }, 
+                    name: 'button',
+                    display: true,
+                    type: 'widget'
+                },
                 {
-                    name: 'calendar', 
-                    display: true, 
-                    type: 'widget' 
-                }, 
+                    name: 'calendar',
+                    display: true,
+                    type: 'widget'
+                },
                 {
-                    name: 'datatable', 
-                    display: true, 
-                    type: 'widget' 
-                }, 
+                    name: 'datatable',
+                    display: true,
+                    type: 'widget'
+                },
                 {
-                    name: 'dial', 
-                    display: true, 
-                    type: 'widget', 
+                    name: 'dial',
+                    display: true,
+                    type: 'widget',
                     required: true   ///////
-                }, 
+                },
                 {
-                    name: 'nodeMenunav', 
-                    display: false, 
-                    type: 'widget' 
-                }, 
+                    name: 'nodeMenunav',
+                    display: false,
+                    type: 'widget'
+                },
                 {
-                    name: 'overlay', 
-                    display: true, 
-                    type: 'widget' 
-                }, 
+                    name: 'overlay',
+                    display: true,
+                    type: 'widget'
+                },
                 {
-                    name: 'panel', 
-                    display: true, 
-                    type: 'widget' 
-                }, 
+                    name: 'panel',
+                    display: true,
+                    type: 'widget'
+                },
                 {
-                    name: 'scrollview', 
-                    display: true, 
-                    type: 'widget' 
-                }, 
+                    name: 'scrollview',
+                    display: true,
+                    type: 'widget'
+                },
                 {
-                    name: 'slider', 
-                    display: true, 
-                    type: 'widget', 
+                    name: 'slider',
+                    display: true,
+                    type: 'widget',
                     required: true    /////////
-                }, 
+                },
                 {
-                    name: 'tabview', 
-                    display: true, 
-                    type: 'widget', 
+                    name: 'tabview',
+                    display: true,
+                    type: 'widget',
                     required: true   //////////
-                }, ///////////////////////////////////// keep YUICSS modules below this line. 
-                // this is necessary because checkboxes are generated from this array and use the nodelist of checkboxes to find the index back to this array for updating.
+                }, ///////////////////////////////////// keep YUICSS modules below this line.
+                // this is necessary because checkboxes are generated from this array
+                // and use the nodelist of checkboxes to find the index back to this array for updating.
                 {
-                    name: 'form', 
-                    display: true, 
+                    name: 'form',
+                    display: true,
                     type: 'yuicss'
                 },
                 {
-                    name: 'table', 
-                    display: true, 
-                    type: 'yuicss' 
+                    name: 'table',
+                    display: true,
+                    type: 'yuicss'
                 },
                 {
-                    name: 'list', 
-                    display: true, 
-                    type: 'yuicss' 
+                    name: 'list',
+                    display: true,
+                    type: 'yuicss'
                 }
-            ], 
-            
-        TEMPLATES = {};
+            ],
+
+        TEMPLATES = {},
+        calendar,
+        tabview,
+        disabledButton,
+        cols,
+        data,
+        table,
+        scrollView,
+        states,
+        dial,
+        menu,
+        menuSplit,
+        overlay,
+        anchorOverlay,
+        panel,
+        anchorPanel,
+        report,
+        tabviewControls,
+        radiusDefaultValue,
+        sliderRadius,
+        sliderTextContrast,
+        paddingHorizDefaultValue,
+        sliderPaddingHoriz,
+        paddingVertDefaultValue,
+        sliderPaddingVert,
+        handleSchemeChangePageColor,
+        handleSchemeRadioClick,
+        overlayPicker,
+        ddPicker,
+        hsDot,
+        lightHandle,
+        pickerH,
+        pickerS,
+        pickerL,
+        objBucket,
+        pickerOuter,
+        pickerUpdateColors,
+        handlePickerTextInput,
+        handlePicker,
+        handleLight,
+        showPicker,
+        handlePickerInputBlur,
+        schemeOverlayIsReady = false,
+        blockAdjust = {h: '', s: '', l: ''}, // the adjust object of the correct block in the SKIN._space
+        schemeBlockDOM, // the DOM object of the correct block. Used for updating the swatch on the scheme adjust overlay
+        handleSchemeValueChange,
+        overlaySchemer,
+        ddSchemer,
+        keyHue,
+        keySat,
+        keyLit,
+        showSchemer,
+        overlayPalette,
+        ddPaletteOverlay,
+        paletteOuter,
+        helpPanelOuter,
+        helpPanel,
+        ddHelpPanel,
+        helpContent = { // Object for storage of help text strings shown in panel when "?" is clicked
+            'color-buttons': 'Buttons in the Style tab allow you to change the Master color or the Page background color. '+
+                'Changes to the Master color ripple through the whole palette of the skin. '+
+                'Changing the Page color will let you see how this skin will look on a background color.',
+            'style': 'These sliders control the look of several CSS properties. Check their effect in the Skin Preview below.',
+            'schemes': 'Choose from one of these ready-made color schemes, or create your own custom scheme. '+
+                '<br><em>Note:</em> Schemes are not hard-coded colors. All the colors in Skin Builder skins are generated '+
+                'by offsets from the master color. A scheme is defined by a collection of these offset values.',
+            'detailed-preview': 'This displays all the colors used in the current skin. Both :hover and normal colors. '+
+                'Clicking on the small color specrum icons allow you to modify the colors.',
+            'items': 'Choose which modules or widgets you\'ll be using. We\'ll only generate CSS skin code for those. '+
+                'You can copy that code from the Code tab.',
+            'code': 'You can change the name of your skin in the input labeled ".yui-skin-". '+
+                'Then copy the CSS from this textarea for use in your page/app.',
+            'settings': 'This URL will capture all your current skin settings. You can save it somewhere and/or share it.'
+        },
+        updateBodySkinClass,
+        moveAbsolutePosPreviews,
+        initPreviewAndModulesCheckboxes,
+        handleCreateQueryString,
+        runUnitTests,
+        setSkinFromQuery;
 
 
 
@@ -178,11 +257,11 @@ function (Y) {
         return hslArr;
     }
 
-    
+
     /** Updates the swatches in the UI display of scheme choices
     renders a colorspace for each scheme
     this takes time. Only do this when the Scheme tabview is shown.
-    @param {Boolean} custom   true = only render new scheme 'custom' and only update it's preview swatches 
+    @param {Boolean} custom   true = only render new scheme 'custom' and only update it's preview swatches
                               false or undefined = render all schemes and update all preview swatches
     **/
     function updateSchemePreviews() {
@@ -200,7 +279,7 @@ function (Y) {
             schemeChoices.item(i).one('.swatches li:nth-child(4)').setStyle('backgroundColor', space.block.low.background);
         }
         // custom scheme isn't in the SCHEME_NAMES [], so need to do separately
-        // No need to create a new Y.ColorSpace, since Custom should always 
+        // No need to create a new Y.ColorSpace, since Custom should always
         // track the current scheme (even when custom scheme is the current)
         schemeChoices.item(i).one('.swatches li:nth-child(1)').setStyle('backgroundColor', SKIN.colorspace.block.highest.background);
         schemeChoices.item(i).one('.swatches li:nth-child(2)').setStyle('backgroundColor', SKIN.colorspace.block.high.background);
@@ -229,7 +308,7 @@ function (Y) {
                     }
                 }
             }
-            
+
         });
 
         cssOutput.value = css;
@@ -240,7 +319,7 @@ function (Y) {
         }
 
         STYLESHEET = Y.Node.create('<style>' + cssRequired + css + '</style>');
-        Y.one('body').appendChild(STYLESHEET); 
+        Y.one('body').appendChild(STYLESHEET);
 
 
 
@@ -256,7 +335,7 @@ function (Y) {
         if (SCHEME_NAME === 'custom') {
             SKIN.options.scheme = SCHEME_CUSTOM;
         } else {
-            SKIN.options.scheme = SCHEME_NAME;           
+            SKIN.options.scheme = SCHEME_NAME;
         }
         updateCSS();
         Y.one('.page-background').setStyle('backgroundColor', PAGE_BG_COLOR);
@@ -273,15 +352,16 @@ function (Y) {
 
 
     /**
-     * Begin adding instances of widgets to be colored by this tool
-     * These are for UI display
+     * Begin adding instances of widgets to be skinned by this tool
+     * These are for UI preview display
      */
+
     // Create a new instance of Calendar,    ////////////////////////////////////////////
     //setting its width
     // and height, allowing the dates from the previous
     // and next month to be visible and setting the initial
     // date to be November, 1982.
-    var calendar = new Y.Calendar({
+    calendar = new Y.Calendar({
           contentBox: "#mycalendar",
 //          height:'200px',
 //          width:'600px',
@@ -289,14 +369,16 @@ function (Y) {
           showNextMonth: true,
           date: new Date(1982,11,1)
         });
-    calendar.render();
+    calendar.render(),
+
     // make a day selected for display
-    var days = Y.all('.yui3-calendar-day');
+    days = Y.all('.yui3-calendar-day');
+
     days.item(12).addClass('yui3-calendar-day-selected');
     days.item(13).addClass('yui3-calendar-selection-disabled');
 
     // Instance of tabview  /////////////////////////////////////////////////////////////
-    var tabview = new Y.TabView({
+    tabview = new Y.TabView({
         srcNode: '#tabview',
         width: '250px'
     });
@@ -305,23 +387,25 @@ function (Y) {
 
     // Disabled button //////////////////////////////////////////////
     // A disabled button
-    var disabledButton = Y.one('#myDisabledButton');
+    disabledButton = Y.one('#myDisabledButton');
     disabledButton.plug(Y.Plugin.Button, {
         disabled: true
     });
 
 
     // Datatable instance ///////////////////////////////////////////////////////
-    var cols = [
+    cols = [
         {key:"Company", label:"Sortable", sortable:true},
         {key:"Phone", label:"No Sort"},
         {key:"Contact", label:"Sortable", sortable:true}
-    ],
+    ];
+
     data = [
         {Company:"Cabs", Phone:"455-1234", Contact:"Smith, S."},
         {Company:"Acme", Phone:"650-4444", Contact:"Jones, J."},
         {Company:"Washers", Phone:"405-5678", Contact:"Ward, R."}
-    ],
+    ];
+
     table = new Y.DataTable({
         columns: cols,
         data   : data,
@@ -345,7 +429,7 @@ function (Y) {
     // scrollViewX.render();
 
     // Scrollview instance Vertical ///////////////////////////////////////////////////
-    var scrollView = new Y.ScrollView({
+    scrollView = new Y.ScrollView({
         id: "scrollview",
         srcNode: '#scrollview-content',
         height: 128,
@@ -360,7 +444,14 @@ function (Y) {
 
 
     // Autocomplete instance ////////////////////////////////////////////////////
-    var states = [     'Alabama',     'Alaska',     'Arizona',     'Arkansas',     'California',     'Colorado',     'Connecticut',     'Delaware',     'Florida',     'Georgia',     'Hawaii',     'Idaho',     'Illinois',     'Indiana',     'Iowa',     'Kansas',     'Kentucky',     'Louisiana',     'Maine',     'Maryland',     'Massachusetts',     'Michigan',     'Minnesota',     'Mississippi',     'Missouri',     'Montana',     'Nebraska',     'Nevada',     'New Hampshire',     'New Jersey',     'New Mexico',     'New York',     'North Dakota',     'North Carolina',     'Ohio',     'Oklahoma',     'Oregon',     'Pennsylvania',     'Rhode Island',     'South Carolina',     'South Dakota',     'Tennessee',     'Texas',     'Utah',     'Vermont',     'Virginia',     'Washington',     'West Virginia',     'Wisconsin',     'Wyoming'   ];
+    states=['Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware',
+        'Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky',
+        'Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi',
+        'Missouri','Montana','Nebraska','Nevada','NewHampshire','NewJersey','NewMexico','NewYork',
+        'NorthDakota','NorthCarolina','Ohio','Oklahoma','Oregon','Pennsylvania','RhodeIsland',
+        'SouthCarolina','SouthDakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington',
+        'WestVirginia','Wisconsin','Wyoming'];
+
     Y.one('#ac-input').plug(Y.Plugin.AutoComplete, {
         resultFilters    : 'phraseMatch',
         resultHighlighter: 'phraseMatch',
@@ -368,7 +459,7 @@ function (Y) {
     });
 
     // Dial instance ////////////////////////////////////////////////////////////
-    var dial = new Y.Dial({
+    dial = new Y.Dial({
         min:-220,
         max:220,
         stepsPerRevolution:100,
@@ -377,15 +468,15 @@ function (Y) {
     dial.render('#dial');
 
     // Node Menunav instance /////////////////////////////////////////////////
-    var menu = Y.one("#node-menunav");
+    menu = Y.one("#node-menunav");
     menu.plug(Y.Plugin.NodeMenuNav);
 
-    var menuSplit = Y.one("#node-menunav-split");
+    menuSplit = Y.one("#node-menunav-split");
     //menuSplit.plug(Y.Plugin.NodeMenuNav);
     menuSplit.plug(Y.Plugin.NodeMenuNav, { autoSubmenuDisplay: false, mouseOutHideDelay: 0 });
 
     // Overlay instance /////////////////////////////////////////////////////
-    var overlay = new Y.Overlay({
+    overlay = new Y.Overlay({
         // Specify a reference to a node which already exists
         // on the page and contains header/body/footer content
         srcNode:"#overlayContent",
@@ -400,10 +491,10 @@ function (Y) {
         width: 200
     });
     overlay.render();
-    var anchorOverlay = Y.one('#anchorOverlay');
+    anchorOverlay = Y.one('#anchorOverlay');
 
     // Panel instance ////////////////////////////////////////////////////////
-    var panel = new Y.Panel({
+    panel = new Y.Panel({
         srcNode      : '#panelContent',
         headerContent: 'Add A New Product',
         width        : 250,
@@ -423,10 +514,10 @@ function (Y) {
         }
     });
     // var overlayNode = Y.one('#overlayContent');
-    var anchorPanel = Y.one('#anchorPanel');
+    anchorPanel = Y.one('#anchorPanel');
 
     // Slider instance ///////////////////////////////////////////////////////////
-    var report = Y.one('#slider-report'),
+    report = Y.one('#slider-report'),
         slider = new Y.Slider({
             //axis  : 'y',
             length: '280px',
@@ -445,7 +536,7 @@ function (Y) {
     /////////////////////////////////////////////////////////////////
 
     // tabview for holding controls in left grid column //////////////////////////////////
-    var tabviewControls = new Y.TabView({
+    tabviewControls = new Y.TabView({
         srcNode: '#tabview-controls'
         //width: '285px'
     });
@@ -454,9 +545,9 @@ function (Y) {
 
     // slider for radius changing in the UI ///////////////////////////////////
 
-    var radiusDefaultValue = 10;
+    radiusDefaultValue = 10;
     SKIN.options.radius = radiusDefaultValue;
-    var sliderRadius = new Y.Slider({
+    sliderRadius = new Y.Slider({
         axis  : 'x',
         length: '200px',
         min   : 0,
@@ -483,7 +574,7 @@ function (Y) {
 
     // slider for text contrast changing in the UI ///////////////////////////////////
 
-    var sliderTextContrast = new Y.Slider({
+    sliderTextContrast = new Y.Slider({
         axis  : 'x',
         length: '200px',
         min   : 5,
@@ -511,9 +602,9 @@ function (Y) {
 
 
     // slider for changing Horizontal padding in the UI ///////////////////////////////////
-    var paddingHorizDefaultValue = 50;
+    paddingHorizDefaultValue = 50;
     SKIN.options.paddingHoriz = paddingHorizDefaultValue / 50;
-    var sliderPaddingHoriz = new Y.Slider({
+    sliderPaddingHoriz = new Y.Slider({
         axis  : 'x',
         length: '200px',
         min   : 0,
@@ -540,9 +631,9 @@ function (Y) {
     // end slider for Horizontal padding///////////////////////////
 
     // slider for changing Vertical padding in the UI ///////////////////////////////////
-    var paddingVertDefaultValue = 50;
+    paddingVertDefaultValue = 50;
     SKIN.options.paddingVert = paddingVertDefaultValue / 50;
-    var sliderPaddingVert = new Y.Slider({
+    sliderPaddingVert = new Y.Slider({
         axis  : 'y',
         length: '112px',
         min   : 200,
@@ -559,7 +650,7 @@ function (Y) {
                 setTimeout(updateColors, 10);
                 overlay.move([anchorOverlay.getX(),  anchorOverlay.getY()]);
                 panel.move([anchorPanel.getX(),  anchorPanel.getY()]);
-                Y.one('.slider-markup-vert-padding label').setHTML('Vert. padding: ' + (newVal * 2) + '%');                
+                Y.one('.slider-markup-vert-padding label').setHTML('Vert. padding: ' + (newVal * 2) + '%');
             }
         }
     });
@@ -579,7 +670,7 @@ function (Y) {
      * it's appropriate for the choosen color scheme, if not it changes to
      * either white or black
      */
-    var handleSchemeChangePageColor = function(schemeName) {
+    handleSchemeChangePageColor = function(schemeName) {
         var hsl = hexToHsl(PAGE_BG_COLOR);
         if (schemeName.indexOf('dark') > -1) {
             if (hsl[2] > 50) {
@@ -593,7 +684,7 @@ function (Y) {
     };
 
     // listener for scheme changing radios
-    var handleSchemeRadioClick = function(e){
+    handleSchemeRadioClick = function(e){
 
         var radios = Y.all('.scheme-radios input');
         SCHEME_NAME = e.target.get('id');
@@ -626,14 +717,14 @@ function (Y) {
 
         radios.set('checked', false);
         e.target.set('checked', true);
-    }
+    };
     Y.one('.scheme-radios').delegate('click', handleSchemeRadioClick, 'input');
 
 
 
     ///////////////////////////  Color Picker instance and handlers  /////////////////////////////////
 
-    var overlayPicker = new Y.Overlay({
+    overlayPicker = new Y.Overlay({
         srcNode:"#picker-outer",
         // width:"13em",
         // height:"10em",
@@ -641,40 +732,40 @@ function (Y) {
     });
     overlayPicker.render();
 
-    var ddPicker = new Y.DD.Drag({
+    ddPicker = new Y.DD.Drag({
         node: '#picker-outer'
     }).plug(Y.Plugin.DDConstrained, {
         constrain: 'view'
     });
 
-    var hsDot = new Y.DD.Drag({
+    hsDot = new Y.DD.Drag({
         node: '#hs-dot'
     }).plug(Y.Plugin.DDConstrained, {
         constrain: '#hs'
     });
 
-    var lightHandle = new Y.DD.Drag({
+    lightHandle = new Y.DD.Drag({
         node: '#sliderL-line'
     }).plug(Y.Plugin.DDConstrained, {
         constrain: '#sliderL'
     });
 
-        // set the picker outer box ready for drag by grip
-        var pickerOuter = Y.one('#picker-outer');
-        pickerOuter.plug(Y.Plugin.Drag);
+    // set the picker outer box ready for drag by grip
+    pickerOuter = Y.one('#picker-outer');
+    pickerOuter.plug(Y.Plugin.Drag);
 
-        //Now you can only drag it from the .grip at the top of the blue box
-        pickerOuter.dd.addHandle('#picker-outer .grip');
+    //Now you can only drag it from the .grip at the top of the blue box
+    pickerOuter.dd.addHandle('#picker-outer .grip');
 
 
-    var pickerH = 0,
-        pickerS = 50,
-        pickerL = 50,
-        objBucket = Y.one('.bucket-highest');
+    pickerH = 0;
+    pickerS = 50;
+    pickerL = 50;
+    objBucket = Y.one('.bucket-highest');
 
         /* this updates the color swatch in the picker
         * and the hex input control when contol*/
-    var pickerUpdateColors = function(objBucket){
+    pickerUpdateColors = function(objBucket){
             var hsl = Y.Color.fromArray([pickerH, pickerS, pickerL], Y.Color.TYPES.HSL),
             hex = Y.Color.toHex(hsl);
 
@@ -695,7 +786,7 @@ function (Y) {
             Y.one('.picker-swatch .picker-input').set('value', hex);
         };
 
-    var handlePickerTextInput = function() {
+    handlePickerTextInput = function() {
         var hex = Y.one('.picker-input').get('value');
         if (objBucket.hasClass('page-background')) {
             PAGE_BG_COLOR = hex;
@@ -710,7 +801,7 @@ function (Y) {
     Y.one('.picker-swatch .picker-input').on('blur', handlePickerTextInput);
 
 
-    var handlePicker = function(e) {
+    handlePicker = function(e) {
         var relX = (e.clientX - e.currentTarget.getX() + Y.one('document').get('scrollLeft')),
             relY = (e.clientY - e.currentTarget.getY() + Y.one('document').get('scrollTop'));
 
@@ -720,18 +811,17 @@ function (Y) {
 
         pickerUpdateColors(objBucket);
     };
-    var handleLight = function(e) {
+    handleLight = function(e) {
         pickerL = 100 - ((e.clientY - e.currentTarget.getY() + Y.one('document').get('scrollTop')) / 180) * 100; // lightness range is 0 to 100
         Y.one('#sliderL-line').setStyle('top', (e.clientY - e.currentTarget.getY() + Y.one('document').get('scrollTop')) + 'px');
         pickerUpdateColors(objBucket);
     };
-    var showPicker = function(e) {
+    showPicker = function(e) {
         var bucketHex,
-            hsl;
-        overlaySchemer.hide(); 
-        // if (Y.one('.bucket-selected')) {
-        //     Y.one('.bucket-selected').removeClass('bucket-selected');
-        // }
+            hsl,
+            a = Y.WidgetPositionAlign; // Local variable
+
+        overlaySchemer.hide();
         Y.all('.bucket').addClass('bucket-deselected');
         e.target.removeClass('bucket-deselected');
 
@@ -752,7 +842,7 @@ function (Y) {
         hsl = Y.Color.toArray(Y.Color.toHSL(bucketHex));
         overlayPicker.show();
         Y.one('#hs-dot').setStyles({'left': hsl[0] / 2, 'top': (180 - ((hsl[1] / 100) * 180))});
-        
+
         Y.one('#sliderL-line').setStyle('top', 180 - ((hsl[2] / 100) * 180));
         Y.one('.picker-swatch').setStyle('backgroundColor', bucketHex);
         // set all of the values that are used in pickerUpdateColors()
@@ -761,15 +851,14 @@ function (Y) {
         pickerS = hsl[1];
         pickerL = hsl[2];
 
-        var a = Y.WidgetPositionAlign; // Local variable
-                overlayPicker.set("align", {
+        overlayPicker.set("align", {
             node: e.target,
             points: [a.TL, a.TR]
         });
 
 
     };
-    var handlePickerInputBlur = function(e) {
+    handlePickerInputBlur = function(e) {
         var hex = Y.Escape.html(e.currentTarget.get('value')),
             hsl = hexToHsl(hex);
 
@@ -804,18 +893,15 @@ function (Y) {
     };
 
     ////////////////////  scheme creator overlay  /////////////////////////////
-    var schemeOverlayIsReady = false,
-        blockAdjust = {h: '', s: '', l: ''}, // the adjust object of the correct block in the SKIN._space
-        schemeBlockDOM; // the DOM object of the correct block. Used for updating the swatch on the scheme adjust overlay
 
     // set the scheme color swatch in the schemeOverlay
     // Update the scheme with the new scheme color adjustment object values
-    var handleSchemeValueChange = function() {
+    handleSchemeValueChange = function() {
 /*            adjustBlocks = [
                 SKIN._space._adjust.high,
                 SKIN._space._adjust.normal,
                 SKIN._space._adjust.low,
-                SKIN._space._adjustBG 
+                SKIN._space._adjustBG
 //                SKIN._space._adjust.page
 
             ];
@@ -839,11 +925,11 @@ function (Y) {
     };
 
 
-    var overlaySchemer = new Y.Overlay({
+    overlaySchemer = new Y.Overlay({
         srcNode:"#schemer-outer",
 //         width: "600px",
 //         height:"300px",
-//           xy: 
+//           xy:
         zIndex       : 15
 
 //        xy: [-800, 200]
@@ -851,7 +937,7 @@ function (Y) {
     overlaySchemer.render();
     overlaySchemer.hide();
 
-    var ddSchemer = new Y.DD.Drag({
+    ddSchemer = new Y.DD.Drag({
         node: '#schemer-outer'
     }).plug(Y.Plugin.DDConstrained, {
         constrain: 'view'
@@ -859,7 +945,7 @@ function (Y) {
 
 
     // controls inside the scheme creator overlay //
-    var keyHue = 0,
+    keyHue = 0,
         dialSchemeHue = new Y.Dial({
             min:-360,
             max:360,
@@ -875,7 +961,7 @@ function (Y) {
     });
     dialSchemeHue.render('#dial-scheme-hue');
 
-    var keySat = 23,
+    keySat = 23,
         sliderSchemeSat = new Y.Slider({
             axis  : 'x',
             length: '100px',
@@ -893,7 +979,7 @@ function (Y) {
     sliderSchemeSat.render('#slider-scheme-sat');
     Y.one('.sat-output').setHTML(keySat);
 
-    var keyLit = 13,
+    keyLit = 13,
         sliderSchemeLit = new Y.Slider({
             axis  : 'x',
             length: '100px',
@@ -912,7 +998,7 @@ function (Y) {
     sliderSchemeLit.render('#slider-scheme-lit');
     Y.one('.lit-output').setHTML(keyLit);
 
-    var showSchemer = function(e) {
+    showSchemer = function(e) {
         var relX = (e.clientX + Y.one('document').get('scrollLeft')),
             relY = (e.clientY + Y.one('document').get('scrollTop')),
             bucketHex,
@@ -942,7 +1028,9 @@ function (Y) {
         }else if (e.currentTarget.hasClass('bucket-lowest')){
             blockAdjust = SCHEME_CUSTOM.background;
             bucketHex = space.background;
-            schemeBlockDOM = Y.one('.color-space .background'); // special case for lowest because of nesting in a parent div with other blocks, need to pick up the bkg color of the parent div
+             // special case for lowest because of nesting in a parent div with other blocks,
+             // need to pick up the bkg color of the parent div
+            schemeBlockDOM = Y.one('.color-space .background');
         }
         overlaySchemer.show();
 
@@ -950,9 +1038,9 @@ function (Y) {
         Y.one('.schemer-key').setStyle('backgroundColor', space.block.highest.background);
         Y.one('.schemer-swatch').setStyle('backgroundColor', bucketHex);
 
-        // needed so that handleSchemeValueChange() won't adjust the colors until 
+        // needed so that handleSchemeValueChange() won't adjust the colors until
         //all three, h, s, l, controls are initialized with the new values for the selected block.
-        schemeOverlayIsReady = false; 
+        schemeOverlayIsReady = false;
 
         // set dial and sliders with current H, S, L of the main color that is the
         // parent of the color icon clicked on.
@@ -976,7 +1064,7 @@ function (Y) {
     ////////////////////  END scheme creator overlay  /////////////////////////////
 
     ////////////////////  Begin Preview Palette Details (overlay) instance //////////////////////////
-    var overlayPalette = new Y.Overlay({
+    overlayPalette = new Y.Overlay({
         srcNode:"#palette-outer",
         // width:"13em",
         // height:"10em",
@@ -984,14 +1072,15 @@ function (Y) {
     });
     overlayPalette.render();
     overlayPalette.hide();
-    
-    var ddPaletteOverlay = new Y.DD.Drag({
+
+    ddPaletteOverlay = new Y.DD.Drag({
         node: '#palette-outer'
     }).plug(Y.Plugin.DDConstrained, {
         constrain: 'view'
     });
-        // set the picker outer box ready for drag by grip
-    var paletteOuter = Y.one('#palette-outer');
+
+    // set the picker outer box ready for drag by grip
+    paletteOuter = Y.one('#palette-outer');
     paletteOuter.plug(Y.Plugin.Drag);
 
     //Now you can only drag it from the .grip at the top of the blue box
@@ -1011,8 +1100,8 @@ function (Y) {
     ////////////////////  END Preview Palette Details (overlay) instance ////////////////////////////
 
     ////////////////////  Begin Help (overlay) instance //////////////////////////
-    var helpPanelOuter = Y.one('#help-panel');
-    var helpPanel = new Y.Overlay({
+    helpPanelOuter = Y.one('#help-panel');
+    helpPanel = new Y.Overlay({
         srcNode:"#help-panel",
         width:"16em",
         // height:"10em",
@@ -1020,8 +1109,8 @@ function (Y) {
     });
     helpPanel.render();
     helpPanel.hide();
-    
-    var ddHelpPanel = new Y.DD.Drag({
+
+    ddHelpPanel = new Y.DD.Drag({
         node: '#help-panel'
     }).plug(Y.Plugin.DDConstrained, {
         constrain: 'view'
@@ -1030,19 +1119,6 @@ function (Y) {
     Y.one('#help-panel .close').on('click', function(){
         helpPanel.hide();
     });
-
-    // Object for storage of help text strings shown in panel when "?" is clicked
-    var helpContent = {
-
-    'color-buttons': 'Buttons in the Style tab allow you to change the Master color or the Page background color. Changes to the Master color ripple through the whole palette of the skin. Changing the Page color will let you see how this skin will look on a background color.',
-    'style': 'These sliders control the look of several CSS properties. Check their effect in the Skin Preview below.',
-    'schemes': 'Choose from one of these ready-made color schemes, or create your own custom scheme. <br><em>Note:</em> Schemes are not hard-coded colors. All the colors in Skin Builder skins are generated by offsets from the master color. A scheme is defined by a collection of these offset values.',
-    'detailed-preview': 'This displays all the colors used in the current skin. Both :hover and normal colors. Clicking on the small color specrum icons allow you to modify the colors.',
-    'items': 'Choose which modules or widgets you\'ll be using. We\'ll only generate CSS skin code for those. You can copy that code from the Code tab.',
-    'code': 'You can change the name of your skin in the input labeled ".yui-skin-". Then copy the CSS from this textarea for use in your page/app.',
-    'settings': 'This URL will capture all your current skin settings. You can save it somewhere and/or share it.'
-    };
-
 
 
     Y.all('.help').on('click', function(e) {
@@ -1060,7 +1136,7 @@ function (Y) {
         currentHelpStr = helpContent[nameKey];
         helpPanelOuter.one('.bd').setHTML(currentHelpStr);
         helpPanel.show();
-        helpPanel.set("align", 
+        helpPanel.set("align",
         {
             node: e.target,
             points: position
@@ -1080,7 +1156,7 @@ function (Y) {
     });
 
 
-    var updateBodySkinClass = function() {
+    updateBodySkinClass = function() {
         var body = Y.one('body');
         // sets the skin name and class prefix that will be replaced in all the
         // stylesheet templates
@@ -1091,7 +1167,7 @@ function (Y) {
         // Then we need to do refresh[component]Skin() function calls
         // Which are found in updateColors();
         // This will send the skin name into the Widget Maps -> Stylesheet Templates -> CSS
-        updateColors();        
+        updateColors();
     };
     Y.one('.inp-skin-name').on('keyup', function() {
         updateBodySkinClass();
@@ -1108,12 +1184,12 @@ function (Y) {
         e.target.removeClass('show-hover');
     });
 
-    var moveAbsolutePosPreviews = function(){
+    moveAbsolutePosPreviews = function(){
         overlay.move([anchorOverlay.getX(),  anchorOverlay.getY()] );
         panel.move([anchorPanel.getX(),  anchorPanel.getY()] );
     };
     setTimeout(moveAbsolutePosPreviews, 10);
-    
+
     Y.on("windowresize", function(){
         moveAbsolutePosPreviews();
     });
@@ -1122,13 +1198,13 @@ function (Y) {
         overlayPicker.hide();
         overlaySchemer.hide();
         updateSchemePreviews();
-        Y.all('.bucket-deselected').removeClass('bucket-deselected');    
+        Y.all('.bucket-deselected').removeClass('bucket-deselected');
     });
     Y.one('.tab-code').on('click', function(){
         overlayPicker.hide();
         overlaySchemer.hide();
         Y.one('#inp-url-link').setStyle('display', 'none');
-    
+
     });
 
     // listen for checkboxes that turn on/off which modules to skin
@@ -1136,11 +1212,11 @@ function (Y) {
         var modStr = e.target.get('id').substring(4),    // example id="mod-autocomplete"
             checkList = Y.all('#tab-modules input'),
             index = checkList.indexOf(e.target),
-            displayMe; 
+            displayMe;
 
         TEMPLATES_USED[index].display = e.target._node.checked;
-        displayMe = (TEMPLATES_USED[index].display) ? 'inline-block' : 'none'; 
-        
+        displayMe = (TEMPLATES_USED[index].display) ? 'inline-block' : 'none';
+
         Y.all('.sb-preview-' + modStr).setStyle('display', displayMe);
 
         // changes to what's previewed likely affects the postion of overlay and panel
@@ -1166,18 +1242,18 @@ function (Y) {
                     Y.all('.sb-preview-' + TEMPLATES_USED[i].name).setStyle('display', displayMe);
                 }
             }
-            Y.all('#checkboxes-widget input').set('checked', showMe);                  
+            Y.all('#checkboxes-widget input').set('checked', showMe);
             Y.one('#tab-modules .btn-widget').setHTML(btnStr);
          } else if (e.target.hasClass('btn-yuicss')) {
             for(i = 0; i < TEMPLATES_USED.length; i+=1) {
                 if(TEMPLATES_USED[i].type === 'yuicss') {
-                    TEMPLATES_USED[i].display = showMe;                    
+                    TEMPLATES_USED[i].display = showMe;
                     Y.all('.sb-preview-' + TEMPLATES_USED[i].name).setStyle('display', displayMe);
                 }
             }
-            Y.all('#checkboxes-yuicss input').set('checked', showMe);                  
+            Y.all('#checkboxes-yuicss input').set('checked', showMe);
             Y.one('#tab-modules .btn-yuicss').setHTML(btnStr);
-        }    
+        }
         updateCSS();
     }, '.show-hide-all');
 
@@ -1185,16 +1261,17 @@ function (Y) {
     // initial sync of preview (show/hide) and checkboxes ((un)checked) for each TEMPLATE_USE (checkboxes in "Modules" tab)
     // this also generates the name/checkbox pairs in the "Items" tab.
     // Names for checkboxes get pulled off the getContent() of the first instance of a .widget-preview-label of the templates_used
-    // So to change the name of the checkbox in the "Items" tab, just change the contents-string of the first .widget-preview-label 
-    var initPreviewAndModulesCheckboxes = function (){
+    // So to change the name of the checkbox in the "Items" tab, just change the contents-string of the first .widget-preview-label
+    initPreviewAndModulesCheckboxes = function (){
         var widgetUl = Y.one('#checkboxes-widget'),
             yuiCSSUl = Y.one('#checkboxes-yuicss'),
             appendChksTo,
             displayName,
-            i;
+            i,
+            chk;
 
         for(i = 0; i < TEMPLATES_USED.length; i+=1) {
-            var chk = (TEMPLATES_USED[i].display) ? 'checked' : '';
+            chk = (TEMPLATES_USED[i].display) ? 'checked' : '';
 
             displayName = Y.one('#widget-container .sb-preview-' + TEMPLATES_USED[i].name + ' .widget-preview-label').getContent();
             // if the name coming from the first instance of the module's markup contains a '-' such as 'Forms - Radios and Checkboxes'
@@ -1207,7 +1284,9 @@ function (Y) {
                 appendChksTo = yuiCSSUl;
             }
 
-            appendChksTo.append('<li><input id="mod-' + TEMPLATES_USED[i].name + '" type="checkbox" ' + chk + ' /> <label for ="mod-' + TEMPLATES_USED[i].name + '">' + displayName + '</label></li>');
+            appendChksTo.append('<li><input id="mod-' + TEMPLATES_USED[i].name +
+                '" type="checkbox" ' + chk + ' /> <label for ="mod-' +
+                TEMPLATES_USED[i].name + '">' + displayName + '</label></li>');
         }
         // they have to inline-block in CSS initially or Dial won't render properly.
         // turn them all 'display' 'none' first
@@ -1217,7 +1296,8 @@ function (Y) {
         // set the checkboxes for the used modules to 'checked'
         for(i = 0; i < TEMPLATES_USED.length; i+=1) {
             if(TEMPLATES_USED[i].display){
-                Y.all('#widget-container .sb-preview-' + TEMPLATES_USED[i].name).replaceClass('widget-container-hide-me','widget-container-show-inline');
+                Y.all('#widget-container .sb-preview-' +
+                    TEMPLATES_USED[i].name).replaceClass('widget-container-hide-me','widget-container-show-inline');
             }
         }
     };
@@ -1228,334 +1308,337 @@ function (Y) {
     ////////////////// functional & unit test //////////////////////
 
     // run tests only if the URL contains ?test
-    
-    if (document.URL.indexOf('?test') > -1 ) {
+    runUnitTests = function() {
+        if (document.URL.indexOf('?test') > -1 ) {
 
-        var getCSSProperty = function(obj, cssProp) {
-            var result = obj.getComputedStyle(cssProp);
-            if( (cssProp.indexOf('padding') > -1) ||
-                (cssProp.toLowerCase().indexOf('radius') > -1)  ) {
-                result = Math.round(parseInt(result, 10));
-            }
-             return result;
-        },
-
-        getPropertyHex = function(obj, cssProp) {
-            return Y.Color.toHex(obj.getComputedStyle(cssProp));
-        },
-
-        getGradient = function(obj) {
-            var str = obj.getComputedStyle('backgroundImage');
-            return str.substring(str.indexOf('rgba('), (str.indexOf('rgba(') + 20));
-        },
-
-        closeEnough = function(expected, actual) { // compensates for rounding that occurs in IE 
-            return (Math.abs(expected - actual) < 2);
-        };
-
-
-
-        var suite = new Y.Test.Suite("Test Key and Page");
-
-
-        suite.add(new Y.Test.Case({
-
-                name: "Test keycolor change",
-
-                //---------------------------------------------
-                // Special instructions
-                //---------------------------------------------
-
-                _should: {
-                    ignore: {
-                        test_radius: (Y.UA.ie > 0) && (Y.UA.ie < 9), //ignore this test where radius are not supported
-                        test_gradient: (Y.UA.ie > 0) && (Y.UA.ie < 10)
-                    }
-                },
-
-                //---------------------------------------------
-                // Setup and tear down
-                //---------------------------------------------
-
-                setUp : function () {
-                    // set the key color
-                    KEY_COLOR.block.highest.background = '#cc0000';
-                    
-                    // fake an event for opening the color picker
-                    var e = {
-                        clientY: 100, 
-                        clientX: 100,
-                        target: Y.one('.bucket-highest'),
-                        currentTarget: Y.one('.bucket-highest') 
-                    };
-                    showPicker(e);
-                    Y.one('.picker-input').focus();
-                    Y.one('.yui3-console-filter').focus(); //triggers the blur of the picker-input
-                },
-
-                tearDown : function () {
-                },
-
-                //---------------------------------------------
-                // Tests
-                //---------------------------------------------
-
-                testColors_from_KEY_COLOR_change: function () {
-
-
-                    var test = this;
-                    var runLowTests = function() {
-                        setTimeout(function() { //dely this assert for ie
-                            test.resume(function() {
-                                Y.Assert.areEqual(KEY_COLOR.block.highest.background, SKIN.colorspace.block.highest.background, 'KEY_COLOR.block.highest.background !== SKIN.colorspace.block.highest.background');
-                                Y.Assert.areEqual('#f7d4d4', getPropertyHex(Y.one('.block-low'), 'backgroundColor'), 'wrong low.text.low hex');
-                                Y.Assert.areEqual('#e57171', getPropertyHex(Y.one('.block-low-text-low'), 'color'), 'wrong low.text.low hex');
-                                Y.Assert.areEqual('#5a1111', getPropertyHex(Y.one('.block-low-text-normal'), 'color'), 'wrong low.text.normal hex');
-                                Y.Assert.areEqual('#1a0505', getPropertyHex(Y.one('.block-low-text-high'), 'color'), 'wrong low.text.high hex');
-                                
-                                Y.Assert.areEqual('#f2baba', getPropertyHex(Y.one('.block-low-rule-low'), 'borderTopColor'), 'wrong low.rule.low hex');
-                                Y.Assert.areEqual('#fdf6f6', getPropertyHex(Y.one('.block-low-rule-high'), 'borderTopColor'), 'wrong low.rule.high hex');
-
-                                Y.Assert.areEqual('#fdf6f6', getPropertyHex(Y.one('.block-low'), 'borderTopColor'), 'wrong block.low borderTopColor hex');
-                                Y.Assert.areEqual('#f5c7c7', getPropertyHex(Y.one('.block-low'), 'borderBottomColor'), 'wrong block.low borderBottomColor hex');
-                            });
-                        }, 1000);
-                    };
-                    runLowTests();
-                    test.wait(3000);
-                },
-                test_radius: function () {
-                    Y.Assert.areEqual('4', getCSSProperty(Y.one('.yui3-tab-label'), 'borderTopLeftRadius'), 'wrong border radius');
-                },
-                test_padding: function () {
-                    Y.Assert.areEqual('6', getCSSProperty(Y.one('.yui3-tab-label'), 'paddingTop'), 'wrong padding top');
-                    Y.Assert.areEqual('6', getCSSProperty(Y.one('.yui3-tab-label'), 'paddingBottom'), 'wrong padding bottom');
-                    Y.Assert.areEqual('18', getCSSProperty(Y.one('.yui3-tab-label'), 'paddingLeft'), 'wrong padding left');
-                    Y.Assert.areEqual('18', getCSSProperty(Y.one('.yui3-tab-label'), 'paddingRight'), 'wrong padding right');
-                },
-                test_gradient: function () {
-                    Y.Assert.areEqual('rgba(254, 251, 251, ', getGradient(Y.one('.block-low .gradient')), 'wrong gradient');
+            var getCSSProperty = function(obj, cssProp) {
+                var result = obj.getComputedStyle(cssProp);
+                if( (cssProp.indexOf('padding') > -1) ||
+                    (cssProp.toLowerCase().indexOf('radius') > -1)  ) {
+                    result = Math.round(parseInt(result, 10));
                 }
-            
-        }));
-        suite.add(new Y.Test.Case({
+                return result;
+            },
 
-                name: "Test page/container change",
+            getPropertyHex = function(obj, cssProp) {
+                return Y.Color.toHex(obj.getComputedStyle(cssProp));
+            },
 
-                //---------------------------------------------
-                // Setup and tear down
-                //---------------------------------------------
+            getGradient = function(obj) {
+                var str = obj.getComputedStyle('backgroundImage');
+                return str.substring(str.indexOf('rgba('), (str.indexOf('rgba(') + 20));
+            },
 
-                setUp : function () {
-                    // set the page/container color
-                    PAGE_BG_COLOR = "#aabbcc";
-
-                    // fake an event for opening the color picker
-                    var e = {
-                        clientY: 100, 
-                        clientX: 100,
-                        target: Y.one('.bucket-page'),
-                        currentTarget: Y.one('.bucket-page') 
-                    };
-                    showPicker(e);
-                    Y.one('.picker-input').focus();
-                    Y.one('.yui3-console-filter').focus(); //triggers the blur of the picker-input
-                },
-
-                tearDown : function () {
-                },
-
-                //---------------------------------------------
-                // Tests
-                //---------------------------------------------
+            closeEnough = function(expected, actual) { // compensates for rounding that occurs in IE
+                return (Math.abs(expected - actual) < 2);
+            },
 
 
-                test_colors_from_page_color_change: function () {
-                    var test = this;
-                    var runBkgColorTests = function() {
-                        setTimeout(function() { //dely this assert for ie
-                            test.resume(function() {                  
-                                Y.Assert.areEqual(PAGE_BG_COLOR, SKIN.colorspace.block.container.background, 'fails: PAGE_BG_COLOR !== ...container.background');
-                                Y.Assert.areEqual('#aabbcc', SKIN.colorspace.block.container.background, 'wrong .page.background from block hex. see ticket #2533176 Y.Color');
-                                Y.Assert.areEqual('#aabbcc', getPropertyHex(Y.one('.block-page'), 'backgroundColor'), 'wrong .page.background from obj hex. see ticket #2533176 Y.Color');
-                                Y.Assert.areEqual('#fcfcfd', getPropertyHex(Y.one('.block-page-text-low'), 'color'), 'wrong .page.text.low hex');
-                                Y.Assert.areEqual('#06080a', getPropertyHex(Y.one('.block-page-text-normal'), 'color'), 'wrong .page.text.normal hex');
-                                Y.Assert.areEqual('#020303', getPropertyHex(Y.one('.block-page-text-high'), 'color'), 'wrong .page.text.high hex');
-                                
-                                Y.Assert.areEqual('#869eb6', getPropertyHex(Y.one('.block-page-rule-low'), 'borderTopColor'), 'wrong .page.rule.low hex');
-                                Y.Assert.areEqual('#c2cfdb', getPropertyHex(Y.one('.block-page-rule-high'), 'borderTopColor'), 'wrong .page.rule.high hex');
 
-                                Y.Assert.areEqual('#c2cfdb', getPropertyHex(Y.one('.block-page'), 'borderTopColor'), 'wrong page borderTopColor hex');
-                                Y.Assert.areEqual('#99adc2', getPropertyHex(Y.one('.block-page'), 'borderBottomColor'), 'wrong page borderBottomColor hex');
-                            });
-                        }, 2300);
-                    };
-                    runBkgColorTests();
-                    test.wait(3000);
-                }
-        }));
-        suite.add(new Y.Test.Case({
-
-                name: "Test changing slider values",
-
-                //---------------------------------------------
-                // Special instructions
-                //---------------------------------------------
-
-                _should: {
-                    ignore: {
-                        test_changing_radius_slider: (Y.UA.ie > 0) && (Y.UA.ie < 9) //ignore this test where radius are not supported
-                    }
-                },
-
-                //---------------------------------------------
-                // Setup and tear down
-                //---------------------------------------------
-
-                setUp : function () {
-                        sliderPaddingVert.set('value', 150);
-                        sliderPaddingHoriz.set('value', 150);
-                        sliderTextContrast.set('value', 20);
-                        sliderRadius.set('value', 130);
-                },
-
-                tearDown : function () {
-                },
-
-                //---------------------------------------------
-                // Tests
-                //---------------------------------------------
+            suite = new Y.Test.Suite("Test Key and Page");
 
 
-                test_changing_slider_values: function () {
-                    var test = this;
-                    var runSliderValueTests = function() {
-                        setTimeout(function() { //dely this assert for ie
-                            test.resume(function() {                  
-                                Y.Assert.isTrue(closeEnough(14, parseInt(Y.one('.yui3-datatable-cell').getStyle('paddingTop'))), 'padding top on datatable is wrong');
-                                Y.Assert.areEqual(150, sliderPaddingVert.get('value'), 'vert. padding slider is wrong');
-                                Y.Assert.areEqual('rgb(13, 2, 2)', Y.one('.yui3-tabview-panel').getComputedStyle('color'), 'wrong text color in tab panel');
-                            });
-                        }, 1000);
-                    };
-                    runSliderValueTests();
-                    test.wait(3000);
-                },
+            suite.add(new Y.Test.Case({
 
-                test_changing_radius_slider: function () {
-                    var test = this;
-                    var runSliderValueTests = function() {
-                        setTimeout(function() { //dely this assert for ie
-                            test.resume(function() {                  
-                                Y.Assert.areEqual('16px', Y.one('.yui3-tab-label').getStyle('borderTopRightRadius'), 'tab label border-radius not correct');
-                            });
-                        }, 1000);
-                    };
-                    runSliderValueTests();
-                    test.wait(3000);
-                }
-        }));
+                    name: "Test keycolor change",
 
-        suite.add(new Y.Test.Case({
+                    //---------------------------------------------
+                    // Special instructions
+                    //---------------------------------------------
 
-                name: "Test Custom Scheme Change",
+                    _should: {
+                        ignore: {
+                            test_radius: (Y.UA.ie > 0) && (Y.UA.ie < 9), //ignore this test where radius are not supported
+                            test_gradient: (Y.UA.ie > 0) && (Y.UA.ie < 10)
+                        }
+                    },
 
-                //---------------------------------------------
-                // Setup and tear down
-                //---------------------------------------------
+                    //---------------------------------------------
+                    // Setup and tear down
+                    //---------------------------------------------
 
-                setUp : function () {
-                    var schemeIconClickEvent = {
-                            clientX: 200,
+                    setUp : function () {
+                        // set the key color
+                        KEY_COLOR.block.highest.background = '#cc0000';
+
+                        // fake an event for opening the color picker
+                        var e = {
                             clientY: 100,
-                            target: Y.one('.bucket-normal'),
-                            currentTarget: Y.one('.bucket-normal')
-                            
-                        },
-                        radioClickEvent = {
-                            target: Y.one('.scheme-radios #custom')
+                            clientX: 100,
+                            target: Y.one('.bucket-highest'),
+                            currentTarget: Y.one('.bucket-highest')
                         };
+                        showPicker(e);
+                        Y.one('.picker-input').focus();
+                        Y.one('.yui3-console-filter').focus(); //triggers the blur of the picker-input
+                    },
 
-                    handleSchemeRadioClick(radioClickEvent);
-                    showSchemer(schemeIconClickEvent);
-                    dialSchemeHue.set('value', 180);
-                    sliderSchemeSat.set('value', 50);
-                    sliderSchemeLit.set('value', -40);
-                    setTimeout(updateColors, 100);
-                },
+                    tearDown : function () {
+                    },
 
-                tearDown : function () {
-                },
+                    //---------------------------------------------
+                    // Tests
+                    //---------------------------------------------
 
-                //---------------------------------------------
-                // Tests
-                //---------------------------------------------
-
-                test_change_scheme_values: function () {
-                    var test = this;
-                    var runBkgColorTests = function() {
-                        setTimeout(function() { //dely this assert for ie
-                            test.resume(function() {                  
-                                Y.Assert.areEqual('#008000', getPropertyHex(Y.one('.block-normal'), 'backgroundColor'), 'wrong .block.normal hex');
-                            });
-                        }, 1000);
-                    };
-                    runBkgColorTests();
-                    test.wait(3000);
-                }
-        }));
-
-        suite.add(new Y.Test.Case({
-
-                name: "Test QueryString",
-
-                //---------------------------------------------
-                // Setup and tear down
-                //---------------------------------------------
-
-                setUp : function () {
-                },
-
-                tearDown : function () {
-                },
-
-                //---------------------------------------------
-                // Tests
-                //---------------------------------------------
+                    testColors_from_KEY_COLOR_change: function () {
 
 
-                test_getting_querystring: function () {
-                    var test = this;
-                    var runQueryValueTests = function() {
-                        var query;
-                        handleCreateQueryString();
-                        query = Y.one('#inp-url-link').get('value');
-                        query = query.substring(query.indexOf('?'));
+                        var test = this,
+                            runLowTests = function() {
+                            setTimeout(function() { //dely this assert for ie
+                                test.resume(function() {
+                                    Y.Assert.areEqual(KEY_COLOR.block.highest.background, SKIN.colorspace.block.highest.background, 'KEY_COLOR.block.highest.background !== SKIN.colorspace.block.highest.background');
+                                    Y.Assert.areEqual('#f7d4d4', getPropertyHex(Y.one('.block-low'), 'backgroundColor'), 'wrong low.text.low hex');
+                                    Y.Assert.areEqual('#e57171', getPropertyHex(Y.one('.block-low-text-low'), 'color'), 'wrong low.text.low hex');
+                                    Y.Assert.areEqual('#5a1111', getPropertyHex(Y.one('.block-low-text-normal'), 'color'), 'wrong low.text.normal hex');
+                                    Y.Assert.areEqual('#1a0505', getPropertyHex(Y.one('.block-low-text-high'), 'color'), 'wrong low.text.high hex');
 
-                        Y.Assert.areEqual('?opt=mine,cc0000,aabbcc,3,3,40,2&h=0,-30,60&n=180,50,-40&l=0,-30,80&b=0,-30,90', query, 'querystring is wrong');
-                    };
-                    runQueryValueTests();
-                }
-        }));
+                                    Y.Assert.areEqual('#f2baba', getPropertyHex(Y.one('.block-low-rule-low'), 'borderTopColor'), 'wrong low.rule.low hex');
+                                    Y.Assert.areEqual('#fdf6f6', getPropertyHex(Y.one('.block-low-rule-high'), 'borderTopColor'), 'wrong low.rule.high hex');
+
+                                    Y.Assert.areEqual('#fdf6f6', getPropertyHex(Y.one('.block-low'), 'borderTopColor'), 'wrong block.low borderTopColor hex');
+                                    Y.Assert.areEqual('#f5c7c7', getPropertyHex(Y.one('.block-low'), 'borderBottomColor'), 'wrong block.low borderBottomColor hex');
+                                });
+                            }, 1000);
+                        };
+                        runLowTests();
+                        test.wait(3000);
+                    },
+                    test_radius: function () {
+                        Y.Assert.areEqual('4', getCSSProperty(Y.one('.yui3-tab-label'), 'borderTopLeftRadius'), 'wrong border radius');
+                    },
+                    test_padding: function () {
+                        Y.Assert.areEqual('6', getCSSProperty(Y.one('.yui3-tab-label'), 'paddingTop'), 'wrong padding top');
+                        Y.Assert.areEqual('6', getCSSProperty(Y.one('.yui3-tab-label'), 'paddingBottom'), 'wrong padding bottom');
+                        Y.Assert.areEqual('18', getCSSProperty(Y.one('.yui3-tab-label'), 'paddingLeft'), 'wrong padding left');
+                        Y.Assert.areEqual('18', getCSSProperty(Y.one('.yui3-tab-label'), 'paddingRight'), 'wrong padding right');
+                    },
+                    test_gradient: function () {
+                        Y.Assert.areEqual('rgba(254, 251, 251, ', getGradient(Y.one('.block-low .gradient')), 'wrong gradient');
+                    }
+
+            }));
+
+            suite.add(new Y.Test.Case({
+
+                    name: "Test page/container change",
+
+                    //---------------------------------------------
+                    // Setup and tear down
+                    //---------------------------------------------
+
+                    setUp : function () {
+                        // set the page/container color
+                        PAGE_BG_COLOR = "#aabbcc";
+
+                        // fake an event for opening the color picker
+                        var e = {
+                            clientY: 100,
+                            clientX: 100,
+                            target: Y.one('.bucket-page'),
+                            currentTarget: Y.one('.bucket-page')
+                        };
+                        showPicker(e);
+                        Y.one('.picker-input').focus();
+                        Y.one('.yui3-console-filter').focus(); //triggers the blur of the picker-input
+                    },
+
+                    tearDown : function () {
+                    },
+
+                    //---------------------------------------------
+                    // Tests
+                    //---------------------------------------------
 
 
-        //tests go here
+                    test_colors_from_page_color_change: function () {
+                        var test = this,
+                            runBkgColorTests = function() {
+                            setTimeout(function() { //dely this assert for ie
+                                test.resume(function() {
+                                    Y.Assert.areEqual(PAGE_BG_COLOR, SKIN.colorspace.block.container.background, 'fails: PAGE_BG_COLOR !== ...container.background');
+                                    Y.Assert.areEqual('#aabbcc', SKIN.colorspace.block.container.background, 'wrong .page.background from block hex. see ticket #2533176 Y.Color');
+                                    Y.Assert.areEqual('#aabbcc', getPropertyHex(Y.one('.block-page'), 'backgroundColor'), 'wrong .page.background from obj hex. see ticket #2533176 Y.Color');
+                                    Y.Assert.areEqual('#fcfcfd', getPropertyHex(Y.one('.block-page-text-low'), 'color'), 'wrong .page.text.low hex');
+                                    Y.Assert.areEqual('#06080a', getPropertyHex(Y.one('.block-page-text-normal'), 'color'), 'wrong .page.text.normal hex');
+                                    Y.Assert.areEqual('#020303', getPropertyHex(Y.one('.block-page-text-high'), 'color'), 'wrong .page.text.high hex');
 
-        //initialize the console
-        (new Y.Test.Console({
-            newestOnTop: false
-        })).render('#log');
+                                    Y.Assert.areEqual('#869eb6', getPropertyHex(Y.one('.block-page-rule-low'), 'borderTopColor'), 'wrong .page.rule.low hex');
+                                    Y.Assert.areEqual('#c2cfdb', getPropertyHex(Y.one('.block-page-rule-high'), 'borderTopColor'), 'wrong .page.rule.high hex');
+
+                                    Y.Assert.areEqual('#c2cfdb', getPropertyHex(Y.one('.block-page'), 'borderTopColor'), 'wrong page borderTopColor hex');
+                                    Y.Assert.areEqual('#99adc2', getPropertyHex(Y.one('.block-page'), 'borderBottomColor'), 'wrong page borderBottomColor hex');
+                                });
+                            }, 2300);
+                        };
+                        runBkgColorTests();
+                        test.wait(3000);
+                    }
+            }));
+            suite.add(new Y.Test.Case({
+
+                    name: "Test changing slider values",
+
+                    //---------------------------------------------
+                    // Special instructions
+                    //---------------------------------------------
+
+                    _should: {
+                        ignore: {
+                            test_changing_radius_slider: (Y.UA.ie > 0) && (Y.UA.ie < 9) //ignore this test where radius are not supported
+                        }
+                    },
+
+                    //---------------------------------------------
+                    // Setup and tear down
+                    //---------------------------------------------
+
+                    setUp : function () {
+                            sliderPaddingVert.set('value', 150);
+                            sliderPaddingHoriz.set('value', 150);
+                            sliderTextContrast.set('value', 20);
+                            sliderRadius.set('value', 130);
+                    },
+
+                    tearDown : function () {
+                    },
+
+                    //---------------------------------------------
+                    // Tests
+                    //---------------------------------------------
+
+
+                    test_changing_slider_values: function () {
+                        var test = this,
+                            runSliderValueTests = function() {
+                            setTimeout(function() { //dely this assert for ie
+                                test.resume(function() {
+                                    Y.Assert.isTrue(closeEnough(14, parseInt(Y.one('.yui3-datatable-cell').getStyle('paddingTop'))), 'padding top on datatable is wrong');
+                                    Y.Assert.areEqual(150, sliderPaddingVert.get('value'), 'vert. padding slider is wrong');
+                                    Y.Assert.areEqual('rgb(13, 2, 2)', Y.one('.yui3-tabview-panel').getComputedStyle('color'), 'wrong text color in tab panel');
+                                });
+                            }, 1000);
+                        };
+                        runSliderValueTests();
+                        test.wait(3000);
+                    },
+
+                    test_changing_radius_slider: function () {
+                        var test = this,
+                            runSliderValueTests = function() {
+                            setTimeout(function() { //dely this assert for ie
+                                test.resume(function() {
+                                    Y.Assert.areEqual('16px', Y.one('.yui3-tab-label').getStyle('borderTopRightRadius'), 'tab label border-radius not correct');
+                                });
+                            }, 1000);
+                        };
+                        runSliderValueTests();
+                        test.wait(3000);
+                    }
+            }));
+
+            suite.add(new Y.Test.Case({
+
+                    name: "Test Custom Scheme Change",
+
+                    //---------------------------------------------
+                    // Setup and tear down
+                    //---------------------------------------------
+
+                    setUp : function () {
+                        var schemeIconClickEvent = {
+                                clientX: 200,
+                                clientY: 100,
+                                target: Y.one('.bucket-normal'),
+                                currentTarget: Y.one('.bucket-normal')
+
+                            },
+                            radioClickEvent = {
+                                target: Y.one('.scheme-radios #custom')
+                            };
+
+                        handleSchemeRadioClick(radioClickEvent);
+                        showSchemer(schemeIconClickEvent);
+                        dialSchemeHue.set('value', 180);
+                        sliderSchemeSat.set('value', 50);
+                        sliderSchemeLit.set('value', -40);
+                        setTimeout(updateColors, 100);
+                    },
+
+                    tearDown : function () {
+                    },
+
+                    //---------------------------------------------
+                    // Tests
+                    //---------------------------------------------
+
+                    test_change_scheme_values: function () {
+                        var test = this,
+                            runBkgColorTests = function() {
+                            setTimeout(function() { //dely this assert for ie
+                                test.resume(function() {
+                                    Y.Assert.areEqual('#008000', getPropertyHex(Y.one('.block-normal'), 'backgroundColor'), 'wrong .block.normal hex');
+                                });
+                            }, 1000);
+                        };
+                        runBkgColorTests();
+                        test.wait(3000);
+                    }
+            }));
+
+            suite.add(new Y.Test.Case({
+
+                    name: "Test QueryString",
+
+                    //---------------------------------------------
+                    // Setup and tear down
+                    //---------------------------------------------
+
+                    setUp : function () {
+                    },
+
+                    tearDown : function () {
+                    },
+
+                    //---------------------------------------------
+                    // Tests
+                    //---------------------------------------------
+
+
+                    test_getting_querystring: function () {
+                        var runQueryValueTests = function() {
+                            var query;
+                            handleCreateQueryString();
+                            query = Y.one('#inp-url-link').get('value');
+                            query = query.substring(query.indexOf('?'));
+
+                            Y.Assert.areEqual('?opt=mine,cc0000,aabbcc,3,3,40,2&h=0,-30,60&n=180,50,-40&l=0,-30,80&b=0,-30,90', query, 'querystring is wrong');
+                        };
+                        runQueryValueTests();
+                    }
+            }));
+
+
+            //tests go here
+
+            //initialize the console
+            (new Y.Test.Console({
+                newestOnTop: false
+            })).render('#log');
 
 
 
 
-        //add the test cases and suites
-        Y.Test.Runner.add(suite);
-        //Y.Test.Runner.add(oTestSuite);
+            //add the test cases and suites
+            Y.Test.Runner.add(suite);
+            //Y.Test.Runner.add(oTestSuite);
 
-        //run all tests
-        Y.Test.Runner.run();
-    } // end of if the query string has "?test"
+            //run all tests
+            Y.Test.Runner.run();
+        } // end of if the query string has "?test"
+    };
+
+    runUnitTests();
 
     Y.one('.yui3-loading').removeClass('yui3-loading'); // let body be visible
 
@@ -1563,122 +1646,126 @@ function (Y) {
 
         ////////// read a query string and set all things ///////////
         // using Y.QueryString
-    if (document.URL.indexOf('?opt=') > -1 ) {
-        var theURL = document.URL,
-            theQuery = theURL.substring(theURL.indexOf('.html?') + 6),
-            qData,
-            dataIsValid = true,
-            validationMsg,
-            myProp;
-            
-        qData = Y.QueryString.parse(theQuery);
+    setSkinFromQuery = function () {
+        if (document.URL.indexOf('?opt=') > -1 ) {
+            var theURL = document.URL,
+                theQuery = theURL.substring(theURL.indexOf('.html?') + 6),
+                qData,
+                dataIsValid = true,
+                validationMsg,
+                myProp,
+                myValid,
+                i;
 
-        for (myProp in qData) {
-    
+            qData = Y.QueryString.parse(theQuery);
 
-            if (qData.hasOwnProperty(myProp)) {
-                qData[myProp] = qData[myProp].split(',');
-            } 
-        }
-
-        // data validation for query string contents
-        if(Y.Lang.isString(qData.opt[0]) === "false") {
-            validationMsg = " the skin name is not a string.";
-            dataIsValid = false;
-        }else if(qData.opt[1].length !== 6) {
-            validationMsg = " the Master color is not formatted as a hex value.";
-            dataIsValid = false;
-        }else if(qData.opt[2].length !== 6) {
+            for (myProp in qData) {
 
 
-
-            validationMsg = " the background color is not formatted as a hex value.";
-            dataIsValid = false;
-        }else{
-            var i;
-            for (i = 3; i < qData.opt.length; i+=1){
-                qData.opt[i] = Y.Number.parse(qData.opt[i]);
-                if(Y.Lang.isNumber(qData.opt[i]) === false){
-                    validationMsg = " one of the slider values is not a number.";
-                    dataIsValid = false;
-                    break;
+                if (qData.hasOwnProperty(myProp)) {
+                    qData[myProp] = qData[myProp].split(',');
                 }
             }
-            
-            var myValid = function(k){
-                if(dataIsValid){
-                    for (i = 0; i < qData[k].length; i+=1){
-                        qData[k][i] = Y.Number.parse(qData[k][i]);
-                        if(Y.Lang.isNumber(qData[k][i]) === false){
-                            validationMsg = " a hue, sat, or lit value is not a number.";
-                            dataIsValid = false;
-                            break;
-                        }
-                        if(i === 0) {
-                            if(qData[k][i] < -360){
-                                validationMsg = " a hue value is < -360.";
-                                dataIsValid = false;
-                                break;
-                            }
-                            if(qData[k][i] > 360){
-                                validationMsg = " a hue value is > 360.";
-                                dataIsValid = false;
-                                break;
-                            }
 
-                        } else {
-                            if(qData[k][i] < -100){
-                                validationMsg = " a sat, or lit value is < -100.";
+            // data validation for query string contents
+            if(Y.Lang.isString(qData.opt[0]) === "false") {
+                validationMsg = " the skin name is not a string.";
+                dataIsValid = false;
+            }else if(qData.opt[1].length !== 6) {
+                validationMsg = " the Master color is not formatted as a hex value.";
+                dataIsValid = false;
+            }else if(qData.opt[2].length !== 6) {
+
+
+
+                validationMsg = " the background color is not formatted as a hex value.";
+                dataIsValid = false;
+            }else{
+
+                for (i = 3; i < qData.opt.length; i+=1){
+                    qData.opt[i] = Y.Number.parse(qData.opt[i]);
+                    if(Y.Lang.isNumber(qData.opt[i]) === false){
+                        validationMsg = " one of the slider values is not a number.";
+                        dataIsValid = false;
+                        break;
+                    }
+                }
+
+                myValid = function(k){
+                    if(dataIsValid){
+                        for (i = 0; i < qData[k].length; i+=1){
+                            qData[k][i] = Y.Number.parse(qData[k][i]);
+                            if(Y.Lang.isNumber(qData[k][i]) === false){
+                                validationMsg = " a hue, sat, or lit value is not a number.";
                                 dataIsValid = false;
                                 break;
                             }
-                            if(qData[k][i] > 100){
-                                validationMsg = " a sat, or lit value is > 100.";
-                                dataIsValid = false;
-                                break;
+                            if(i === 0) {
+                                if(qData[k][i] < -360){
+                                    validationMsg = " a hue value is < -360.";
+                                    dataIsValid = false;
+                                    break;
+                                }
+                                if(qData[k][i] > 360){
+                                    validationMsg = " a hue value is > 360.";
+                                    dataIsValid = false;
+                                    break;
+                                }
+
+                            } else {
+                                if(qData[k][i] < -100){
+                                    validationMsg = " a sat, or lit value is < -100.";
+                                    dataIsValid = false;
+                                    break;
+                                }
+                                if(qData[k][i] > 100){
+                                    validationMsg = " a sat, or lit value is > 100.";
+                                    dataIsValid = false;
+                                    break;
+                                }
                             }
                         }
                     }
-                }
-            };
-            myValid('h');
-            myValid('n');
-            myValid('l');
-            myValid('b');
+                };
+                myValid('h');
+                myValid('n');
+                myValid('l');
+                myValid('b');
+            }
+            if(dataIsValid === false) {
+                alert("There is a problem with the querystring in the URL: " + validationMsg + "\n We'll just use the default skin.");
+            }
+
+            // assign values to constants and options
+            if(dataIsValid) {
+                SCHEME_CUSTOM.high = {h:qData.h[0], s:qData.h[1], l:qData.h[2]}; //querySkin.high;
+                SCHEME_CUSTOM.normal = {h:qData.n[0], s:qData.n[1], l:qData.n[2]}; //querySkin.normal;
+                SCHEME_CUSTOM.low = {h:qData.l[0], s:qData.l[1], l:qData.l[2]}; //querySkin.low;
+                SCHEME_CUSTOM.background = {h:qData.b[0], s:qData.b[1], l:qData.b[2]}; //querySkin.background;
+
+                SKIN.options.name = qData.opt[0]; //querySkin.meta[0]; //name;
+                KEY_COLOR.block.highest.background = '#' + qData.opt[1]; //querySkin.meta[1]; //.master;     "meta":["myDark","#ff8833M","P#ffff88",1.10,1.20,1.30,1.40]}
+                SKIN.options.keycolor = '#' + qData.opt[1]; //querySkin.meta[1]; //.master;
+                KEY_COLOR.background = '#' + qData.opt[2]; //querySkin.meta[2]; //.page;
+                PAGE_BG_COLOR = '#' + qData.opt[2]; //querySkin.meta[2]; //.page;
+
+                // Set value on sliders directly, then they update the options such as
+                // SKIN.options.paddingHoriz by the sliders valueChange function
+                sliderPaddingHoriz.set('value', qData.opt[3] * 50);
+                sliderPaddingVert.set('value', qData.opt[4] * 50);
+                sliderRadius.set('value', qData.opt[5]);
+                sliderTextContrast.set('value', qData.opt[6] * 10);
+
+                Y.one('.inp-skin-name').set('value', qData.opt[0]);
+                SCHEME_NAME = 'custom';
+                Y.all('.scheme-radios input').set('checked', '');
+                Y.one('.scheme-radios #custom').set('checked', "checked");
+                updateBodySkinClass();
+            }
         }
-        if(dataIsValid === false) {
-            alert("There is a problem with the querystring in the URL: " + validationMsg + "\n We'll just use the default skin.");
-        }
+    };
 
-        // assign values to constants and options
-        if(dataIsValid) {
-            SCHEME_CUSTOM.high = {h:qData.h[0], s:qData.h[1], l:qData.h[2]}; //querySkin.high;  
-            SCHEME_CUSTOM.normal = {h:qData.n[0], s:qData.n[1], l:qData.n[2]}; //querySkin.normal;  
-            SCHEME_CUSTOM.low = {h:qData.l[0], s:qData.l[1], l:qData.l[2]}; //querySkin.low;  
-            SCHEME_CUSTOM.background = {h:qData.b[0], s:qData.b[1], l:qData.b[2]}; //querySkin.background;
-
-            SKIN.options.name = qData.opt[0]; //querySkin.meta[0]; //name;  
-            KEY_COLOR.block.highest.background = '#' + qData.opt[1]; //querySkin.meta[1]; //.master;     "meta":["myDark","#ff8833M","P#ffff88",1.10,1.20,1.30,1.40]}
-            SKIN.options.keycolor = '#' + qData.opt[1]; //querySkin.meta[1]; //.master;
-            KEY_COLOR.background = '#' + qData.opt[2]; //querySkin.meta[2]; //.page;
-            PAGE_BG_COLOR = '#' + qData.opt[2]; //querySkin.meta[2]; //.page;
-
-            // Set value on sliders directly, then they update the options such as 
-            // SKIN.options.paddingHoriz by the sliders valueChange function
-            sliderPaddingHoriz.set('value', qData.opt[3] * 50);
-            sliderPaddingVert.set('value', qData.opt[4] * 50);
-            sliderRadius.set('value', qData.opt[5]);
-            sliderTextContrast.set('value', qData.opt[6] * 10); 
-
-            Y.one('.inp-skin-name').set('value', qData.opt[0]);
-            SCHEME_NAME = 'custom';
-            Y.all('.scheme-radios input').set('checked', '');
-            Y.one('.scheme-radios #custom').set('checked', "checked");
-            updateBodySkinClass();
-        }
-    }
-
-    var handleCreateQueryString = function() {
+    handleCreateQueryString = function() {
         // create URL with querystring for skin definition
         var strUnesc,
             theBaseURL,
