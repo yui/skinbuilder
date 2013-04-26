@@ -11,8 +11,8 @@ Y.Skin.renderers.form = function (skin) {
         inputRadiusRounded: skin.radius(3),  // 40% of the global radius in space.radius (space.js)
         inputGroupFirstRadius: skin.radius(0.4, 0.4, 0, 0),
         inputGroupLastRadius: skin.radius(0, 0, 0.4, 0.4),
-        inputBorder: space.block.container.rule.low, 
-        inputBorderFocus: space.block.highest.background, 
+        inputBorder: space.block.container.rule.low,
+        inputBorderFocus: space.block.highest.background,
         inputShadowInset: space.block.container.border.low,
         label: space.block.container.text.normal,
         inlineHelpText: space.block.container.text.low,

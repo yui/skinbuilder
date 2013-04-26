@@ -1,4 +1,4 @@
-YUI.add('skin', function(Y, NAME) {
+YUI.add('skin', function(Y) {
 
 // TODO:
 // - Use Y.Template for replaceVars abstraction?
@@ -64,7 +64,7 @@ Skin.prototype = {
 
             this._space = colorspace;
         }
-        
+
 
         if (colorspace.scheme !== this.options.scheme) {
             colorspace.options.scheme = this.options.scheme;

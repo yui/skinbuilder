@@ -3,7 +3,7 @@ YUI.add('skin-list', function (Y) {
 Y.Skin.renderers.list = function (skin) {
     var space = skin.colorspace;
     return {
-    
+
 
 
         menuItemPadding: skin.padding(0.35, 1.4),
@@ -13,7 +13,7 @@ Y.Skin.renderers.list = function (skin) {
         menuBackground: space.background,
         menuText: space.text.normal,
         menuTextDisabled: space.text.low,
-        menuHoverBackground: space.hover.background, 
+        menuHoverBackground: space.hover.background,
         menuHoverText: space.hover.text.normal,
         menuBorder: space.border.low,
         menuSelectedBackground: space.block.highest.background,

@@ -1,6 +1,6 @@
 YUI.add('skin-space', function (Y) {
 
-var Skin = Y.namespace('Skin');
+//var Skin = Y.namespace('Skin');
 
 // This is the global JSON color space from which all color values are taken.
 // The values seen below are defaults and are over-ridden each time the
@@ -8,7 +8,7 @@ var Skin = Y.namespace('Skin');
 
 Y.Skin.renderers.space = function(skin) {
     var space = skin.colorspace;
-    
+
     return {
 
         feedbackRadius: skin.radius(0.4), // Same as button

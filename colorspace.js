@@ -9,7 +9,7 @@ Y.ColorSpace.schemes = {};
 Y.ColorSpace.prototype = {
     defaults: {
         container: '#fff',
-        textContrast: 1.5    
+        textContrast: 1.5
     },
 
     constructor: Y.ColorSpace,
@@ -63,12 +63,16 @@ Y.ColorSpace.prototype = {
         "background:    -moz-linear-gradient(top, " + colorComboStr + ");\n"+     //  \/* W3C *\/
 
 
-        "    background:  -webkit-gradient(linear, left top, left bottom, color-stop(0%, " + startColor + "), color-stop(49%, " + midColor + "), color-stop(51%, " + midColor + "), color-stop(100%," + endColor + "));\n"+    //\/* Chrome,Safari4+ *\/
+        "    background:  -webkit-gradient(linear, left top, left bottom, color-stop(0%, " + startColor +
+        "), color-stop(49%, " + midColor + "), color-stop(51%, " + midColor +
+        "), color-stop(100%," + endColor + "));\n"+    //\/* Chrome,Safari4+ *\/
+
         "    background: -webkit-linear-gradient(top, " + colorComboStr + ");\n"+    // \/* Chrome10+,Safari5.1+ *\/
         "    background:      -o-linear-gradient(top, " + colorComboStr + ");\n"+         // \/* Opera 11.10+ *\/
         "    background:     -ms-linear-gradient(top, " + colorComboStr + ");\n"+       // \/* IE10+ *\/
         "    background:   linear-gradient(to bottom, " + colorComboStr + ");\n"+     //\/* W3C *\/
-        "    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#33ffffff', endColorstr='#1a000000',GradientType=0 )"+    // \/* IE6-8 *\/
+        "    filter: progid:DXImageTransform.Microsoft.gradient("+
+        " startColorstr='#33ffffff', endColorstr='#1a000000',GradientType=0 )"+    // \/* IE6-8 *\/
         // NOTICE NO ENDING ";" on last one. it's in the template after the {{}}
 
         "";
@@ -165,23 +169,23 @@ Y.ColorSpace.prototype = {
         // if over by big enough amount, then reverse to negative
         if (newLit > (100 + overBy)) {
             if (sourceLit > 50) {
-                // the newAdjust will flip the sign of the  
+                // the newAdjust will flip the sign of the
                 // requested adjust (flip to a darker color)
-                newAdjust = -adjust;                 
-            } 
+                newAdjust = -adjust;
+            }
         }
 
         // case of adjust < 0
         if (newLit < 0 - overBy) {
             if (sourceLit < 50) {
-                // the newAdjust will flip the sign of the 
+                // the newAdjust will flip the sign of the
                 // requested adjust (flip to a lighter color)
-                newAdjust = -adjust;  
+                newAdjust = -adjust;
             }
         }
         return newAdjust;
     },
-        
+
     makeHoverBlock: function(block, darkBG) {
         block.hover = {};
 
@@ -212,7 +216,8 @@ Y.ColorSpace.prototype = {
 
     render: function(color, containerColor) {
         var block,
-            colorspace;
+            colorspace,
+            adjustBy;
 
         this.options.keycolor = color;
 
@@ -233,21 +238,22 @@ Y.ColorSpace.prototype = {
             }
         };
 
-        // colorspace.background is not a block, so we neeed to set its foreground colors and hover colors (FIXME: colorspace.background should be a block)
+        // colorspace.background is not a block, so we neeed to set its 
+        // foreground colors and hover colors (FIXME: colorspace.background should be a block)
         // adjustColor*S* sets the colors of foreground things like text, rule, border
         this.adjustColors(colorspace); // this is only creating foreground colors for colorspace.background
-        // creates the main blocks color for HOVER (slightly darker/lighter), then calls adjustColor*S* 
+        // creates the main blocks color for HOVER (slightly darker/lighter), then calls adjustColor*S*
         this.makeHoverBlock(colorspace); // this is only creating hover bkg and foreground colors for colorspace.background
 
         // generate forground and hover object colors for blocks
         for (block in this._adjust) {
             if (this._adjust.hasOwnProperty(block)) {
-                var adjustBy = this._adjust[block];
+                adjustBy = this._adjust[block];
 
                 // case of "highest (keycolor)" and "container" (page bkg)
-                // do no adjusting, because Y.Color.getSimilarBrightness adjustColor() 
+                // do no adjusting, because Y.Color.getSimilarBrightness adjustColor()
                 // would do some adjustment even with h:0, s:0, l:0.
-                // Only do some adjusting if an adjustBy.* is non-zero 
+                // Only do some adjusting if an adjustBy.* is non-zero
                 if(  (adjustBy.h !== 0) || (adjustBy.s !== 0) || (adjustBy.l !== 0)  ){
                     colorspace.block[block] = {
                         background: this.adjustColor(this._adjust[block].color || color, this._adjust[block], 'percent')
