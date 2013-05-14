@@ -127,9 +127,6 @@ body {
     font-size: 70%;
     margin-left: 2em;
 }
-#checkboxes-yuicss-group {
-    /*margin-left: -5000px;*/
-}
 #tabview-controls .yui3-tabview-panel{
     background-color: transparent;
     min-height: 166px;
@@ -449,7 +446,30 @@ h1 {
     *zoom: 1;    
     width: 17em;
 }
+/* special case for only showing kimono items */
+.items-kimono #checkboxes-yui-widgets-group {
+    display: none;
+}
+.items-kimono #checkboxes-yuicss-group {
+    display: block;
+}
+.items-kimono .link-skin-builder-for-kimono {
+    display: none;
+}
+.items-kimono .link-skin-builder-for-yui3 {
+    display: block;
+}
 
+/* items tab default show/hide objects */
+#checkboxes-yuicss-group {
+    display: none;
+}
+.link-skin-builder-for-yui3 {
+    display: none;
+}
+.link-skin-builder-for-kimono {
+    display: block;
+}
 
 
 .rule .label, .block .label-block {
@@ -774,6 +794,7 @@ h1 {
     text-decoration: underline;
 }
 
+/***** skin preview of YUICSS kimono *****/
 
 
 /***** scrollview horizontal widget ******************************/
@@ -797,8 +818,6 @@ h1 {
 }
 
 /*****  this is only to layout calendar display on UI tool page ****/
-#dial {
-}
 /*************************  CSS for Overlay and Panel placement in UI of tool *************/
 #anchorOverlay {
     margin-top: 0em;

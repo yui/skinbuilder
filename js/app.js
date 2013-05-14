@@ -9,25 +9,25 @@ YUI({
     filter: 'raw',
     modules: {
         'skin'             : 'js/skin.js',
-        'colorspace'       : 'colorspace.js',
-        'colorspace-schemes'       : 'colorspace-schemes.js',
-        'skin-autocomplete': 'skin-autocomplete.js',
-        'skin-button'      : 'skin-button.js',
-        'skin-calendar'    : 'skin-calendar.js',
-        'skin-datatable'   : 'skin-datatable.js',
-        'skin-dial'        : 'skin-dial.js',
-        'skin-node-menunav': 'skin-node-menunav.js',
-        'skin-overlay'     : 'skin-overlay.js',
-        'skin-panel'       : 'skin-panel.js',
-        'skin-scrollview'  : 'skin-scrollview.js',
-        'skin-slider'      : 'skin-slider.js',
-        'skin-space'       : 'skin-space.js',
-        'skin-tabview'     : 'skin-tabview.js',
+        'colorspace'       : 'js/colorspace.js',
+        'colorspace-schemes'       : 'js/colorspace-schemes.js',
+        'skin-autocomplete': 'js/skin-autocomplete.js',
+        'skin-button'      : 'js/skin-button.js',
+        'skin-calendar'    : 'js/skin-calendar.js',
+        'skin-datatable'   : 'js/skin-datatable.js',
+        'skin-dial'        : 'js/skin-dial.js',
+        'skin-node-menunav': 'js/skin-node-menunav.js',
+        'skin-overlay'     : 'js/skin-overlay.js',
+        'skin-panel'       : 'js/skin-panel.js',
+        'skin-scrollview'  : 'js/skin-scrollview.js',
+        'skin-slider'      : 'js/skin-slider.js',
+        'skin-space'       : 'js/skin-space.js',
+        'skin-tabview'     : 'js/skin-tabview.js',
 
         // begin YUICSS
-        'skin-form'        : 'skin-form.js',
-        'skin-table'       : 'skin-table.js',
-        'skin-list'        : 'skin-list.js',
+        'skin-form'        : 'js/skin-form.js',
+        'skin-table'       : 'js/skin-table.js',
+        'skin-list'        : 'js/skin-list.js',
 
         'skinner': {
             use: [
@@ -243,7 +243,8 @@ function (Y) {
         initPreviewAndModulesCheckboxes,
         handleCreateQueryString,
         runUnitTests,
-        setSkinFromQuery;
+        setSkinFromQuery,
+        isKimono = false;
 
 
 
@@ -1677,6 +1678,32 @@ function (Y) {
         ////////// read a query string and set all things ///////////
         // using Y.QueryString
     setSkinFromQuery = function () {
+        var i,
+            tUsed = TEMPLATES_USED;
+        if (document.URL.indexOf('mode=kimono') > -1 ) {
+            isKimono = true;
+            // change prefix for classnames in CSS templates
+            //SKIN.options.prefix = '.k-';
+
+            // change the contents of the Items tab to only show Kimono
+            // and a means to switch to YUI mode, (reload page link/href)
+            Y.one('#tab-modules').addClass('items-kimono');
+
+            // change the values in TEMPLATES_USED array
+            // to exclude YUI widgets and include Kimono modules
+            for (i = 0; i < tUsed.length; i+=1 ) {
+                if( tUsed[i].type === 'widget') { // is a YUI widget
+                    tUsed[i].display = false;
+                } else if (tUsed[i].type === 'yuicss') {
+                    tUsed[i].display = true;
+                }
+            }
+
+            // In Skin Preview, only show kimono modules
+            initPreviewAndModulesCheckboxes();
+        } 
+
+
         if (document.URL.indexOf('?opt=') > -1 ) {
             var theURL = document.URL,
                 theQuery = theURL.substring(theURL.indexOf('.html?') + 6),
@@ -1794,6 +1821,7 @@ function (Y) {
             }
         }
     };
+    setSkinFromQuery();
 
     handleCreateQueryString = function() {
         // create URL with querystring for skin definition
@@ -1829,6 +1857,8 @@ function (Y) {
 
 
     };
+
+
 
     // listener for get URL button /////////////
     Y.one('#btn-get-url').on('click', handleCreateQueryString);

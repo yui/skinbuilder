@@ -28,6 +28,7 @@ Skin.prototype = {
     constructor: Skin,
 
     defaultPrefix: '.yui3-',
+    defaultKimonoPrefix: '.k-',
     defaultSkinPrefix: 'skin-',
     defaultBorderRadius: 10,
     defaultTextContrast: 1,
@@ -37,6 +38,10 @@ Skin.prototype = {
 
         if (!('prefix' in options)) {
             options.prefix = this.defaultPrefix;
+        }
+
+        if (!('kimonoPrefix' in options)) {
+            options.kimonoPrefix = this.defaultKimonoPrefix;
         }
 
         if (!('skinPrefix' in options)) {
@@ -190,6 +195,10 @@ Skin.prototype = {
 
         if (typeof data.prefix === 'undefined') {
             data.prefix = options.prefix;
+        }
+
+        if (typeof data.kimonoPrefix === 'undefined') {
+            data.kimonoPrefix = options.kimonoPrefix;
         }
 
         return this._replaceVars(template, data);
