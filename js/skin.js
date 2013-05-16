@@ -28,7 +28,7 @@ Skin.prototype = {
     constructor: Skin,
 
     defaultPrefix: '.yui3-',
-    defaultKimonoPrefix: '.k-',
+    defaultYuiCssPrefix: '.k-',
     defaultSkinPrefix: 'skin-',
     defaultBorderRadius: 10,
     defaultTextContrast: 1,
@@ -41,7 +41,7 @@ Skin.prototype = {
         }
 
         if (!('kimonoPrefix' in options)) {
-            options.kimonoPrefix = this.defaultKimonoPrefix;
+            options.kimonoPrefix = this.defaultYuiCssPrefix;
         }
 
         if (!('skinPrefix' in options)) {

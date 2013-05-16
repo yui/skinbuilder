@@ -210,7 +210,13 @@ body {
     padding: 0.3em;
 }
 #tab-code .inp-skin-name {
-    width: 5em;
+    width: 4em;
+}
+#tab-code .inp-skin-prefix {
+    width: 3em;
+    text-align: right;
+    border: none;
+    background-color: transparent;
 }
 #tab-code .skin-name-label {
     margin-left: 5px;

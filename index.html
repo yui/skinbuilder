@@ -3030,22 +3030,27 @@ odd - #edf5ff (light blue)
                         <!-- lis added dynamically at runtime. see app.js initPreviewAndModulesCheckboxes() -->
                     </ul>
                 </div>
-                <div class="link-skin-builder-for-yui3">Go to <a href="index.html">Skin Builder for YUI Widgets</a></div>
                 <div id="checkboxes-yuicss-group"> <!-- just for hiding until ready -->
                     <h4 class="preview-label">Kimono<a class="show-hide-all btn-yuicss">Remove All</a></h4>
                     <ul id="checkboxes-yuicss">
                         <!-- lis added dynamically at runtime. see app.js initPreviewAndModulesCheckboxes() -->
                     </ul>
                 </div>
+                <div class="link-skin-builder-for-yui3">Go to <a href="index.html">Skin Builder for YUI Widgets</a></div>
                 <div class="link-skin-builder-for-kimono">Go to <a href="index.html?mode=kimono">Skin Builder for Kimono</a></div>
             </div>
             <div id="tab-code">
                 <div class="yui3-g" id="layout">
                     <div class="yui3-u-1-2" id="out-style">
                         <div class="contents">
-                            <label class="tab-code-textarea-label">Copy CSS for selected Widgets/Modules</label>
+                            <label class="tab-code-textarea-label">
+                                Copy CSS for selected Widgets/Modules
+                            </label>
                             <div class="help help-code">?</div>
-                            <label class="hint skin-name-label" title="Change the Skin classname. (you'll need to change the class in the body tag to match)">.yui3-skin-</label><input class="inp-skin-name" value="mine" title="Change the Skin classname. (you'll need to change the class in the body tag to match)"/>
+                            <label class="hint skin-name-label" title="Change the Skin classname. (you'll need to change the class in the body tag to match)">
+                                <input class="inp-skin-prefix" value=".yui3-" title="Change the Skin classname prefix. You'll need to change the classnames in your markup to match. Skin Builder preview may give up without '.yui3-', but you'll be able to copy CSS from below."/>skin-
+                            </label>
+                            <input class="inp-skin-name" value="mine" title="Change the Skin classname. (you'll need to change the class in the body tag to match)"/>
                             <textarea id="textarea-style"></textarea>
                         </div>
                     </div>

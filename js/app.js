@@ -149,17 +149,17 @@ function (Y) {
                 // and use the nodelist of checkboxes to find the index back to this array for updating.
                 {
                     name: 'form',
-                    display: true,
+                    display: false,
                     type: 'yuicss'
                 },
                 {
                     name: 'table',
-                    display: true,
+                    display: false,
                     type: 'yuicss'
                 },
                 {
                     name: 'list',
-                    display: true,
+                    display: false,
                     type: 'yuicss'
                 }
             ],
@@ -1163,10 +1163,11 @@ function (Y) {
     });
 
 
+    // sets the skin name and class prefix that will be replaced in all the
+    // stylesheet templates
     updateBodySkinClass = function() {
         var body = Y.one('body');
-        // sets the skin name and class prefix that will be replaced in all the
-        // stylesheet templates
+        SKIN.options.prefix = Y.Escape.html(Y.one('.inp-skin-prefix').get('value'));
         SKIN.options.name = Y.Escape.html(Y.one('.inp-skin-name').get('value'));
         body.setAttribute('class', '');
         body.addClass(SKIN.options.prefix.substring(1) + SKIN.options.skinPrefix + SKIN.options.name);
@@ -1177,6 +1178,9 @@ function (Y) {
         updateColors();
     };
     Y.one('.inp-skin-name').on('keyup', function() {
+        updateBodySkinClass();
+    });
+    Y.one('.inp-skin-prefix').on('keyup', function() {
         updateBodySkinClass();
     });
 
@@ -1688,7 +1692,7 @@ function (Y) {
             // change the contents of the Items tab to only show Kimono
             // and a means to switch to YUI mode, (reload page link/href)
             Y.one('#tab-modules').addClass('items-kimono');
-
+            Y.one('#tab-code .inp-skin-prefix').set('value', SKIN.defaultYuiCssPrefix);
             // change the values in TEMPLATES_USED array
             // to exclude YUI widgets and include Kimono modules
             for (i = 0; i < tUsed.length; i+=1 ) {
@@ -1701,7 +1705,8 @@ function (Y) {
 
             // In Skin Preview, only show kimono modules
             initPreviewAndModulesCheckboxes();
-        } 
+            updateColors();
+        }
 
 
         if (document.URL.indexOf('?opt=') > -1 ) {
