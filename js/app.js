@@ -28,6 +28,7 @@ YUI({
         'skin-form'        : 'js/skin-form.js',
         'skin-table'       : 'js/skin-table.js',
         'skin-list'        : 'js/skin-list.js',
+        'skin-buttons'     : 'js/skin-buttons.js',
 
         'skinner': {
             use: [
@@ -35,7 +36,7 @@ YUI({
                 'skin-calendar', 'skin-datatable', 'skin-dial',
                 'skin-node-menunav', 'skin-overlay', 'skin-panel',
                 'skin-scrollview', 'skin-slider', 'skin-tabview',
-                'skin-form', 'skin-table', 'skin-list'
+                'skin-form', 'skin-table', 'skin-list', 'skin-buttons'
             ]
         }
     }
@@ -159,6 +160,11 @@ function (Y) {
                 },
                 {
                     name: 'list',
+                    display: false,
+                    type: 'yuicss'
+                },
+                {
+                    name: 'buttons',
                     display: false,
                     type: 'yuicss'
                 }
