@@ -28,7 +28,7 @@ Skin.prototype = {
     constructor: Skin,
 
     defaultPrefix: '.yui3-',
-    defaultYuiCssPrefix: '.k-',
+    defaultYuiCssPrefix: '.pure-',
     defaultSkinPrefix: 'skin-',
     defaultBorderRadius: 10,
     defaultTextContrast: 1,
@@ -40,8 +40,8 @@ Skin.prototype = {
             options.prefix = this.defaultPrefix;
         }
 
-        if (!('kimonoPrefix' in options)) {
-            options.kimonoPrefix = this.defaultYuiCssPrefix;
+        if (!('yuiCssPrefix' in options)) {
+            options.yuiCssPrefix = this.defaultYuiCssPrefix;
         }
 
         if (!('skinPrefix' in options)) {
@@ -197,8 +197,8 @@ Skin.prototype = {
             data.prefix = options.prefix;
         }
 
-        if (typeof data.kimonoPrefix === 'undefined') {
-            data.kimonoPrefix = options.kimonoPrefix;
+        if (typeof data.yuiCssPrefix === 'undefined') {
+            data.yuiCssPrefix = options.yuiCssPrefix;
         }
 
         return this._replaceVars(template, data);

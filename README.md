@@ -20,4 +20,4 @@ Please submit all issues and feature requests through Github. It makes it easy t
 - Provide a name for your skin that will stamp the class names in the CSS
 - Outputs CSS
 - Get Link that contains query string with all values needed to reproduce current skin
-- Skin Forms, Tables, and Menus from Kimono
+- Skin Forms, Tables, Menus, and Buttons from Pure

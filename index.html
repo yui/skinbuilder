@@ -1669,14 +1669,14 @@ Forms Core
  * Corrects margin displayed oddly in IE 6/7.
  */
 
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form {
     margin: 0;
 }
 
 /* Define consistent border, margin, and padding.*/
  
 
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form fieldset {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form fieldset {
     border: 1px solid #c0c0c0;
     margin: 0 2px;
     padding: 0.35em 0.625em 0.75em;
@@ -1688,7 +1688,7 @@ Forms Core
  * 3. Corrects alignment displayed oddly in IE 6/7.
  */
 
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form legend {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form legend {
     border: 0; /* 1 */
     padding: 0;
     white-space: normal; /* 2 */
@@ -1702,10 +1702,10 @@ Forms Core
  * 3. Improves appearance and consistency in all browsers.
  */
 
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form button,
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form input,
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form select,
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form textarea {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form button,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form select,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form textarea {
     font-size: 100%; /* 1 */
     margin: 0; /* 2 */
     vertical-align: baseline; /* 3 */
@@ -1717,8 +1717,8 @@ Forms Core
  * the UA stylesheet.
  */
 
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form button,
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form input {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form button,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input {
     line-height: normal;
 }
 
@@ -1732,10 +1732,10 @@ Forms Core
  *    Known issue: inner spacing remains in IE 6.
  */
 
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form button,
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form input[type="button"], /* 1 */
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form input[type="reset"],
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form input[type="submit"] {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form button,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="button"], /* 1 */
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="reset"],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="submit"] {
     -webkit-appearance: button; /* 2 */
     cursor: pointer; /* 3 */
     *overflow: visible;  /* 4 */
@@ -1745,8 +1745,8 @@ Forms Core
  * Re-set default cursor for disabled elements.
  */
 
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form button[disabled],
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form input[disabled] {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form button[disabled],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[disabled] {
     cursor: default;
 }
 
@@ -1757,8 +1757,8 @@ Forms Core
  *    Known issue: excess padding remains in IE 6.
  */
 
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form input[type="checkbox"],
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form input[type="radio"] {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="checkbox"],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="radio"] {
     box-sizing: border-box; /* 1 */
     padding: 0; /* 2 */
     *height: 13px; /* 3 */
@@ -1771,7 +1771,7 @@ Forms Core
  *    (include `-moz` to future-proof).
  */
 
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form input[type="search"] {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="search"] {
     -webkit-appearance: textfield; /* 1 */
     -moz-box-sizing: content-box;
     -webkit-box-sizing: content-box; /* 2 */
@@ -1783,8 +1783,8 @@ Forms Core
  * on OS X.
  */
 
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form input[type="search"]::-webkit-search-cancel-button,
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form input[type="search"]::-webkit-search-decoration {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="search"]::-webkit-search-cancel-button,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="search"]::-webkit-search-decoration {
     -webkit-appearance: none;
 }
 
@@ -1792,8 +1792,8 @@ Forms Core
  * Removes inner padding and border in Firefox 3+.
  */
 
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form button::-moz-focus-inner,
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form input::-moz-focus-inner {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form button::-moz-focus-inner,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input::-moz-focus-inner {
     border: 0;
     padding: 0;
 }
@@ -1803,7 +1803,7 @@ Forms Core
  * 2. Improves readability and alignment in all browsers.
  */
 
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form textarea {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form textarea {
     overflow: auto; /* 1 */
     vertical-align: top; /* 2 */
 }
@@ -1811,11 +1811,11 @@ Forms Core
 
 =========================================================*/
 @media only screen and (max-width : 480px) {
-    {{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form button[type='submit'] {
+    {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form button[type='submit'] {
     margin: 0.7em 0 0;
     }
 
-    {{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form input[type='text'], {{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form button, {{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form label {
+    {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type='text'], {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form button, {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form label {
         margin-bottom: 0.3em;
         display: block;
     }
@@ -1824,18 +1824,18 @@ Forms Core
         margin-bottom: 0;
     }
 
-    {{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form-aligned {{kimonoPrefix}}control-group label {
+    {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-aligned {{yuiCssPrefix}}control-group label {
         margin-bottom: 0.3em;
         text-align: left;
         display: block;
         width: 100%;
     }
 
-    {{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form-aligned {{kimonoPrefix}}controls {
+    {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-aligned {{yuiCssPrefix}}controls {
         margin: 1.5em 0 0 0;
     }
 
-    {{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form {{kimonoPrefix}}help-inline {
+    {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form {{yuiCssPrefix}}help-inline {
         display: block;
         font-size: 80%;
         padding: 0.2em 0 0.8em; /* increased bottom padding to make it group with its related input element */
@@ -1845,8 +1845,8 @@ Forms Core
 /* ===============  forms.css ================
 
 =========================================================*/
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form input,
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form select {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form select {
   padding: {{inputPadding}};
   display: inline-block;
   border: 1px solid {{inputBorder}};
@@ -1864,58 +1864,58 @@ Forms Core
   -webkit-font-smoothing: antialiased;
 }
 
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form input:focus,
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form select:focus {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input:focus,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form select:focus {
   outline: 0;
   outline: thin dotted \9; /* IE6-9 */
   border-color: #129FEA;
 }
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form {{kimonoPrefix}}checkbox,
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form {{kimonoPrefix}}radio {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form {{yuiCssPrefix}}checkbox,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form {{yuiCssPrefix}}radio {
   margin: 0.5em 0;
   display: block;
 }
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form input[disabled],
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form select[disabled],
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form textarea[disabled],
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form input[readonly],
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form select[readonly],
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form textarea[readonly] {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[disabled],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form select[disabled],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form textarea[disabled],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[readonly],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form select[readonly],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form textarea[readonly] {
   cursor: not-allowed;
   box-shadow: inset 0 1px 10px {{inputShadowInset}};
   background-color: #fff;
   color: {{disabledText}};
   border-color: {{inputBorder}};
 }
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form input:focus:invalid,
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form textarea:focus:invalid,
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form select:focus:invalid {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input:focus:invalid,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form textarea:focus:invalid,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form select:focus:invalid {
   color: #b94a48;
   border: 1px solid #ee5f5b;
 }
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form input:focus:invalid:focus,
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form textarea:focus:invalid:focus,
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form select:focus:invalid:focus {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input:focus:invalid:focus,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form textarea:focus:invalid:focus,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form select:focus:invalid:focus {
   border-color: #e9322d;
 }
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form select {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form select {
   border: 1px solid {{inputBorder}};
   background-color: white;
 }
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form select[multiple] {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form select[multiple] {
   height: auto;
 }
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form label {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form label {
   margin: 0.5em 0 0.2em;
   color: {{label}};
   font-size:90%;
 }
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form fieldset {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form fieldset {
   margin: 0;
   padding: 0.35em 0 0.75em;
   border: 0;
 }
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form legend {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form legend {
   display: block;
   width: 100%;
   padding: 0.3em 0;
@@ -1925,16 +1925,16 @@ Forms Core
   border-bottom: 1px solid {{legendRule}};
 }
 
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form{{kimonoPrefix}}form-stacked input[type='text'], 
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form{{kimonoPrefix}}form-stacked select, 
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form{{kimonoPrefix}}form-stacked label {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form{{yuiCssPrefix}}form-stacked input[type='text'], 
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form{{yuiCssPrefix}}form-stacked select, 
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form{{yuiCssPrefix}}form-stacked label {
   display: block;
 }
 
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form-aligned input,
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form-aligned textarea,
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form-aligned select,
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form-aligned {{kimonoPrefix}}help-inline {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-aligned input,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-aligned textarea,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-aligned select,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-aligned {{yuiCssPrefix}}help-inline {
   display: inline-block;
   *display: inline; /* IE7 inline-block hack */
   *zoom: 1;
@@ -1942,31 +1942,31 @@ Forms Core
 }
 
 /* aligned Forms */
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form-aligned {{kimonoPrefix}}control-group {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-aligned {{yuiCssPrefix}}control-group {
   margin-bottom: 0.5em;
 }
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form-aligned {{kimonoPrefix}}control-group label {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-aligned {{yuiCssPrefix}}control-group label {
   text-align: right;
   display: inline-block;
   vertical-align: middle;
   width: 10em;
   margin: 0 1em 0 0;
 }
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form-aligned {{kimonoPrefix}}controls {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-aligned {{yuiCssPrefix}}controls {
   margin: 1.5em 0 0 10em;
 }
 
 /* Rounded Inputs */
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form {{kimonoPrefix}}input-rounded {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form {{yuiCssPrefix}}input-rounded {
   border-radius: {{inputRadiusRounded}};
   padding-left: 1em;
 }
 
 /* Grouped Inputs */
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form {{kimonoPrefix}}group fieldset {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form {{yuiCssPrefix}}group fieldset {
   margin-bottom: 10px;
 }
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form {{kimonoPrefix}}group input {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form {{yuiCssPrefix}}group input {
   display: block;
   padding: {{inputPadding}};
   margin: 0;
@@ -1974,39 +1974,39 @@ Forms Core
   position: relative;
   top: -1px;
 }
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form {{kimonoPrefix}}group input:focus {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form {{yuiCssPrefix}}group input:focus {
   z-index: 2;
 }
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form {{kimonoPrefix}}group input:first-child {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form {{yuiCssPrefix}}group input:first-child {
   top: 1px;
   border-radius: {{inputGroupFirstRadius}};
 }
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form {{kimonoPrefix}}group input:last-child {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form {{yuiCssPrefix}}group input:last-child {
   top: -2px;
   border-radius: {{inputGroupLastRadius}};
 }
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form {{kimonoPrefix}}group button {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form {{yuiCssPrefix}}group button {
   margin: 0.35em 0;
 }
 
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form {{kimonoPrefix}}input-1 {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form {{yuiCssPrefix}}input-1 {
   width: 100%;
 }
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form {{kimonoPrefix}}input-2-3 {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form {{yuiCssPrefix}}input-2-3 {
   width: 66%;
 }
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form {{kimonoPrefix}}input-1-2 {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form {{yuiCssPrefix}}input-1-2 {
   width: 50%;
 }
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form {{kimonoPrefix}}input-1-3 {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form {{yuiCssPrefix}}input-1-3 {
   width: 33%;
 }
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form {{kimonoPrefix}}input-1-4 {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form {{yuiCssPrefix}}input-1-4 {
   width: 25%;
 }
 
 /* Inline help for forms */
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}form {{kimonoPrefix}}help-inline {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form {{yuiCssPrefix}}help-inline {
   display: inline-block;
   padding-left: 0.3em;
   color: {{inlineHelpText}};
@@ -2018,7 +2018,7 @@ Forms Core
 
 <script id="table-template" type="text/x-handlebars-template">
 /* foundational CSS */
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}table {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}table {
     /* Remove spacing between table cells (from Normalize.css) */
     border-collapse: separate;
     border-spacing: 0;
@@ -2026,15 +2026,15 @@ Forms Core
     border: 1px solid {{border}};
 }
 
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}table caption {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}table caption {
     color: {{captionText}};
     font: italic 85%/1 arial, sans-serif;
     padding: 1em 0;
     text-align: center;
 }
 
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}table td,
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}table th {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}table td,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}table th {
     border-left: 1px solid {{border}};/* inner column border */
     border-width: 0 0 0 1px;
     font-size: inherit;
@@ -2043,12 +2043,12 @@ Forms Core
     padding: {{cellPadding}}; /* cell padding */
 }
 
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}table td:first-child,
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}table th:first-child {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}table td:first-child,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}table th:first-child {
     border-left-width: 0;
 }
 
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}table thead {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}table thead {
     background-color: {{headBackground}};
     color: {{headText}};
     text-align: left;
@@ -2061,31 +2061,31 @@ striping:
 even - #fff (white)
 odd - #edf5ff (light blue)
 */
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}table td {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}table td {
     background-color: {{cellBackground}};
     color: {{cellText}};
 }
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}table-odd td {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}table-odd td {
     background-color: {{cellOddBackground}};
     color: {{cellOddText}};
 }
 
 /* BORDERED TABLES */
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}table-bordered td {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}table-bordered td {
     border-bottom:1px solid {{border}};
 }
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}table-bordered tbody > tr:last-child td,
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}table-horizontal tbody > tr:last-child td {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}table-bordered tbody > tr:last-child td,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}table-horizontal tbody > tr:last-child td {
     border-bottom-width: 0;
 }
 
 /* HORIZONTAL BORDERED TABLES */
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}table-horizontal td,
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}table-horizontal th {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}table-horizontal td,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}table-horizontal th {
     border-width: 0 0 1px 0;
     border-bottom:1px solid {{border}};
 }
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}table-horizontal tbody > tr:last-child td {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}table-horizontal tbody > tr:last-child td {
     border-bottom-width: 0;
 }
 </script>
@@ -2093,18 +2093,18 @@ odd - #edf5ff (light blue)
 
 <script id="list-template" type="text/x-handlebars-template">
 /* from YUICSS list-core.css */
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}menu ul {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu ul {
     position: absolute;
     visibility: hidden;
 }
 
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}menu{{kimonoPrefix}}menu-open {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu{{yuiCssPrefix}}menu-open {
     visibility: visible;
     z-index: 2;
     width: 100%;
 }
 
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}menu ul {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu ul {
     left: -10000px;
     list-style: none;
     margin: 0;
@@ -2113,17 +2113,17 @@ odd - #edf5ff (light blue)
     z-index: 1;
 }
 
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}menu > ul { position: relative; }
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu > ul { position: relative; }
 
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}menu-open > ul {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu-open > ul {
     left: 0;
     top: 0;
     visibility: visible;
 }
 
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}menu li { position: relative; }
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu li { position: relative; }
 
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}menu a, {{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}menu {{kimonoPrefix}}menu-heading {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu a, {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu {{yuiCssPrefix}}menu-heading {
     display: block;
     color: inherit;
     line-height: 1.5em;
@@ -2132,23 +2132,23 @@ odd - #edf5ff (light blue)
     white-space: nowrap;
 }
 
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}menu{{kimonoPrefix}}menu-horizontal > {{kimonoPrefix}}menu-heading {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu{{yuiCssPrefix}}menu-horizontal > {{yuiCssPrefix}}menu-heading {
     display: inline-block;
     margin: 0;
     zoom: 1;
     *display: inline;
     vertical-align: middle;
 }
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}menu{{kimonoPrefix}}menu-horizontal > ul {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu{{yuiCssPrefix}}menu-horizontal > ul {
     display: inline-block;
     zoom: 1;
     *display: inline;
     vertical-align: middle;
 }
 
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}menu li a { {{menuItemPadding}}; }
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu li a { {{menuItemPadding}}; }
 
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}menu-can-have-children > {{kimonoPrefix}}menu-label:after {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu-can-have-children > {{yuiCssPrefix}}menu-label:after {
     content: '\25B8';
     float: right;
     font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'DejaVu Sans', sans-serif; /* These specific fonts have the Unicode char we need. */
@@ -2156,11 +2156,11 @@ odd - #edf5ff (light blue)
     margin-top: -1px;
 }
 
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}menu-can-have-children > {{kimonoPrefix}}menu-label {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu-can-have-children > {{yuiCssPrefix}}menu-label {
     padding-right:30px;
 }
 
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}menu-separator {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu-separator {
     background-color: {{separator}};
     display: block;
     height: 1px;
@@ -2169,10 +2169,10 @@ odd - #edf5ff (light blue)
     overflow: hidden;
 }
 
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}menu-hidden { display: none; }
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu-hidden { display: none; }
 
 /* FIXED MENU */
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}menu-fixed {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu-fixed {
     position: fixed;
     top:0;
     left:0;
@@ -2183,7 +2183,7 @@ odd - #edf5ff (light blue)
 /* HORIZONTAL MENU CODE */
 
 /* Initial menus should be inline-block so that they are horizontal */
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}menu-horizontal li {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu-horizontal li {
     display: inline-block;
     zoom: 1;
     *display: inline;
@@ -2191,62 +2191,62 @@ odd - #edf5ff (light blue)
 }
 
 /* Submenus should still be display:block; */
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}menu-horizontal li li {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu-horizontal li li {
     display: block;
 }
 
 /* Content after should be down arrow */
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}menu-horizontal > {{kimonoPrefix}}menu-children > {{kimonoPrefix}}menu-can-have-children > {{kimonoPrefix}}menu-label:after {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu-horizontal > {{yuiCssPrefix}}menu-children > {{yuiCssPrefix}}menu-can-have-children > {{yuiCssPrefix}}menu-label:after {
     content: "\25BE";
 }
 /*Add extra padding to elements that have the arrow so that the hover looks nice */
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}menu-horizontal > {{kimonoPrefix}}menu-children > {{kimonoPrefix}}menu-can-have-children > {{kimonoPrefix}}menu-label {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu-horizontal > {{yuiCssPrefix}}menu-children > {{yuiCssPrefix}}menu-can-have-children > {{yuiCssPrefix}}menu-label {
     padding-right:30px;
 }/* end from yuicss/list-core.css *******************************************/
 /* from yuicss list-paginator.css */
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}paginator {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}paginator {
     list-style: none;
     margin: 0;
     padding: 0;
 }
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}paginator li {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}paginator li {
     display: inline-block;
     *display: inline;
     /* IE 7 inline-block hack */
     *zoom: 1;
     margin: 0 -0.35em 0 0;
 }
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}paginator {{kimonoPrefix}}button {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}paginator {{yuiCssPrefix}}button {
     border-radius: 0;
     padding: 0.8em 1.4em;
     vertical-align: top;
     height: 1.1em;
 }
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}paginator {{kimonoPrefix}}button:focus {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}paginator {{yuiCssPrefix}}button:focus {
     outline-style: none;
 }
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}paginator .prev, {{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}paginator .next {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}paginator .prev, {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}paginator .next {
     /*color: #C0C1C3; allow yui3-button to color text*/
 }
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}paginator .prev {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}paginator .prev {
     border-radius: {{paginatorRadiusPrev}};
 }
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}paginator .next {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}paginator .next {
     border-radius: {{paginatorRadiusNext}};
 }
 /* end from YUICSS list-paginator.css ******************************/
 /* from YUICSS list.css *******************************************/
 /* MAIN MENU STYLING */
 
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}menu{{kimonoPrefix}}menu-open,
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}menu{{kimonoPrefix}}menu-horizontal li {{kimonoPrefix}}menu-children {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu{{yuiCssPrefix}}menu-open,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu{{yuiCssPrefix}}menu-horizontal li {{yuiCssPrefix}}menu-children {
     background: {{menuBackground}}; /* Old browsers */
     border-radius: {{borderRadius}};
     border: 1px solid {{menuBorder}};
 }
 
 /* remove borders for horizontal menus */
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}menu{{kimonoPrefix}}menu-horizontal {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu{{yuiCssPrefix}}menu-horizontal {
     border: none;
 }
 
@@ -2254,50 +2254,50 @@ odd - #edf5ff (light blue)
 
 /* LINK STYLES */
 
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}menu a {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu a {
     border: 1px solid transparent;
     border-left: none;
     border-right: none;
 
 }
 
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}menu a,
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}menu {{kimonoPrefix}}menu-can-have-children > li:after {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu a,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu {{yuiCssPrefix}}menu-can-have-children > li:after {
     color: {{menuText}};
 }
 
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}menu {{kimonoPrefix}}menu-can-have-children > li:hover:after {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu {{yuiCssPrefix}}menu-can-have-children > li:hover:after {
     color: {{menuHoverText}};
 }
 
 
 
 /* HOVER STATES */
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}menu li a:hover {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu li a:hover {
     background: {{menuHoverBackground}};
     color: {{menuHoverText}};
 
 }
 
 /* DISABLED STATES */
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}menu li{{kimonoPrefix}}menu-disabled a:hover {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu li{{yuiCssPrefix}}menu-disabled a:hover {
     background: {{menuBackground}};
     color: {{menuTextDisabled}};
 }
 
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}menu {{kimonoPrefix}}menu-disabled > a {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu {{yuiCssPrefix}}menu-disabled > a {
     background-image: none;
     border-color: transparent;
     cursor: default;
 }
 
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}menu {{kimonoPrefix}}menu-disabled > a,
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}menu {{kimonoPrefix}}menu-can-have-children{{kimonoPrefix}}menu-disabled > a:after {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu {{yuiCssPrefix}}menu-disabled > a,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu {{yuiCssPrefix}}menu-can-have-children{{yuiCssPrefix}}menu-disabled > a:after {
     color: {{menuTextDisabled}};
 }
 
 /* HEADINGS */
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}menu {{kimonoPrefix}}menu-heading {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu {{yuiCssPrefix}}menu-heading {
     color: {{headingText}};
     text-transform: uppercase;
     font-size:90%;
@@ -2306,14 +2306,14 @@ odd - #edf5ff (light blue)
 
 
 /* SELECTED MENU ITEM */
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}menu {{kimonoPrefix}}menu-selected a {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu {{yuiCssPrefix}}menu-selected a {
     font-weight: bold;
     background-color: {{menuSelectedBackground}};
     color: {{menuSelectedText}};
 }
 
 /* FIXED MENU */
-{{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}menu{{kimonoPrefix}}menu-open{{kimonoPrefix}}menu-fixed {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu{{yuiCssPrefix}}menu-open{{yuiCssPrefix}}menu-fixed {
     border-radius: 0;
     border: none;
     border-bottom: 1px solid {{fixedMenuBorderBottom}};
@@ -2324,11 +2324,11 @@ odd - #edf5ff (light blue)
 
 @media (max-width: 480px) {
 
-    {{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}menu-horizontal {
+    {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu-horizontal {
         width:100%;
     }
 
-    {{kimonoPrefix}}{{skinName}} {{kimonoPrefix}}menu-children li {
+    {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu-children li {
         display: block;
         border-bottom:1px solid block;
     }
@@ -2340,7 +2340,7 @@ odd - #edf5ff (light blue)
 
 <script id="buttons-template" type="text/x-handlebars-template">
 /* from YUICSS buttons-core.css */
-.k-button {
+{{yuiCssPrefix}}button {
     /* Structure */
     display: inline-block;
     *display: inline; /*IE 6/7*/
@@ -2358,7 +2358,7 @@ odd - #edf5ff (light blue)
 
 
 /* Firefox: Get rid of the inner focus border */
-.k-button::-moz-focus-inner{
+{{yuiCssPrefix}}button::-moz-focus-inner{
     padding: 0;
     border: 0;
 }
@@ -2368,17 +2368,18 @@ a:focus {
 }
 /* end from YUICSS buttons-core.css */
 /* from YUICSS buttons.css */
-.k-button {
+{{yuiCssPrefix}}button {
     font-size: 100%;
     *font-size: 90%; /*IE 6/7 - To reduce IE's oversized button text*/
     *overflow: visible; /*IE 6/7 - Because of IE's overly large left/right padding on buttons */
-    padding: 0.5em 1.5em 0.5em;
-    color: #444; /* rgba not supported (IE 8) */
-    color: rgba(0, 0, 0, 0.80); /* rgba supported */
-    *color: #444; /* IE 6 & 7 */
-    border: 1px solid #999; /*IE 6/7/8*/
+    padding: {{padding}};
+    color: {{text}}; /* rgba not supported (IE 8) */
+    /* color: rgba(0, 0, 0, 0.80); rgba supported */
+    /* *color: #444; IE 6 & 7 */
+    border: 1px solid {{borderLow}}; /*IE 6/7/8*/
     border: none rgba(0, 0, 0, 0); /*IE9 + everything else*/
-    background-color: #E6E6E6;
+    background-color: {{background}};
+    border-radius: {{buttonRadius}};
     text-decoration: none;
     -webkit-font-smoothing: antialiased;
 
@@ -2391,8 +2392,8 @@ a:focus {
 }
 
 
-.k-button-hover,
-.k-button:hover {
+{{yuiCssPrefix}}button-hover,
+{{yuiCssPrefix}}button:hover {
 
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#00000000', GradientType=0);
 
@@ -2404,17 +2405,17 @@ a:focus {
     background-image: linear-gradient(transparent, rgba(0,0,0, 0.05) 40%, rgba(0,0,0, 0.05));
 }
 
-.k-button-active,
-.k-button:active {
+{{yuiCssPrefix}}button-active,
+{{yuiCssPrefix}}button:active {
     -webkit-box-shadow: 0 0 0 1px rgba(0,0,0, 0.15) inset, 0 0 6px rgba(0,0,0, 0.20) inset;
     -moz-box-shadow: 0 0 0 1px rgba(0,0,0, 0.15) inset, 0 0 6px rgba(0,0,0, 0.20) inset;
     box-shadow: 0 0 0 1px rgba(0,0,0, 0.15) inset, 0 0 6px rgba(0,0,0, 0.20) inset;
 }
 
-.k-button[disabled],
-.k-button-disabled,
-.k-button-disabled:hover,
-.k-button-disabled:active {
+{{yuiCssPrefix}}button[disabled],
+{{yuiCssPrefix}}button-disabled,
+{{yuiCssPrefix}}button-disabled:hover,
+{{yuiCssPrefix}}button-disabled:active {
     border: none;
     background-image: none;
     filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
@@ -2426,27 +2427,25 @@ a:focus {
     box-shadow: none;
 }
 
-.k-button-hidden {
+{{yuiCssPrefix}}button-hidden {
     display:none;
 }
 
 /* Firefox: Get rid of the inner focus border */
-.k-button::-moz-focus-inner{
+{{yuiCssPrefix}}button::-moz-focus-inner{
     padding: 0;
     border: 0;
 }
 
-
-/* Sam */
-.k-button-primary,
-.k-button-selected,
-a.k-button-primary,
-a.k-button-selected {
-    background-color: rgb(0, 120, 231);
-    color: #fff;
+{{yuiCssPrefix}}button-primary,
+{{yuiCssPrefix}}button-selected,
+a{{yuiCssPrefix}}button-primary,
+a{{yuiCssPrefix}}button-selected {
+    background-color: {{selectedBackground}};
+    color: {{selectedText}};
 }
 
-.k-button:-moz-focusring {
+{{yuiCssPrefix}}button:-moz-focusring {
     outline-color: rgba(0, 0, 0, 0.85);
 }
 
@@ -2503,9 +2502,13 @@ a.k-button-selected {
 #tabview-controls-container label {
     color: {{blockPageTextNormal}};
 }
-#tab-modules #checkboxes-widget { /* group bottom border on checkboxes for modules/widgets */
+#tab-modules #checkboxes-widget,
+#tab-modules #checkboxes-yuicss  { /* group bottom border on checkboxes for modules/widgets */
     border-bottom: solid 1px {{blockPageRuleLow}};
     padding-bottom: 0.5em;
+}
+#tab-modules .query-mode-change a {
+    color: {{blockPageTextHigh}};
 }
 #feedback-box {
     position: absolute;
@@ -2565,10 +2568,10 @@ a.k-button-selected {
 }
 
 /* labels need to be narrower in Skin Preview or they stack over inputs */
-.k-skin-mine .sb-preview-form .k-form-aligned .k-control-group label {
+{{yuiCssPrefix}}{{skinName}} .sb-preview-form {{yuiCssPrefix}}form-aligned {{yuiCssPrefix}}control-group label {
     width: 8em;
 }
-.k-skin-mine .sb-preview-form .k-form-aligned .k-controls {
+{{yuiCssPrefix}}{{skinName}} .sb-preview-form {{yuiCssPrefix}}form-aligned {{yuiCssPrefix}}controls {
   margin: 1.5em 0 0 8.35em;
 }
 
@@ -2984,7 +2987,7 @@ a.k-button-selected {
 </script>
 </head>
 
-<body class="yui3-skin-mine k-skin-mine yui3-loading">   <!--yui3-skin-sam-->
+<body class="yui3-skin-mine pure-skin-mine yui3-loading">   <!--yui3-skin-sam-->
 <div class="splash hero">
     <h1>YUI Skin Builder</h1>
     <h2>An App for Generating Custom Skin CSS</h2>
@@ -3145,13 +3148,13 @@ a.k-button-selected {
                     </ul>
                 </div>
                 <div id="checkboxes-yuicss-group"> <!-- just for hiding until ready -->
-                    <h4 class="preview-label">Kimono<a class="show-hide-all btn-yuicss">Remove All</a></h4>
+                    <h4 class="preview-label">Pure<a class="show-hide-all btn-yuicss">Remove All</a></h4>
                     <ul id="checkboxes-yuicss">
                         <!-- lis added dynamically at runtime. see app.js initPreviewAndModulesCheckboxes() -->
                     </ul>
                 </div>
-                <div class="link-skin-builder-for-yui3">Go to <a href="index.html">Skin Builder for YUI Widgets</a></div>
-                <div class="link-skin-builder-for-kimono">Go to <a href="index.html?mode=kimono">Skin Builder for Kimono</a></div>
+                <div class="query-mode-change link-skin-builder-for-yui3">Go to <a>Skin Builder for YUI Widgets</a></div>
+                <div class="query-mode-change link-skin-builder-for-yuicss">Go to <a>Skin Builder for Pure</a></div>
             </div>
             <div id="tab-code">
                 <div class="yui3-g" id="layout">
@@ -3525,18 +3528,17 @@ a.k-button-selected {
 <!-- ////////////////////////////////////////////////////////////////////////////////////-->
 
 <!-- YUICSS Markup -->
-
     <li class="sb-preview-form"><div class="widget-preview-label">Forms - Checkboxes and Radios</div>
-        <form class="k-form">
-        <label class="k-checkbox">
+        <form class="pure-form">
+        <label class="pure-checkbox">
         <input type="checkbox" value="">
         Checkbox option 
         </label>
-        <label class="k-radio">
+        <label class="pure-radio">
         <input type="radio" checked="" value="option1" id="optionsRadios1" name="optionsRadios">
         Radio button choice
         </label>
-        <label class="k-radio">
+        <label class="pure-radio">
         <input type="radio" value="option2" id="optionsRadios2" name="optionsRadios">
         Radio other choice 
         </label>
@@ -3544,7 +3546,7 @@ a.k-button-selected {
     </li>
 
     <li class="sb-preview-form double-wide"><div class="widget-preview-label">Default Inline Form</div>
-        <form class="k-form">
+        <form class="pure-form">
         <fieldset>
         <legend>Legend</legend>
         <input type="text" placeholder="Email">
@@ -3552,96 +3554,97 @@ a.k-button-selected {
         <label>
         <input type="checkbox"> Opt in
         </label>
-        <button class="k-button" type="submit">Sign in</button>
+        <button class="pure-button" type="submit">Sign in</button>
         </fieldset>
         </form>
     </li>
 
     <li class="sb-preview-form"><div class="widget-preview-label">Aligned Form</div>
-        <form class="k-form k-form-aligned">
+        <form class="pure-form pure-form-aligned">
         <fieldset>
-        <div class="k-control-group">
+        <div class="pure-control-group">
         <label>Username</label>
         <input type="text" placeholder="Username">
         </div>
 
-        <div class="k-control-group">
+        <div class="pure-control-group">
         <label>Password</label>
         <input type="password" placeholder="Password">
         </div>
 
-        <div class="k-control-group">
+        <div class="pure-control-group">
         <label>Email Address</label>
         <input type="text" placeholder="Email Address">
         </div>
 
-        <div class="k-control-group">
+        <div class="pure-control-group">
         <label>Disabled</label>
         <input type="text" disabled="" placeholder="Disabled input here..."/>
         </div>
 
-        <div class="k-controls">
-        <label class="k-checkbox">
+        <div class="pure-controls">
+        <label class="pure-checkbox">
         <input type="checkbox"> Check me out
         </label>
-        <button class="k-button" type="submit">Submit</button>
+        <button class="pure-button" type="submit">Submit</button>
         </div>
         </fieldset>
         </form>
     </li>        
     <li class="sb-preview-form"><div class="widget-preview-label">Form - Stacked</div>
-        <form class="k-form k-form-stacked">
+        <form class="pure-form pure-form-stacked">
         <fieldset>
         <legend>Legend</legend>
         <label>Full Name</label>
         <input type="text">
         <label>E-Mail</label>
         <input type="email" required="">
-        <aside class="k-help-inline">Required</aside>
+        <aside class="pure-help-inline">Required</aside>
         <label>State</label>
-        <select class="k-input-medium">
+        <select class="pure-input-medium">
         <option>AL</option>
         <option>CA</option>
         <option>IL</option>
         <option>MD</option>
         <option>NY</option>
         </select>
-        <label class="k-checkbox">
+        <label class="pure-checkbox">
         <input type="checkbox"> I've read the terms and conditions
         </label>
-        <button class="k-button notice" type="submit">Submit</button>
+        <button class="pure-button notice" type="submit">Submit</button>
         </fieldset>
         </form>        
     </li>
     <li class="sb-preview-form"><div class="widget-preview-label">Form - Grouped Inputs</div>
-        <form class="k-form">
-        <fieldset class="k-group">
-        <input type="text" placeholder="Username" class="k-input-1-2">
-        <input type="text" placeholder="Password" class="k-input-1-2">
-        <input type="text" placeholder="Email" class="k-input-1-2">
+        <form class="pure-form">
+        <fieldset class="pure-group">
+        <input type="text" placeholder="Username" class="pure-input-1-2">
+        <input type="text" placeholder="Password" class="pure-input-1-2">
+        <input type="text" placeholder="Email" class="pure-input-1-2">
         </fieldset>
-        <fieldset class="k-group">
-        <input type="text" placeholder="Another Group" class="k-input-1-2">
-        <input type="text" placeholder="More Stuff" class="k-input-1-2">
+        <fieldset class="pure-group">
+        <input type="text" placeholder="Another Group" class="pure-input-1-2">
+        <input type="text" placeholder="More Stuff" class="pure-input-1-2">
         </fieldset>
-        <button class="k-button k-input-1-2" type="submit">Sign in</button>
+        <button class="pure-button pure-input-1-2" type="submit">Sign in</button>
         </form>
     </li>        
     <li class="sb-preview-form"><div class="widget-preview-label">Rounded Form</div>
-        <form class="k-form">
-        <input type="text" class="k-input-rounded">
-        <button class="k-button" type="submit">Search</button>
+        <form class="pure-form">
+        <input type="text" class="pure-input-rounded">
+        <button class="pure-button" type="submit">Search</button>
         </form>
     </li>        
-<!--    
-    <li class="sb-preview-form"><div class="widget-preview-label">Form - Prepend and Append</div>
+
+    <li class="sb-preview-buttons"><div class="widget-preview-label">Buttons</div>
+        <p>
+            <button class="pure-button">Start</button>
+        </p>
+            <button class="pure-button pure-button-primary">Primary</button>
     </li>
 
-    <li class="sb-preview-form"><div class="widget-preview-label">Form - Prepend and Append Buttons</div>
-    </li>
--->
     <li class="sb-preview-table"><div class="widget-preview-label">Tables - Default</div>
-        <table class="k-table">
+        <table class="pure-table">
         <thead>
         <tr>
         <th>#</th>
@@ -3673,7 +3676,7 @@ a.k-button-selected {
         </table>
     </li>
     <li class="sb-preview-table"><div class="widget-preview-label">Table - Bordered</div>
-        <table class="k-table k-table-bordered">
+        <table class="pure-table pure-table-bordered">
         <thead>
         <tr>
         <th>#</th>
@@ -3705,7 +3708,7 @@ a.k-button-selected {
         </table>
     </li>
     <li class="sb-preview-table"><div class="widget-preview-label">Table - Horizontal</div>
-        <table class="k-table k-table-horizontal">
+        <table class="pure-table pure-table-horizontal">
         <thead>
         <tr>
         <th>#</th>
@@ -3737,7 +3740,7 @@ a.k-button-selected {
         </table>
     </li>
     <li class="sb-preview-table"><div class="widget-preview-label">Table - Striped</div>
-        <table class="k-table k-table-horizontal">
+        <table class="pure-table pure-table-horizontal">
         <thead>
         <tr>
         <th>#</th>
@@ -3747,7 +3750,7 @@ a.k-button-selected {
         </tr>
         </thead>
         <tbody>
-        <tr class='k-table-odd'>
+        <tr class='pure-table-odd'>
         <td>1</td>
         <td>Dodge</td>
         <td>Ram 1500</td>
@@ -3759,7 +3762,7 @@ a.k-button-selected {
         <td>Accord</td>
         <td>2009</td>
         </tr>
-        <tr class='k-table-odd'>
+        <tr class='pure-table-odd'>
         <td>3</td>
         <td>Tesla</td>
         <td>Model S</td>
@@ -3769,23 +3772,23 @@ a.k-button-selected {
         </table>
     </li>
     <li class="sb-preview-list double-wide"><div class="widget-preview-label">Menus - Horizontal Menu</div>
-        <div class="k-menu k-menu-open k-menu-horizontal">
-            <a class="k-menu-heading">Site Title</a>
+        <div class="pure-menu pure-menu-open pure-menu-horizontal">
+            <a class="pure-menu-heading">Site Title</a>
             <ul>
                 <li><a>Home</a></li>
-                <li class="k-menu-selected"><a>Flickr</a></li>
+                <li class="pure-menu-selected"><a>Flickr</a></li>
                 <li><a>Sports</a></li>
                 <li><a>Mail</a></li>
-                <li class="k-menu-disabled"><a>Disabled</a></li>
+                <li class="pure-menu-disabled"><a>Disabled</a></li>
             </ul>
         </div>
     </li>
     <li class="sb-preview-list"><div class="widget-preview-label">Menus - Vertical Menu</div>
-        <div class="k-menu k-menu-open">
+        <div class="pure-menu pure-menu-open">
         <ul>
-        <li class="k-menu-heading">Yahoo! Sites</li>
-        <li class="k-menu-separator"></li>
-        <li class="k-menu-selected"><a>Home</a></li>
+        <li class="pure-menu-heading">Yahoo! Sites</li>
+        <li class="pure-menu-separator"></li>
+        <li class="pure-menu-selected"><a>Home</a></li>
         <li><a>Flickr</a></li>
         <li><a>Messenger</a></li>
         <li><a>Sports</a></li>
@@ -3793,14 +3796,12 @@ a.k-button-selected {
         </ul>
         </div>
     </li>
-    <li class="sb-preview-buttons"><div class="widget-preview-label">Buttons</div>
-    </li>
 <!--
     <li class="sb-preview-list"><div class="widget-preview-label">List - Fixed Menu</div>
-        <a id="btn-toggle-fixed-menu" class="k-button">Show / Hide A Fixed Menu</a>
-        <div class="k-menu k-menu-horizontal k-menu-fixed">
-        <ul class="k-menu-dark">
-        <li class="k-menu-selected"><a>Home</a></li>
+        <a id="btn-toggle-fixed-menu" class="pure-button">Show / Hide A Fixed Menu</a>
+        <div class="pure-menu pure-menu-horizontal pure-menu-fixed">
+        <ul class="pure-menu-dark">
+        <li class="pure-menu-selected"><a>Home</a></li>
         <li><a>Github</a></li>
         <li><a>Gallery</a></li>
         <li><a>YUI</a></li>
@@ -3809,12 +3810,12 @@ a.k-button-selected {
     </li>
 -->
     <li class="sb-preview-list"><div class="widget-preview-label">Menus - Paginator</div>
-        <ul class="k-paginator">
-        <li><a class="k-button prev">&#171;</a></li>
-        <li><a class="k-button">1</a></li>
-        <li><a class="k-button k-button-selected">2</a></li>
-        <li><a class="k-button">3</a></li>
-        <li><a class="k-button next">&#187;</a></li>
+        <ul class="pure-paginator">
+        <li><a class="pure-button prev">&#171;</a></li>
+        <li><a class="pure-button">1</a></li>
+        <li><a class="pure-button pure-button-selected">2</a></li>
+        <li><a class="pure-button">3</a></li>
+        <li><a class="pure-button next">&#187;</a></li>
         </ul>
     </li>
 <!-- End of YUICSS Markup //////////////////////////////////////////////////////////-->

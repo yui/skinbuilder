@@ -25,10 +25,10 @@ YUI({
         'skin-tabview'     : 'js/skin-tabview.js',
 
         // begin YUICSS
+        'skin-buttons'     : 'js/skin-buttons.js',
         'skin-form'        : 'js/skin-form.js',
         'skin-table'       : 'js/skin-table.js',
         'skin-list'        : 'js/skin-list.js',
-        'skin-buttons'     : 'js/skin-buttons.js',
 
         'skinner': {
             use: [
@@ -36,7 +36,7 @@ YUI({
                 'skin-calendar', 'skin-datatable', 'skin-dial',
                 'skin-node-menunav', 'skin-overlay', 'skin-panel',
                 'skin-scrollview', 'skin-slider', 'skin-tabview',
-                'skin-form', 'skin-table', 'skin-list', 'skin-buttons'
+                'skin-buttons', 'skin-form', 'skin-table', 'skin-list'
             ]
         }
     }
@@ -154,17 +154,17 @@ function (Y) {
                     type: 'yuicss'
                 },
                 {
+                    name: 'buttons',
+                    display: false,
+                    type: 'yuicss'
+                },
+                {
                     name: 'table',
                     display: false,
                     type: 'yuicss'
                 },
                 {
                     name: 'list',
-                    display: false,
-                    type: 'yuicss'
-                },
-                {
-                    name: 'buttons',
                     display: false,
                     type: 'yuicss'
                 }
@@ -248,9 +248,10 @@ function (Y) {
         moveAbsolutePosPreviews,
         initPreviewAndModulesCheckboxes,
         handleCreateQueryString,
+        handleModuleModeSwitching,
         runUnitTests,
         setSkinFromQuery,
-        isKimono = false;
+        isYuiCss = false;  // is in special mode to skin only YUI CSS modules
 
 
 
@@ -1173,10 +1174,15 @@ function (Y) {
     // stylesheet templates
     updateBodySkinClass = function() {
         var body = Y.one('body');
-        SKIN.options.prefix = Y.Escape.html(Y.one('.inp-skin-prefix').get('value'));
+        if (isYuiCss) {
+            SKIN.options.yuiCssPrefix = Y.Escape.html(Y.one('.inp-skin-prefix').get('value'));
+        } else {
+            SKIN.options.prefix = Y.Escape.html(Y.one('.inp-skin-prefix').get('value'));
+        }
         SKIN.options.name = Y.Escape.html(Y.one('.inp-skin-name').get('value'));
         body.setAttribute('class', '');
         body.addClass(SKIN.options.prefix.substring(1) + SKIN.options.skinPrefix + SKIN.options.name);
+        body.addClass(SKIN.options.yuiCssPrefix.substring(1) + SKIN.options.skinPrefix + SKIN.options.name);
 
         // Then we need to do refresh[component]Skin() function calls
         // Which are found in updateColors();
@@ -1318,7 +1324,6 @@ function (Y) {
             }
         }
     };
-    initPreviewAndModulesCheckboxes();
 
 
 
@@ -1690,17 +1695,18 @@ function (Y) {
     setSkinFromQuery = function () {
         var i,
             tUsed = TEMPLATES_USED;
-        if (document.URL.indexOf('mode=kimono') > -1 ) {
-            isKimono = true;
+        if (document.URL.indexOf('mode=pure') > -1 ) {
+            isYuiCss = true;
             // change prefix for classnames in CSS templates
-            //SKIN.options.prefix = '.k-';
+            // SKIN.options.yuiCssPrefix = '.pure-';
 
-            // change the contents of the Items tab to only show Kimono
+            // change the contents of the Items tab to only show YUI CSS modules
             // and a means to switch to YUI mode, (reload page link/href)
-            Y.one('#tab-modules').addClass('items-kimono');
+            Y.one('#tab-modules').addClass('items-yuicss');
             Y.one('#tab-code .inp-skin-prefix').set('value', SKIN.defaultYuiCssPrefix);
             // change the values in TEMPLATES_USED array
-            // to exclude YUI widgets and include Kimono modules
+            // to exclude YUI widgets and include yuicss modules
+            // in Skin Preview and in the items tab
             for (i = 0; i < tUsed.length; i+=1 ) {
                 if( tUsed[i].type === 'widget') { // is a YUI widget
                     tUsed[i].display = false;
@@ -1708,12 +1714,8 @@ function (Y) {
                     tUsed[i].display = true;
                 }
             }
-
-            // In Skin Preview, only show kimono modules
-            initPreviewAndModulesCheckboxes();
             updateColors();
         }
-
 
         if (document.URL.indexOf('?opt=') > -1 ) {
             var theURL = document.URL,
@@ -1833,11 +1835,13 @@ function (Y) {
         }
     };
     setSkinFromQuery();
+    initPreviewAndModulesCheckboxes();
 
     handleCreateQueryString = function() {
         // create URL with querystring for skin definition
         var strUnesc,
             theBaseURL,
+            moduleModeStr = "",
             linkInput = Y.one('#inp-url-link'),
             sData = {
                 opt:[
@@ -1860,18 +1864,31 @@ function (Y) {
             theBaseURL = document.URL.substring(0, (document.URL.indexOf('.html') + 5));
         }
         strUnesc = Y.QueryString.unescape(Y.QueryString.stringify(sData));
-
+        if (isYuiCss) {
+            moduleModeStr = "&mode=pure";
+        }
         linkInput.setStyle('display', 'block');
-        linkInput.set('value', theBaseURL + '?' + strUnesc);
+        linkInput.set('value', theBaseURL + '?' + strUnesc + moduleModeStr);
         linkInput.focus();
         linkInput.select();
 
 
     };
 
+    handleModuleModeSwitching = function() {
+        var url = document.URL,
+            queryPre;
 
+        queryPre = (document.URL.indexOf('?opt=') > -1) ? '&' : '?' ;
+        if (isYuiCss) {
+            window.location.href = url.substring(0, url.indexOf(queryPre + 'mode'));
+        } else {
+            window.location.href = url + queryPre + 'mode=pure';
+        }
+    }
+    Y.all('.query-mode-change').on('click', handleModuleModeSwitching);
 
-    // listener for get URL button /////////////
+    // listener for "link" button on the Code tab /////////////
     Y.one('#btn-get-url').on('click', handleCreateQueryString);
 ////////////////  end query string stuff //////////////
 

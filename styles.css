@@ -213,7 +213,7 @@ body {
     width: 4em;
 }
 #tab-code .inp-skin-prefix {
-    width: 3em;
+    width: 4em;
     text-align: right;
     border: none;
     background-color: transparent;
@@ -452,17 +452,17 @@ h1 {
     *zoom: 1;    
     width: 17em;
 }
-/* special case for only showing kimono items */
-.items-kimono #checkboxes-yui-widgets-group {
+/* special case for only showing yuicss/pure items */
+.items-yuicss #checkboxes-yui-widgets-group {
     display: none;
 }
-.items-kimono #checkboxes-yuicss-group {
+.items-yuicss #checkboxes-yuicss-group {
     display: block;
 }
-.items-kimono .link-skin-builder-for-kimono {
+.items-yuicss .link-skin-builder-for-yuicss {
     display: none;
 }
-.items-kimono .link-skin-builder-for-yui3 {
+.items-yuicss .link-skin-builder-for-yui3 {
     display: block;
 }
 
@@ -470,10 +470,14 @@ h1 {
 #checkboxes-yuicss-group {
     display: none;
 }
+.query-mode-change a:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
 .link-skin-builder-for-yui3 {
     display: none;
 }
-.link-skin-builder-for-kimono {
+.link-skin-builder-for-yuicss {
     display: block;
 }
 
@@ -800,7 +804,7 @@ h1 {
     text-decoration: underline;
 }
 
-/***** skin preview of YUICSS kimono *****/
+/***** skin preview of YUICSS/pure *****/
 
 
 /***** scrollview horizontal widget ******************************/
