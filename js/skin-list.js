@@ -7,7 +7,6 @@ Y.Skin.renderers.list = function (skin) {
 
 
         menuItemPadding: skin.padding(0.35, 1.4),
-        borderRadius: skin.radius(0.3),
         headingText: space.text.high,
         separator: space.block.container.rule.low,
         menuBackground: space.background,

@@ -2275,8 +2275,6 @@ odd - #edf5ff (light blue)
 /* HOVER STATES */
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu li a:hover {
     background: {{menuHoverBackground}};
-    color: {{menuHoverText}};
-
 }
 
 /* DISABLED STATES */
@@ -2307,14 +2305,12 @@ odd - #edf5ff (light blue)
 
 /* SELECTED MENU ITEM */
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu {{yuiCssPrefix}}menu-selected a {
-    font-weight: bold;
     background-color: {{menuSelectedBackground}};
     color: {{menuSelectedText}};
 }
 
 /* FIXED MENU */
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu{{yuiCssPrefix}}menu-open{{yuiCssPrefix}}menu-fixed {
-    border-radius: 0;
     border: none;
     border-bottom: 1px solid {{fixedMenuBorderBottom}};
 }
@@ -2382,7 +2378,6 @@ a:focus {
     border-radius: {{buttonRadius}};
     text-decoration: none;
     -webkit-font-smoothing: antialiased;
-
     /* Transitions */
     -webkit-transition: 0.1s linear -webkit-box-shadow;
     -moz-transition: 0.1s linear -moz-box-shadow;
