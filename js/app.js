@@ -1324,7 +1324,8 @@ function (Y) {
             }
         }
     };
-
+    
+    Y.one('#widget-container').all('form').on('submit', function (e) { e.preventDefault(); });
 
 
     ////////////////// functional & unit test //////////////////////
