@@ -799,7 +799,8 @@ v\:shadow,
 v\:fill {
     behavior: url(#default#VML);
     display: inline-block;
-    zoom: 1; *display: inline; /* IE &lt; 8: fake inline-block */
+     *display: inline;
+     zoom: 1;
 }
 {{prefix}}dial{
 	position:relative;
@@ -1811,16 +1812,43 @@ Forms Core
 
 =========================================================*/
 @media only screen and (max-width : 480px) {
-    {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form button[type='submit'] {
+    {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form button[type="submit"] {
     margin: 0.7em 0 0;
     }
 
-    {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type='text'], {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form button, {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form label {
+    {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="text"],
+    {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="password"],
+    {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="email"],
+    {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="url"],
+    {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="date"],
+    {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="month"],
+    {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="time"],
+    {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="datetime"],
+    {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="datetime-local"],
+    {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="week"],
+    {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="number"],
+    {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="search"],
+    {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="tel"],
+    {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="color"],
+    {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form label {
         margin-bottom: 0.3em;
         display: block;
     }
     
-    .yui3-group input[type='text'] {
+    {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}group input[type="text"],
+    {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}group input[type="password"],
+    {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}group input[type="email"],
+    {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}group input[type="url"],
+    {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}group input[type="date"],
+    {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}group input[type="month"],
+    {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}group input[type="time"],
+    {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}group input[type="datetime"],
+    {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}group input[type="datetime-local"],
+    {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}group input[type="week"],
+    {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}group input[type="number"],
+    {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}group input[type="search"],
+    {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}group input[type="tel"],
+    {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}group input[type="color"] {
         margin-bottom: 0;
     }
 
@@ -1835,47 +1863,99 @@ Forms Core
         margin: 1.5em 0 0 0;
     }
 
-    {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form {{yuiCssPrefix}}help-inline {
+    /* NOTE: pure-help-inline is deprecated. Use .pure-form-message-inline instead. */
+    {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form {{yuiCssPrefix}}help-inline,
+    {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-message-inline,
+    {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-message {
         display: block;
         font-size: 80%;
-        padding: 0.2em 0 0.8em; /* increased bottom padding to make it group with its related input element */
+        /* increased bottom padding to make it group with its related input element */
+        padding: 0.2em 0 0.8em;
     }
 }
 
 /* ===============  forms.css ================
 
 =========================================================*/
-{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input,
-{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form select {
-  padding: {{inputPadding}};
-  display: inline-block;
-  border: 1px solid {{inputBorder}};
-  font-size: 0.8em;
-  box-shadow: inset 0 1px 3px {{inputBorder}};
-  border-radius: {{inputRadius}};
-  -webkit-transition: 0.3s linear border;
-  -moz-transition: 0.3s linear border;
-  -ms-transition: 0.3s linear border;
-  -o-transition: 0.3s linear border;
-  transition: 0.3s linear border;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  -webkit-font-smoothing: antialiased;
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="text"],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="password"],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="email"],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="url"],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="date"],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="month"],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="time"],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="datetime"],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="datetime-local"],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="week"],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="number"],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="search"],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="tel"],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="color"],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form select,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form textarea {
+    padding: {{inputPadding}};
+    display: inline-block;
+    border: 1px solid {{inputBorder}};
+    font-size: 0.8em;
+    box-shadow: inset 0 1px 3px {{inputBorder}};
+    border-radius: {{inputRadius}};
+    -webkit-transition: 0.3s linear border;
+    -moz-transition: 0.3s linear border;
+    -ms-transition: 0.3s linear border;
+    -o-transition: 0.3s linear border;
+    transition: 0.3s linear border;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
 }
 
-{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input:focus,
-{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form select:focus {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="text"]:focus,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="password"]:focus,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="email"]:focus,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="url"]:focus,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="date"]:focus,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="month"]:focus,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="time"]:focus,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="datetime"]:focus,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="datetime-local"]:focus,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="week"]:focus,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="number"]:focus,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="search"]:focus,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="tel"]:focus,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="color"]:focus,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form select:focus,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form textarea:focus {
   outline: 0;
   outline: thin dotted \9; /* IE6-9 */
   border-color: #129FEA;
+}
+
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="file"]:focus,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="radio"]:focus,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="checkbox"]:focus {
+  outline: thin dotted #333;
+  outline: 1px auto #129FEA;
 }
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form {{yuiCssPrefix}}checkbox,
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form {{yuiCssPrefix}}radio {
   margin: 0.5em 0;
   display: block;
 }
-{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[disabled],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="text"][disabled],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="password"][disabled],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="email"][disabled],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="url"][disabled],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="date"][disabled],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="month"][disabled],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="time"][disabled],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="datetime"][disabled],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="datetime-local"][disabled],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="week"][disabled],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="number"][disabled],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="search"][disabled],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="tel"][disabled],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="color"][disabled],
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form select[disabled],
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form textarea[disabled],
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[readonly],
@@ -1897,6 +1977,11 @@ Forms Core
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form textarea:focus:invalid:focus,
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form select:focus:invalid:focus {
   border-color: #e9322d;
+}
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="file"]:focus:invalid:focus,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="radio"]:focus:invalid:focus,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="checkbox"]:focus:invalid:focus {
+  outline-color: #e9322d;
 }
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form select {
   border: 1px solid {{inputBorder}};
@@ -1925,16 +2010,15 @@ Forms Core
   border-bottom: 1px solid {{legendRule}};
 }
 
-{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form{{yuiCssPrefix}}form-stacked input[type='text'], 
-{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form{{yuiCssPrefix}}form-stacked select, 
-{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form{{yuiCssPrefix}}form-stacked label {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-stacked label {
   display: block;
 }
 
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-aligned input,
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-aligned textarea,
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-aligned select,
-{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-aligned {{yuiCssPrefix}}help-inline {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-aligned {{yuiCssPrefix}}help-inline, /* note: pure-help-inline is deprecated. Use .pure-form-message-inline instead */ 
+{{yuiCssPrefix}}form-message-inline {
   display: inline-block;
   *display: inline; /* IE7 inline-block hack */
   *zoom: 1;
@@ -2006,12 +2090,22 @@ Forms Core
 }
 
 /* Inline help for forms */
-{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form {{yuiCssPrefix}}help-inline {
+/* Note: pure-help-inline is deprecated. Use .pure-form-message-inline instead */ 
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form {{yuiCssPrefix}}help-inline,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-message-inline {
   display: inline-block;
   padding-left: 0.3em;
   color: {{inlineHelpText}};
-  font-size:90%;
+  font-size: 90%;
   vertical-align: middle;
+}
+
+/* Block help for forms */
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-message {
+  display: block;
+  margin: .5em 0 .2em;
+  color: {{inlineHelpText}};
+  font-size: 90%;
 }
 </script>
 
@@ -2093,6 +2187,9 @@ odd - #edf5ff (light blue)
 
 <script id="list-template" type="text/x-handlebars-template">
 /* from YUICSS list-core.css */
+/*csslint adjoining-classes:false, outline-none:false*/
+/*TODO: Remove this lint rule override after a refactor of this code.*/ 
+
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu ul {
     position: absolute;
     visibility: hidden;
@@ -2121,7 +2218,13 @@ odd - #edf5ff (light blue)
     visibility: visible;
 }
 
-{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu li { position: relative; }
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu-open > ul:focus {
+    outline: none;
+}
+
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu li {
+    position: relative;
+}
 
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu a, {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu {{yuiCssPrefix}}menu-heading {
     display: block;
@@ -2134,16 +2237,17 @@ odd - #edf5ff (light blue)
 
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu{{yuiCssPrefix}}menu-horizontal > {{yuiCssPrefix}}menu-heading {
     display: inline-block;
-    margin: 0;
-    zoom: 1;
     *display: inline;
+    zoom: 1;
+    margin: 0;
     vertical-align: middle;
 }
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu{{yuiCssPrefix}}menu-horizontal > ul {
     display: inline-block;
-    zoom: 1;
     *display: inline;
+    zoom: 1;
     vertical-align: middle;
+    height: 2.4em;
 }
 
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu li a { padding: {{menuItemPadding}}; }
@@ -2157,7 +2261,7 @@ odd - #edf5ff (light blue)
 }
 
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu-can-have-children > {{yuiCssPrefix}}menu-label {
-    padding-right:30px;
+    padding-right: 30px;
 }
 
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu-separator {
@@ -2169,7 +2273,9 @@ odd - #edf5ff (light blue)
     overflow: hidden;
 }
 
-{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu-hidden { display: none; }
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu-hidden {
+    display: none;
+}
 
 /* FIXED MENU */
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu-fixed {
@@ -2185,8 +2291,8 @@ odd - #edf5ff (light blue)
 /* Initial menus should be inline-block so that they are horizontal */
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu-horizontal li {
     display: inline-block;
-    zoom: 1;
     *display: inline;
+    zoom: 1;
     vertical-align: middle;
 }
 
@@ -2202,8 +2308,28 @@ odd - #edf5ff (light blue)
 /*Add extra padding to elements that have the arrow so that the hover looks nice */
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu-horizontal > {{yuiCssPrefix}}menu-children > {{yuiCssPrefix}}menu-can-have-children > {{yuiCssPrefix}}menu-label {
     padding-right:30px;
-}/* end from yuicss/list-core.css *******************************************/
+}
+
+/* Adjusting separator for vertical menus */
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu-horizontal li{{yuiCssPrefix}}menu-separator {
+    height: 50%;
+    width: 1px;
+    margin: 0 7px;
+}
+
+/* Submenus should be horizontal separator again */
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu-horizontal li li{{yuiCssPrefix}}menu-separator {
+height: 1px;
+width: auto;
+margin: 7px 2px;
+}
+
+
+/* end from yuicss/list-core.css *******************************************/
 /* from yuicss list-paginator.css */
+/*csslint box-model:false*/
+/*TODO: Remove this lint rule override after a refactor of this code.*/ 
+
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}paginator {
     list-style: none;
     margin: 0;
@@ -2212,8 +2338,7 @@ odd - #edf5ff (light blue)
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}paginator li {
     display: inline-block;
     *display: inline;
-    /* IE 7 inline-block hack */
-    *zoom: 1;
+    zoom: 1;
     margin: 0 -0.35em 0 0;
 }
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}paginator {{yuiCssPrefix}}button {
@@ -2226,7 +2351,7 @@ odd - #edf5ff (light blue)
     outline-style: none;
 }
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}paginator .prev, {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}paginator .next {
-    /*color: #C0C1C3; allow yui3-button to color text*/
+    /*color: #C0C1C3; allow .pure-button to color text*/
 }
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}paginator .prev {
     border-radius: {{paginatorRadiusPrev}};
@@ -2237,6 +2362,8 @@ odd - #edf5ff (light blue)
 /* end from YUICSS list-paginator.css ******************************/
 /* from YUICSS list.css *******************************************/
 /* MAIN MENU STYLING */
+/*csslint adjoining-classes:false*/
+/*TODO: Remove this lint rule override after a refactor of this code.*/ 
 
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu{{yuiCssPrefix}}menu-open,
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu{{yuiCssPrefix}}menu-horizontal li {{yuiCssPrefix}}menu-children {
@@ -2245,7 +2372,8 @@ odd - #edf5ff (light blue)
 }
 
 /* remove borders for horizontal menus */
-{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu{{yuiCssPrefix}}menu-horizontal {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu{{yuiCssPrefix}}menu-horizontal,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu{{yuiCssPrefix}}menu-horizontal {{yuiCssPrefix}}menu-heading {
     border: none;
 }
 
@@ -2269,7 +2397,10 @@ odd - #edf5ff (light blue)
     color: {{menuHoverText}};
 }
 
-
+/* Focus style for a dropdown menu-item when the parent has been opened */
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu {{yuiCssPrefix}}menu-open {
+    background: {{menuHoverBackground}};
+}
 
 /* HOVER STATES */
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu li a:hover {
@@ -2297,8 +2428,9 @@ odd - #edf5ff (light blue)
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu {{yuiCssPrefix}}menu-heading {
     color: {{headingText}};
     text-transform: uppercase;
-    font-size:90%;
-    margin-top:0.5em;
+    font-size: 90%;
+    margin-top: 0.5em;
+    border-bottom: solid 1px {{fixedMenuBorderBottom}};
 }
 
 
@@ -2325,7 +2457,7 @@ odd - #edf5ff (light blue)
 
     {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu-children li {
         display: block;
-        border-bottom:1px solid block;
+        border-bottom:1px solid black;
     }
 
 }
@@ -2348,21 +2480,19 @@ odd - #edf5ff (light blue)
     -webkit-user-drag: none;
     -webkit-user-select: none;
     -moz-user-select: none;
+    -ms-user-select: none;
     user-select: none;
 }
-
 
 /* Firefox: Get rid of the inner focus border */
 {{yuiCssPrefix}}button::-moz-focus-inner{
     padding: 0;
     border: 0;
 }
-
-a:focus {
-    outline: none;
-}
 /* end from YUICSS buttons-core.css */
 /* from YUICSS buttons.css */
+/*csslint unqualified-attributes:false*/
+
 {{yuiCssPrefix}}button {
     font-size: 100%;
     *font-size: 90%; /*IE 6/7 - To reduce IE's oversized button text*/
@@ -2385,12 +2515,9 @@ a:focus {
     transition: 0.1s linear box-shadow;
 }
 
-
 {{yuiCssPrefix}}button-hover,
 {{yuiCssPrefix}}button:hover {
-
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#00000000', GradientType=0);
-
     background-image: -webkit-gradient(linear, 0 0, 0 100%, from(transparent), color-stop(40%, rgba(0,0,0, 0.05)), to(rgba(0,0,0, 0.05)));
     background-image: -webkit-linear-gradient(transparent, rgba(0,0,0, 0.05) 40%, rgba(0,0,0, 0.15));
     background-image: -moz-linear-gradient(top, rgba(0,0,0, 0.05) 0%, rgba(0,0,0, 0.05));
@@ -2401,8 +2528,6 @@ a:focus {
 
 {{yuiCssPrefix}}button-active,
 {{yuiCssPrefix}}button:active {
-    -webkit-box-shadow: 0 0 0 1px rgba(0,0,0, 0.15) inset, 0 0 6px rgba(0,0,0, 0.20) inset;
-    -moz-box-shadow: 0 0 0 1px rgba(0,0,0, 0.15) inset, 0 0 6px rgba(0,0,0, 0.20) inset;
     box-shadow: 0 0 0 1px rgba(0,0,0, 0.15) inset, 0 0 6px rgba(0,0,0, 0.20) inset;
 }
 
@@ -2422,7 +2547,7 @@ a:focus {
 }
 
 {{yuiCssPrefix}}button-hidden {
-    display:none;
+    display: none;
 }
 
 /* Firefox: Get rid of the inner focus border */
@@ -3591,9 +3716,10 @@ a{{yuiCssPrefix}}button-selected {
         <legend>Legend</legend>
         <label>Full Name</label>
         <input type="text">
+        <aside class="pure-form-message">Block help text</aside>
         <label>E-Mail</label>
         <input type="email" required="">
-        <aside class="pure-help-inline">Required</aside>
+        <aside class="pure-form-message-inline">Required</aside>
         <label>State</label>
         <select class="pure-input-medium">
         <option>AL</option>
@@ -3781,11 +3907,11 @@ a{{yuiCssPrefix}}button-selected {
         <div class="pure-menu pure-menu-open">
         <ul>
         <li class="pure-menu-heading">Yahoo! Sites</li>
-        <li class="pure-menu-separator"></li>
-        <li class="pure-menu-selected"><a>Home</a></li>
-        <li><a>Flickr</a></li>
+        <li><a>Home</a></li>
+        <li class="pure-menu-selected"><a>Flickr</a></li>
         <li><a>Messenger</a></li>
         <li><a>Sports</a></li>
+        <li class="pure-menu-separator"></li>
         <li><a>Finance</a></li>
         </ul>
         </div>

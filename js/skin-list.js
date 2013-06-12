@@ -8,7 +8,7 @@ Y.Skin.renderers.list = function (skin) {
 
         menuItemPadding: skin.padding(0.35, 1.4),
         headingText: space.text.high,
-        separator: space.block.container.rule.low,
+        separator: space.border.low,
         menuBackground: space.background,
         menuText: space.text.normal,
         menuTextDisabled: space.text.low,
