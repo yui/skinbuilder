@@ -185,6 +185,7 @@ function (Y) {
         overlay,
         anchorOverlay,
         panel,
+        slider,
         anchorPanel,
         report,
         tabviewControls,
@@ -525,19 +526,19 @@ function (Y) {
     anchorPanel = Y.one('#anchorPanel');
 
     // Slider instance ///////////////////////////////////////////////////////////
-    report = Y.one('#slider-report'),
-        slider = new Y.Slider({
-            thumbUrl: 'assets/images/blank_thumb.png',
-            length: '280px',
-            min   : 10,
-            max   : 218,
-            value : 136,
-            after : {
-                valueChange: function (e) {
-                    report.setHTML(e.newVal);
-                }
+    report = Y.one('#slider-report');
+    slider = new Y.Slider({
+        thumbUrl: 'assets/images/blank_thumb.png',
+        length: '280px',
+        min   : 10,
+        max   : 218,
+        value : 136,
+        after : {
+            valueChange: function (e) {
+                report.setHTML(e.newVal);
             }
-        });
+        }
+    });
     slider.render('#slider');
 
     // End of adding instances of widgets to be colored by this tool
@@ -1324,7 +1325,7 @@ function (Y) {
             }
         }
     };
-    
+
     Y.one('#widget-container').all('form').on('submit', function (e) { e.preventDefault(); });
 
 
@@ -1695,8 +1696,18 @@ function (Y) {
         // using Y.QueryString
     setSkinFromQuery = function () {
         var i,
-            tUsed = TEMPLATES_USED;
-        if (document.URL.indexOf('mode=pure') > -1 ) {
+            tUsed = TEMPLATES_USED,
+            theURL = document.URL,
+            theQuery,
+            qData,
+            dataIsValid = true,
+            validationMsg,
+            myProp,
+            myValid;
+
+
+
+        if (theURL.indexOf('mode=pure') > -1 ) {
             isYuiCss = true;
             // change prefix for classnames in CSS templates
             // SKIN.options.yuiCssPrefix = '.pure-';
@@ -1718,16 +1729,8 @@ function (Y) {
             updateColors();
         }
 
-        if (document.URL.indexOf('?opt=') > -1 ) {
-            var theURL = document.URL,
-                theQuery = theURL.substring(theURL.indexOf('.html?') + 6),
-                qData,
-                dataIsValid = true,
-                validationMsg,
-                myProp,
-                myValid,
-                i;
-
+        if (theURL.indexOf('?opt=') > -1 ) {
+            theQuery = theURL.substring(theURL.indexOf('.html?') + 6);
             qData = Y.QueryString.parse(theQuery);
 
             for (myProp in qData) {
@@ -1886,7 +1889,7 @@ function (Y) {
         } else {
             window.location.href = url + queryPre + 'mode=pure';
         }
-    }
+    };
     Y.all('.query-mode-change').on('click', handleModuleModeSwitching);
 
     // listener for "link" button on the Code tab /////////////

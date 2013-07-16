@@ -23,7 +23,7 @@ Y.Skin.renderers.buttons = function (skin) {
 
         selectedBackground: space.block.highest.background,
         selectedGradient:   space.block.highest.gradient,
-        selectedText:       space.block.highest.text.high,
+        selectedText:       space.block.highest.text.high
         // selectedBorderHigh: space.block.highest.border.high,
         // selectedBorderLow:  space.block.highest.border.low,
 
