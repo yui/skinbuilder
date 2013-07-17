@@ -1,6 +1,6 @@
 #Skin Builder
 
-Skin Builder is a small web app that generates CSS skins for YUI Widgets. 
+Skin Builder is a small web app that generates CSS skins for Pure and YUI Widgets. 
 
 ##See it in action
 Check out the app [here](http://yui.github.com/skinbuilder/).
@@ -21,3 +21,4 @@ Please submit all issues and feature requests through Github. It makes it easy t
 - Outputs CSS
 - Get Link that contains query string with all values needed to reproduce current skin
 - Skin Forms, Tables, Menus, and Buttons from Pure
+- Switch between YUI3 Widgets and Pure
