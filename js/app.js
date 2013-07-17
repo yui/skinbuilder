@@ -320,7 +320,7 @@ function (Y) {
 
         });
 
-        cssOutput.value = css;
+        cssOutput.value = 'body {\n    background-color: ' + SKIN.options.container + ';\n}\n' + css;
 //        STYLESHEET.innerHTML = cssRequired + css;
 //        STYLESHEET.cssText = cssRequired + css;  // from Matt
         if(STYLESHEET){
@@ -1870,6 +1870,8 @@ function (Y) {
         strUnesc = Y.QueryString.unescape(Y.QueryString.stringify(sData));
         if (isYuiCss) {
             moduleModeStr = "&mode=pure";
+        } else {
+            moduleModeStr = "&mode=yui";
         }
         linkInput.setStyle('display', 'block');
         linkInput.set('value', theBaseURL + '?' + strUnesc + moduleModeStr);
@@ -1881,13 +1883,18 @@ function (Y) {
 
     handleModuleModeSwitching = function() {
         var url = document.URL,
-            queryPre;
+            urlBase = url.substring(0, (url.indexOf('skinbuilder') + 12)) + 'index.html',
+            query;
 
-        queryPre = (document.URL.indexOf('?opt=') > -1) ? '&' : '?' ;
+
+        handleCreateQueryString();
+        query = Y.one('#inp-url-link').get('value');
+        query = query.substring(query.indexOf('?opt='), query.indexOf('&mode='));
+
         if (isYuiCss) {
-            window.location.href = url.substring(0, url.indexOf(queryPre + 'mode'));
+            window.location.href = urlBase + query + '&mode=yui';
         } else {
-            window.location.href = url + queryPre + 'mode=pure';
+            window.location.href = urlBase + query + '&mode=pure';
         }
     };
     Y.all('.query-mode-change').on('click', handleModuleModeSwitching);
