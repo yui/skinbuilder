@@ -241,8 +241,10 @@ function (Y) {
                 'Clicking on the small color specrum icons allow you to modify the colors.',
             'items': 'Choose which modules or widgets you\'ll be using. We\'ll only generate CSS skin code for those. '+
                 'You can copy that code from the Code tab.',
-            'code': 'You can change the name of your skin in the input labeled ".yui-skin-". '+
-                'Then copy the CSS from this textarea for use in your page/app.',
+            'code': 'You can change the name of your skin by editing the input field to the right,'+
+                ' for example, ".yui-skin-myName", or in the case of Pure items, ".pure-skin-bob".'+
+                ' Remember to add this class to the body tag or other container tag on your page.'+
+                ' Then copy the CSS from this textarea for use in your page/app.',
             'settings': 'This URL will capture all your current skin settings. You can save it somewhere and/or share it.'
         },
         updateBodySkinClass,

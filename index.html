@@ -1649,7 +1649,7 @@ http://nicolasgallagher.com/css-image-replacement-with-pseudo-elements/
 
 </script>
 
-<!--////////////////////////////  YUICSS templates  /////////////////  -->
+<!--////////////////////////////  PURE templates  /////////////////  -->
 <!-- ////////////////////////////////////////////////////////////////////////////////////////////// -->
 
 <script id="form-template" type="text/x-handlebars-template">
@@ -1808,9 +1808,7 @@ Forms Core
     overflow: auto; /* 1 */
     vertical-align: top; /* 2 */
 }
-/* ===============  forms-responsive.css ================
-
-=========================================================*/
+/* ===============  forms-responsive.css =================*/
 @media only screen and (max-width : 480px) {
     {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form button[type="submit"] {
     margin: 0.7em 0 0;
@@ -1874,9 +1872,7 @@ Forms Core
     }
 }
 
-/* ===============  forms.css ================
-
-=========================================================*/
+/* ===============  forms.css =================================*/
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="text"],
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="password"],
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="email"],
@@ -1926,21 +1922,21 @@ Forms Core
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="color"]:focus,
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form select:focus,
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form textarea:focus {
-  outline: 0;
-  outline: thin dotted \9; /* IE6-9 */
-  border-color: #129FEA;
+    outline: 0;
+    outline: thin dotted \9; /* IE6-9 */
+    border-color: #129FEA;
 }
 
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="file"]:focus,
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="radio"]:focus,
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="checkbox"]:focus {
-  outline: thin dotted #333;
-  outline: 1px auto #129FEA;
+    outline: thin dotted #333;
+    outline: 1px auto #129FEA;
 }
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form {{yuiCssPrefix}}checkbox,
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form {{yuiCssPrefix}}radio {
-  margin: 0.5em 0;
-  display: block;
+    margin: 0.5em 0;
+    display: block;
 }
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="text"][disabled],
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="password"][disabled],
@@ -1957,156 +1953,182 @@ Forms Core
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="tel"][disabled],
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="color"][disabled],
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form select[disabled],
-{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form textarea[disabled],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form textarea[disabled] {
+    cursor: not-allowed;
+    box-shadow: inset 0 1px 10px {{inputShadowInset}};
+    background-color: #ededed;
+    color: {{disabledText}};
+    border-color: {{inputBorder}};
+}
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[readonly],
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form select[readonly],
-{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form textarea[readonly] {
-  cursor: not-allowed;
-  box-shadow: inset 0 1px 10px {{inputShadowInset}};
-  background-color: #fff;
-  color: {{disabledText}};
-  border-color: {{inputBorder}};
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form textarea[readonly],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[readonly]:focus,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form select[readonly]:focus,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form textarea[readonly]:focus {
+    background: #eee; /* menu hover bg color */
+    color: #777; /* menu text color */
+    border-color: #ccc;
 }
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input:focus:invalid,
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form textarea:focus:invalid,
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form select:focus:invalid {
-  color: #b94a48;
-  border: 1px solid #ee5f5b;
+    color: #b94a48;
+    border: 1px solid #ee5f5b;
 }
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input:focus:invalid:focus,
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form textarea:focus:invalid:focus,
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form select:focus:invalid:focus {
-  border-color: #e9322d;
+    border-color: #e9322d;
 }
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="file"]:focus:invalid:focus,
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="radio"]:focus:invalid:focus,
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input[type="checkbox"]:focus:invalid:focus {
-  outline-color: #e9322d;
+    outline-color: #e9322d;
 }
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form select {
-  border: 1px solid {{inputBorder}};
-  background-color: white;
+    border: 1px solid {{inputBorder}};
+    background-color: white;
 }
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form select[multiple] {
-  height: auto;
+    height: auto;
 }
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form label {
-  margin: 0.5em 0 0.2em;
-  color: {{label}};
-  font-size:90%;
+    margin: 0.5em 0 0.2em;
+    color: {{label}};
+    font-size:90%;
 }
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form fieldset {
-  margin: 0;
-  padding: 0.35em 0 0.75em;
-  border: 0;
+    margin: 0;
+    padding: 0.35em 0 0.75em;
+    border: 0;
 }
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form legend {
-  display: block;
-  width: 100%;
-  padding: 0.3em 0;
-  margin-bottom: 0.3em;
-  font-size: 125%;
-  color: {{legendText}};
-  border-bottom: 1px solid {{legendRule}};
+    display: block;
+    width: 100%;
+    padding: 0.3em 0;
+    margin-bottom: 0.3em;
+    font-size: 125%;
+    color: {{legendText}};
+    border-bottom: 1px solid {{legendRule}};
 }
 
-{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-stacked label {
-  display: block;
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-stacked input[type="text"],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-stacked input[type="password"],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-stacked input[type="email"],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-stacked input[type="url"],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-stacked input[type="date"],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-stacked input[type="month"],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-stacked input[type="time"],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-stacked input[type="datetime"],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-stacked input[type="datetime-local"],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-stacked input[type="week"],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-stacked input[type="number"],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-stacked input[type="search"],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-stacked input[type="tel"],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-stacked input[type="color"],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-stacked select,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-stacked label,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-stacked textarea {
+    display: block;
+    margin: 0.25em 0;
 }
 
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-aligned input,
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-aligned textarea,
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-aligned select,
-{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-aligned {{yuiCssPrefix}}help-inline, /* note: pure-help-inline is deprecated. Use .pure-form-message-inline instead */ 
-{{yuiCssPrefix}}form-message-inline {
-  display: inline-block;
-  *display: inline; /* IE7 inline-block hack */
-  *zoom: 1;
-  vertical-align: middle;
+/* note: pure-help-inline is deprecated. Use .pure-form-message-inline instead */
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-aligned {{yuiCssPrefix}}help-inline, 
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-message-inline {
+    display: inline-block;
+    *display: inline; /* IE7 inline-block hack */
+    *zoom: 1;
+    vertical-align: middle;
 }
 
 /* aligned Forms */
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-aligned {{yuiCssPrefix}}control-group {
-  margin-bottom: 0.5em;
+    margin-bottom: 0.5em;
 }
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-aligned {{yuiCssPrefix}}control-group label {
-  text-align: right;
-  display: inline-block;
-  vertical-align: middle;
-  width: 10em;
-  margin: 0 1em 0 0;
+    text-align: right;
+    display: inline-block;
+    vertical-align: middle;
+    width: 10em;
+    margin: 0 1em 0 0;
 }
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-aligned {{yuiCssPrefix}}controls {
-  margin: 1.5em 0 0 10em;
+    margin: 1.5em 0 0 10em;
 }
 
 /* Rounded Inputs */
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form input{{yuiCssPrefix}}input-rounded,
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form {{yuiCssPrefix}}input-rounded {
-  border-radius: {{inputRadiusRounded}};
-  padding-left: 1em;
+    border-radius: {{inputRadiusRounded}};
+    padding: 0.5em 1em;
 }
 
 /* Grouped Inputs */
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form {{yuiCssPrefix}}group fieldset {
-  margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form {{yuiCssPrefix}}group input {
-  display: block;
-  padding: {{inputPadding}};
-  margin: 0;
-  border-radius: 0;
-  position: relative;
-  top: -1px;
+    display: block;
+    padding: {{inputPadding}};
+    margin: 0;
+    border-radius: 0;
+    position: relative;
+    top: -1px;
 }
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form {{yuiCssPrefix}}group input:focus {
-  z-index: 2;
+    z-index: 2;
 }
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form {{yuiCssPrefix}}group input:first-child {
-  top: 1px;
-  border-radius: {{inputGroupFirstRadius}};
+    top: 1px;
+    border-radius: {{inputGroupFirstRadius}};
 }
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form {{yuiCssPrefix}}group input:last-child {
-  top: -2px;
-  border-radius: {{inputGroupLastRadius}};
+    top: -2px;
+    border-radius: {{inputGroupLastRadius}};
 }
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form {{yuiCssPrefix}}group button {
-  margin: 0.35em 0;
+    margin: 0.35em 0;
 }
 
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form {{yuiCssPrefix}}input-1 {
-  width: 100%;
+    width: 100%;
 }
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form {{yuiCssPrefix}}input-2-3 {
-  width: 66%;
+    width: 66%;
 }
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form {{yuiCssPrefix}}input-1-2 {
-  width: 50%;
+    width: 50%;
 }
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form {{yuiCssPrefix}}input-1-3 {
-  width: 33%;
+    width: 33%;
 }
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form {{yuiCssPrefix}}input-1-4 {
-  width: 25%;
+    width: 25%;
 }
 
 /* Inline help for forms */
 /* Note: pure-help-inline is deprecated. Use .pure-form-message-inline instead */ 
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form {{yuiCssPrefix}}help-inline,
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-message-inline {
-  display: inline-block;
-  padding-left: 0.3em;
-  color: {{inlineHelpText}};
-  font-size: 90%;
-  vertical-align: middle;
+    display: inline-block;
+    padding-left: 0.3em;
+    color: {{inlineHelpText}};
+    vertical-align: middle;
+    font-size: 90%;
 }
 
 /* Block help for forms */
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}form-message {
-  display: block;
-  margin: .5em 0 .2em;
-  color: {{inlineHelpText}};
-  font-size: 90%;
+    display: block;
+    color: {{inlineHelpText}};
+    font-size: 90%;
 }
+/* note no template for forms-r.css. no skinnable properties */
 </script>
 
 
@@ -2114,7 +2136,7 @@ Forms Core
 /* foundational CSS */
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}table {
     /* Remove spacing between table cells (from Normalize.css) */
-    border-collapse: separate;
+    border-collapse: collapse;
     border-spacing: 0;
     empty-cells: show;
     border: 1px solid {{border}};
@@ -2147,13 +2169,12 @@ Forms Core
     color: {{headText}};
     text-align: left;
     vertical-align: bottom;
-    white-space: nowrap;
 }
 
 /*
 striping:
-even - #fff (white)
-odd - #edf5ff (light blue)
+   even - #fff (white)
+   odd  - #f2f2f2 (light gray)
 */
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}table td {
     background-color: {{cellBackground}};
@@ -2164,9 +2185,16 @@ odd - #edf5ff (light blue)
     color: {{cellOddText}};
 }
 
+/* nth-child selector for modern browsers */
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}table-striped tr:nth-child(2n-1) td {
+    background-color: {{cellOddBackground}};
+    color: {{cellOddText}};
+}
+
+
 /* BORDERED TABLES */
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}table-bordered td {
-    border-bottom:1px solid {{border}};
+    border-bottom: 1px solid {{border}};
 }
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}table-bordered tbody > tr:last-child td,
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}table-horizontal tbody > tr:last-child td {
@@ -2186,7 +2214,7 @@ odd - #edf5ff (light blue)
 
 
 <script id="list-template" type="text/x-handlebars-template">
-/* from YUICSS list-core.css */
+/* from PURE menu-core.css */
 /*csslint adjoining-classes:false, outline-none:false*/
 /*TODO: Remove this lint rule override after a refactor of this code.*/ 
 
@@ -2219,7 +2247,7 @@ odd - #edf5ff (light blue)
 }
 
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu-open > ul:focus {
-    outline: none;
+    outline: 0;
 }
 
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu li {
@@ -2247,7 +2275,7 @@ odd - #edf5ff (light blue)
     *display: inline;
     zoom: 1;
     vertical-align: middle;
-    height: 2.4em;
+    /* height: 2.4em; removed for Skin Builder */
 }
 
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu li a { padding: {{menuItemPadding}}; }
@@ -2307,7 +2335,7 @@ odd - #edf5ff (light blue)
 }
 /*Add extra padding to elements that have the arrow so that the hover looks nice */
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu-horizontal > {{yuiCssPrefix}}menu-children > {{yuiCssPrefix}}menu-can-have-children > {{yuiCssPrefix}}menu-label {
-    padding-right:30px;
+    padding-right: 30px;
 }
 
 /* Adjusting separator for vertical menus */
@@ -2325,21 +2353,38 @@ margin: 7px 2px;
 }
 
 
-/* end from yuicss/list-core.css *******************************************/
-/* from yuicss list-paginator.css */
+/* end from yuicss/menu-core.css *******************************************/
+/* from yuicss menu-paginator.css */
 /*csslint box-model:false*/
 /*TODO: Remove this lint rule override after a refactor of this code.*/ 
 
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}paginator {
+
+    /* `pure-g` Grid styles */
+    letter-spacing: -0.31em; /* Webkit: collapse white-space between units */
+    *letter-spacing: normal; /* reset IE < 8 */
+    *word-spacing: -0.43em; /* IE < 8: collapse white-space between units */
+    text-rendering: optimizespeed; /* Webkit: fixes text-rendering: optimizeLegibility */
+
+    /* `pure-paginator` Specific styles */
     list-style: none;
     margin: 0;
     padding: 0;
 }
+.opera-only :-o-prefocus,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}paginator {
+    word-spacing: -0.43em;
+}
+
+/* `pure-u` Grid styles */
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}paginator li {
     display: inline-block;
-    *display: inline;
+    *display: inline; /* IE < 8: fake inline-block */
     zoom: 1;
-    margin: 0 -0.35em 0 0;
+    letter-spacing: normal;
+    word-spacing: normal;
+    vertical-align: top;
+    text-rendering: auto;
 }
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}paginator {{yuiCssPrefix}}button {
     border-radius: 0;
@@ -2347,10 +2392,12 @@ margin: 7px 2px;
     vertical-align: top;
     height: 1.1em;
 }
-{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}paginator {{yuiCssPrefix}}button:focus {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}paginator {{yuiCssPrefix}}button:focus,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}paginator {{yuiCssPrefix}}button:active {
     outline-style: none;
 }
-{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}paginator .prev, {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}paginator .next {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}paginator .prev,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}paginator .next {
     /*color: #C0C1C3; allow .pure-button to color text*/
 }
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}paginator .prev {
@@ -2359,8 +2406,8 @@ margin: 7px 2px;
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}paginator .next {
     border-radius: {{paginatorRadiusNext}};
 }
-/* end from YUICSS list-paginator.css ******************************/
-/* from YUICSS list.css *******************************************/
+/* end from PURE menu-paginator.css ******************************/
+/* from PURE menu.css *******************************************/
 /* MAIN MENU STYLING */
 /*csslint adjoining-classes:false*/
 /*TODO: Remove this lint rule override after a refactor of this code.*/ 
@@ -2376,7 +2423,6 @@ margin: 7px 2px;
 {{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu{{yuiCssPrefix}}menu-horizontal {{yuiCssPrefix}}menu-heading {
     border: none;
 }
-
 
 
 /* LINK STYLES */
@@ -2402,13 +2448,14 @@ margin: 7px 2px;
     background: {{menuHoverBackground}};
 }
 
-/* HOVER STATES */
-{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu li a:hover {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu li a:hover,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu li a:focus {
     background: {{menuHoverBackground}};
 }
 
 /* DISABLED STATES */
-{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu li{{yuiCssPrefix}}menu-disabled a:hover {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu li{{yuiCssPrefix}}menu-disabled a:hover,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}menu li{{yuiCssPrefix}}menu-disabled a:focus {
     background: {{menuBackground}};
     color: {{menuTextDisabled}};
 }
@@ -2445,8 +2492,8 @@ margin: 7px 2px;
     border: none;
     border-bottom: 1px solid {{fixedMenuBorderBottom}};
 }
-/* end from YUICSS list.css ***********************************/
-/* from YUICSS list-responsive.css ****************************/
+/* end from PURE menu.css ***********************************/
+/* from PURE menu-responsive.css ****************************/
 /* RESPONSIVE */
 
 @media (max-width: 480px) {
@@ -2461,13 +2508,13 @@ margin: 7px 2px;
     }
 
 }
-/* end from list-responsive.css ******************/
+/* end from menu-responsive.css ******************/
 
 </script>
 
 <script id="buttons-template" type="text/x-handlebars-template">
-/* from YUICSS buttons-core.css */
-{{yuiCssPrefix}}button {
+/* from PURE buttons-core.css */
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}button {
     /* Structure */
     display: inline-block;
     *display: inline; /*IE 6/7*/
@@ -2485,15 +2532,15 @@ margin: 7px 2px;
 }
 
 /* Firefox: Get rid of the inner focus border */
-{{yuiCssPrefix}}button::-moz-focus-inner{
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}button::-moz-focus-inner{
     padding: 0;
     border: 0;
 }
-/* end from YUICSS buttons-core.css */
-/* from YUICSS buttons.css */
+/* end from PURE buttons-core.css */
+/* from PURE buttons.css */
 /*csslint unqualified-attributes:false*/
 
-{{yuiCssPrefix}}button {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}button {
     font-size: 100%;
     *font-size: 90%; /*IE 6/7 - To reduce IE's oversized button text*/
     *overflow: visible; /*IE 6/7 - Because of IE's overly large left/right padding on buttons */
@@ -2504,8 +2551,8 @@ margin: 7px 2px;
     border: 1px solid {{borderLow}}; /*IE 6/7/8*/
     border: none rgba(0, 0, 0, 0); /*IE9 + everything else*/
     background-color: {{background}};
-    border-radius: {{buttonRadius}};
     text-decoration: none;
+    border-radius: {{buttonRadius}};
     -webkit-font-smoothing: antialiased;
     /* Transitions */
     -webkit-transition: 0.1s linear -webkit-box-shadow;
@@ -2515,8 +2562,8 @@ margin: 7px 2px;
     transition: 0.1s linear box-shadow;
 }
 
-{{yuiCssPrefix}}button-hover,
-{{yuiCssPrefix}}button:hover {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}button-hover,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}button:hover {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#00000000', GradientType=0);
     background-image: -webkit-gradient(linear, 0 0, 0 100%, from(transparent), color-stop(40%, rgba(0,0,0, 0.05)), to(rgba(0,0,0, 0.05)));
     background-image: -webkit-linear-gradient(transparent, rgba(0,0,0, 0.05) 40%, rgba(0,0,0, 0.15));
@@ -2526,15 +2573,18 @@ margin: 7px 2px;
     background-image: linear-gradient(transparent, rgba(0,0,0, 0.05) 40%, rgba(0,0,0, 0.05));
 }
 
-{{yuiCssPrefix}}button-active,
-{{yuiCssPrefix}}button:active {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}button:focus {
+    outline: 0;
+}
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}button-active,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}button:active {
     box-shadow: 0 0 0 1px rgba(0,0,0, 0.15) inset, 0 0 6px rgba(0,0,0, 0.20) inset;
 }
 
-{{yuiCssPrefix}}button[disabled],
-{{yuiCssPrefix}}button-disabled,
-{{yuiCssPrefix}}button-disabled:hover,
-{{yuiCssPrefix}}button-disabled:active {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}button[disabled],
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}button-disabled,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}button-disabled:hover,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}button-disabled:active {
     border: none;
     background-image: none;
     filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
@@ -2546,31 +2596,26 @@ margin: 7px 2px;
     box-shadow: none;
 }
 
-{{yuiCssPrefix}}button-hidden {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}button-hidden {
     display: none;
 }
 
 /* Firefox: Get rid of the inner focus border */
-{{yuiCssPrefix}}button::-moz-focus-inner{
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}button::-moz-focus-inner{
     padding: 0;
     border: 0;
 }
 
-{{yuiCssPrefix}}button-primary,
-{{yuiCssPrefix}}button-selected,
-a{{yuiCssPrefix}}button-primary,
-a{{yuiCssPrefix}}button-selected {
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}button-primary,
+{{yuiCssPrefix}}{{skinName}} {{yuiCssPrefix}}button-selected,
+{{yuiCssPrefix}}{{skinName}} a{{yuiCssPrefix}}button-primary,
+{{yuiCssPrefix}}{{skinName}} a{{yuiCssPrefix}}button-selected {
     background-color: {{selectedBackground}};
     color: {{selectedText}};
 }
-
-{{yuiCssPrefix}}button:-moz-focusring {
-    outline-color: rgba(0, 0, 0, 0.85);
-}
-
 </script>
 
-<!-- /////// end of YUICSS styles ////////////////////////////////////////////////////////////////////////////////////////  -->
+<!-- /////// end of PURE styles ////////////////////////////////////////////////////////////////////////////////////////  -->
 <!-- this template for UI display of the color space ///////////////////////////////////////////////  -->
 
 <script id="space-template" type="text/x-handlebars-template">
@@ -3267,13 +3312,13 @@ a{{yuiCssPrefix}}button-selected {
                     </ul>
                 </div>
                 <div id="checkboxes-yuicss-group"> <!-- just for hiding until ready -->
-                    <h4 class="preview-label">Pure v0.2.0<a class="show-hide-all btn-yuicss">Remove All</a></h4>
+                    <h4 class="preview-label">Pure v0.2.1<a class="show-hide-all btn-yuicss">Remove All</a></h4>
                     <ul id="checkboxes-yuicss">
                         <!-- lis added dynamically at runtime. see app.js initPreviewAndModulesCheckboxes() -->
                     </ul>
                 </div>
                 <div class="query-mode-change link-skin-builder-for-yui3">Show <a>YUI Widgets</a> <span class="yui-version"></span></div>
-                <div class="query-mode-change link-skin-builder-for-yuicss">Show <a>Pure Modules</a> v0.2.0</div>
+                <div class="query-mode-change link-skin-builder-for-yuicss">Show <a>Pure Modules</a> v0.2.1</div>
             </div>
             <div id="tab-code">
                 <div class="yui3-g" id="layout">
@@ -3646,7 +3691,7 @@ a{{yuiCssPrefix}}button-selected {
 <!-- ////////////////////////////////////////////////////////////////////////////////////-->
 <!-- ////////////////////////////////////////////////////////////////////////////////////-->
 
-<!-- YUICSS Markup -->
+<!-- PURE Markup -->
     <li class="sb-preview-form"><div class="widget-preview-label">Forms - Checkboxes and Radios</div>
         <form class="pure-form">
         <label class="pure-checkbox">
@@ -3938,7 +3983,7 @@ a{{yuiCssPrefix}}button-selected {
         <li><a class="pure-button next">&#187;</a></li>
         </ul>
     </li>
-<!-- End of YUICSS Markup //////////////////////////////////////////////////////////-->
+<!-- End of PURE Markup //////////////////////////////////////////////////////////-->
 <!-- ////////////////////////////////////////////////////////////////////////////////////-->
 
 </ul> <!--   end of container for widget previews    -->
