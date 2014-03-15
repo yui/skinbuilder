@@ -1,3 +1,8 @@
+/*
+Copyright 2013 Yahoo! Inc.
+Licensed under the BSD License.
+http://yuilibrary.com/license/
+*/
 // TODO:
 // - Break out sample widgets into separate module.
 // - Convert input handling and Picker to OO-style.

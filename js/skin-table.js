@@ -1,3 +1,8 @@
+/*
+Copyright 2013 Yahoo! Inc.
+Licensed under the BSD License.
+http://yuilibrary.com/license/
+*/
 YUI.add('skin-table', function (Y) {
 
 Y.Skin.renderers.table = function (skin) {

@@ -1,3 +1,8 @@
+/*
+Copyright 2013 Yahoo! Inc.
+Licensed under the BSD License.
+http://yuilibrary.com/license/
+*/
 YUI.add('skin-list', function (Y) {
 
 Y.Skin.renderers.list = function (skin) {

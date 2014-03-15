@@ -1,3 +1,8 @@
+/*
+Copyright 2013 Yahoo! Inc.
+Licensed under the BSD License.
+http://yuilibrary.com/license/
+*/
 YUI.add('skin-buttons', function (Y) {
 
 // note: this is the YUI CSS buttons *not* yui3-buttons

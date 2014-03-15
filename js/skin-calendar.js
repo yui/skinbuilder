@@ -1,3 +1,8 @@
+/*
+Copyright 2013 Yahoo! Inc.
+Licensed under the BSD License.
+http://yuilibrary.com/license/
+*/
 YUI.add('skin-calendar', function (Y) {
 
 Y.Skin.renderers.calendar = function (skin) {

@@ -1,3 +1,8 @@
+/*
+Copyright 2013 Yahoo! Inc.
+Licensed under the BSD License.
+http://yuilibrary.com/license/
+*/
 YUI.add('skin-datatable', function (Y) {
 
 Y.Skin.renderers.datatable = function (skin) {

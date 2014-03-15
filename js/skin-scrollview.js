@@ -1,3 +1,8 @@
+/*
+Copyright 2013 Yahoo! Inc.
+Licensed under the BSD License.
+http://yuilibrary.com/license/
+*/
 YUI.add('skin-scrollview', function (Y) {
 
 Y.Skin.renderers.scrollview = function (skin) {
