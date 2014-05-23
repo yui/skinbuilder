@@ -472,6 +472,32 @@
 {{prefix}}{{skinName}} {{prefix}}datatable-data {{prefix}}datatable-odd {{prefix}}datatable-sorted {
     background-color: {{cellSortedOddBackground}};
 }
+/********  datatable-scroll-skin.css **********************************************/
+{{prefix}}{{skinName}} {{prefix}}datatable-scroll-columns {
+    border-collapse: separate;
+    border-spacing: 0;
+    font-family: arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    top: 0;
+    left: 0;
+}
+
+{{prefix}}{{skinName}} {{prefix}}datatable-scroll-columns .yui3-datatable-header {
+    padding: 0;
+}
+
+{{prefix}}{{skinName}} {{prefix}}datatable-x-scroller,
+{{prefix}}{{skinName}} {{prefix}}datatable-y-scroller-container {
+    border: 1px solid {{border}};
+}
+
+{{prefix}}{{skinName}} {{prefix}}datatable-scrollable-x .yui3-datatable-y-scroller-container,
+{{prefix}}{{skinName}} {{prefix}}datatable-x-scroller .yui3-datatable-table,
+{{prefix}}{{skinName}} {{prefix}}datatable-y-scroller .yui3-datatable-table {
+    border: 0 none;
+}
+/********  end datatable-scroll-skin.css **********************************************/
 
 /* added */
 {{prefix}}{{skinName}} {{prefix}}datatable-columns {{prefix}}datatable-sorted {
